@@ -1,0 +1,1063 @@
+#content {
+  width: 1000px;
+  height: auto;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin-bottom: 10px;
+}
+
+.content {
+  position: relative;
+  text-align: center;
+  margin: 0 auto;
+  padding: 50px 0 50px;
+  width: 630px;
+  height: 1000px;
+}
+.content ul {
+  position: absolute;
+}
+.content .swatches:nth-child(2) {
+  top: 100px;
+}
+.content .swatches:nth-child(3) {
+  top: 150px;
+}
+.content .swatches:nth-child(4) {
+  top: 200px;
+}
+.content .swatches:nth-child(5) {
+  top: 250px;
+}
+.content .swatches:nth-child(6) {
+  top: 300px;
+}
+.content .swatches:nth-child(7) {
+  top: 350px;
+}
+.content .swatches:nth-child(8) {
+  top: 400px;
+}
+
+li {
+  display: inline-block;
+  list-style: none;
+  width: 30px;
+  height: 50px;
+}
+
+li:hover:after {
+  position: absolute;
+  font-size: 16px;
+  padding: 2px;
+  top: 5px;
+}
+
+ul.red li:nth-child(10) {
+  background-color: #eb1f48;
+}
+ul.red li:nth-child(10):hover:after {
+  content: "#eb1f48";
+  color: #38050f;
+}
+ul.red li:nth-child(9) {
+  background-color: #ed365b;
+}
+ul.red li:nth-child(9):hover:after {
+  content: "#ed365b";
+  color: #500716;
+}
+ul.red li:nth-child(8) {
+  background-color: #ef4e6e;
+}
+ul.red li:nth-child(8):hover:after {
+  content: "#ef4e6e";
+  color: #67091c;
+}
+ul.red li:nth-child(7) {
+  background-color: #f16581;
+}
+ul.red li:nth-child(7):hover:after {
+  content: "#f16581";
+  color: #7f0c23;
+}
+ul.red li:nth-child(6) {
+  background-color: #f37c94;
+}
+ul.red li:nth-child(6):hover:after {
+  content: "#f37c94";
+  color: #960e29;
+}
+ul.red li:nth-child(5) {
+  background-color: #f594a7;
+}
+ul.red li:nth-child(5):hover:after {
+  content: "#f594a7";
+  color: #ad102f;
+}
+ul.red li:nth-child(4) {
+  background-color: #f7abba;
+}
+ul.red li:nth-child(4):hover:after {
+  content: "#f7abba";
+  color: #c51236;
+}
+ul.red li:nth-child(3) {
+  background-color: #fac3ce;
+}
+ul.red li:nth-child(3):hover:after {
+  content: "#fac3ce";
+  color: crimson;
+}
+ul.red li:nth-child(2) {
+  background-color: #fcdae1;
+}
+ul.red li:nth-child(2):hover:after {
+  content: "#fcdae1";
+  color: #eb1f48;
+}
+ul.red li:nth-child(1) {
+  background-color: #fef1f4;
+}
+ul.red li:nth-child(1):hover:after {
+  content: "#fef1f4";
+  color: #ed365b;
+}
+ul.red li:nth-child(12) {
+  background-color: #c51236;
+}
+ul.red li:nth-child(12):hover:after {
+  content: "#c51236";
+  color: #f7abba;
+}
+ul.red li:nth-child(13) {
+  background-color: #ad102f;
+}
+ul.red li:nth-child(13):hover:after {
+  content: "#ad102f";
+  color: #f594a7;
+}
+ul.red li:nth-child(14) {
+  background-color: #960e29;
+}
+ul.red li:nth-child(14):hover:after {
+  content: "#960e29";
+  color: #f37c94;
+}
+ul.red li:nth-child(15) {
+  background-color: #7f0c23;
+}
+ul.red li:nth-child(15):hover:after {
+  content: "#7f0c23";
+  color: #f16581;
+}
+ul.red li:nth-child(16) {
+  background-color: #67091c;
+}
+ul.red li:nth-child(16):hover:after {
+  content: "#67091c";
+  color: #ef4e6e;
+}
+ul.red li:nth-child(17) {
+  background-color: #500716;
+}
+ul.red li:nth-child(17):hover:after {
+  content: "#500716";
+  color: #ed365b;
+}
+ul.red li:nth-child(18) {
+  background-color: #38050f;
+}
+ul.red li:nth-child(18):hover:after {
+  content: "#38050f";
+  color: #eb1f48;
+}
+ul.red li:nth-child(19) {
+  background-color: #210309;
+}
+ul.red li:nth-child(19):hover:after {
+  content: "#210309";
+  color: crimson;
+}
+ul.red li:nth-child(20) {
+  background-color: #0a0103;
+}
+ul.red li:nth-child(20):hover:after {
+  content: "#0a0103";
+  color: #c51236;
+}
+ul.red li:nth-child(21) {
+  background-color: black;
+}
+ul.red li:nth-child(21):hover:after {
+  content: "black";
+  color: #bb1133;
+}
+ul.red li:nth-child(11) {
+  background-color: #DC143C;
+}
+
+ul.orange li:nth-child(10) {
+  background-color: #f4882f;
+}
+ul.orange li:nth-child(10):hover:after {
+  content: "#f4882f";
+  color: #532804;
+}
+ul.orange li:nth-child(9) {
+  background-color: #f69647;
+}
+ul.orange li:nth-child(9):hover:after {
+  content: "#f69647";
+  color: #6b3305;
+}
+ul.orange li:nth-child(8) {
+  background-color: #f7a35f;
+}
+ul.orange li:nth-child(8):hover:after {
+  content: "#f7a35f";
+  color: #833f07;
+}
+ul.orange li:nth-child(7) {
+  background-color: #f8b177;
+}
+ul.orange li:nth-child(7):hover:after {
+  content: "#f8b177";
+  color: #9c4a08;
+}
+ul.orange li:nth-child(6) {
+  background-color: #f9bf90;
+}
+ul.orange li:nth-child(6):hover:after {
+  content: "#f9bf90";
+  color: #b45609;
+}
+ul.orange li:nth-child(5) {
+  background-color: #fbcda8;
+}
+ul.orange li:nth-child(5):hover:after {
+  content: "#fbcda8";
+  color: #cc620a;
+}
+ul.orange li:nth-child(4) {
+  background-color: #fcdbc0;
+}
+ul.orange li:nth-child(4):hover:after {
+  content: "#fcdbc0";
+  color: #e46d0c;
+}
+ul.orange li:nth-child(3) {
+  background-color: #fde9d8;
+}
+ul.orange li:nth-child(3):hover:after {
+  content: "#fde9d8";
+  color: #f37a16;
+}
+ul.orange li:nth-child(2) {
+  background-color: #fef7f1;
+}
+ul.orange li:nth-child(2):hover:after {
+  content: "#fef7f1";
+  color: #f4882f;
+}
+ul.orange li:nth-child(1) {
+  background-color: white;
+}
+ul.orange li:nth-child(1):hover:after {
+  content: "white";
+  color: #f5903d;
+}
+ul.orange li:nth-child(12) {
+  background-color: #e46d0c;
+}
+ul.orange li:nth-child(12):hover:after {
+  content: "#e46d0c";
+  color: #fcdbc0;
+}
+ul.orange li:nth-child(13) {
+  background-color: #cc620a;
+}
+ul.orange li:nth-child(13):hover:after {
+  content: "#cc620a";
+  color: #fbcda8;
+}
+ul.orange li:nth-child(14) {
+  background-color: #b45609;
+}
+ul.orange li:nth-child(14):hover:after {
+  content: "#b45609";
+  color: #f9bf90;
+}
+ul.orange li:nth-child(15) {
+  background-color: #9c4a08;
+}
+ul.orange li:nth-child(15):hover:after {
+  content: "#9c4a08";
+  color: #f8b177;
+}
+ul.orange li:nth-child(16) {
+  background-color: #833f07;
+}
+ul.orange li:nth-child(16):hover:after {
+  content: "#833f07";
+  color: #f7a35f;
+}
+ul.orange li:nth-child(17) {
+  background-color: #6b3305;
+}
+ul.orange li:nth-child(17):hover:after {
+  content: "#6b3305";
+  color: #f69647;
+}
+ul.orange li:nth-child(18) {
+  background-color: #532804;
+}
+ul.orange li:nth-child(18):hover:after {
+  content: "#532804";
+  color: #f4882f;
+}
+ul.orange li:nth-child(19) {
+  background-color: #3b1c03;
+}
+ul.orange li:nth-child(19):hover:after {
+  content: "#3b1c03";
+  color: #f37a16;
+}
+ul.orange li:nth-child(20) {
+  background-color: #221002;
+}
+ul.orange li:nth-child(20):hover:after {
+  content: "#221002";
+  color: #e46d0c;
+}
+ul.orange li:nth-child(21) {
+  background-color: #0a0501;
+}
+ul.orange li:nth-child(21):hover:after {
+  content: "#0a0501";
+  color: #cc620a;
+}
+ul.orange li:nth-child(11) {
+  background-color: #f37a16;
+}
+
+ul.yellow li:nth-child(10) {
+  background-color: #fbe02d;
+}
+ul.yellow li:nth-child(10):hover:after {
+  content: "#fbe02d";
+  color: #5a4f02;
+}
+ul.yellow li:nth-child(9) {
+  background-color: #fce346;
+}
+ul.yellow li:nth-child(9):hover:after {
+  content: "#fce346";
+  color: #736402;
+}
+ul.yellow li:nth-child(8) {
+  background-color: #fce75f;
+}
+ul.yellow li:nth-child(8):hover:after {
+  content: "#fce75f";
+  color: #8c7a03;
+}
+ul.yellow li:nth-child(7) {
+  background-color: #fceb78;
+}
+ul.yellow li:nth-child(7):hover:after {
+  content: "#fceb78";
+  color: #a69003;
+}
+ul.yellow li:nth-child(6) {
+  background-color: #fdef91;
+}
+ul.yellow li:nth-child(6):hover:after {
+  content: "#fdef91";
+  color: #bfa604;
+}
+ul.yellow li:nth-child(5) {
+  background-color: #fdf2aa;
+}
+ul.yellow li:nth-child(5):hover:after {
+  content: "#fdf2aa";
+  color: #d8bb04;
+}
+ul.yellow li:nth-child(4) {
+  background-color: #fef6c3;
+}
+ul.yellow li:nth-child(4):hover:after {
+  content: "#fef6c3";
+  color: #f1d104;
+}
+ul.yellow li:nth-child(3) {
+  background-color: #fefadc;
+}
+ul.yellow li:nth-child(3):hover:after {
+  content: "#fefadc";
+  color: #fbdc14;
+}
+ul.yellow li:nth-child(2) {
+  background-color: #fffef5;
+}
+ul.yellow li:nth-child(2):hover:after {
+  content: "#fffef5";
+  color: #fbe02d;
+}
+ul.yellow li:nth-child(1) {
+  background-color: white;
+}
+ul.yellow li:nth-child(1):hover:after {
+  content: "white";
+  color: #fbe137;
+}
+ul.yellow li:nth-child(12) {
+  background-color: #f1d104;
+}
+ul.yellow li:nth-child(12):hover:after {
+  content: "#f1d104";
+  color: #fef6c3;
+}
+ul.yellow li:nth-child(13) {
+  background-color: #d8bb04;
+}
+ul.yellow li:nth-child(13):hover:after {
+  content: "#d8bb04";
+  color: #fdf2aa;
+}
+ul.yellow li:nth-child(14) {
+  background-color: #bfa604;
+}
+ul.yellow li:nth-child(14):hover:after {
+  content: "#bfa604";
+  color: #fdef91;
+}
+ul.yellow li:nth-child(15) {
+  background-color: #a69003;
+}
+ul.yellow li:nth-child(15):hover:after {
+  content: "#a69003";
+  color: #fceb78;
+}
+ul.yellow li:nth-child(16) {
+  background-color: #8c7a03;
+}
+ul.yellow li:nth-child(16):hover:after {
+  content: "#8c7a03";
+  color: #fce75f;
+}
+ul.yellow li:nth-child(17) {
+  background-color: #736402;
+}
+ul.yellow li:nth-child(17):hover:after {
+  content: "#736402";
+  color: #fce346;
+}
+ul.yellow li:nth-child(18) {
+  background-color: #5a4f02;
+}
+ul.yellow li:nth-child(18):hover:after {
+  content: "#5a4f02";
+  color: #fbe02d;
+}
+ul.yellow li:nth-child(19) {
+  background-color: #413901;
+}
+ul.yellow li:nth-child(19):hover:after {
+  content: "#413901";
+  color: #fbdc14;
+}
+ul.yellow li:nth-child(20) {
+  background-color: #282301;
+}
+ul.yellow li:nth-child(20):hover:after {
+  content: "#282301";
+  color: #f1d104;
+}
+ul.yellow li:nth-child(21) {
+  background-color: #0f0d00;
+}
+ul.yellow li:nth-child(21):hover:after {
+  content: "#0f0d00";
+  color: #d8bb04;
+}
+ul.yellow li:nth-child(11) {
+  background-color: #fbdc14;
+}
+
+ul.green li:nth-child(10) {
+  background-color: #80dc24;
+}
+ul.green li:nth-child(10):hover:after {
+  content: "#80dc24";
+  color: #1a2c07;
+}
+ul.green li:nth-child(9) {
+  background-color: #8cdf3a;
+}
+ul.green li:nth-child(9):hover:after {
+  content: "#8cdf3a";
+  color: #26420b;
+}
+ul.green li:nth-child(8) {
+  background-color: #99e34f;
+}
+ul.green li:nth-child(8):hover:after {
+  content: "#99e34f";
+  color: #33580e;
+}
+ul.green li:nth-child(7) {
+  background-color: #a6e665;
+}
+ul.green li:nth-child(7):hover:after {
+  content: "#a6e665";
+  color: #406e12;
+}
+ul.green li:nth-child(6) {
+  background-color: #b3ea7b;
+}
+ul.green li:nth-child(6):hover:after {
+  content: "#b3ea7b";
+  color: #4d8415;
+}
+ul.green li:nth-child(5) {
+  background-color: #bfed91;
+}
+ul.green li:nth-child(5):hover:after {
+  content: "#bfed91";
+  color: #599a19;
+}
+ul.green li:nth-child(4) {
+  background-color: #ccf1a7;
+}
+ul.green li:nth-child(4):hover:after {
+  content: "#ccf1a7";
+  color: #66b01c;
+}
+ul.green li:nth-child(3) {
+  background-color: #d9f4bd;
+}
+ul.green li:nth-child(3):hover:after {
+  content: "#d9f4bd";
+  color: #73c620;
+}
+ul.green li:nth-child(2) {
+  background-color: #e6f8d3;
+}
+ul.green li:nth-child(2):hover:after {
+  content: "#e6f8d3";
+  color: #80dc24;
+}
+ul.green li:nth-child(1) {
+  background-color: #f2fce9;
+}
+ul.green li:nth-child(1):hover:after {
+  content: "#f2fce9";
+  color: #8cdf3a;
+}
+ul.green li:nth-child(12) {
+  background-color: #66b01c;
+}
+ul.green li:nth-child(12):hover:after {
+  content: "#66b01c";
+  color: #ccf1a7;
+}
+ul.green li:nth-child(13) {
+  background-color: #599a19;
+}
+ul.green li:nth-child(13):hover:after {
+  content: "#599a19";
+  color: #bfed91;
+}
+ul.green li:nth-child(14) {
+  background-color: #4d8415;
+}
+ul.green li:nth-child(14):hover:after {
+  content: "#4d8415";
+  color: #b3ea7b;
+}
+ul.green li:nth-child(15) {
+  background-color: #406e12;
+}
+ul.green li:nth-child(15):hover:after {
+  content: "#406e12";
+  color: #a6e665;
+}
+ul.green li:nth-child(16) {
+  background-color: #33580e;
+}
+ul.green li:nth-child(16):hover:after {
+  content: "#33580e";
+  color: #99e34f;
+}
+ul.green li:nth-child(17) {
+  background-color: #26420b;
+}
+ul.green li:nth-child(17):hover:after {
+  content: "#26420b";
+  color: #8cdf3a;
+}
+ul.green li:nth-child(18) {
+  background-color: #1a2c07;
+}
+ul.green li:nth-child(18):hover:after {
+  content: "#1a2c07";
+  color: #80dc24;
+}
+ul.green li:nth-child(19) {
+  background-color: #0d1604;
+}
+ul.green li:nth-child(19):hover:after {
+  content: "#0d1604";
+  color: #73c620;
+}
+ul.green li:nth-child(20) {
+  background-color: black;
+}
+ul.green li:nth-child(20):hover:after {
+  content: "black";
+  color: #66b01c;
+}
+ul.green li:nth-child(21) {
+  background-color: black;
+}
+ul.green li:nth-child(21):hover:after {
+  content: "black";
+  color: #66b01c;
+}
+ul.green li:nth-child(11) {
+  background-color: #73c620;
+}
+
+ul.blue li:nth-child(10) {
+  background-color: #14cbeb;
+}
+ul.blue li:nth-child(10):hover:after {
+  content: "#14cbeb";
+  color: #04292f;
+}
+ul.blue li:nth-child(9) {
+  background-color: #2cd0ed;
+}
+ul.blue li:nth-child(9):hover:after {
+  content: "#2cd0ed";
+  color: #063d47;
+}
+ul.blue li:nth-child(8) {
+  background-color: #43d5ef;
+}
+ul.blue li:nth-child(8):hover:after {
+  content: "#43d5ef";
+  color: #08515e;
+}
+ul.blue li:nth-child(7) {
+  background-color: #5bdaf1;
+}
+ul.blue li:nth-child(7):hover:after {
+  content: "#5bdaf1";
+  color: #0a6676;
+}
+ul.blue li:nth-child(6) {
+  background-color: #72e0f3;
+}
+ul.blue li:nth-child(6):hover:after {
+  content: "#72e0f3";
+  color: #0c7a8d;
+}
+ul.blue li:nth-child(5) {
+  background-color: #8ae5f5;
+}
+ul.blue li:nth-child(5):hover:after {
+  content: "#8ae5f5";
+  color: #0e8ea5;
+}
+ul.blue li:nth-child(4) {
+  background-color: #a1eaf7;
+}
+ul.blue li:nth-child(4):hover:after {
+  content: "#a1eaf7";
+  color: #10a2bc;
+}
+ul.blue li:nth-child(3) {
+  background-color: #b9eff9;
+}
+ul.blue li:nth-child(3):hover:after {
+  content: "#b9eff9";
+  color: #12b7d4;
+}
+ul.blue li:nth-child(2) {
+  background-color: #d0f5fb;
+}
+ul.blue li:nth-child(2):hover:after {
+  content: "#d0f5fb";
+  color: #14cbeb;
+}
+ul.blue li:nth-child(1) {
+  background-color: #e8fafd;
+}
+ul.blue li:nth-child(1):hover:after {
+  content: "#e8fafd";
+  color: #2cd0ed;
+}
+ul.blue li:nth-child(12) {
+  background-color: #10a2bc;
+}
+ul.blue li:nth-child(12):hover:after {
+  content: "#10a2bc";
+  color: #a1eaf7;
+}
+ul.blue li:nth-child(13) {
+  background-color: #0e8ea5;
+}
+ul.blue li:nth-child(13):hover:after {
+  content: "#0e8ea5";
+  color: #8ae5f5;
+}
+ul.blue li:nth-child(14) {
+  background-color: #0c7a8d;
+}
+ul.blue li:nth-child(14):hover:after {
+  content: "#0c7a8d";
+  color: #72e0f3;
+}
+ul.blue li:nth-child(15) {
+  background-color: #0a6676;
+}
+ul.blue li:nth-child(15):hover:after {
+  content: "#0a6676";
+  color: #5bdaf1;
+}
+ul.blue li:nth-child(16) {
+  background-color: #08515e;
+}
+ul.blue li:nth-child(16):hover:after {
+  content: "#08515e";
+  color: #43d5ef;
+}
+ul.blue li:nth-child(17) {
+  background-color: #063d47;
+}
+ul.blue li:nth-child(17):hover:after {
+  content: "#063d47";
+  color: #2cd0ed;
+}
+ul.blue li:nth-child(18) {
+  background-color: #04292f;
+}
+ul.blue li:nth-child(18):hover:after {
+  content: "#04292f";
+  color: #14cbeb;
+}
+ul.blue li:nth-child(19) {
+  background-color: #021518;
+}
+ul.blue li:nth-child(19):hover:after {
+  content: "#021518";
+  color: #12b7d4;
+}
+ul.blue li:nth-child(20) {
+  background-color: black;
+}
+ul.blue li:nth-child(20):hover:after {
+  content: "black";
+  color: #10a2bc;
+}
+ul.blue li:nth-child(21) {
+  background-color: black;
+}
+ul.blue li:nth-child(21):hover:after {
+  content: "black";
+  color: #10a2bc;
+}
+ul.blue li:nth-child(11) {
+  background-color: #12b7d4;
+}
+
+ul.purple li:nth-child(10) {
+  background-color: #b214eb;
+}
+ul.purple li:nth-child(10):hover:after {
+  content: "#b214eb";
+  color: #24042f;
+}
+ul.purple li:nth-child(9) {
+  background-color: #ba2ced;
+}
+ul.purple li:nth-child(9):hover:after {
+  content: "#ba2ced";
+  color: #360647;
+}
+ul.purple li:nth-child(8) {
+  background-color: #c143ef;
+}
+ul.purple li:nth-child(8):hover:after {
+  content: "#c143ef";
+  color: #47085e;
+}
+ul.purple li:nth-child(7) {
+  background-color: #c95bf1;
+}
+ul.purple li:nth-child(7):hover:after {
+  content: "#c95bf1";
+  color: #590a76;
+}
+ul.purple li:nth-child(6) {
+  background-color: #d172f3;
+}
+ul.purple li:nth-child(6):hover:after {
+  content: "#d172f3";
+  color: #6b0c8d;
+}
+ul.purple li:nth-child(5) {
+  background-color: #d88af5;
+}
+ul.purple li:nth-child(5):hover:after {
+  content: "#d88af5";
+  color: #7d0ea5;
+}
+ul.purple li:nth-child(4) {
+  background-color: #e0a1f7;
+}
+ul.purple li:nth-child(4):hover:after {
+  content: "#e0a1f7";
+  color: #8e10bc;
+}
+ul.purple li:nth-child(3) {
+  background-color: #e8b9f9;
+}
+ul.purple li:nth-child(3):hover:after {
+  content: "#e8b9f9";
+  color: #a012d4;
+}
+ul.purple li:nth-child(2) {
+  background-color: #f0d0fb;
+}
+ul.purple li:nth-child(2):hover:after {
+  content: "#f0d0fb";
+  color: #b214eb;
+}
+ul.purple li:nth-child(1) {
+  background-color: #f7e8fd;
+}
+ul.purple li:nth-child(1):hover:after {
+  content: "#f7e8fd";
+  color: #ba2ced;
+}
+ul.purple li:nth-child(12) {
+  background-color: #8e10bc;
+}
+ul.purple li:nth-child(12):hover:after {
+  content: "#8e10bc";
+  color: #e0a1f7;
+}
+ul.purple li:nth-child(13) {
+  background-color: #7d0ea5;
+}
+ul.purple li:nth-child(13):hover:after {
+  content: "#7d0ea5";
+  color: #d88af5;
+}
+ul.purple li:nth-child(14) {
+  background-color: #6b0c8d;
+}
+ul.purple li:nth-child(14):hover:after {
+  content: "#6b0c8d";
+  color: #d172f3;
+}
+ul.purple li:nth-child(15) {
+  background-color: #590a76;
+}
+ul.purple li:nth-child(15):hover:after {
+  content: "#590a76";
+  color: #c95bf1;
+}
+ul.purple li:nth-child(16) {
+  background-color: #47085e;
+}
+ul.purple li:nth-child(16):hover:after {
+  content: "#47085e";
+  color: #c143ef;
+}
+ul.purple li:nth-child(17) {
+  background-color: #360647;
+}
+ul.purple li:nth-child(17):hover:after {
+  content: "#360647";
+  color: #ba2ced;
+}
+ul.purple li:nth-child(18) {
+  background-color: #24042f;
+}
+ul.purple li:nth-child(18):hover:after {
+  content: "#24042f";
+  color: #b214eb;
+}
+ul.purple li:nth-child(19) {
+  background-color: #120218;
+}
+ul.purple li:nth-child(19):hover:after {
+  content: "#120218";
+  color: #a012d4;
+}
+ul.purple li:nth-child(20) {
+  background-color: black;
+}
+ul.purple li:nth-child(20):hover:after {
+  content: "black";
+  color: #8e10bc;
+}
+ul.purple li:nth-child(21) {
+  background-color: black;
+}
+ul.purple li:nth-child(21):hover:after {
+  content: "black";
+  color: #8e10bc;
+}
+ul.purple li:nth-child(11) {
+  background-color: #a012d4;
+}
+
+ul.gray li:nth-child(10) {
+  background-color: #848484;
+}
+ul.gray li:nth-child(10):hover:after {
+  content: "#848484";
+  color: #1e1e1e;
+}
+ul.gray li:nth-child(9) {
+  background-color: #919191;
+}
+ul.gray li:nth-child(9):hover:after {
+  content: "#919191";
+  color: #2b2b2b;
+}
+ul.gray li:nth-child(8) {
+  background-color: #9d9d9d;
+}
+ul.gray li:nth-child(8):hover:after {
+  content: "#9d9d9d";
+  color: #373737;
+}
+ul.gray li:nth-child(7) {
+  background-color: #aaaaaa;
+}
+ul.gray li:nth-child(7):hover:after {
+  content: "#aaaaaa";
+  color: #444444;
+}
+ul.gray li:nth-child(6) {
+  background-color: #b7b7b7;
+}
+ul.gray li:nth-child(6):hover:after {
+  content: "#b7b7b7";
+  color: #515151;
+}
+ul.gray li:nth-child(5) {
+  background-color: #c4c4c4;
+}
+ul.gray li:nth-child(5):hover:after {
+  content: "#c4c4c4";
+  color: #5e5e5e;
+}
+ul.gray li:nth-child(4) {
+  background-color: #d0d0d0;
+}
+ul.gray li:nth-child(4):hover:after {
+  content: "#d0d0d0";
+  color: #6a6a6a;
+}
+ul.gray li:nth-child(3) {
+  background-color: #dddddd;
+}
+ul.gray li:nth-child(3):hover:after {
+  content: "#dddddd";
+  color: #777777;
+}
+ul.gray li:nth-child(2) {
+  background-color: #eaeaea;
+}
+ul.gray li:nth-child(2):hover:after {
+  content: "#eaeaea";
+  color: #848484;
+}
+ul.gray li:nth-child(1) {
+  background-color: #f7f7f7;
+}
+ul.gray li:nth-child(1):hover:after {
+  content: "#f7f7f7";
+  color: #919191;
+}
+ul.gray li:nth-child(12) {
+  background-color: #6a6a6a;
+}
+ul.gray li:nth-child(12):hover:after {
+  content: "#6a6a6a";
+  color: #d0d0d0;
+}
+ul.gray li:nth-child(13) {
+  background-color: #5e5e5e;
+}
+ul.gray li:nth-child(13):hover:after {
+  content: "#5e5e5e";
+  color: #c4c4c4;
+}
+ul.gray li:nth-child(14) {
+  background-color: #515151;
+}
+ul.gray li:nth-child(14):hover:after {
+  content: "#515151";
+  color: #b7b7b7;
+}
+ul.gray li:nth-child(15) {
+  background-color: #444444;
+}
+ul.gray li:nth-child(15):hover:after {
+  content: "#444444";
+  color: #aaaaaa;
+}
+ul.gray li:nth-child(16) {
+  background-color: #373737;
+}
+ul.gray li:nth-child(16):hover:after {
+  content: "#373737";
+  color: #9d9d9d;
+}
+ul.gray li:nth-child(17) {
+  background-color: #2b2b2b;
+}
+ul.gray li:nth-child(17):hover:after {
+  content: "#2b2b2b";
+  color: #919191;
+}
+ul.gray li:nth-child(18) {
+  background-color: #1e1e1e;
+}
+ul.gray li:nth-child(18):hover:after {
+  content: "#1e1e1e";
+  color: #848484;
+}
+ul.gray li:nth-child(19) {
+  background-color: #111111;
+}
+ul.gray li:nth-child(19):hover:after {
+  content: "#111111";
+  color: #777777;
+}
+ul.gray li:nth-child(20) {
+  background-color: #040404;
+}
+ul.gray li:nth-child(20):hover:after {
+  content: "#040404";
+  color: #6a6a6a;
+}
+ul.gray li:nth-child(21) {
+  background-color: black;
+}
+ul.gray li:nth-child(21):hover:after {
+  content: "black";
+  color: #666666;
+}
+ul.gray li:nth-child(11) {
+  background-color: #777;
+}
+
+/*# sourceMappingURL=20170625.css.map */
