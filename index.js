@@ -21,10 +21,10 @@ window.onload = function () {
           deg = 270;
           appear();
         }
-      },10);
+      },5);
     }
     var appear = function(){
-      deg += 2;
+      deg += 1;
       setTimeout(function(){
         main.style.transform = 'rotateY(' + deg + 'deg)';
         if (deg < 360) {
@@ -32,7 +32,7 @@ window.onload = function () {
         } else {
           main.style.transform = 'rotateY(0deg)';
         }
-      },20);
+      },10);
     }
     disappear();
   });
