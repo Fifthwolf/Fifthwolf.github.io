@@ -1,0 +1,204 @@
+*{
+  margin: 0;
+  padding: 0;
+  ul{
+    list-style: none;
+  }
+  a, a:link, a:visited, a:hover, a:active{
+    text-decoration:none;
+    color: #fff;
+  } 
+}
+
+body{
+  background: #fff url(image/background.jpg) 0 0 no-repeat;
+  background-size: 100%;
+}
+
+#star{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  @media screen and (min-width: 1000px){
+    margin: 135px auto;
+    width: 400px;
+    height: 500px;
+  };
+  border-radius: 20px;
+  box-shadow: 0px 0px 6px #bbb;
+  .head{
+    position: relative;
+    width: 100%;
+    height: 65%;
+    border-radius: 20px 20px 0 0;
+    background-color: #63b;
+    background: -webkit-linear-gradient(#63b, #5df); 
+    background: -moz-linear-gradient(#63b, #5df); 
+    background: -o-linear-gradient(#63b, #5df); 
+    background: linear-gradient(#63b, #5df);
+    text-align: center;
+    .content{
+      position: absolute;
+      width: 300px;
+      left: 50%;
+      margin-left: -150px;
+      top: 60px;
+      .avatar{
+        position: relative;
+        margin: 0 auto 20px;
+        width: 120px;
+        height: 120px;
+        .image-border{
+          position: absolute;
+          left: 50%;
+          margin: -5px 0 0 -60px;
+          width:120px;
+          height: 120px;
+          border-radius: 50%;
+          background-color: #fff;
+        }
+        .image{
+          position: absolute;
+          left: 50%;
+          margin-left: -55px;
+          width:110px;
+          height: 110px;
+          border-radius: 50%;
+          background: #fff url(image/TX.png) 0 0 no-repeat;
+          background-size:100%;
+        }
+      }
+      span{
+        font-family: 'Microsoft Yahei';
+        font-size: 26px;
+        color: #fff;
+      }
+      ul{
+        margin-top: 10px;
+        li{
+          display: inline-block;
+          margin: 0 20px 0;
+          cursor: pointer;
+          font-size: 18px;
+          color: #fff;
+        }
+        li::after{
+          position: absolute;
+          content: '|';
+          margin-left: 20px;
+        }
+        li:nth-child(2):hover::before{
+          position: absolute;
+          border: 1px solid #ccc;
+          border-radius: 10px;
+          padding: 4px;
+          content: '31788666';
+          margin: 24px 0 0 -28px;
+        }
+        li:last-child::after{
+          content: '';
+        }
+        li:last-child:hover::before{
+          position: absolute;
+          z-index: 15;
+          border: 1px solid #ccc;
+          border-radius: 10px;
+          padding: 4px;
+          content: '1';
+          background: #fff url(image/WeChatQRCode.jpg) 0 0 no-repeat;
+          background-size: 100%;
+          width: 120px;
+          height: 120px;
+          margin: 24px 0 0 -36px;
+        }
+      }
+    }
+  }
+  .go{
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    margin-left: -50px;
+    margin-top: -20px;
+    z-index: 10;
+    width: 100px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #fff;
+    -webkit-box-shadow: 0px 3px 3px #666;
+    box-shadow: 0px 3px 3px #666;
+    text-align: center;
+    cursor: pointer;
+    span{
+      top: 5px;
+      color: #63b;
+      font-weight: bold;
+      font-family: 'Microsoft Yahei';
+      font-size: 20px;
+      line-height: 40px;
+    }
+  }
+  .go:hover{
+    -webkit-transition: .4s;
+    -moz-transition: .4s;
+    -o-transition: .4s;
+    transition: .4s;
+    margin-left: -75px;
+    margin-top: -30px;
+    width: 150px;
+    height: 60px;
+    border-radius: 30px;
+    span{
+      -webkit-transition: .4s;
+      -moz-transition: .4s;
+      -o-transition: .4s;
+      transition: .4s;
+      font-size: 30px;
+      line-height: 60px;
+    }
+  }
+  .foot{
+    position: relative;
+    width: 100%;
+    height: 35%;
+    border-radius: 0 0 20px 20px;
+    background-color: #fff;
+    color:#bbb;
+    text-align: center;
+    .title{
+      display: inline-block;
+      margin: 40px 0 20px;
+      font-size: 30px;
+    }
+    .content{
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 18px;
+      text-align: center;
+    }
+  }
+}
+
+#main{
+  position: absolute;
+  opacity:0.5;
+  filter:Alpha(opacity = 50);
+  background-color: #fff;
+  border-radius: 40px;
+  -webkit-box-shadow: 0px 0px 8px #666;
+  box-shadow: 0px 0px 8px #666;
+  -webkit-transform: rotateY(90deg);
+  -ms-transform: rotateY(90deg);
+  -o-transform: rotateY(90deg);
+  transform: rotateY(90deg);
+  .left{
+    flex: 2 1 auto;
+    border-radius: 40px 0 0 40px;
+    background-color: #123;
+  }
+  .right{
+    flex: 8 1 auto;
+    border-radius: 0 40px 40px 0;
+    background-color: #ddd;
+  }
+}
