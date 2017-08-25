@@ -5,38 +5,36 @@ var main = document.getElementById('main');
 useElementToAppropriate(star);
 useMainAppropriate(main);
 
-window.onload = function () {
-  addEvent(eGo , 'click' , function(){
-    console.log(star);
-    var deg = 0;
-    var disappear = function(){
-      deg += 2;
-      setTimeout(function(){
-        star.style.transform = 'rotateY(' + deg + 'deg)';
-        if (deg < 90) {
-          disappear();
-        } else {
-          star.style.display = 'none';
-          main.style.display = 'flex';
-          deg = 270;
-          appear();
-        }
-      },7);
-    }
-    var appear = function(){
-      deg += 1;
-      setTimeout(function(){
-        main.style.transform = 'rotateY(' + deg + 'deg)';
-        if (deg < 360) {
-          appear();
-        } else {
-          main.style.transform = 'rotateY(0deg)';
-        }
-      },7);
-    }
-    disappear();
-  });
-}
+addEvent(eGo , 'click' , function(){
+  console.log(star);
+  var deg = 0;
+  var disappear = function(){
+    deg += 2;
+    setTimeout(function(){
+      star.style.transform = 'rotateY(' + deg + 'deg)';
+      if (deg < 90) {
+        disappear();
+      } else {
+        star.style.display = 'none';
+        main.style.display = 'flex';
+        deg = 270;
+        appear();
+      }
+    },7);
+  }
+  var appear = function(){
+    deg += 1;
+    setTimeout(function(){
+      main.style.transform = 'rotateY(' + deg + 'deg)';
+      if (deg < 360) {
+        appear();
+      } else {
+        main.style.transform = 'rotateY(0deg)';
+      }
+    },7);
+  }
+  disappear();
+});
 
 function useElementToAppropriate (element) {
   var height = element.offsetHeight;
