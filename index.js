@@ -1,11 +1,11 @@
+var star = document.getElementById('star');
+var eGo = document.getElementsByClassName('go')[0];
+var main = document.getElementById('main');
+
+useElementToAppropriate(star);
+useMainAppropriate(main);
+
 window.onload = function () {
-  var star = document.getElementById('star');
-  var eGo = document.getElementsByClassName('go')[0];
-
-  useElementToAppropriate(star);
-
-  var main = document.getElementById('main');
-  useMainAppropriate(main);
   addEvent(eGo , 'click' , function(){
     console.log(star);
     var deg = 0;
