@@ -16,16 +16,24 @@
 body{
   background: #fff url(image/background.jpg) 0 0 no-repeat;
   background-size: 100%;
+  @media only screen and (max-width: 1000px){
+    background: #fff url(image/background-mobile.jpg) 0 0 no-repeat;
+    background-size: 100%;
+  }
 }
 
 #star{
   position: relative;
-  width: 100%;
-  height: 100%;
-  @media screen and (min-width: 1000px){
-    margin: 135px auto;
-    width: 400px;
-    height: 500px;
+  margin: 135px auto 0;
+  width: 400px;
+  height: 500px;
+  @media only screen and (max-width: 1000px){
+    position: absolute;
+    margin-top: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
   };
   border-radius: 20px;
   box-shadow: 0px 0px 6px #bbb;
@@ -40,6 +48,10 @@ body{
     background: -o-linear-gradient(#63b, #5df); 
     background: linear-gradient(#63b, #5df);
     text-align: center;
+    @media only screen and (max-width: 1000px){
+      border-radius: 40px 40px 0 0;
+      height: 60%;
+    }
     .content{
       position: absolute;
       width: 300px;
@@ -47,12 +59,25 @@ body{
       margin-left: -150px;
       top: 60px;
       @include avatar();
+      @media only screen and (max-width: 1000px){
+        width: 800px;
+        left: 50%;
+        margin-left: -400px;
+        top: 320px;
+        @include avatar(240px);
+      }
       span{
         font-size: 26px;
+        @media only screen and (max-width: 1000px){
+          font-size: 72px;
+        }
         color: #fff;
       }
       ul{
         margin-top: 10px;
+        @media only screen and (max-width: 1000px){
+          margin-top: 30px;
+        }
         li{
           display: inline-block;
           margin: 0 20px 0;
@@ -81,12 +106,28 @@ body{
             border: 1px solid #ccc;
             border-radius: 10px;
             padding: 4px;
-            content: '1';
+            content: '';
             background: #fff url(image/WeChatQRCode.jpg) 0 0 no-repeat;
             background-size: 100%;
             width: 120px;
             height: 120px;
             margin: 24px 0 0 -36px;
+          }
+          @media only screen and (max-width: 1000px){
+            margin: 0 30px 0;
+            font-size: 54px;
+            &:nth-child(2):hover::before{
+              border: 2px solid #ccc;
+              border-radius: 20px;
+              margin: 80px 0 0 -90px;
+            }
+            &:last-child:hover::before{
+              border: 2px solid #ccc;
+              border-radius: 20px;
+              width: 360px;
+              height: 360px;
+              margin: 80px 0 0 -90px;
+            }
           }
         }
       }
@@ -96,9 +137,9 @@ body{
     position: absolute;
     top: 65%;
     left: 50%;
+    z-index: 10;
     margin-left: -50px;
     margin-top: -20px;
-    z-index: 10;
     width: 100px;
     height: 40px;
     border-radius: 20px;
@@ -107,6 +148,25 @@ body{
     box-shadow: 0px 3px 3px #666;
     text-align: center;
     cursor: pointer;
+    &:hover{
+      -webkit-transition: .4s;
+      -moz-transition: .4s;
+      -o-transition: .4s;
+      transition: .4s;
+      margin-left: -75px;
+      margin-top: -30px;
+      width: 150px;
+      height: 60px;
+      border-radius: 30px;
+      span{
+        -webkit-transition: .4s;
+        -moz-transition: .4s;
+        -o-transition: .4s;
+        transition: .4s;
+        font-size: 30px;
+        line-height: 60px;
+      }
+    }
     span{
       top: 5px;
       color: #63b;
@@ -114,26 +174,32 @@ body{
       font-size: 20px;
       line-height: 40px;
     }
-  }
-  .go:hover{
-    -webkit-transition: .4s;
-    -moz-transition: .4s;
-    -o-transition: .4s;
-    transition: .4s;
-    margin-left: -75px;
-    margin-top: -30px;
-    width: 150px;
-    height: 60px;
-    border-radius: 30px;
-    span{
-      -webkit-transition: .4s;
-      -moz-transition: .4s;
-      -o-transition: .4s;
-      transition: .4s;
-      font-size: 30px;
-      line-height: 60px;
+    @media only screen and (max-width: 1000px){
+      top: 60%;
+      margin-left: -150px;
+      margin-top: -60px;
+      width: 300px;
+      height: 120px;
+      border-radius: 60px;
+      &:hover{
+        margin-left: -225px;
+        margin-top: -90px;
+        width: 450px;
+        height: 180px;
+        border-radius: 90px;
+        span{
+          font-size: 90px;
+          line-height: 180px;
+        }
+      }
+      span{
+        color: #63b;
+        font-size: 60px;
+        line-height: 120px;
+      }
     }
   }
+
   .foot{
     position: relative;
     width: 100%;
@@ -153,6 +219,18 @@ body{
       font-size: 18px;
       text-align: center;
     }
+    @media only screen and (max-width: 1000px){
+      height: 40%;
+      border-radius: 0 0 40px 40px;
+      .title{
+        margin: 120px 0 60px;
+        font-size: 90px;
+      }
+      .content{
+        margin-top: 30px;
+        font-size: 54px;
+      }
+    }
   }
 }
 
@@ -171,7 +249,7 @@ body{
     min-width: 280px;
     border-radius: 40px 0 0 40px;
     background-color: rgba(#123,0.75);
-    @include avatar(80px,50px,20px);
+    @include avatar(80px,50px);
     .own{
       @include leftUl;
     }
@@ -183,5 +261,28 @@ body{
     flex: 50 1 auto;
     border-radius: 0 40px 40px 0;
     background-color: #ddd;
+  }
+  @media only screen and (max-width: 1000px){
+    position: absolute;
+    width: 100%;
+    top: 0;
+    .left{
+      border-radius: 40px 40px 0 0;
+      padding-top: 100px;
+      @include avatar(160px);
+      .own{
+        @include leftUl(false, true);
+      }
+      .link{
+        @include leftUl(true, true);
+      }
+    }
+    .right{
+      border-radius: 0 0 40px 40px;
+      padding: 40px 0;
+      p{
+        font-size: 36px;
+      }
+    }
   }
 }

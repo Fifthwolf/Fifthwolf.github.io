@@ -1,13 +1,16 @@
-@mixin avatar($length:120px , $top:0 , $left:0){
+@mixin avatar($length:120px, $top:0, $left:0){
   .avatar{
     position: relative;
     margin: $top auto 20px;
+    @media only screen and (max-width: 1000px){
+      margin: $top auto 80px;
+    }
     width: $length;
     height: $length;
     .image-border{
       position: absolute;
       left: 50%;
-      margin: -5px 0 0 ($left - 60px);
+      margin: -5px 0 0 ($left - $length / 2);
       width:$length;
       height: $length;
       border-radius: 50%;
@@ -16,7 +19,7 @@
     .image{
       position: absolute;
       left: 50%;
-      margin-left: ($left - 55px);
+      margin-left: ($left - ($length - 10px) / 2);
       width:$length - 10px;
       height: $length - 10px;
       border-radius: 50%;
@@ -26,10 +29,13 @@
   }
 }
 
-@mixin leftUl($last:false){
+@mixin leftUl($last:false,$mobile:false){
   margin-top: 40px;
   border-top: 5px solid #ccc;
   @if $last{
+    @if $mobile{
+      display: none;
+    }
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -60,6 +66,14 @@
     }
     i{
       margin: 0 25px 0 40px; 
+    }
+    @if $mobile{
+      height: 120px;
+      line-height: 120px;
+      font-size: 48px;
+      i{
+        margin: 0 50px 0 80px; 
+      }
     }
   }
 }
