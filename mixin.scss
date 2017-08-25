@@ -25,3 +25,41 @@
     }
   }
 }
+
+@mixin leftUl($last:false){
+  margin-top: 40px;
+  border-top: 5px solid #ccc;
+  @if $last{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    &::before{
+      content:'-link-';
+      position: absolute;
+      font-family: 16px;
+      color: #ccc;
+      top: -24px;
+      left: 20px;
+    };
+  }
+  li{
+    display: block;
+    color: #fff;
+    height: 60px;
+    line-height: 60px;
+    font-size: 24px;
+    cursor: pointer;
+    &:nth-child(odd){
+      background-color: rgba(#fff,0.3);
+    }
+    &:hover{
+      i,a{
+        color: #123;
+      }
+      background-color: rgba(#fff,0.6);
+    }
+    i{
+      margin: 0 25px 0 40px; 
+    }
+  }
+}

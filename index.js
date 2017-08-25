@@ -10,7 +10,7 @@ window.onload = function () {
     console.log(star);
     var deg = 0;
     var disappear = function(){
-      deg += 1;
+      deg += 2;
       setTimeout(function(){
         star.style.transform = 'rotateY(' + deg + 'deg)';
         if (deg < 90) {
@@ -21,7 +21,7 @@ window.onload = function () {
           deg = 270;
           appear();
         }
-      },5);
+      },7);
     }
     var appear = function(){
       deg += 1;
@@ -32,7 +32,7 @@ window.onload = function () {
         } else {
           main.style.transform = 'rotateY(0deg)';
         }
-      },10);
+      },7);
     }
     disappear();
   });

@@ -73,31 +73,31 @@ body {
           cursor: pointer;
           font-size: 18px;
           color: #fff; }
-        #star .head .content ul li::after {
-          position: absolute;
-          content: '|';
-          margin-left: 20px; }
-        #star .head .content ul li:nth-child(2):hover::before {
-          position: absolute;
-          border: 1px solid #ccc;
-          border-radius: 10px;
-          padding: 4px;
-          content: '31788666';
-          margin: 24px 0 0 -28px; }
-        #star .head .content ul li:last-child::after {
-          content: ''; }
-        #star .head .content ul li:last-child:hover::before {
-          position: absolute;
-          z-index: 15;
-          border: 1px solid #ccc;
-          border-radius: 10px;
-          padding: 4px;
-          content: '1';
-          background: #fff url(image/WeChatQRCode.jpg) 0 0 no-repeat;
-          background-size: 100%;
-          width: 120px;
-          height: 120px;
-          margin: 24px 0 0 -36px; }
+          #star .head .content ul li:after {
+            position: absolute;
+            content: '|';
+            margin-left: 20px; }
+          #star .head .content ul li:nth-child(2):hover::before {
+            position: absolute;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 4px;
+            content: '31788666';
+            margin: 24px 0 0 -28px; }
+          #star .head .content ul li:last-child::after {
+            content: ''; }
+          #star .head .content ul li:last-child:hover::before {
+            position: absolute;
+            z-index: 15;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 4px;
+            content: '1';
+            background: #fff url(image/WeChatQRCode.jpg) 0 0 no-repeat;
+            background-size: 100%;
+            width: 120px;
+            height: 120px;
+            margin: 24px 0 0 -36px; }
   #star .go {
     position: absolute;
     top: 65%;
@@ -156,9 +156,6 @@ body {
 
 #main {
   position: absolute;
-  opacity: 0.5;
-  filter: Alpha(opacity=50);
-  background-color: #fff;
   border-radius: 40px;
   -webkit-box-shadow: 0px 0px 8px #666;
   box-shadow: 0px 0px 8px #666;
@@ -168,8 +165,10 @@ body {
   transform: rotateY(90deg); }
   #main .left {
     flex: 1 1 auto;
+    position: relative;
+    min-width: 280px;
     border-radius: 40px 0 0 40px;
-    background-color: #123; }
+    background-color: rgba(17, 34, 51, 0.75); }
     #main .left .avatar {
       position: relative;
       margin: 50px auto 20px;
@@ -192,21 +191,54 @@ body {
         border-radius: 50%;
         background: #fff url(image/TX.png) 0 0 no-repeat;
         background-size: 100%; }
-    #main .left ul {
+    #main .left .own {
       margin-top: 40px;
-      border-top: 5px solid #ccc;
-      text-align: center; }
-      #main .left ul li {
+      border-top: 5px solid #ccc; }
+      #main .left .own li {
         display: block;
         color: #fff;
         height: 60px;
         line-height: 60px;
         font-size: 24px;
         cursor: pointer; }
-      #main .left ul li:nth-child(odd) {
-        background-color: rgba(255, 255, 255, 0.3); }
+        #main .left .own li:nth-child(odd) {
+          background-color: rgba(255, 255, 255, 0.3); }
+        #main .left .own li:hover {
+          background-color: rgba(255, 255, 255, 0.6); }
+          #main .left .own li:hover i, #main .left .own li:hover a {
+            color: #123; }
+        #main .left .own li i {
+          margin: 0 25px 0 40px; }
+    #main .left .link {
+      margin-top: 40px;
+      border-top: 5px solid #ccc;
+      position: absolute;
+      bottom: 0;
+      width: 100%; }
+      #main .left .link::before {
+        content: '-link-';
+        position: absolute;
+        font-family: 16px;
+        color: #ccc;
+        top: -24px;
+        left: 20px; }
+      #main .left .link li {
+        display: block;
+        color: #fff;
+        height: 60px;
+        line-height: 60px;
+        font-size: 24px;
+        cursor: pointer; }
+        #main .left .link li:nth-child(odd) {
+          background-color: rgba(255, 255, 255, 0.3); }
+        #main .left .link li:hover {
+          background-color: rgba(255, 255, 255, 0.6); }
+          #main .left .link li:hover i, #main .left .link li:hover a {
+            color: #123; }
+        #main .left .link li i {
+          margin: 0 25px 0 40px; }
   #main .right {
-    flex: 9 1 auto;
+    flex: 50 1 auto;
     border-radius: 0 40px 40px 0;
     background-color: #ddd; }
 

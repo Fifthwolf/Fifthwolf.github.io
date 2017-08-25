@@ -17,7 +17,7 @@ body{
 
 #head{
 	width: 100%;
-	background: url(../image/header/header.png) repeat-x;
+	background: url(image/header/header.png) repeat-x;
 }
 
 #head a:hover{
@@ -39,7 +39,7 @@ header .head-content{
 	float: left;
 	margin-left: 50px;
 	text-indent: 45px;
-	background: url(../image/header/portrait.png) no-repeat;
+	background: url(image/header/portrait.png) no-repeat;
 }
 
 #github{
@@ -48,7 +48,7 @@ header .head-content{
 	border-radius: 50%;
 	width: 35px;
 	height: 35px;
-	background: url(../image/header/github.jpg) no-repeat;
+	background: url(image/header/github.jpg) no-repeat;
 }
 
 #head-right{
