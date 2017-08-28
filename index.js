@@ -9,6 +9,11 @@ var TEMP;
 
 useDEMOUlMargin(demoUl, demoLis, 10);
 
+window.onresize = function () {
+  adjustmentWindow();
+  useDEMOUlMargin(demoUl, demoLis, 10);
+}
+
 addEvent(own, 'click', function(e){
   var target = e.target || e.srcElement;
   for (var i = 0, length = ownLi.length; i < length; i++) {
@@ -58,24 +63,11 @@ addEvent(eGo, 'click', function(){
   disappear();
 });
 
-function indexOnresize () {
-  useDEMOUlMargin(demoUl, demoLis, 10);
-}
-
 function useElementToAppropriate (element) {
   var height = element.offsetHeight;
   var screenHeight = document.documentElement.clientHeight||document.body.clientHeight;
   var top = (screenHeight - height)/2;
   element.style.marginTop = top - 50 +'px';
-}
-
-function indexUseMainAppropriate () {
-  useDEMOUlMargin(demoUl, demoLis, 10);
-}
-
-function useMainAppropriate (element) {
-  publicUseMainAppropriate(element);
-  useDEMOUlMargin(demoUl, demoLis, 10);
 }
 
 function scrollAnimate(ele, target, time) {
