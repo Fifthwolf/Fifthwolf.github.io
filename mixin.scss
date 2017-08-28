@@ -1,4 +1,4 @@
-@mixin avatar($length:120px, $top:0, $left:0){
+@mixin avatar($length:120px, $top:0, $left:0, $avatarUrl:''){
   .avatar{
     position: relative;
     margin: $top auto 20px;
@@ -23,7 +23,7 @@
       width:$length - 10px;
       height: $length - 10px;
       border-radius: 50%;
-      background: #fff url(image/TX.png) 0 0 no-repeat;
+      background: #fff url($avatarUrl + 'image/TX.png') 0 0 no-repeat;
       background-size:100%;
     }
   }
@@ -49,7 +49,7 @@
     };
   }
   li{
-    display: block;
+    display: inline-block;
     color: #fff;
     height: 60px;
     line-height: 60px;
@@ -64,7 +64,6 @@
       }
       background-color: rgba(#fff,0.6);
     }
-    display: inline-block;
     width: 100%;
     height: 100%;
     i{

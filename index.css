@@ -1,13 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  font-family: 'Microsoft Yahei'; }
-  * ul {
-    list-style: none; }
-  * a, * a:link, * a:visited, * a:hover, * a:active {
-    text-decoration: none;
-    color: #fff; }
-
 body {
   background: #fff url(image/background.jpg) 0 0 no-repeat;
   background-size: 100%; }
@@ -75,7 +65,7 @@ body {
           width: 110px;
           height: 110px;
           border-radius: 50%;
-          background: #fff url(image/TX.png) 0 0 no-repeat;
+          background: #fff url("image/TX.png") 0 0 no-repeat;
           background-size: 100%; }
       @media only screen and (max-width: 1000px) {
         #star .head .content {
@@ -107,7 +97,7 @@ body {
               width: 230px;
               height: 230px;
               border-radius: 50%;
-              background: #fff url(image/TX.png) 0 0 no-repeat;
+              background: #fff url("image/TX.png") 0 0 no-repeat;
               background-size: 100%; } }
       #star .head .content span {
         font-size: 26px;
@@ -257,151 +247,143 @@ body {
           font-size: 54px; } }
 
 #main {
-  position: absolute;
-  border-radius: 40px;
-  -webkit-box-shadow: 0px 0px 8px #666;
-  box-shadow: 0px 0px 8px #666;
   -webkit-transform: rotateY(90deg);
   -ms-transform: rotateY(90deg);
   -o-transform: rotateY(90deg);
   transform: rotateY(90deg); }
-  #main .left {
-    flex: 1 1 auto;
+  #main .left .avatar {
     position: relative;
-    min-width: 280px;
-    max-width: 340px;
-    border-radius: 40px 0 0 40px;
-    background-color: rgba(17, 34, 51, 0.75); }
-    #main .left .avatar {
-      position: relative;
-      margin: 50px auto 20px;
+    margin: 50px auto 20px;
+    width: 80px;
+    height: 80px; }
+    @media only screen and (max-width: 1000px) {
+      #main .left .avatar {
+        margin: 50px auto 80px; } }
+    #main .left .avatar .image-border {
+      position: absolute;
+      left: 50%;
+      margin: -5px 0 0 -40px;
       width: 80px;
-      height: 80px; }
-      @media only screen and (max-width: 1000px) {
-        #main .left .avatar {
-          margin: 50px auto 80px; } }
-      #main .left .avatar .image-border {
-        position: absolute;
-        left: 50%;
-        margin: -5px 0 0 -40px;
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background-color: #fff; }
-      #main .left .avatar .image {
-        position: absolute;
-        left: 50%;
-        margin-left: -35px;
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        background: #fff url(image/TX.png) 0 0 no-repeat;
-        background-size: 100%; }
-    #main .left .own {
-      margin-top: 40px;
-      border-top: 5px solid #ccc; }
-      #main .left .own li {
-        display: block;
-        color: #fff;
-        height: 60px;
-        line-height: 60px;
-        font-size: 24px;
-        cursor: pointer;
-        display: inline-block;
-        width: 100%;
-        height: 100%; }
-        #main .left .own li:nth-child(odd) {
-          background-color: rgba(255, 255, 255, 0.3); }
-        #main .left .own li:hover {
-          background-color: rgba(255, 255, 255, 0.6); }
-          #main .left .own li:hover i, #main .left .own li:hover a {
-            color: #123; }
-        #main .left .own li i {
-          margin: 0 25px 0 40px; }
-    #main .left .link {
-      margin-top: 40px;
-      border-top: 5px solid #ccc;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #fff; }
+    #main .left .avatar .image {
       position: absolute;
-      bottom: 0;
-      width: 100%; }
-      #main .left .link::before {
-        content: '-link-';
+      left: 50%;
+      margin-left: -35px;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #fff url("image/TX.png") 0 0 no-repeat;
+      background-size: 100%; }
+  #main .left .own {
+    margin-top: 40px;
+    border-top: 5px solid #ccc; }
+    #main .left .own li {
+      display: inline-block;
+      color: #fff;
+      height: 60px;
+      line-height: 60px;
+      font-size: 24px;
+      cursor: pointer;
+      width: 100%;
+      height: 100%; }
+      #main .left .own li:nth-child(odd) {
+        background-color: rgba(255, 255, 255, 0.3); }
+      #main .left .own li:hover {
+        background-color: rgba(255, 255, 255, 0.6); }
+        #main .left .own li:hover i, #main .left .own li:hover a {
+          color: #123; }
+      #main .left .own li i {
+        margin: 0 25px 0 40px; }
+  #main .right #resume {
+    margin-bottom: 80px; }
+    #main .right #resume h2 {
+      font-size: 32px;
+      color: #414141; }
+    #main .right #resume h4 {
+      position: relative;
+      margin: 40px 60px 10px;
+      color: #454545; }
+      #main .right #resume h4::before {
         position: absolute;
-        font-family: 16px;
-        color: #ccc;
-        top: -28px;
-        left: 20px; }
-      #main .left .link li {
-        display: block;
-        color: #fff;
-        height: 60px;
-        line-height: 60px;
-        font-size: 24px;
-        cursor: pointer;
-        display: inline-block;
-        width: 100%;
-        height: 100%; }
-        #main .left .link li:nth-child(odd) {
-          background-color: rgba(255, 255, 255, 0.3); }
-        #main .left .link li:hover {
-          background-color: rgba(255, 255, 255, 0.6); }
-          #main .left .link li:hover i, #main .left .link li:hover a {
-            color: #123; }
-        #main .left .link li i {
-          margin: 0 25px 0 40px; }
-  #main .right {
-    flex: 6 1 auto;
-    border-radius: 0 40px 40px 0;
-    background-color: #fbfbfb;
-    padding: 30px 50px;
-    overflow-y: scroll; }
-    #main .right::-webkit-scrollbar {
-      position: absolute;
-      width: 10px; }
-    #main .right::-webkit-scrollbar-thumb {
-      height: 20px;
-      border-radius: 10px;
-      background-color: rgba(17, 34, 51, 0.75); }
-      #main .right::-webkit-scrollbar-thumb:hover {
-        background-color: rgba(17, 34, 51, 0.9); }
-    #main .right div {
-      margin-bottom: 80px; }
-      #main .right div h2 {
-        font-size: 32px;
-        color: #414141; }
-      #main .right div h4 {
-        position: relative;
-        margin: 40px 60px 10px;
-        color: #454545; }
-        #main .right div h4::before {
-          position: absolute;
-          top: 10px;
-          left: -60px;
-          width: 50px;
-          height: 1px;
-          background-color: #000;
-          content: ''; }
-        #main .right div h4::after {
-          position: absolute;
-          top: 10px;
-          left: 74px;
-          width: 50px;
-          height: 1px;
-          background-color: #000;
-          content: ''; }
-      #main .right div p {
-        margin-bottom: 10px; }
-        #main .right div p, #main .right div p span {
-          padding-right: 25px;
-          line-height: 24px;
-          color: #878686; }
-        #main .right div p span {
-          display: inline-block; }
-      #main .right div span {
-        display: inline-block;
-        padding-right: 50px;
+        top: 10px;
+        left: -60px;
+        width: 50px;
+        height: 1px;
+        background-color: #000;
+        content: ''; }
+      #main .right #resume h4::after {
+        position: absolute;
+        top: 10px;
+        left: 74px;
+        width: 50px;
+        height: 1px;
+        background-color: #000;
+        content: ''; }
+    #main .right #resume p {
+      margin-bottom: 10px; }
+      #main .right #resume p, #main .right #resume p span {
+        padding-right: 25px;
         line-height: 24px;
         color: #878686; }
+      #main .right #resume p span {
+        display: inline-block; }
+    #main .right #resume span {
+      display: inline-block;
+      padding-right: 50px;
+      line-height: 24px;
+      color: #878686; }
+  #main .right #demo {
+    margin-bottom: 80px; }
+    #main .right #demo h2 {
+      font-size: 32px;
+      color: #414141; }
+    #main .right #demo ul {
+      margin: 40px 0 10px; }
+      #main .right #demo ul li {
+        position: relative;
+        display: inline-block;
+        margin: 10px 10px 30px;
+        width: 240px;
+        height: 210px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        overflow: hidden;
+        -webkit-text-overflow: ellipsis;
+        -moz-text-overflow: ellipsis;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis; }
+        #main .right #demo ul li a {
+          position: absolute;
+          width: 100%;
+          height: 100%; }
+          #main .right #demo ul li a img {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            width: 220px;
+            height: 120px;
+            border-radius: 4px; }
+          #main .right #demo ul li a span {
+            position: absolute;
+            display: inline-block;
+            top: 140px;
+            left: 10px;
+            width: 210px;
+            font-size: 14px;
+            line-height: 20px;
+            color: #93999f; }
+            #main .right #demo ul li a span h4 {
+              font-size: 18px;
+              margin-bottom: 6px;
+              color: #000; }
+  #main .right #Photography {
+    margin-bottom: 80px; }
+    #main .right #Photography h2 {
+      font-size: 32px;
+      color: #414141; }
   @media only screen and (max-width: 1000px) {
     #main {
       position: absolute;
@@ -435,19 +417,18 @@ body {
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            background: #fff url(image/TX.png) 0 0 no-repeat;
+            background: #fff url("image/TX.png") 0 0 no-repeat;
             background-size: 100%; }
         #main .left .own {
           margin-top: 40px;
           border-top: 5px solid #ccc; }
           #main .left .own li {
-            display: block;
+            display: inline-block;
             color: #fff;
             height: 60px;
             line-height: 60px;
             font-size: 24px;
             cursor: pointer;
-            display: inline-block;
             width: 100%;
             height: 100%;
             height: 120px;
@@ -478,13 +459,12 @@ body {
             top: -28px;
             left: 20px; }
           #main .left .link li {
-            display: block;
+            display: inline-block;
             color: #fff;
             height: 60px;
             line-height: 60px;
             font-size: 24px;
             cursor: pointer;
-            display: inline-block;
             width: 100%;
             height: 100%;
             height: 120px;
@@ -503,25 +483,25 @@ body {
       #main .right {
         border-radius: 0 0 40px 40px;
         padding: 40px 80px; }
-        #main .right div h2 {
+        #main .right #resume h2 {
           font-size: 48px; }
-        #main .right div h4 {
+        #main .right #resume h4 {
           margin: 40px 80px 20px;
           font-size: 36px;
           color: #454545; }
-          #main .right div h4::before {
-            top: 20px;
+          #main .right #resume h4::before {
+            top: 34px;
             left: -100px;
             width: 80px; }
-          #main .right div h4::after {
-            top: 20px;
-            left: 160px;
+          #main .right #resume h4::after {
+            top: 34px;
+            left: 230px;
             width: 80px; }
-        #main .right div p, #main .right div p span {
+        #main .right #resume p, #main .right #resume p span {
           padding-right: 25px;
           line-height: 36px;
           font-size: 36px; }
-        #main .right div span {
+        #main .right #resume span {
           padding: 0 54px 20px 0;
           line-height: 54px;
           font-size: 36px; } }
