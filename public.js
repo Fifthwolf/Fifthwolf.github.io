@@ -7,7 +7,6 @@ adjustmentWindow();
 
 window.onresize = function () {
   adjustmentWindow();
-  indexOnresize();
 }
 
 function adjustmentWindow () {
