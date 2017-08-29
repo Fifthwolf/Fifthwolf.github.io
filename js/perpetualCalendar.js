@@ -1,11 +1,16 @@
-var year = document.getElementById("year"),
+var content = right.getElementsByClassName("content")[0],
+year = document.getElementById("year"),
 month = document.getElementById("month"),
+tableBody = document.getElementById("calendar-table").getElementsByTagName("tbody")[0],
+tdDays = tableBody.getElementsByTagName("td"),
 temp = '';
+
 for (var i = 2000; i < 2050; i++) {
   temp += '<option value="' + i + '">' + i + '</option>'
 }
 year.innerHTML=temp;
 temp='';
+
 for (var i = 1; i <= 12; i++) {
   temp += '<option value="' + i + '">' + i + '</option>'
 }
@@ -20,14 +25,29 @@ month.onchange=function(){
 }
 
 window.onload=function(){
-  //changeContentHeight();
   var now = new Date();
   dayList(now);
-  var currentYear = getSelectOption(year,now.getFullYear());
-  currentMonth = getSelectOption(month,now.getMonth()+1);
+  var currentYear = getSelectOption(year, now.getFullYear());
+  var currentMonth = getSelectOption(month, now.getMonth()+1);
+  var currentDay = getSelectDays(tdDays);
   currentYear.setAttribute('selected','true');
   currentMonth.setAttribute('selected','true');
+  useElementToAppropriate(content, right);
 }
+
+window.onresize = function () {
+  adjustmentWindow();
+  useElementToAppropriate(content, right);
+}
+
+addEvent(tableBody, 'mouseover', function (e) {
+  e.target.setAttribute('class','choose');
+});
+
+addEvent(tableBody, 'mouseout', function (e) {
+  e.target.removeAttribute('class');
+  getSelectDays(tdDays);
+});
 
 function dayList(date){
   var yearValue,monthValue;
@@ -43,8 +63,7 @@ function dayList(date){
     date.setDate('1');
   }
   
-  var tableBody = document.getElementById("calendar-table").getElementsByTagName("tbody")[0],
-  temp='';
+  var temp='';
   tableBody.innerHTML='';
   
   var listData = {
@@ -110,13 +129,21 @@ function dayAttr(year,month){
 }
 
 //寻找对应值的元素
-function getSelectOption(parent,value){
+function getSelectOption (parent,value) {
   var options = parent.getElementsByTagName("option");
   for (var i = 0; i < options.length; i++) {
     if(options[i].value == value ){
-      console.log(options[i]);
       return options[i];
-      break;
+    }
+  }
+}
+
+function getSelectDays (parent,value) {
+  var value = new Date().getDate();
+  for (var i = 0; i < parent.length; i++) {
+    if(parent[i].innerHTML == value ){
+      parent[i].setAttribute('class','choose');
+      return 0;
     }
   }
 }

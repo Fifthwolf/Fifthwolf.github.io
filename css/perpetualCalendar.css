@@ -61,9 +61,49 @@ body {
       #main .left .own li:hover a {
         color: #123; }
 #main .right .content {
-  width: 400px;
-  height: 400px;
-  background-color: #ccc; }
+  position: relative;
+  margin: 50px auto 0;
+  width: 530px;
+  height: 415px;
+  border-radius: 5px;
+  background: -webkit-linear-gradient(rgba(17, 34, 51, 0.8), rgba(85, 102, 119, 0.8));
+  background: -moz-linear-gradient(rgba(17, 34, 51, 0.8), rgba(85, 102, 119, 0.8));
+  background: -o-linear-gradient(rgba(17, 34, 51, 0.8), rgba(85, 102, 119, 0.8));
+  background: linear-gradient(rgba(17, 34, 51, 0.8), rgba(85, 102, 119, 0.8));
+  color: #fff; }
+  #main .right .content .header {
+    position: absolute;
+    top: 20px;
+    left: 20px; }
+  #main .right .content .calendar {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    border-collapse: collapse; }
+    #main .right .content .calendar th, #main .right .content .calendar td {
+      width: 69px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      text-align: center;
+      font-size: 16px; }
+    #main .right .content .calendar th {
+      height: 34px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #000;
+      cursor: default; }
+      #main .right .content .calendar th:first-child, #main .right .content .calendar th:last-child {
+        color: #e02d2d; }
+    #main .right .content .calendar td {
+      position: relative;
+      height: 49px;
+      background-color: rgba(255, 255, 255, 0.4);
+      color: #000;
+      font-weight: bold;
+      cursor: pointer; }
+      #main .right .content .calendar td:first-child, #main .right .content .calendar td:last-child {
+        color: #e02d2d; }
+      #main .right .content .calendar td.choose {
+        background-color: rgba(85, 102, 119, 0.8);
+        color: #fff; }
 @media only screen and (max-width: 1000px) {
   #main {
     position: absolute;

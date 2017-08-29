@@ -1,6 +1,5 @@
 var star = document.getElementById('star');
 var eGo = document.getElementsByClassName('go')[0];
-var right = main.getElementsByClassName('right')[0];
 var rightDiv = right.getElementsByTagName('div');
 var demo = document.getElementById('demo');
 var demoUl = demo.getElementsByTagName('ul')[0];
@@ -8,10 +7,12 @@ var demoLis = demoUl.getElementsByTagName('li');
 var TEMP;
 
 useDEMOUlMargin(demoUl, demoLis, 10);
+useElementToAppropriate(star, document);
 
 window.onresize = function () {
   adjustmentWindow();
   useDEMOUlMargin(demoUl, demoLis, 10);
+  useElementToAppropriate(star, document);
 }
 
 addEvent(own, 'click', function(e){
@@ -62,13 +63,6 @@ addEvent(eGo, 'click', function(){
   }
   disappear();
 });
-
-function useElementToAppropriate (element) {
-  var height = element.offsetHeight;
-  var screenHeight = document.documentElement.clientHeight||document.body.clientHeight;
-  var top = (screenHeight - height)/2;
-  element.style.marginTop = top - 50 +'px';
-}
 
 function scrollAnimate(ele, target, time) {
   clearTimeout(TEMP);
