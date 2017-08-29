@@ -1,7 +1,6 @@
 var content = document.getElementsByClassName('content')[0];
 
 window.onresize = function () {
-  //adjustmentWindow();
   useElementToAppropriate(content, right);
 }
 
@@ -20,7 +19,7 @@ button_generate.onclick = function(){
     var lottery = generate(basic,special,max);
     addNumber(lottery,special);
   }else{
-    list.innerHTML += '输入了不符合条件的数据，请重新输入';
+    list.innerHTML += '输入了不符合条件的数据，请重新输入<br/>';
   }
 }
 
@@ -58,39 +57,47 @@ function generate (basic, special, max) {
   return lottery;
 }
 
+//生成函数，生成球的HTML代码
 function addNumber (lottery, special) {
-  var temp = '';
-  if(!special){
+  var div = document.createElement('div');
+  div.setAttribute("class","num");
+  list.appendChild(div);
+  var temp = [];
+  if (!special) {
     for (var i = 0; i < lottery.length ; i++) {
-      temp += '<span>' + lottery[i] + '</span>';
+      create();
     }
-  }else{
+  } else {
     for (var i = 0; i < lottery.length - 1 ; i++) {
-      temp += '<span>' + lottery[i] + '</span>';
+      create();
     }
-    temp += '<span class="special">' + lottery[lottery.length-1] + '</span>';
+    create();
+    temp[i].setAttribute("class","special")
   }
-  temp = '<div class="num">' + temp + '</div>';
-  list.innerHTML += temp;
-  var numDiv = list.getElementsByClassName('num');
-  numDiv = numDiv[numDiv.length - 1];
-  var numSpan = numDiv.getElementsByTagName('span');
-  showNumber(numDiv, numSpan);
+
+  function create () {
+    var spanText = document.createTextNode(lottery[i]);
+    temp[i] = document.createElement('span');
+    temp[i].appendChild(spanText);
+    div.appendChild(temp[i]);
+  }
+
+  var numDivs = document.getElementsByClassName('num');
+  var numSpans = numDivs[numDivs.length - 1].getElementsByTagName('span');
+  showNumber(numSpans);
 }
 
-function showNumber (numDiv, numSpan) {
-  console.log();
-  var i = 0, len = numSpan.length;
-  function show () {
-    temp = setTimeout(function () {
+//依次将球显示出来
+function showNumber(numSpans) {
+  var i = 0, len = numSpans.length;
+  function shows () {
+    setTimeout(function () {
       if (i < len) {
-        numSpan[i].style.display = 'inline-block';
+        numSpans[i].style.display = 'inline-block';
         i++;
-        show ();
-      } else {
-        //
+        shows ();
       }
-    }, 50);
+    }, 100);
   }
-  show();
+  shows();
 }
