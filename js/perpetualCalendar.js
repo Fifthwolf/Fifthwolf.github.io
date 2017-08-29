@@ -82,7 +82,7 @@ function dayList(date){
     }
     temp += '<td>' + i + '</td>';
     tempWeek--;
-    if (( i + listData.starWeek )%7 == 0) {
+    if (( i + listData.starWeek )%7 == 0 && i != listData.days) {
       temp += '</tr><tr>';
       tempWeek = 7;
     }
@@ -93,7 +93,10 @@ function dayList(date){
     tempWeek--;
   }
   temp += '</tr>';
+  console.log(temp);
   tableBody.innerHTML += temp;
+  //content自适应高度
+  useContentHeight();
 }
 
 //判断平润年与每个月的天数
@@ -146,4 +149,10 @@ function getSelectDays (parent,value) {
       return 0;
     }
   }
+}
+
+function useContentHeight () {
+  var trs = content.getElementsByTagName('tr');
+  console.log(trs.length);
+  content.style.height = trs.length * 50 + 65 + 'px';
 }

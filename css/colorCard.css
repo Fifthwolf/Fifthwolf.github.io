@@ -1,0 +1,883 @@
+#main .right .content {
+  position: relative;
+  margin: 0 auto;
+  top: 30px;
+  border: 4px solid rgba(85, 102, 119, 0.8);
+  text-align: center;
+  margin: 0 auto;
+  width: 630px;
+  height: 350px; }
+  #main .right .content ul {
+    position: absolute; }
+  #main .right .content .swatches:nth-child(1) {
+    top: 0px; }
+  #main .right .content .swatches:nth-child(2) {
+    top: 50px; }
+  #main .right .content .swatches:nth-child(3) {
+    top: 100px; }
+  #main .right .content .swatches:nth-child(4) {
+    top: 150px; }
+  #main .right .content .swatches:nth-child(5) {
+    top: 200px; }
+  #main .right .content .swatches:nth-child(6) {
+    top: 250px; }
+  #main .right .content .swatches:nth-child(7) {
+    top: 300px; }
+  #main .right .content .swatches:nth-child(8) {
+    top: 350px; }
+  #main .right .content li {
+    display: inline-block;
+    width: 30px;
+    height: 50px; }
+  #main .right .content li:hover:after {
+    position: absolute;
+    font-size: 16px;
+    padding: 2px;
+    top: 5px; }
+  #main .right .content ul.red li:nth-child(10) {
+    background-color: #eb1f48; }
+    #main .right .content ul.red li:nth-child(10):hover:after {
+      content: "#eb1f48";
+      color: #38050f; }
+  #main .right .content ul.red li:nth-child(9) {
+    background-color: #ed365b; }
+    #main .right .content ul.red li:nth-child(9):hover:after {
+      content: "#ed365b";
+      color: #500716; }
+  #main .right .content ul.red li:nth-child(8) {
+    background-color: #ef4e6e; }
+    #main .right .content ul.red li:nth-child(8):hover:after {
+      content: "#ef4e6e";
+      color: #67091c; }
+  #main .right .content ul.red li:nth-child(7) {
+    background-color: #f16581; }
+    #main .right .content ul.red li:nth-child(7):hover:after {
+      content: "#f16581";
+      color: #7f0c23; }
+  #main .right .content ul.red li:nth-child(6) {
+    background-color: #f37c94; }
+    #main .right .content ul.red li:nth-child(6):hover:after {
+      content: "#f37c94";
+      color: #960e29; }
+  #main .right .content ul.red li:nth-child(5) {
+    background-color: #f594a7; }
+    #main .right .content ul.red li:nth-child(5):hover:after {
+      content: "#f594a7";
+      color: #ad102f; }
+  #main .right .content ul.red li:nth-child(4) {
+    background-color: #f7abba; }
+    #main .right .content ul.red li:nth-child(4):hover:after {
+      content: "#f7abba";
+      color: #c51236; }
+  #main .right .content ul.red li:nth-child(3) {
+    background-color: #fac3ce; }
+    #main .right .content ul.red li:nth-child(3):hover:after {
+      content: "#fac3ce";
+      color: crimson; }
+  #main .right .content ul.red li:nth-child(2) {
+    background-color: #fcdae1; }
+    #main .right .content ul.red li:nth-child(2):hover:after {
+      content: "#fcdae1";
+      color: #eb1f48; }
+  #main .right .content ul.red li:nth-child(1) {
+    background-color: #fef1f4; }
+    #main .right .content ul.red li:nth-child(1):hover:after {
+      content: "#fef1f4";
+      color: #ed365b; }
+  #main .right .content ul.red li:nth-child(12) {
+    background-color: #c51236; }
+    #main .right .content ul.red li:nth-child(12):hover:after {
+      content: "#c51236";
+      color: #f7abba; }
+  #main .right .content ul.red li:nth-child(13) {
+    background-color: #ad102f; }
+    #main .right .content ul.red li:nth-child(13):hover:after {
+      content: "#ad102f";
+      color: #f594a7; }
+  #main .right .content ul.red li:nth-child(14) {
+    background-color: #960e29; }
+    #main .right .content ul.red li:nth-child(14):hover:after {
+      content: "#960e29";
+      color: #f37c94; }
+  #main .right .content ul.red li:nth-child(15) {
+    background-color: #7f0c23; }
+    #main .right .content ul.red li:nth-child(15):hover:after {
+      content: "#7f0c23";
+      color: #f16581; }
+  #main .right .content ul.red li:nth-child(16) {
+    background-color: #67091c; }
+    #main .right .content ul.red li:nth-child(16):hover:after {
+      content: "#67091c";
+      color: #ef4e6e; }
+  #main .right .content ul.red li:nth-child(17) {
+    background-color: #500716; }
+    #main .right .content ul.red li:nth-child(17):hover:after {
+      content: "#500716";
+      color: #ed365b; }
+  #main .right .content ul.red li:nth-child(18) {
+    background-color: #38050f; }
+    #main .right .content ul.red li:nth-child(18):hover:after {
+      content: "#38050f";
+      color: #eb1f48; }
+  #main .right .content ul.red li:nth-child(19) {
+    background-color: #210309; }
+    #main .right .content ul.red li:nth-child(19):hover:after {
+      content: "#210309";
+      color: crimson; }
+  #main .right .content ul.red li:nth-child(20) {
+    background-color: #0a0103; }
+    #main .right .content ul.red li:nth-child(20):hover:after {
+      content: "#0a0103";
+      color: #c51236; }
+  #main .right .content ul.red li:nth-child(21) {
+    background-color: black; }
+    #main .right .content ul.red li:nth-child(21):hover:after {
+      content: "black";
+      color: #bb1133; }
+  #main .right .content ul.red li:nth-child(11) {
+    background-color: #DC143C; }
+  #main .right .content ul.orange li:nth-child(10) {
+    background-color: #f4882f; }
+    #main .right .content ul.orange li:nth-child(10):hover:after {
+      content: "#f4882f";
+      color: #532804; }
+  #main .right .content ul.orange li:nth-child(9) {
+    background-color: #f69647; }
+    #main .right .content ul.orange li:nth-child(9):hover:after {
+      content: "#f69647";
+      color: #6b3305; }
+  #main .right .content ul.orange li:nth-child(8) {
+    background-color: #f7a35f; }
+    #main .right .content ul.orange li:nth-child(8):hover:after {
+      content: "#f7a35f";
+      color: #833f07; }
+  #main .right .content ul.orange li:nth-child(7) {
+    background-color: #f8b177; }
+    #main .right .content ul.orange li:nth-child(7):hover:after {
+      content: "#f8b177";
+      color: #9c4a08; }
+  #main .right .content ul.orange li:nth-child(6) {
+    background-color: #f9bf90; }
+    #main .right .content ul.orange li:nth-child(6):hover:after {
+      content: "#f9bf90";
+      color: #b45609; }
+  #main .right .content ul.orange li:nth-child(5) {
+    background-color: #fbcda8; }
+    #main .right .content ul.orange li:nth-child(5):hover:after {
+      content: "#fbcda8";
+      color: #cc620a; }
+  #main .right .content ul.orange li:nth-child(4) {
+    background-color: #fcdbc0; }
+    #main .right .content ul.orange li:nth-child(4):hover:after {
+      content: "#fcdbc0";
+      color: #e46d0c; }
+  #main .right .content ul.orange li:nth-child(3) {
+    background-color: #fde9d8; }
+    #main .right .content ul.orange li:nth-child(3):hover:after {
+      content: "#fde9d8";
+      color: #f37a16; }
+  #main .right .content ul.orange li:nth-child(2) {
+    background-color: #fef7f1; }
+    #main .right .content ul.orange li:nth-child(2):hover:after {
+      content: "#fef7f1";
+      color: #f4882f; }
+  #main .right .content ul.orange li:nth-child(1) {
+    background-color: white; }
+    #main .right .content ul.orange li:nth-child(1):hover:after {
+      content: "white";
+      color: #f5903d; }
+  #main .right .content ul.orange li:nth-child(12) {
+    background-color: #e46d0c; }
+    #main .right .content ul.orange li:nth-child(12):hover:after {
+      content: "#e46d0c";
+      color: #fcdbc0; }
+  #main .right .content ul.orange li:nth-child(13) {
+    background-color: #cc620a; }
+    #main .right .content ul.orange li:nth-child(13):hover:after {
+      content: "#cc620a";
+      color: #fbcda8; }
+  #main .right .content ul.orange li:nth-child(14) {
+    background-color: #b45609; }
+    #main .right .content ul.orange li:nth-child(14):hover:after {
+      content: "#b45609";
+      color: #f9bf90; }
+  #main .right .content ul.orange li:nth-child(15) {
+    background-color: #9c4a08; }
+    #main .right .content ul.orange li:nth-child(15):hover:after {
+      content: "#9c4a08";
+      color: #f8b177; }
+  #main .right .content ul.orange li:nth-child(16) {
+    background-color: #833f07; }
+    #main .right .content ul.orange li:nth-child(16):hover:after {
+      content: "#833f07";
+      color: #f7a35f; }
+  #main .right .content ul.orange li:nth-child(17) {
+    background-color: #6b3305; }
+    #main .right .content ul.orange li:nth-child(17):hover:after {
+      content: "#6b3305";
+      color: #f69647; }
+  #main .right .content ul.orange li:nth-child(18) {
+    background-color: #532804; }
+    #main .right .content ul.orange li:nth-child(18):hover:after {
+      content: "#532804";
+      color: #f4882f; }
+  #main .right .content ul.orange li:nth-child(19) {
+    background-color: #3b1c03; }
+    #main .right .content ul.orange li:nth-child(19):hover:after {
+      content: "#3b1c03";
+      color: #f37a16; }
+  #main .right .content ul.orange li:nth-child(20) {
+    background-color: #221002; }
+    #main .right .content ul.orange li:nth-child(20):hover:after {
+      content: "#221002";
+      color: #e46d0c; }
+  #main .right .content ul.orange li:nth-child(21) {
+    background-color: #0a0501; }
+    #main .right .content ul.orange li:nth-child(21):hover:after {
+      content: "#0a0501";
+      color: #cc620a; }
+  #main .right .content ul.orange li:nth-child(11) {
+    background-color: #f37a16; }
+  #main .right .content ul.yellow li:nth-child(10) {
+    background-color: #fbe02d; }
+    #main .right .content ul.yellow li:nth-child(10):hover:after {
+      content: "#fbe02d";
+      color: #5a4f02; }
+  #main .right .content ul.yellow li:nth-child(9) {
+    background-color: #fce346; }
+    #main .right .content ul.yellow li:nth-child(9):hover:after {
+      content: "#fce346";
+      color: #736402; }
+  #main .right .content ul.yellow li:nth-child(8) {
+    background-color: #fce75f; }
+    #main .right .content ul.yellow li:nth-child(8):hover:after {
+      content: "#fce75f";
+      color: #8c7a03; }
+  #main .right .content ul.yellow li:nth-child(7) {
+    background-color: #fceb78; }
+    #main .right .content ul.yellow li:nth-child(7):hover:after {
+      content: "#fceb78";
+      color: #a69003; }
+  #main .right .content ul.yellow li:nth-child(6) {
+    background-color: #fdef91; }
+    #main .right .content ul.yellow li:nth-child(6):hover:after {
+      content: "#fdef91";
+      color: #bfa604; }
+  #main .right .content ul.yellow li:nth-child(5) {
+    background-color: #fdf2aa; }
+    #main .right .content ul.yellow li:nth-child(5):hover:after {
+      content: "#fdf2aa";
+      color: #d8bb04; }
+  #main .right .content ul.yellow li:nth-child(4) {
+    background-color: #fef6c3; }
+    #main .right .content ul.yellow li:nth-child(4):hover:after {
+      content: "#fef6c3";
+      color: #f1d104; }
+  #main .right .content ul.yellow li:nth-child(3) {
+    background-color: #fefadc; }
+    #main .right .content ul.yellow li:nth-child(3):hover:after {
+      content: "#fefadc";
+      color: #fbdc14; }
+  #main .right .content ul.yellow li:nth-child(2) {
+    background-color: #fffef5; }
+    #main .right .content ul.yellow li:nth-child(2):hover:after {
+      content: "#fffef5";
+      color: #fbe02d; }
+  #main .right .content ul.yellow li:nth-child(1) {
+    background-color: white; }
+    #main .right .content ul.yellow li:nth-child(1):hover:after {
+      content: "white";
+      color: #fbe137; }
+  #main .right .content ul.yellow li:nth-child(12) {
+    background-color: #f1d104; }
+    #main .right .content ul.yellow li:nth-child(12):hover:after {
+      content: "#f1d104";
+      color: #fef6c3; }
+  #main .right .content ul.yellow li:nth-child(13) {
+    background-color: #d8bb04; }
+    #main .right .content ul.yellow li:nth-child(13):hover:after {
+      content: "#d8bb04";
+      color: #fdf2aa; }
+  #main .right .content ul.yellow li:nth-child(14) {
+    background-color: #bfa604; }
+    #main .right .content ul.yellow li:nth-child(14):hover:after {
+      content: "#bfa604";
+      color: #fdef91; }
+  #main .right .content ul.yellow li:nth-child(15) {
+    background-color: #a69003; }
+    #main .right .content ul.yellow li:nth-child(15):hover:after {
+      content: "#a69003";
+      color: #fceb78; }
+  #main .right .content ul.yellow li:nth-child(16) {
+    background-color: #8c7a03; }
+    #main .right .content ul.yellow li:nth-child(16):hover:after {
+      content: "#8c7a03";
+      color: #fce75f; }
+  #main .right .content ul.yellow li:nth-child(17) {
+    background-color: #736402; }
+    #main .right .content ul.yellow li:nth-child(17):hover:after {
+      content: "#736402";
+      color: #fce346; }
+  #main .right .content ul.yellow li:nth-child(18) {
+    background-color: #5a4f02; }
+    #main .right .content ul.yellow li:nth-child(18):hover:after {
+      content: "#5a4f02";
+      color: #fbe02d; }
+  #main .right .content ul.yellow li:nth-child(19) {
+    background-color: #413901; }
+    #main .right .content ul.yellow li:nth-child(19):hover:after {
+      content: "#413901";
+      color: #fbdc14; }
+  #main .right .content ul.yellow li:nth-child(20) {
+    background-color: #282301; }
+    #main .right .content ul.yellow li:nth-child(20):hover:after {
+      content: "#282301";
+      color: #f1d104; }
+  #main .right .content ul.yellow li:nth-child(21) {
+    background-color: #0f0d00; }
+    #main .right .content ul.yellow li:nth-child(21):hover:after {
+      content: "#0f0d00";
+      color: #d8bb04; }
+  #main .right .content ul.yellow li:nth-child(11) {
+    background-color: #fbdc14; }
+  #main .right .content ul.green li:nth-child(10) {
+    background-color: #80dc24; }
+    #main .right .content ul.green li:nth-child(10):hover:after {
+      content: "#80dc24";
+      color: #1a2c07; }
+  #main .right .content ul.green li:nth-child(9) {
+    background-color: #8cdf3a; }
+    #main .right .content ul.green li:nth-child(9):hover:after {
+      content: "#8cdf3a";
+      color: #26420b; }
+  #main .right .content ul.green li:nth-child(8) {
+    background-color: #99e34f; }
+    #main .right .content ul.green li:nth-child(8):hover:after {
+      content: "#99e34f";
+      color: #33580e; }
+  #main .right .content ul.green li:nth-child(7) {
+    background-color: #a6e665; }
+    #main .right .content ul.green li:nth-child(7):hover:after {
+      content: "#a6e665";
+      color: #406e12; }
+  #main .right .content ul.green li:nth-child(6) {
+    background-color: #b3ea7b; }
+    #main .right .content ul.green li:nth-child(6):hover:after {
+      content: "#b3ea7b";
+      color: #4d8415; }
+  #main .right .content ul.green li:nth-child(5) {
+    background-color: #bfed91; }
+    #main .right .content ul.green li:nth-child(5):hover:after {
+      content: "#bfed91";
+      color: #599a19; }
+  #main .right .content ul.green li:nth-child(4) {
+    background-color: #ccf1a7; }
+    #main .right .content ul.green li:nth-child(4):hover:after {
+      content: "#ccf1a7";
+      color: #66b01c; }
+  #main .right .content ul.green li:nth-child(3) {
+    background-color: #d9f4bd; }
+    #main .right .content ul.green li:nth-child(3):hover:after {
+      content: "#d9f4bd";
+      color: #73c620; }
+  #main .right .content ul.green li:nth-child(2) {
+    background-color: #e6f8d3; }
+    #main .right .content ul.green li:nth-child(2):hover:after {
+      content: "#e6f8d3";
+      color: #80dc24; }
+  #main .right .content ul.green li:nth-child(1) {
+    background-color: #f2fce9; }
+    #main .right .content ul.green li:nth-child(1):hover:after {
+      content: "#f2fce9";
+      color: #8cdf3a; }
+  #main .right .content ul.green li:nth-child(12) {
+    background-color: #66b01c; }
+    #main .right .content ul.green li:nth-child(12):hover:after {
+      content: "#66b01c";
+      color: #ccf1a7; }
+  #main .right .content ul.green li:nth-child(13) {
+    background-color: #599a19; }
+    #main .right .content ul.green li:nth-child(13):hover:after {
+      content: "#599a19";
+      color: #bfed91; }
+  #main .right .content ul.green li:nth-child(14) {
+    background-color: #4d8415; }
+    #main .right .content ul.green li:nth-child(14):hover:after {
+      content: "#4d8415";
+      color: #b3ea7b; }
+  #main .right .content ul.green li:nth-child(15) {
+    background-color: #406e12; }
+    #main .right .content ul.green li:nth-child(15):hover:after {
+      content: "#406e12";
+      color: #a6e665; }
+  #main .right .content ul.green li:nth-child(16) {
+    background-color: #33580e; }
+    #main .right .content ul.green li:nth-child(16):hover:after {
+      content: "#33580e";
+      color: #99e34f; }
+  #main .right .content ul.green li:nth-child(17) {
+    background-color: #26420b; }
+    #main .right .content ul.green li:nth-child(17):hover:after {
+      content: "#26420b";
+      color: #8cdf3a; }
+  #main .right .content ul.green li:nth-child(18) {
+    background-color: #1a2c07; }
+    #main .right .content ul.green li:nth-child(18):hover:after {
+      content: "#1a2c07";
+      color: #80dc24; }
+  #main .right .content ul.green li:nth-child(19) {
+    background-color: #0d1604; }
+    #main .right .content ul.green li:nth-child(19):hover:after {
+      content: "#0d1604";
+      color: #73c620; }
+  #main .right .content ul.green li:nth-child(20) {
+    background-color: black; }
+    #main .right .content ul.green li:nth-child(20):hover:after {
+      content: "black";
+      color: #66b01c; }
+  #main .right .content ul.green li:nth-child(21) {
+    background-color: black; }
+    #main .right .content ul.green li:nth-child(21):hover:after {
+      content: "black";
+      color: #66b01c; }
+  #main .right .content ul.green li:nth-child(11) {
+    background-color: #73c620; }
+  #main .right .content ul.blue li:nth-child(10) {
+    background-color: #14cbeb; }
+    #main .right .content ul.blue li:nth-child(10):hover:after {
+      content: "#14cbeb";
+      color: #04292f; }
+  #main .right .content ul.blue li:nth-child(9) {
+    background-color: #2cd0ed; }
+    #main .right .content ul.blue li:nth-child(9):hover:after {
+      content: "#2cd0ed";
+      color: #063d47; }
+  #main .right .content ul.blue li:nth-child(8) {
+    background-color: #43d5ef; }
+    #main .right .content ul.blue li:nth-child(8):hover:after {
+      content: "#43d5ef";
+      color: #08515e; }
+  #main .right .content ul.blue li:nth-child(7) {
+    background-color: #5bdaf1; }
+    #main .right .content ul.blue li:nth-child(7):hover:after {
+      content: "#5bdaf1";
+      color: #0a6676; }
+  #main .right .content ul.blue li:nth-child(6) {
+    background-color: #72e0f3; }
+    #main .right .content ul.blue li:nth-child(6):hover:after {
+      content: "#72e0f3";
+      color: #0c7a8d; }
+  #main .right .content ul.blue li:nth-child(5) {
+    background-color: #8ae5f5; }
+    #main .right .content ul.blue li:nth-child(5):hover:after {
+      content: "#8ae5f5";
+      color: #0e8ea5; }
+  #main .right .content ul.blue li:nth-child(4) {
+    background-color: #a1eaf7; }
+    #main .right .content ul.blue li:nth-child(4):hover:after {
+      content: "#a1eaf7";
+      color: #10a2bc; }
+  #main .right .content ul.blue li:nth-child(3) {
+    background-color: #b9eff9; }
+    #main .right .content ul.blue li:nth-child(3):hover:after {
+      content: "#b9eff9";
+      color: #12b7d4; }
+  #main .right .content ul.blue li:nth-child(2) {
+    background-color: #d0f5fb; }
+    #main .right .content ul.blue li:nth-child(2):hover:after {
+      content: "#d0f5fb";
+      color: #14cbeb; }
+  #main .right .content ul.blue li:nth-child(1) {
+    background-color: #e8fafd; }
+    #main .right .content ul.blue li:nth-child(1):hover:after {
+      content: "#e8fafd";
+      color: #2cd0ed; }
+  #main .right .content ul.blue li:nth-child(12) {
+    background-color: #10a2bc; }
+    #main .right .content ul.blue li:nth-child(12):hover:after {
+      content: "#10a2bc";
+      color: #a1eaf7; }
+  #main .right .content ul.blue li:nth-child(13) {
+    background-color: #0e8ea5; }
+    #main .right .content ul.blue li:nth-child(13):hover:after {
+      content: "#0e8ea5";
+      color: #8ae5f5; }
+  #main .right .content ul.blue li:nth-child(14) {
+    background-color: #0c7a8d; }
+    #main .right .content ul.blue li:nth-child(14):hover:after {
+      content: "#0c7a8d";
+      color: #72e0f3; }
+  #main .right .content ul.blue li:nth-child(15) {
+    background-color: #0a6676; }
+    #main .right .content ul.blue li:nth-child(15):hover:after {
+      content: "#0a6676";
+      color: #5bdaf1; }
+  #main .right .content ul.blue li:nth-child(16) {
+    background-color: #08515e; }
+    #main .right .content ul.blue li:nth-child(16):hover:after {
+      content: "#08515e";
+      color: #43d5ef; }
+  #main .right .content ul.blue li:nth-child(17) {
+    background-color: #063d47; }
+    #main .right .content ul.blue li:nth-child(17):hover:after {
+      content: "#063d47";
+      color: #2cd0ed; }
+  #main .right .content ul.blue li:nth-child(18) {
+    background-color: #04292f; }
+    #main .right .content ul.blue li:nth-child(18):hover:after {
+      content: "#04292f";
+      color: #14cbeb; }
+  #main .right .content ul.blue li:nth-child(19) {
+    background-color: #021518; }
+    #main .right .content ul.blue li:nth-child(19):hover:after {
+      content: "#021518";
+      color: #12b7d4; }
+  #main .right .content ul.blue li:nth-child(20) {
+    background-color: black; }
+    #main .right .content ul.blue li:nth-child(20):hover:after {
+      content: "black";
+      color: #10a2bc; }
+  #main .right .content ul.blue li:nth-child(21) {
+    background-color: black; }
+    #main .right .content ul.blue li:nth-child(21):hover:after {
+      content: "black";
+      color: #10a2bc; }
+  #main .right .content ul.blue li:nth-child(11) {
+    background-color: #12b7d4; }
+  #main .right .content ul.purple li:nth-child(10) {
+    background-color: #b214eb; }
+    #main .right .content ul.purple li:nth-child(10):hover:after {
+      content: "#b214eb";
+      color: #24042f; }
+  #main .right .content ul.purple li:nth-child(9) {
+    background-color: #ba2ced; }
+    #main .right .content ul.purple li:nth-child(9):hover:after {
+      content: "#ba2ced";
+      color: #360647; }
+  #main .right .content ul.purple li:nth-child(8) {
+    background-color: #c143ef; }
+    #main .right .content ul.purple li:nth-child(8):hover:after {
+      content: "#c143ef";
+      color: #47085e; }
+  #main .right .content ul.purple li:nth-child(7) {
+    background-color: #c95bf1; }
+    #main .right .content ul.purple li:nth-child(7):hover:after {
+      content: "#c95bf1";
+      color: #590a76; }
+  #main .right .content ul.purple li:nth-child(6) {
+    background-color: #d172f3; }
+    #main .right .content ul.purple li:nth-child(6):hover:after {
+      content: "#d172f3";
+      color: #6b0c8d; }
+  #main .right .content ul.purple li:nth-child(5) {
+    background-color: #d88af5; }
+    #main .right .content ul.purple li:nth-child(5):hover:after {
+      content: "#d88af5";
+      color: #7d0ea5; }
+  #main .right .content ul.purple li:nth-child(4) {
+    background-color: #e0a1f7; }
+    #main .right .content ul.purple li:nth-child(4):hover:after {
+      content: "#e0a1f7";
+      color: #8e10bc; }
+  #main .right .content ul.purple li:nth-child(3) {
+    background-color: #e8b9f9; }
+    #main .right .content ul.purple li:nth-child(3):hover:after {
+      content: "#e8b9f9";
+      color: #a012d4; }
+  #main .right .content ul.purple li:nth-child(2) {
+    background-color: #f0d0fb; }
+    #main .right .content ul.purple li:nth-child(2):hover:after {
+      content: "#f0d0fb";
+      color: #b214eb; }
+  #main .right .content ul.purple li:nth-child(1) {
+    background-color: #f7e8fd; }
+    #main .right .content ul.purple li:nth-child(1):hover:after {
+      content: "#f7e8fd";
+      color: #ba2ced; }
+  #main .right .content ul.purple li:nth-child(12) {
+    background-color: #8e10bc; }
+    #main .right .content ul.purple li:nth-child(12):hover:after {
+      content: "#8e10bc";
+      color: #e0a1f7; }
+  #main .right .content ul.purple li:nth-child(13) {
+    background-color: #7d0ea5; }
+    #main .right .content ul.purple li:nth-child(13):hover:after {
+      content: "#7d0ea5";
+      color: #d88af5; }
+  #main .right .content ul.purple li:nth-child(14) {
+    background-color: #6b0c8d; }
+    #main .right .content ul.purple li:nth-child(14):hover:after {
+      content: "#6b0c8d";
+      color: #d172f3; }
+  #main .right .content ul.purple li:nth-child(15) {
+    background-color: #590a76; }
+    #main .right .content ul.purple li:nth-child(15):hover:after {
+      content: "#590a76";
+      color: #c95bf1; }
+  #main .right .content ul.purple li:nth-child(16) {
+    background-color: #47085e; }
+    #main .right .content ul.purple li:nth-child(16):hover:after {
+      content: "#47085e";
+      color: #c143ef; }
+  #main .right .content ul.purple li:nth-child(17) {
+    background-color: #360647; }
+    #main .right .content ul.purple li:nth-child(17):hover:after {
+      content: "#360647";
+      color: #ba2ced; }
+  #main .right .content ul.purple li:nth-child(18) {
+    background-color: #24042f; }
+    #main .right .content ul.purple li:nth-child(18):hover:after {
+      content: "#24042f";
+      color: #b214eb; }
+  #main .right .content ul.purple li:nth-child(19) {
+    background-color: #120218; }
+    #main .right .content ul.purple li:nth-child(19):hover:after {
+      content: "#120218";
+      color: #a012d4; }
+  #main .right .content ul.purple li:nth-child(20) {
+    background-color: black; }
+    #main .right .content ul.purple li:nth-child(20):hover:after {
+      content: "black";
+      color: #8e10bc; }
+  #main .right .content ul.purple li:nth-child(21) {
+    background-color: black; }
+    #main .right .content ul.purple li:nth-child(21):hover:after {
+      content: "black";
+      color: #8e10bc; }
+  #main .right .content ul.purple li:nth-child(11) {
+    background-color: #a012d4; }
+  #main .right .content ul.gray li:nth-child(10) {
+    background-color: #848484; }
+    #main .right .content ul.gray li:nth-child(10):hover:after {
+      content: "#848484";
+      color: #1e1e1e; }
+  #main .right .content ul.gray li:nth-child(9) {
+    background-color: #919191; }
+    #main .right .content ul.gray li:nth-child(9):hover:after {
+      content: "#919191";
+      color: #2b2b2b; }
+  #main .right .content ul.gray li:nth-child(8) {
+    background-color: #9d9d9d; }
+    #main .right .content ul.gray li:nth-child(8):hover:after {
+      content: "#9d9d9d";
+      color: #373737; }
+  #main .right .content ul.gray li:nth-child(7) {
+    background-color: #aaaaaa; }
+    #main .right .content ul.gray li:nth-child(7):hover:after {
+      content: "#aaaaaa";
+      color: #444444; }
+  #main .right .content ul.gray li:nth-child(6) {
+    background-color: #b7b7b7; }
+    #main .right .content ul.gray li:nth-child(6):hover:after {
+      content: "#b7b7b7";
+      color: #515151; }
+  #main .right .content ul.gray li:nth-child(5) {
+    background-color: #c4c4c4; }
+    #main .right .content ul.gray li:nth-child(5):hover:after {
+      content: "#c4c4c4";
+      color: #5e5e5e; }
+  #main .right .content ul.gray li:nth-child(4) {
+    background-color: #d0d0d0; }
+    #main .right .content ul.gray li:nth-child(4):hover:after {
+      content: "#d0d0d0";
+      color: #6a6a6a; }
+  #main .right .content ul.gray li:nth-child(3) {
+    background-color: #dddddd; }
+    #main .right .content ul.gray li:nth-child(3):hover:after {
+      content: "#dddddd";
+      color: #777777; }
+  #main .right .content ul.gray li:nth-child(2) {
+    background-color: #eaeaea; }
+    #main .right .content ul.gray li:nth-child(2):hover:after {
+      content: "#eaeaea";
+      color: #848484; }
+  #main .right .content ul.gray li:nth-child(1) {
+    background-color: #f7f7f7; }
+    #main .right .content ul.gray li:nth-child(1):hover:after {
+      content: "#f7f7f7";
+      color: #919191; }
+  #main .right .content ul.gray li:nth-child(12) {
+    background-color: #6a6a6a; }
+    #main .right .content ul.gray li:nth-child(12):hover:after {
+      content: "#6a6a6a";
+      color: #d0d0d0; }
+  #main .right .content ul.gray li:nth-child(13) {
+    background-color: #5e5e5e; }
+    #main .right .content ul.gray li:nth-child(13):hover:after {
+      content: "#5e5e5e";
+      color: #c4c4c4; }
+  #main .right .content ul.gray li:nth-child(14) {
+    background-color: #515151; }
+    #main .right .content ul.gray li:nth-child(14):hover:after {
+      content: "#515151";
+      color: #b7b7b7; }
+  #main .right .content ul.gray li:nth-child(15) {
+    background-color: #444444; }
+    #main .right .content ul.gray li:nth-child(15):hover:after {
+      content: "#444444";
+      color: #aaaaaa; }
+  #main .right .content ul.gray li:nth-child(16) {
+    background-color: #373737; }
+    #main .right .content ul.gray li:nth-child(16):hover:after {
+      content: "#373737";
+      color: #9d9d9d; }
+  #main .right .content ul.gray li:nth-child(17) {
+    background-color: #2b2b2b; }
+    #main .right .content ul.gray li:nth-child(17):hover:after {
+      content: "#2b2b2b";
+      color: #919191; }
+  #main .right .content ul.gray li:nth-child(18) {
+    background-color: #1e1e1e; }
+    #main .right .content ul.gray li:nth-child(18):hover:after {
+      content: "#1e1e1e";
+      color: #848484; }
+  #main .right .content ul.gray li:nth-child(19) {
+    background-color: #111111; }
+    #main .right .content ul.gray li:nth-child(19):hover:after {
+      content: "#111111";
+      color: #777777; }
+  #main .right .content ul.gray li:nth-child(20) {
+    background-color: #040404; }
+    #main .right .content ul.gray li:nth-child(20):hover:after {
+      content: "#040404";
+      color: #6a6a6a; }
+  #main .right .content ul.gray li:nth-child(21) {
+    background-color: black; }
+    #main .right .content ul.gray li:nth-child(21):hover:after {
+      content: "black";
+      color: #666666; }
+  #main .right .content ul.gray li:nth-child(11) {
+    background-color: #777; }
+@media only screen and (max-width: 1000px) {
+  #main {
+    position: absolute;
+    width: 100%;
+    top: 0; }
+    #main .left {
+      border-radius: 40px 40px 0 0;
+      padding-top: 100px;
+      max-width: 1004px; }
+      #main .left .avatar {
+        position: relative;
+        margin: 0 auto 20px;
+        width: 160px;
+        height: 160px; } }
+      @media only screen and (max-width: 1000px) and (max-width: 1000px) {
+        #main .left .avatar {
+          margin: 0 auto 80px; } }
+@media only screen and (max-width: 1000px) {
+        #main .left .avatar .image-border {
+          position: absolute;
+          left: 50%;
+          margin: -5px 0 0 -80px;
+          width: 160px;
+          height: 160px;
+          border-radius: 50%;
+          background-color: #fff; }
+        #main .left .avatar .image {
+          position: absolute;
+          left: 50%;
+          margin-left: -75px;
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          background: #fff url("../image/TX.png") 0 0 no-repeat;
+          background-size: 100%; }
+      #main .left .own {
+        margin-top: 40px;
+        border-top: 5px solid #ccc; }
+        #main .left .own li {
+          display: inline-block;
+          color: #fff;
+          line-height: 60px;
+          cursor: pointer;
+          width: 100%;
+          height: 100%;
+          font-size: 24px;
+          height: 120px;
+          line-height: 120px;
+          font-size: 48px; }
+          #main .left .own li a {
+            display: block;
+            width: 100%;
+            height: 100%; }
+          #main .left .own li:nth-child(odd) {
+            background-color: rgba(255, 255, 255, 0.3); }
+          #main .left .own li:hover {
+            background-color: rgba(255, 255, 255, 0.6); }
+            #main .left .own li:hover i, #main .left .own li:hover a {
+              color: #123; }
+          #main .left .own li i {
+            margin: 0 25px 0 40px; }
+          #main .left .own li i {
+            margin: 0 50px 0 80px; }
+      #main .left .link {
+        margin-top: 40px;
+        border-top: 5px solid #ccc;
+        display: none;
+        position: absolute;
+        width: 300px;
+        bottom: 0; }
+        #main .left .link:last-child {
+          border-bottom-left-radius: 40px; }
+        #main .left .link::before {
+          content: '-link-';
+          position: absolute;
+          font-family: 16px;
+          color: #ccc;
+          top: -28px;
+          left: 20px; }
+        #main .left .link li:last-child {
+          border-bottom-left-radius: 40px; }
+        #main .left .link li {
+          display: inline-block;
+          color: #fff;
+          line-height: 60px;
+          cursor: pointer;
+          width: 100%;
+          height: 100%;
+          font-size: 24px;
+          height: 120px;
+          line-height: 120px;
+          font-size: 48px; }
+          #main .left .link li a {
+            display: block;
+            width: 100%;
+            height: 100%; }
+          #main .left .link li:nth-child(odd) {
+            background-color: rgba(255, 255, 255, 0.3); }
+          #main .left .link li:hover {
+            background-color: rgba(255, 255, 255, 0.6); }
+            #main .left .link li:hover i, #main .left .link li:hover a {
+              color: #123; }
+          #main .left .link li i {
+            margin: 0 25px 0 40px; }
+          #main .left .link li i {
+            margin: 0 50px 0 80px; }
+    #main .right {
+      border-radius: 0 0 40px 40px;
+      padding: 40px 80px; }
+      #main .right #resume h2 {
+        font-size: 48px; }
+      #main .right #resume h4 {
+        margin: 40px 80px 20px;
+        font-size: 36px;
+        color: #454545; }
+        #main .right #resume h4::before {
+          top: 34px;
+          left: -100px;
+          width: 80px; }
+        #main .right #resume h4::after {
+          top: 34px;
+          left: 230px;
+          width: 80px; }
+      #main .right #resume p, #main .right #resume p span {
+        padding-right: 25px;
+        line-height: 36px;
+        font-size: 36px; }
+      #main .right #resume span {
+        padding: 0 54px 20px 0;
+        line-height: 54px;
+        font-size: 36px; } }
+
+/*# sourceMappingURL=colorCard.css.map */

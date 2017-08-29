@@ -1,65 +1,3 @@
-body {
-  background: #fff url(../image/background.jpg) 0 0 no-repeat;
-  background-size: 100%; }
-  @media only screen and (max-width: 1000px) {
-    body {
-      background: #fff url(../image/background-mobile.jpg) 0 0 no-repeat;
-      background-size: 100%; } }
-
-#main .left .avatar {
-  position: relative;
-  margin: 50px auto 20px;
-  width: 80px;
-  height: 80px; }
-  @media only screen and (max-width: 1000px) {
-    #main .left .avatar {
-      margin: 50px auto 80px; } }
-  #main .left .avatar .image-border {
-    position: absolute;
-    left: 50%;
-    margin: -5px 0 0 -40px;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: #fff; }
-  #main .left .avatar .image {
-    position: absolute;
-    left: 50%;
-    margin-left: -35px;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: #fff url("../image/TX.png") 0 0 no-repeat;
-    background-size: 100%; }
-#main .left .own {
-  margin-top: 40px;
-  border-top: 5px solid #ccc; }
-  #main .left .own li {
-    position: relative;
-    display: inline-block;
-    color: #fff;
-    height: 60px;
-    line-height: 60px;
-    font-size: 24px;
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
-    text-indent: 25px; }
-    #main .left .own li.choose::after {
-      position: absolute;
-      display: block;
-      top: 0;
-      right: 0;
-      border-width: 30px;
-      border-style: solid;
-      border-color: transparent #f3f5f7 transparent transparent;
-      content: ''; }
-    #main .left .own li:nth-child(odd) {
-      background-color: rgba(255, 255, 255, 0.3); }
-    #main .left .own li:hover {
-      background-color: rgba(255, 255, 255, 0.6); }
-      #main .left .own li:hover a {
-        color: #123; }
 #main .right .content {
   position: relative;
   margin: 50px auto 0;
@@ -145,15 +83,18 @@ body {
         #main .left .own li {
           display: inline-block;
           color: #fff;
-          height: 60px;
           line-height: 60px;
-          font-size: 24px;
           cursor: pointer;
           width: 100%;
           height: 100%;
+          font-size: 24px;
           height: 120px;
           line-height: 120px;
           font-size: 48px; }
+          #main .left .own li a {
+            display: block;
+            width: 100%;
+            height: 100%; }
           #main .left .own li:nth-child(odd) {
             background-color: rgba(255, 255, 255, 0.3); }
           #main .left .own li:hover {
@@ -169,8 +110,10 @@ body {
         border-top: 5px solid #ccc;
         display: none;
         position: absolute;
-        bottom: 0;
-        width: 100%; }
+        width: 300px;
+        bottom: 0; }
+        #main .left .link:last-child {
+          border-bottom-left-radius: 40px; }
         #main .left .link::before {
           content: '-link-';
           position: absolute;
@@ -178,18 +121,23 @@ body {
           color: #ccc;
           top: -28px;
           left: 20px; }
+        #main .left .link li:last-child {
+          border-bottom-left-radius: 40px; }
         #main .left .link li {
           display: inline-block;
           color: #fff;
-          height: 60px;
           line-height: 60px;
-          font-size: 24px;
           cursor: pointer;
           width: 100%;
           height: 100%;
+          font-size: 24px;
           height: 120px;
           line-height: 120px;
           font-size: 48px; }
+          #main .left .link li a {
+            display: block;
+            width: 100%;
+            height: 100%; }
           #main .left .link li:nth-child(odd) {
             background-color: rgba(255, 255, 255, 0.3); }
           #main .left .link li:hover {

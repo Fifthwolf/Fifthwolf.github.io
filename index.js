@@ -25,7 +25,7 @@ addEvent(own, 'click', function(e){
     }catch(e){
     }
     if (target == ownLi[i]){
-      scrollAnimate(right, rightDiv[i], 200);
+      scrollAnimate(right, rightDiv[i], 150);
       break;
     }
   }
@@ -33,6 +33,9 @@ addEvent(own, 'click', function(e){
 
 addEvent(eGo, 'click', function(){
   var deg = 0;
+  if(judgeWidth()){
+    main.style.display = 'flex';
+  }
   function disappear () {
     deg += 3;
     setTimeout(function(){
@@ -41,9 +44,6 @@ addEvent(eGo, 'click', function(){
         disappear();
       } else {
         star.style.display = 'none';
-        if(judgeWidth()){
-          main.style.display = 'flex';
-        }
         deg = 270;
         appear();
       }
@@ -68,12 +68,19 @@ function scrollAnimate(ele, target, time) {
   clearTimeout(TEMP);
   TEMP = null;
   var end = target.offsetTop - 50;
+  console.log(end);
   var star = right.scrollTop;
   var step = (end - star) / (time / 10);
+  var tempEnd;
   function animate() {
     TEMP = setTimeout(function(){
       if(Math.abs(end - right.scrollTop) > Math.abs(step)){
         right.scrollTop = right.scrollTop + step;
+        if(tempEnd == right.scrollTop){
+          clearTimeout(TEMP);
+          return;
+        }
+        tempEnd = right.scrollTop;
         animate();
       } else {
         right.scrollTop = end;
@@ -87,8 +94,8 @@ function scrollAnimate(ele, target, time) {
 function useDEMOUlMargin(parentElement, childElements, childElementMinMargin) {
   var UlWidth = demoUl.offsetWidth;
   var LiWidth = childElements[0].offsetWidth;
-  var length = parseInt(UlWidth / LiWidth);
-  var marginRight = Math.floor((UlWidth -  length  * (LiWidth + length + 2)) / (length * 2));
+  var length = Math.floor(UlWidth / (LiWidth + 20));
+  var marginRight = Math.floor((UlWidth - length  * (LiWidth + 4)) / (length * 2));
   for (var i = 0; i < childElements.length; i++) {
     childElements[i].style.margin = `10px ${marginRight}px 30px`;
   }

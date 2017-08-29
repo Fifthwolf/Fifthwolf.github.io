@@ -20,12 +20,10 @@ body {
   position: absolute;
   border-radius: 40px;
   -webkit-box-shadow: 0px 0px 8px #666;
-  box-shadow: 0px 0px 8px #666; }
+  box-shadow: 0px 0px 8px #666;
+  flex-flow: row; }
   #main .left {
-    flex: 1 1 auto;
-    position: relative;
-    min-width: 280px;
-    max-width: 340px;
+    width: 300px;
     border-radius: 40px 0 0 40px;
     background-color: rgba(17, 34, 51, 0.75); }
     #main .left .avatar {
@@ -59,12 +57,15 @@ body {
       #main .left .own li {
         display: inline-block;
         color: #fff;
-        height: 60px;
         line-height: 60px;
-        font-size: 24px;
         cursor: pointer;
         width: 100%;
-        height: 100%; }
+        height: 100%;
+        font-size: 24px; }
+        #main .left .own li a {
+          display: block;
+          width: 100%;
+          height: 100%; }
         #main .left .own li:nth-child(odd) {
           background-color: rgba(255, 255, 255, 0.3); }
         #main .left .own li:hover {
@@ -77,8 +78,10 @@ body {
       margin-top: 40px;
       border-top: 5px solid #ccc;
       position: absolute;
-      bottom: 0;
-      width: 100%; }
+      width: 300px;
+      bottom: 0; }
+      #main .left .link:last-child {
+        border-bottom-left-radius: 40px; }
       #main .left .link::before {
         content: '-link-';
         position: absolute;
@@ -86,15 +89,20 @@ body {
         color: #ccc;
         top: -28px;
         left: 20px; }
+      #main .left .link li:last-child {
+        border-bottom-left-radius: 40px; }
       #main .left .link li {
         display: inline-block;
         color: #fff;
-        height: 60px;
         line-height: 60px;
-        font-size: 24px;
         cursor: pointer;
         width: 100%;
-        height: 100%; }
+        height: 100%;
+        font-size: 24px; }
+        #main .left .link li a {
+          display: block;
+          width: 100%;
+          height: 100%; }
         #main .left .link li:nth-child(odd) {
           background-color: rgba(255, 255, 255, 0.3); }
         #main .left .link li:hover {
@@ -104,7 +112,7 @@ body {
         #main .left .link li i {
           margin: 0 25px 0 40px; }
   #main .right {
-    flex: 6 1 auto;
+    flex: 1;
     border-radius: 0 40px 40px 0;
     background-color: #f3f5f7;
     padding: 30px 50px;
@@ -118,6 +126,13 @@ body {
       background-color: rgba(17, 34, 51, 0.75); }
       #main .right::-webkit-scrollbar-thumb:hover {
         background-color: rgba(17, 34, 51, 0.9); }
+    #main .right .quit a {
+      z-index: 100;
+      position: fixed;
+      cursor: pointer; }
+      #main .right .quit a i {
+        font-size: 48px;
+        color: #567; }
   @media only screen and (max-width: 1000px) {
     #main {
       position: absolute;
@@ -159,15 +174,18 @@ body {
           #main .left .own li {
             display: inline-block;
             color: #fff;
-            height: 60px;
             line-height: 60px;
-            font-size: 24px;
             cursor: pointer;
             width: 100%;
             height: 100%;
+            font-size: 24px;
             height: 120px;
             line-height: 120px;
             font-size: 48px; }
+            #main .left .own li a {
+              display: block;
+              width: 100%;
+              height: 100%; }
             #main .left .own li:nth-child(odd) {
               background-color: rgba(255, 255, 255, 0.3); }
             #main .left .own li:hover {
@@ -183,8 +201,10 @@ body {
           border-top: 5px solid #ccc;
           display: none;
           position: absolute;
-          bottom: 0;
-          width: 100%; }
+          width: 300px;
+          bottom: 0; }
+          #main .left .link:last-child {
+            border-bottom-left-radius: 40px; }
           #main .left .link::before {
             content: '-link-';
             position: absolute;
@@ -192,18 +212,23 @@ body {
             color: #ccc;
             top: -28px;
             left: 20px; }
+          #main .left .link li:last-child {
+            border-bottom-left-radius: 40px; }
           #main .left .link li {
             display: inline-block;
             color: #fff;
-            height: 60px;
             line-height: 60px;
-            font-size: 24px;
             cursor: pointer;
             width: 100%;
             height: 100%;
+            font-size: 24px;
             height: 120px;
             line-height: 120px;
             font-size: 48px; }
+            #main .left .link li a {
+              display: block;
+              width: 100%;
+              height: 100%; }
             #main .left .link li:nth-child(odd) {
               background-color: rgba(255, 255, 255, 0.3); }
             #main .left .link li:hover {
