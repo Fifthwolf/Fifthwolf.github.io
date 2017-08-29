@@ -60,6 +60,10 @@ body {
       background-color: rgba(255, 255, 255, 0.6); }
       #main .left .own li:hover a {
         color: #123; }
+#main .right .content {
+  width: 400px;
+  height: 400px;
+  background-color: #ccc; }
 @media only screen and (max-width: 1000px) {
   #main {
     position: absolute;
@@ -182,4 +186,4 @@ body {
         line-height: 54px;
         font-size: 36px; } }
 
-/*# sourceMappingURL=perpetualCalendar.css.map */
+/*# sourceMappingURL=PerpetualCalendar.css.map */

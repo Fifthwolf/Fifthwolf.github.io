@@ -49,6 +49,11 @@ body{
     }
   }
   .right{
+    .content{
+      width: 400px;
+      height: 400px;
+      background-color: #ccc;
+    }
   }
 
   @media only screen and (max-width: 1000px){
