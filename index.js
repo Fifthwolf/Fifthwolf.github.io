@@ -9,6 +9,12 @@ var TEMP;
 useDEMOUlMargin(demoUl, demoLis, 10);
 useElementToAppropriate(star, document);
 
+if(getCookie('main')){
+  star.style.display = 'none';
+  main.style.display = 'flex';
+  main.style.transform = 'rotateY(0deg)';
+}
+
 window.onresize = function () {
   adjustmentWindow();
   useDEMOUlMargin(demoUl, demoLis, 10);
@@ -58,6 +64,7 @@ addEvent(eGo, 'click', function(){
       } else {
         main.style.transform = 'rotateY(0deg)';
         useDEMOUlMargin(demoUl, demoLis, 10);
+        setCookie('main','flex',5);
       }
     },10);
   }
@@ -68,7 +75,6 @@ function scrollAnimate(ele, target, time) {
   clearTimeout(TEMP);
   TEMP = null;
   var end = target.offsetTop - 50;
-  console.log(end);
   var star = right.scrollTop;
   var step = (end - star) / (time / 10);
   var tempEnd;

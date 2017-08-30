@@ -247,6 +247,7 @@ body {
           font-size: 54px; } }
 
 #main {
+  display: none;
   -webkit-transform: rotateY(90deg);
   -ms-transform: rotateY(90deg);
   -o-transform: rotateY(90deg);
