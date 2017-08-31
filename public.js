@@ -10,11 +10,11 @@ window.onresize = function () {
 }
 
 function adjustmentWindow () {
-  if(judgeWidth()){
+  if (judgeWidth()) {
     main.style.display = 'flex';
     publicUseMainAppropriate(main);
   }
-  if(!judgeWidth()){
+  if (!judgeWidth()) {
     main.style.display = 'block';
   }
 }

@@ -13,7 +13,7 @@ body {
   background-size: 100%; }
   @media only screen and (max-width: 1000px) {
     body {
-      background: #fff url(image/background-mobile.jpg) 0 0 no-repeat;
+      background: #fff url(image/background-mobile.jpg) 0 0 no-repeat fixed;
       background-size: 100%; } }
 
 #main {
@@ -140,14 +140,16 @@ body {
       width: 100%;
       top: 0; }
       #main .left {
+        width: 100%;
         border-radius: 40px 40px 0 0;
         padding-top: 100px;
-        max-width: 1004px; }
+        max-width: 1004px;
+        margin-right: 0; }
         #main .left .avatar {
           position: relative;
           margin: 0 auto 20px;
-          width: 160px;
-          height: 160px; } }
+          width: 150px;
+          height: 150px; } }
       @media only screen and (max-width: 1000px) and (max-width: 1000px) {
         #main .left .avatar {
           margin: 0 auto 80px; } }
@@ -155,17 +157,17 @@ body {
           #main .left .avatar .image-border {
             position: absolute;
             left: 50%;
-            margin: -5px 0 0 -80px;
-            width: 160px;
-            height: 160px;
+            margin: -5px 0 0 -75px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             background-color: #fff; }
           #main .left .avatar .image {
             position: absolute;
             left: 50%;
-            margin-left: -75px;
-            width: 150px;
-            height: 150px;
+            margin-left: -70px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
             background: #fff url("image/TX.png") 0 0 no-repeat;
             background-size: 100%; }

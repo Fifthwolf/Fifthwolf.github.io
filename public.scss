@@ -17,7 +17,7 @@ body{
   background: #fff url(image/background.jpg) 0 0 no-repeat;
   background-size: 100%;
   @media only screen and (max-width: 1000px){
-    background: #fff url(image/background-mobile.jpg) 0 0 no-repeat;
+    background: #fff url(image/background-mobile.jpg) 0 0 no-repeat fixed;
     background-size: 100%;
   }
 }
@@ -77,10 +77,12 @@ body{
     width: 100%;
     top: 0;
     .left{
+      width: 100%;
       border-radius: 40px 40px 0 0;
       padding-top: 100px;
       max-width: 1004px;
-      @include avatar(160px);
+      margin-right: 0;
+      @include avatar(150px);
       .own{
         @include leftUl(false, true);
       }

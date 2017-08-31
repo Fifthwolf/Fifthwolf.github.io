@@ -6,12 +6,12 @@ var demoUl = demo.getElementsByTagName('ul')[0];
 var demoLis = demoUl.getElementsByTagName('li');
 var TEMP;
 
-useDEMOUlMargin(demoUl, demoLis, 10);
 useElementToAppropriate(star, document);
+useDEMOUlMargin(demoUl, demoLis, 10);
 
 if(getCookie('main')){
   star.style.display = 'none';
-  main.style.display = 'flex';
+  main.style.display = judgeWidth() ? 'flex' : 'block';
   main.style.transform = 'rotateY(0deg)';
 }
 
@@ -21,14 +21,17 @@ window.onresize = function () {
   useElementToAppropriate(star, document);
 }
 
-addEvent(own, 'click', function(e){
+addEvent(own, 'click', function (e) {
   var target = e.target || e.srcElement;
+  if (judgeWidth()) {
+    e = myfn(e);
+  }
   for (var i = 0, length = ownLi.length; i < length; i++) {
     try{
       while (target.tagName.toUpperCase() != 'LI'){
         target = target.parentNode;
       }
-    }catch(e){
+    } catch(e) {
     }
     if (target == ownLi[i]){
       scrollAnimate(right, rightDiv[i], 150);
@@ -37,13 +40,14 @@ addEvent(own, 'click', function(e){
   }
 });
 
-addEvent(eGo, 'click', function(){
+addEvent(eGo, 'click', function () {
+  setCookie('main', 'flex', 5);
   var deg = 0;
-  if(judgeWidth()){
+  if (judgeWidth()) {
     main.style.display = 'flex';
   }
   function disappear () {
-    deg += 3;
+    deg += 5;
     setTimeout(function(){
       star.style.transform = 'rotateY(' + deg + 'deg)';
       if (deg < 90) {
@@ -53,25 +57,23 @@ addEvent(eGo, 'click', function(){
         deg = 270;
         appear();
       }
-    },10);
+    },20);
   }
   function appear () {
-    deg += 3;
+    deg += 5;
     setTimeout(function(){
       main.style.transform = 'rotateY(' + deg + 'deg)';
       if (deg < 360) {
         appear();
       } else {
         main.style.transform = 'rotateY(0deg)';
-        useDEMOUlMargin(demoUl, demoLis, 10);
-        setCookie('main','flex',5);
       }
-    },10);
+    },20);
   }
   disappear();
 });
 
-function scrollAnimate(ele, target, time) {
+function scrollAnimate (ele, target, time) {
   clearTimeout(TEMP);
   TEMP = null;
   var end = target.offsetTop - 50;
@@ -97,12 +99,16 @@ function scrollAnimate(ele, target, time) {
   animate();
 }
 
-function useDEMOUlMargin(parentElement, childElements, childElementMinMargin) {
+function useDEMOUlMargin (parentElement, childElements, childElementMinMargin) {
   var UlWidth = demoUl.offsetWidth;
   var LiWidth = childElements[0].offsetWidth;
   var length = Math.floor(UlWidth / (LiWidth + 20));
   var marginRight = Math.floor((UlWidth - length  * (LiWidth + 4)) / (length * 2));
   for (var i = 0; i < childElements.length; i++) {
-    childElements[i].style.margin = `10px ${marginRight}px 30px`;
+    childElements[i].style.margin = '10px ' + marginRight + 'px 30px';
   }
+}
+
+function myfn (e) {
+  return window.event? window.event.returnValue = false : e.preventDefault();
 }

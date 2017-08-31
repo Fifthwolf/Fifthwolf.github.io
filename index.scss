@@ -1,14 +1,5 @@
 @import "./mixin.scss";
 
-body{
-  background: #fff url(image/background.jpg) 0 0 no-repeat;
-  background-size: 100%;
-  @media only screen and (max-width: 1000px){
-    background: #fff url(image/background-mobile.jpg) 0 0 no-repeat;
-    background-size: 100%;
-  }
-}
-
 #star{
   position: relative;
   margin: 135px auto 0;
@@ -124,6 +115,7 @@ body{
       }
     }
   }
+
   .go{
     position: absolute;
     top: 65%;
@@ -165,6 +157,7 @@ body{
       font-size: 20px;
       line-height: 40px;
     }
+
     @media only screen and (max-width: 1000px){
       top: 65%;
       margin-left: -150px;
@@ -231,12 +224,6 @@ body{
   -ms-transform: rotateY(90deg);
   -o-transform: rotateY(90deg);
   transform: rotateY(90deg);
-  .left{
-    @include avatar(80px,50px);
-    .own{
-      @include leftUl;
-    }
-  }
   .right{
     #resume{
       margin-bottom: 80px;
@@ -272,7 +259,7 @@ body{
         &,span{ 
           padding-right:25px;
           line-height: 24px;
-          color: #878686;
+          color: #656464;
         }
         span{
           display: inline-block;
@@ -282,7 +269,7 @@ body{
         display: inline-block;
         padding-right:50px;
         line-height: 24px;
-        color: #878686;
+        color: #656464;
       }
     }
     #demo{
@@ -348,24 +335,7 @@ body{
   }
   
   @media only screen and (max-width: 1000px){
-    position: absolute;
-    width: 100%;
-    top: 0;
-    .left{
-      border-radius: 40px 40px 0 0;
-      padding-top: 100px;
-      max-width: 1004px;
-      @include avatar(160px);
-      .own{
-        @include leftUl(false, true);
-      }
-      .link{
-        @include leftUl(true, true);
-      }
-    }
     .right{
-      border-radius: 0 0 40px 40px;
-      padding: 40px 80px;
       #resume{
         h2{
           font-size: 48px;
@@ -388,14 +358,48 @@ body{
         p{
           &,span{
             padding-right:25px;
-            line-height: 36px;
-            font-size: 36px;
+            line-height: 48px;
+            font-size: 48px;
           }
         }
         span{
           padding:0 54px 20px 0;
-          line-height: 54px;
-          font-size: 36px;
+          line-height: 72px;
+          font-size: 48px;
+        }
+      }
+      #demo{
+        ul{
+          li{
+            width: 100%;
+            height: 0;
+            overflow: hidden;
+            padding-bottom: 87.5%;
+            border: 1px solid #666;
+            a{
+              width: 100%;
+              height: 100%;
+              img{
+                width: 90%;
+                height: 57.142857%;
+                top: 5%;
+                left: 5%;
+              }
+              span{
+                top: 65%;
+                width: 100%;
+                left: 5%;
+                font-size: 42px;
+                line-height: 60px;
+                color: #93999f;
+                h4{
+                  font-size: 54px;
+                  line-height: 72px;
+                  margin-bottom: 6px;
+                }
+              }
+            }
+          }
         }
       }
     }
