@@ -14,21 +14,21 @@ temp='';
 for (var i = 1; i <= 12; i++) {
   temp += '<option value="' + i + '">' + i + '</option>'
 }
-month.innerHTML=temp;
+month.innerHTML = temp;
 
-year.onchange=function(){
+year.onchange = function () {
   dayList();
 }
 
-month.onchange=function(){
+month.onchange = function () {
   dayList();
 }
 
-window.onload=function(){
+window.onload = function () {
   var now = new Date();
   dayList(now);
   var currentYear = getSelectOption(year, now.getFullYear());
-  var currentMonth = getSelectOption(month, now.getMonth()+1);
+  var currentMonth = getSelectOption(month, now.getMonth() + 1);
   var currentDay = getSelectDays(tdDays);
   currentYear.setAttribute('selected','true');
   currentMonth.setAttribute('selected','true');
@@ -49,22 +49,22 @@ addEvent(tableBody, 'mouseout', function (e) {
   getSelectDays(tdDays);
 });
 
-function dayList(date){
-  var yearValue,monthValue;
-  if(!date){
+function dayList (date) {
+  var yearValue, monthValue;
+  if (!date) {
     var index = year.selectedIndex;
     yearValue = year.options[index].value;
     index = month.selectedIndex;
     monthValue = month.options[index].value;
     date = new Date(yearValue + '//' + monthValue + '//01');
-  }else{
+  } else {
     yearValue = date.getFullYear();
     monthValue = date.getMonth() + 1 ;
     date.setDate('1');
   }
   
-  var temp='';
-  tableBody.innerHTML='';
+  var temp = '';
+  tableBody.innerHTML = '';
   
   var listData = {
     Leap:dayAttr(yearValue,monthValue).Leap,
@@ -75,45 +75,48 @@ function dayList(date){
 
   //建立表格
   var tempWeek;
-  for (var i = 1 ; i <= listData.days ; i++) {
-    while(tempStarWeek){
+  for (var i = 1; i <= listData.days; i++) {
+    while (tempStarWeek) {
       temp += '<td></td>';
       tempStarWeek--;
     }
     temp += '<td>' + i + '</td>';
     tempWeek--;
-    if (( i + listData.starWeek )%7 == 0 && i != listData.days) {
+    if ((i + listData.starWeek) % 7 == 0 && i != listData.days) {
       temp += '</tr><tr>';
       tempWeek = 7;
     }
   }
   //表格补位
-  while(tempWeek%7){
+  while (tempWeek%7) {
     temp += '<td></td>';
     tempWeek--;
   }
   temp += '</tr>';
-  console.log(temp);
   tableBody.innerHTML += temp;
   //content自适应高度
   useContentHeight();
+  var now = new Date();
+  if(yearValue == now.getFullYear() && monthValue == now.getMonth() + 1){
+    getSelectDays(tdDays);
+  }
 }
 
 //判断平润年与每个月的天数
-function dayAttr(year,month){
+function dayAttr (year,month) {
   var Leap,
   days;
-  if(year%4!=0){
+  if (year%4 != 0) {
     Leap = 0;
-  }else{
-    if(year%100==0&&year%400!=0){
+  } else {
+    if (year%100 == 0 && year % 400 != 0) {
       Leap = 0;
-    }else{
+    } else {
       Leap = 1;
     }
   }
 
-  switch(parseInt(month)){
+  switch (parseInt(month)) {
     case 1:
     case 3:
     case 5:
@@ -121,7 +124,7 @@ function dayAttr(year,month){
     case 8:
     case 10:
     case 12:days = 31;break;
-    case 2:if(Leap == 1){
+    case 2:if (Leap == 1) {
       days = 29;break;
     }else{
       days = 28;break;
@@ -135,13 +138,13 @@ function dayAttr(year,month){
 function getSelectOption (parent,value) {
   var options = parent.getElementsByTagName("option");
   for (var i = 0; i < options.length; i++) {
-    if(options[i].value == value ){
+    if (options[i].value == value ) {
       return options[i];
     }
   }
 }
 
-function getSelectDays (parent,value) {
+function getSelectDays (parent, value) {
   var value = new Date().getDate();
   for (var i = 0; i < parent.length; i++) {
     if(parent[i].innerHTML == value ){

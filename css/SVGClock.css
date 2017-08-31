@@ -1,0 +1,32 @@
+#main .right .content {
+  position: relative;
+  margin: 80px auto;
+  width: 600px;
+  height: 600px; }
+  #main .right .content #face {
+    stroke-width: 2;
+    stroke: rgba(255, 255, 255, 0.8);
+    fill: rgba(85, 102, 119, 0.8); }
+  #main .right .content .dial line {
+    stroke-width: 1;
+    stroke: #ccc; }
+  #main .right .content .dial text {
+    font-size: 5px;
+    fill: #fff; }
+  #main .right .content .dial circle {
+    fill: #ccc; }
+  #main .right .content .hands #hour {
+    stroke-width: 2;
+    stroke: #444; }
+  #main .right .content .hands #min {
+    stroke-width: 1.5;
+    stroke: #666; }
+  #main .right .content .hands #sec {
+    stroke-width: 1;
+    stroke: #fff; }
+  #main .right .content .hands .middle {
+    stroke-width: 2;
+    stroke: #345;
+    fill: #567; }
+
+/*# sourceMappingURL=SVGClock.css.map */
