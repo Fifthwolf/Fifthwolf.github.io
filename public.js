@@ -21,13 +21,13 @@ function adjustmentWindow () {
 
 function useElementToAppropriate (element, parent) {
   var height = element.offsetHeight;
-  var screenHeight
+  var screenHeight;
   if(parent == document){
     screenHeight = document.documentElement.clientHeight||document.body.clientHeight;
   } else {
     screenHeight = parent.offsetHeight;
   }
-  var top = (screenHeight - height)/2;
+  var top = (screenHeight - height) / 2;
   element.style.marginTop = Math.max(top - screenHeight / 20, 0) + 'px';
 }
 
@@ -56,6 +56,8 @@ function addEvent (element, type, handler) {
     element['on' + type] = handler;  
   }  
 }
+
+
 
 function setCookie (name, value, time) {
   var Minutes = time;

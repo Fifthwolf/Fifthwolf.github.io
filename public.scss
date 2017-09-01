@@ -59,17 +59,6 @@ body{
         background-color: rgba(#123,0.9);
       }
     }
-    .quit{
-      a{
-        z-index: 100;
-        position: fixed;
-        cursor: pointer;
-        i{
-          font-size: 48px;
-          color: #567;
-        }
-      }
-    }
   }
   
   @media only screen and (max-width: 1000px){

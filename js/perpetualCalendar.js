@@ -156,6 +156,5 @@ function getSelectDays (parent, value) {
 
 function useContentHeight () {
   var trs = content.getElementsByTagName('tr');
-  console.log(trs.length);
   content.style.height = trs.length * 50 + 65 + 'px';
 }

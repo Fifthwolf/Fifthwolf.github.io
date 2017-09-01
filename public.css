@@ -127,13 +127,6 @@ body {
       background-color: rgba(17, 34, 51, 0.75); }
       #main .right::-webkit-scrollbar-thumb:hover {
         background-color: rgba(17, 34, 51, 0.9); }
-    #main .right .quit a {
-      z-index: 100;
-      position: fixed;
-      cursor: pointer; }
-      #main .right .quit a i {
-        font-size: 48px;
-        color: #567; }
   @media only screen and (max-width: 1000px) {
     #main {
       position: absolute;
