@@ -1,6 +1,7 @@
 var main = document.getElementById('main');
 var own = main.getElementsByClassName('own')[0];
 var ownLi = own.getElementsByTagName('li');
+var left = main.getElementsByClassName('left')[0];
 var right = main.getElementsByClassName('right')[0];
 
 adjustmentWindow();
@@ -16,7 +17,14 @@ function adjustmentWindow () {
   }
   if (!judgeWidth()) {
     main.style.display = 'block';
+    useElementHeightSuit(right, left, main);
   }
+}
+
+function useElementHeightSuit (element, previous, parent) {
+  var previousHeight = previous.offsetHeight;
+  var parentHeight = parent.offsetHeight;
+  element.style.minHeight = parentHeight - previousHeight + 'px';
 }
 
 function useElementToAppropriate (element, parent) {

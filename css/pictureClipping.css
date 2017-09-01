@@ -8,6 +8,11 @@
   left: 50%;
   margin-left: -300px;
   overflow: hidden; }
+  @media only screen and (max-width: 1000px) {
+    #main .right .content {
+      width: 100%;
+      margin-left: 0;
+      left: 0; } }
   #main .right .content .box {
     position: absolute;
     margin-top: 50px;
@@ -68,5 +73,9 @@
     top: 380px; }
     #main .right .content #show img {
       position: absolute; }
+    @media only screen and (max-width: 1000px) {
+      #main .right .content #show {
+        left: 50px;
+        margin-left: 0; } }
 
 /*# sourceMappingURL=pictureClipping.css.map */
