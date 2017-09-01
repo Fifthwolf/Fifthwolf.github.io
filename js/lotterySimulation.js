@@ -1,7 +1,12 @@
 var content = document.getElementsByClassName('content')[0];
+var quit = document.getElementsByClassName('quit')[0];
 
 window.onresize = function () {
   useElementToAppropriate(content, right);
+}
+
+window.onload = function () {
+  useListHeightSuit (content, right);
 }
 
 var button_generate = document.getElementById("generate");
@@ -23,8 +28,13 @@ button_generate.onclick = function(){
   }
 }
 
-button_reset.onclick=function(){
+button_reset.onclick = function () {
   list.innerHTML = '';
+}
+
+function useListHeightSuit (element, parent) {
+  var parentHeight = parent.offsetHeight;
+  element.style.maxHeight = parentHeight - 250 + 'px';
 }
 
 function generate (basic, special, max) {

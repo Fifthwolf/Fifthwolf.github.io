@@ -82,6 +82,64 @@
           }
         }
       }
+      @media only screen and (max-width: 1000px){
+        overflow-y: scroll;
+        &::-webkit-scrollbar{
+          position: absolute;
+          width: 10px;
+        }
+        &::-webkit-scrollbar-thumb{
+          height: 20px;
+          border-radius: 10px;
+          background-color: rgba(#123,0.75);
+          &:hover{
+            background-color: rgba(#123,0.9);
+          }
+        }
+        .title{
+          padding: 20px 0 20px;
+          font-size: 64px;
+        }
+        .describe{
+          font-size: 40px;
+          line-height: 80px;
+          span{
+            input{
+              font-size: 40px;
+              line-height: 40px;
+            }
+          }
+          .button{
+            width: 480px;
+            height: 80px;
+            button{
+              height: 80px;
+              width: 220px;
+              font-size: 40px;
+            }
+          }
+        }
+        .list{
+          padding: 20px 0;
+          .num{
+            margin-top: 20px;
+            text-indent: 30px;
+            line-height: 48px;
+            height: 56px;
+            span{
+              font-size: 36px;
+              width: 56px;
+              height: 56px;
+              &::after{
+                top: 8px;
+                right: 6px;
+                width: 23px;
+                height: 12px;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
