@@ -6,7 +6,9 @@ window.onresize = function () {
 }
 
 window.onload = function () {
-  useListHeightSuit (content, right);
+  if (!judgeWidth()) {
+    useListHeightSuit (content, right);
+  }
 }
 
 var button_generate = document.getElementById("generate");
@@ -17,19 +19,39 @@ var input_max = document.getElementById("max");
 var list = document.getElementsByClassName("list")[0];
 
 button_generate.onclick = function(){
-  var basic = parseInt(input_basic.value);
-  var special = parseInt(input_special.value);
-  var max = parseInt(input_max.value);
-  if(max<100&&max>=(basic+special)&&basic<=10&&basic>0&&(special==0||special==1)){
-    var lottery = generate(basic,special,max);
-    addNumber(lottery,special);
-  }else{
+  var basic = Number(input_basic.value);
+  var special = Number(input_special.value);
+  var max = Number(input_max.value);
+  if (judgedNumber(basic, special, max)) {
+    var lottery = generate(basic, special, max);
+    addNumber(lottery, special);
+  } else {
     list.innerHTML += '输入了不符合条件的数据，请重新输入<br/>';
   }
 }
 
 button_reset.onclick = function () {
   list.innerHTML = '';
+}
+
+function judgedNumber (basic, special, max) {
+  if (!_isInteger(basic) || !_isInteger(special) || !_isInteger(max)) {
+    return false;
+  } else if (max > 100) {
+    return false;
+  } else if (basic <= 0 || basic > 10) {
+    return false;
+  } else if (!(special == 0 || special == 1)) {
+    return false;
+  } else if (max < basic + special) {
+    return false;
+  } else {
+    return true;
+  }
+
+  function _isInteger (obj) {
+    return typeof obj === 'number' && obj % 1 === 0;
+  }
 }
 
 function useListHeightSuit (element, parent) {
@@ -40,11 +62,11 @@ function useListHeightSuit (element, parent) {
 function generate (basic, special, max) {
   var total = basic + special;
   var lottery = new Array(total);
-  for(var i=0;i<total;i++){
-    lottery[i]=Math.floor(Math.random()*max+1);
-    if(i>0){
-      for(var j=0;j<i;j++){
-        if(lottery[i]==lottery[j]){
+  for(var i=0; i < total; i++){
+    lottery[i] = Math.floor(Math.random()*max+1);
+    if (i > 0) {
+      for(var j=0; j < i; j++) {
+        if(lottery[i] == lottery[j]) {
           i--;
           break;
         }
@@ -52,14 +74,14 @@ function generate (basic, special, max) {
     }
   }
 
-  if(!special){
-    lottery.sort(function(a,b){
-      return a-b;
+  if (!special) {
+    lottery.sort(function (a,b) {
+      return a - b;
     });
-  }else{
+  } else {
     var temp = lottery[lottery.length-1];
     lottery[lottery.length-1] = undefined;
-    lottery.sort(function(a,b){
+    lottery.sort(function (a,b) {
       return a-b;
     });
     lottery[lottery.length-1] = temp;
