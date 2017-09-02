@@ -21,7 +21,19 @@
     </div>
   </header>
   <div id="content">
-      <div class="content">
+    <div class="content">
+      <div class="content-left">
+        <div class="content-day">02</div>
+        <div class="content-ym">2017-09</div>
+      </div>
+      <div class="content-right">
+        <div class="content-title">盒子内加overflow-y:scroll后字体会变大</div>
+        <div class="content-abstract">
+          <p>盒子本身设置了max-height，然后里面内容超出盒子高度则出现滚动条，但是出现滚动条的时候，盒子内字号全部变大，找出问题在CSS的scroll上，但不知道怎么解决。然后搜索到了一个方法，在CSS内加入body *{ max-height: 999999px; } ，然后问题居然解决了！但还是不知道这其中的原因</p>
+        </div>
+      </div>
+    </div>
+    <div class="content">
       <div class="content-left">
         <div class="content-day">31</div>
         <div class="content-ym">2017-08</div>
@@ -47,16 +59,6 @@
           <p>$ cnpm install node-sass --registry=https://registry.npm.taobao.org</p>
         </div>
       </div>
-    </div>
-    <div class="content">
-      <div class="content-left">
-        <div class="content-day">13</div>
-        <div class="content-ym">2017-05</div>
-      </div>
-      <a href="content/20170513.html"><div class="content-right">
-        <div class="content-title">彩票模拟选号</div>
-        <div class="content-abstract"><img src="image/index/20170513.png" /></div>
-      </div></a>
     </div>
     <div class="content">
       <div class="content-left">

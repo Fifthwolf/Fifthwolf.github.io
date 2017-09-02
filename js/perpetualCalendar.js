@@ -49,6 +49,64 @@ addEvent(tableBody, 'mouseout', function (e) {
   getSelectDays(tdDays);
 });
 
+touch(right);
+
+//移动端添加滑动事件
+function touch (element) {
+  var startx;
+  var endx;
+
+  function _cons () {
+    if (startx > endx) {
+      changeTime(1);
+    } else {
+      changeTime(2);
+    }
+  }
+
+  addEvent(element, 'touchstart', function (e) {
+    var touch = e.changedTouches;
+    startx = touch[0].clientX;
+    starty = touch[0].clientY;
+  });
+
+  addEvent(element, 'touchend', function (e) {
+    var touch = e.changedTouches;
+    endx = touch[0].clientX;
+    endy = touch[0].clientY;
+    _cons();
+  });
+}
+
+function changeTime (change) {
+  var index = year.selectedIndex;
+  yearValue = year.options[index].value;
+  index = month.selectedIndex;
+  monthValue = month.options[index].value;
+  if (change == 1) {
+    monthValue--;
+    if (monthValue < 1){
+      yearValue = Math.max((Number(yearValue) - 1), 2000);
+      monthValue = 12;
+      if (yearValue == 2000) {
+        monthValue = 1;
+      }
+    }
+  } else if (change == 2) {
+    monthValue++;
+    if (monthValue > 12){
+      yearValue = Math.min((Number(yearValue) + 1), 2049);
+      monthValue = 1;
+      if (yearValue == 2049) {
+        monthValue = 12;
+      }
+    }
+  }
+  year.options[yearValue - 2000].selected = true;
+  month.options[monthValue - 1].selected = true;
+  dayList();
+}
+
 function dayList (date) {
   var yearValue, monthValue;
   if (!date) {
@@ -62,10 +120,10 @@ function dayList (date) {
     monthValue = date.getMonth() + 1 ;
     date.setDate('1');
   }
-  
+
   var temp = '';
   tableBody.innerHTML = '';
-  
+
   var listData = {
     Leap:dayAttr(yearValue,monthValue).Leap,
     days:dayAttr(yearValue,monthValue).days,
