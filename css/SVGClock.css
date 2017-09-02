@@ -6,8 +6,7 @@
   @media only screen and (max-width: 1000px) {
     #main .right .content {
       width: 100%;
-      height: 100%;
-      top: 60px; } }
+      height: 100%; } }
   #main .right .content #face {
     stroke-width: 2;
     stroke: rgba(255, 255, 255, 0.8);
