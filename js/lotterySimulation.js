@@ -18,15 +18,22 @@ var input_special = document.getElementById("special");
 var input_max = document.getElementById("max");
 var list = document.getElementsByClassName("list")[0];
 
-button_generate.onclick = function(){
-  var basic = Number(input_basic.value);
-  var special = Number(input_special.value);
-  var max = Number(input_max.value);
+button_generate.onclick = function () {
+  var basic = Number(removeSpace(input_basic.value));
+  var special = Number(removeSpace(input_special.value));
+  var max = Number(removeSpace(input_max.value));
   if (judgedNumber(basic, special, max)) {
+    input_basic.value = basic;
+    input_special.value = special;
+    input_max.value = max;
     var lottery = generate(basic, special, max);
     addNumber(lottery, special);
   } else {
     list.innerHTML += '输入了不符合条件的数据，请重新输入<br/>';
+  }
+  function removeSpace (num) {
+    num.replace(/\s*(\d)\s*/, "$1"); 
+    return num;
   }
 }
 
