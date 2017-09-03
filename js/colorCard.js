@@ -19,10 +19,8 @@ window.onload = function () {
     };
     content.appendChild(cul[i]);
   }
-  useElementToAppropriate(content, right);
 }
 
 window.onresize = function () {
   adjustmentWindow();
-  useElementToAppropriate(content, right);
 }

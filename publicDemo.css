@@ -62,11 +62,17 @@ body {
         color: #123; }
 #main .right .quit a {
   z-index: 100;
-  position: fixed;
   cursor: pointer; }
   #main .right .quit a i {
     font-size: 48px;
     color: #567; }
+#main .right .desc {
+  margin: 30px 0;
+  padding: 10px;
+  font-size: 24px;
+  line-height: 36px;
+  border-radius: 20px;
+  background-color: rgba(85, 102, 119, 0.3); }
 @media only screen and (max-width: 1000px) {
   #main {
     height: 100%; }
@@ -186,6 +192,12 @@ body {
           position: absolute;
           top: 64px; }
           #main .right .quit a i {
-            font-size: 96px; } }
+            font-size: 96px; }
+      #main .right .desc {
+        margin: 30px 0;
+        padding: 20px;
+        font-size: 40px;
+        line-height: 60px;
+        border-radius: 20px; } }
 
 /*# sourceMappingURL=publicDemo.css.map */
