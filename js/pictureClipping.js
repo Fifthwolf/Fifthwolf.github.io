@@ -22,7 +22,7 @@ window.onload = function() {
       move(this.index, mainRight, mainBottom, 40, img2);
     }
   }
-  mainDiv.onmousedown = function(e){
+  mainDiv.onmousedown = function (e) {
     var disX = e.clientX - getPosition(mainDiv).left;
     var disY = e.clientY - getPosition(mainDiv).top;
     move(8, disX, disY, 40, img2);
@@ -46,7 +46,7 @@ function move (index, limitX, limitY, minLength, element) {
     }
     setChoice(element);
   }
-  document.onmouseup = function(){
+  document.onmouseup = function () {
     document.onmousemove = null;
     document.onmouseup = null;
   }

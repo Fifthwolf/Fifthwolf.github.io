@@ -70,49 +70,39 @@ body * {
           -o-transform: rotate(45deg);
           transform: rotate(45deg); }
   @media only screen and (max-width: 1000px) {
-    #main .right .content {
-      overflow-y: scroll; }
-      #main .right .content::-webkit-scrollbar {
-        position: absolute;
-        width: 10px; }
-      #main .right .content::-webkit-scrollbar-thumb {
-        height: 20px;
-        border-radius: 10px;
-        background-color: rgba(17, 34, 51, 0.75); }
-        #main .right .content::-webkit-scrollbar-thumb:hover {
-          background-color: rgba(17, 34, 51, 0.9); }
-      #main .right .content .title {
-        padding: 20px 0 20px;
-        font-size: 64px; }
-      #main .right .content .describe {
+    #main .right .content .title {
+      padding: 20px 0 20px;
+      font-size: 64px; }
+    #main .right .content .describe {
+      font-size: 40px;
+      line-height: 70px; }
+      #main .right .content .describe span input {
         font-size: 40px;
-        line-height: 70px; }
-        #main .right .content .describe span input {
-          font-size: 40px;
-          line-height: 40px; }
-        #main .right .content .describe .button {
-          width: 520px;
-          height: 80px; }
-          #main .right .content .describe .button button {
-            height: 80px;
-            width: 220px;
-            font-size: 40px; }
-      #main .right .content .list {
-        padding: 20px 0;
-        font-size: 36px; }
-        #main .right .content .list .num {
-          margin-top: 20px;
-          text-indent: 30px;
-          line-height: 48px;
+        line-height: 40px; }
+      #main .right .content .describe .button {
+        margin-top: 20px;
+        width: 520px;
+        height: 80px; }
+        #main .right .content .describe .button button {
+          height: 80px;
+          width: 220px;
+          font-size: 40px; }
+    #main .right .content .list {
+      padding: 20px 0;
+      font-size: 36px; }
+      #main .right .content .list .num {
+        margin-top: 20px;
+        text-indent: 30px;
+        line-height: 48px;
+        height: 56px; }
+        #main .right .content .list .num span {
+          font-size: 36px;
+          width: 56px;
           height: 56px; }
-          #main .right .content .list .num span {
-            font-size: 36px;
-            width: 56px;
-            height: 56px; }
-            #main .right .content .list .num span::after {
-              top: 8px;
-              right: 6px;
-              width: 23px;
-              height: 12px; } }
+          #main .right .content .list .num span::after {
+            top: 8px;
+            right: 6px;
+            width: 23px;
+            height: 12px; } }
 
 /*# sourceMappingURL=lotterySimulation.css.map */

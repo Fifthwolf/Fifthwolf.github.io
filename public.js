@@ -3,6 +3,7 @@ var own = main.getElementsByClassName('own')[0];
 var ownLi = own.getElementsByTagName('li');
 var left = main.getElementsByClassName('left')[0];
 var right = main.getElementsByClassName('right')[0];
+var desc = right.getElementsByClassName('desc')[0];
 
 adjustmentWindow();
 
@@ -22,16 +23,17 @@ function adjustmentWindow () {
 }
 
 function useElementHeightSuit (element, previous, parent) {
+  var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
   var previousHeight = previous.offsetHeight;
-  var parentHeight = parent.offsetHeight;
-  element.style.minHeight = parentHeight - previousHeight + 'px';
+  //120为right的paddingTop与paddingBottom值之和
+  element.style.minHeight = screenHeight - previousHeight - 120 + 'px';
 }
 
 function useElementToAppropriate (element, parent) {
   var height = element.offsetHeight;
   var screenHeight;
-  if(parent == document){
-    screenHeight = document.documentElement.clientHeight||document.body.clientHeight;
+  if (parent == document) {
+    screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
   } else {
     screenHeight = parent.offsetHeight;
   }
@@ -57,15 +59,21 @@ function addEvent (element, type, handler) {
   if (element.addEventListener) {  
     element.addEventListener(type, handler, false);  
   } else if (element.attachEvent) {  
-    element.attachEvent('on' + type, function() {  
-      handler.call(element);  
-    });  
+    element.attachEvent('on' + type, handler);  
   } else {  
     element['on' + type] = handler;  
   }  
 }
 
-
+function removeEvent (element, type, handler) { 
+  if (element.removeEventListener) {
+    element.removeEventListener(type, handler, false); 
+  } else if (element.detachEvent) {
+    element.detachEvent('on' + type, handler); 
+  } else {
+    element['on' + type] = null;
+  }
+};  
 
 function setCookie (name, value, time) {
   var Minutes = time;

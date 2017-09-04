@@ -1,11 +1,6 @@
-body {
-  background: #fff url(./image/background.jpg) 0 0 no-repeat;
-  background-size: 100%; }
-  @media only screen and (max-width: 1000px) {
-    body {
-      background: #fff url(./image/background-mobile.jpg) 0 0 no-repeat;
-      background-size: 100%; } }
-
+@media only screen and (max-width: 1000px) {
+  #main {
+    position: relative; } }
 #main .left .avatar {
   position: relative;
   margin: 50px auto 20px;
@@ -183,21 +178,19 @@ body {
             margin: 0 25px 0 40px; }
           #main .left .link li i {
             margin: 0 50px 0 80px; }
-    #main .right {
-      padding: 0 80px; }
-      #main .right .quit {
-        position: relative;
-        margin-bottom: 200px; }
-        #main .right .quit a {
-          position: absolute;
-          top: 64px; }
-          #main .right .quit a i {
-            font-size: 96px; }
-      #main .right .desc {
-        margin: 30px 0;
-        padding: 20px;
-        font-size: 40px;
-        line-height: 60px;
-        border-radius: 20px; } }
+    #main .right .quit {
+      position: relative;
+      margin-bottom: 160px; }
+      #main .right .quit a {
+        position: absolute;
+        top: 16px; }
+        #main .right .quit a i {
+          font-size: 96px; }
+    #main .right .desc {
+      margin: 30px 0;
+      padding: 20px;
+      font-size: 40px;
+      line-height: 60px;
+      border-radius: 20px; } }
 
 /*# sourceMappingURL=publicDemo.css.map */

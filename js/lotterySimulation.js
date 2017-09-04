@@ -5,12 +5,6 @@ window.onresize = function () {
   useElementToAppropriate(content, right);
 }
 
-window.onload = function () {
-  if (!judgeWidth()) {
-    useListHeightSuit (content, right);
-  }
-}
-
 var button_generate = document.getElementById("generate");
 var button_reset = document.getElementById("reset");
 var input_basic = document.getElementById("basic");
@@ -59,11 +53,6 @@ function judgedNumber (basic, special, max) {
   function _isInteger (obj) {
     return typeof obj === 'number' && obj % 1 === 0;
   }
-}
-
-function useListHeightSuit (element, parent) {
-  var parentHeight = parent.offsetHeight;
-  element.style.maxHeight = parentHeight - 250 + 'px';
 }
 
 function generate (basic, special, max) {

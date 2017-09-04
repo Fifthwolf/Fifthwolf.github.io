@@ -47,10 +47,9 @@ addEvent(tableBody, 'mouseover', function (e) {
 addEvent(tableBody, 'mouseout', function (e) {
   e.target.removeAttribute('class');
   if (now.getFullYear() == year.options[year.selectedIndex].value
-    && now.getMonth() + 1 == month.options[month.selectedIndex].value) {
+  && now.getMonth() + 1 == month.options[month.selectedIndex].value) {
     getSelectDays(tdDays);
-}
-
+  }
 });
 
 touch(right);
@@ -78,7 +77,9 @@ function touch (element) {
     var touch = e.changedTouches;
     endx = touch[0].clientX;
     endy = touch[0].clientY;
-    _cons();
+    if (Math.abs(endx - startx) > 150) {
+      _cons();
+    }
   });
 }
 
