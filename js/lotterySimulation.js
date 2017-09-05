@@ -1,10 +1,5 @@
 var content = document.getElementsByClassName('content')[0];
 var quit = document.getElementsByClassName('quit')[0];
-
-window.onresize = function () {
-  useElementToAppropriate(content, right);
-}
-
 var button_generate = document.getElementById("generate");
 var button_reset = document.getElementById("reset");
 var input_basic = document.getElementById("basic");
