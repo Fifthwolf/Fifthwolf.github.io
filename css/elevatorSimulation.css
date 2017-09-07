@@ -35,8 +35,14 @@
         text-align: center;
         background-color: #555;
         cursor: pointer; }
+        #main .right .content .control .inside span.open {
+          color: green; }
+        #main .right .content .control .inside span.close {
+          color: red; }
         #main .right .content .control .inside span.hover {
           border-color: #f90; }
+        #main .right .content .control .inside span.choose {
+          border-color: #123; }
         #main .right .content .control .inside span.open {
           display: inline-block;
           margin: 5px;
@@ -50,8 +56,14 @@
           text-align: center;
           background-color: #555;
           cursor: pointer; }
+          #main .right .content .control .inside span.open.open {
+            color: green; }
+          #main .right .content .control .inside span.open.close {
+            color: red; }
           #main .right .content .control .inside span.open.hover {
             border-color: #f90; }
+          #main .right .content .control .inside span.open.choose {
+            border-color: #123; }
         #main .right .content .control .inside span.close {
           display: inline-block;
           margin: 5px;
@@ -65,8 +77,14 @@
           text-align: center;
           background-color: #555;
           cursor: pointer; }
+          #main .right .content .control .inside span.close.open {
+            color: green; }
+          #main .right .content .control .inside span.close.close {
+            color: red; }
           #main .right .content .control .inside span.close.hover {
             border-color: #f90; }
+          #main .right .content .control .inside span.close.choose {
+            border-color: #123; }
     #main .right .content .control .outside {
       position: relative;
       overflow: hidden;
@@ -95,8 +113,14 @@
           text-align: center;
           background-color: #555;
           cursor: pointer; }
+          #main .right .content .control .outside .floor span.open {
+            color: green; }
+          #main .right .content .control .outside .floor span.close {
+            color: red; }
           #main .right .content .control .outside .floor span.hover {
             border-color: #f90; }
+          #main .right .content .control .outside .floor span.choose {
+            border-color: #123; }
       #main .right .content .control .outside .upAndDown {
         float: right;
         width: 60px;
@@ -116,8 +140,14 @@
           text-align: center;
           background-color: #555;
           cursor: pointer; }
+          #main .right .content .control .outside .upAndDown span.open {
+            color: green; }
+          #main .right .content .control .outside .upAndDown span.close {
+            color: red; }
           #main .right .content .control .outside .upAndDown span.hover {
             border-color: #f90; }
+          #main .right .content .control .outside .upAndDown span.choose {
+            border-color: #123; }
     #main .right .content .control .dataShow {
       width: 280px;
       height: 180px;
