@@ -9,7 +9,6 @@ var outsideUpAndDown = outside.getElementsByClassName('upAndDown')[0];
 
 var elevator = document.getElementById('elevator');
 var rect = elevator.getElementsByTagName('rect')[0];
-var Height;
 
 var RUN = null;
 
@@ -17,11 +16,12 @@ var data = {
   current: 0, //当前位置
   v: 1,
   h: 0,
+  height: 10, //总高度
   way: 0, //0静止，1下，2上
   upTarget: [], //上升时目标
   downTarget: [], //下降时目标
   upAndDownTarget: [], //二维数组，存储外侧按钮
-  upAndDownTEMP: 1, //目前外侧按钮的楼层
+  upAndDownTEMP: 0, //目前外侧按钮的楼层
   DTED: [0, 10, 20, 30, 40, 50, 60, 70], //每层高度
 }
 
@@ -31,7 +31,7 @@ window.onload = function () {
     data.downTarget[i] = false;
     data.upAndDownTarget[i] = [false,false]; //[下降，上升]
   }
-  Height = data.DTED[length - 1] - data.DTED[0];
+  data.height = data.DTED[data.DTED.length - 1] - data.DTED[0];
 }
 
 addEvent (inside, 'click', function (e) {
@@ -40,10 +40,13 @@ addEvent (inside, 'click', function (e) {
     var target = e.target.innerHTML - 1;
     if (data.current < target) {
       data.upTarget[target] = true;
+      addData(target);
     } else {
-      data.downTarget[target] = true;
+      if (data.h != data.DTED[target]) {
+        data.downTarget[target] = true;
+        addData(target);
+      }
     }
-    addData(target);
   }
 });
 
@@ -68,17 +71,25 @@ addEvent (outsideUpAndDown, 'click', function (e) {
   }
   if (target.nodeName.toUpperCase() === 'SPAN') {
     if (target.hasClass('down')) {
-      data.upAndDownTarget[data.upAndDownTEMP][0] = true;
-      data.downTarget[data.upAndDownTEMP] = true;
+      if (data.h != data.DTED[target]) {
+        data.upAndDownTarget[data.upAndDownTEMP][0] = true;
+        data.downTarget[data.upAndDownTEMP] = true;
+        addData(data.upAndDownTEMP);
+      }
     }
     if (target.hasClass('up')) {
-      data.upAndDownTarget[data.upAndDownTEMP][1] = true;
-      data.upTarget[data.upAndDownTEMP] = true;
+      if (data.h != data.DTED[target]) {
+        data.upAndDownTarget[data.upAndDownTEMP][1] = true;
+        data.upTarget[data.upAndDownTEMP] = true;
+        addData(data.upAndDownTEMP);
+      }
     }
     if (data.way === 0) {
-      addData(data.upAndDownTEMP);
+      if (data.way != 0 && data.h != data.DTED[target]) {
+        addData(data.upAndDownTEMP);
+        move();
+      }
     }
-    move();
   }
 });
 
@@ -127,7 +138,6 @@ function move () {
   }
 
   function moveUp (target) {
-    console.log('UP');
     RUN = setTimeout(function () {
       data.h += data.v;
       dataSpan[3].innerHTML = data.h;
@@ -163,7 +173,6 @@ function move () {
   }
 
   function moveDown (target) {
-    console.log('DOWN');
     RUN = setTimeout(function () {
       data.h -= data.v;
       dataSpan[3].innerHTML = data.h;
@@ -205,7 +214,8 @@ function move () {
         break;
       }
     }
-    console.log(rect.setAttribute('y','80'));
+    var h = 190 - data.h / data.height * 190;
+    rect.setAttribute('y', h);
   }
 }
 
