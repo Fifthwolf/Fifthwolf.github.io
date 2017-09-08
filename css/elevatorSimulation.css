@@ -41,6 +41,8 @@
           color: red; }
         #main .right .content .control .inside span.hover {
           border-color: #f90; }
+        #main .right .content .control .inside span.inchoose {
+          border-color: #f60; }
         #main .right .content .control .inside span.choose {
           border-color: #123; }
         #main .right .content .control .inside span.open {
@@ -62,6 +64,8 @@
             color: red; }
           #main .right .content .control .inside span.open.hover {
             border-color: #f90; }
+          #main .right .content .control .inside span.open.inchoose {
+            border-color: #f60; }
           #main .right .content .control .inside span.open.choose {
             border-color: #123; }
         #main .right .content .control .inside span.close {
@@ -83,6 +87,8 @@
             color: red; }
           #main .right .content .control .inside span.close.hover {
             border-color: #f90; }
+          #main .right .content .control .inside span.close.inchoose {
+            border-color: #f60; }
           #main .right .content .control .inside span.close.choose {
             border-color: #123; }
     #main .right .content .control .outside {
@@ -119,6 +125,8 @@
             color: red; }
           #main .right .content .control .outside .floor span.hover {
             border-color: #f90; }
+          #main .right .content .control .outside .floor span.inchoose {
+            border-color: #f60; }
           #main .right .content .control .outside .floor span.choose {
             border-color: #123; }
       #main .right .content .control .outside .upAndDown {
@@ -146,6 +154,8 @@
             color: red; }
           #main .right .content .control .outside .upAndDown span.hover {
             border-color: #f90; }
+          #main .right .content .control .outside .upAndDown span.inchoose {
+            border-color: #f60; }
           #main .right .content .control .outside .upAndDown span.choose {
             border-color: #123; }
     #main .right .content .control .dataShow {

@@ -56,24 +56,40 @@ function judgeWidth() {
 }
 
 function addEvent (element, type, handler) {
-  if (element.addEventListener) {  
-    element.addEventListener(type, handler, false);  
+  if (element.addEventListener) {
+    element.addEventListener(type, handler, false);
   } else if (element.attachEvent) {  
-    element.attachEvent('on' + type, handler);  
+    element.attachEvent('on' + type, handler);
   } else {  
-    element['on' + type] = handler;  
+    element['on' + type] = handler;
   }  
 }
 
-function removeEvent (element, type, handler) { 
+function removeEvent (element, type, handler) {
   if (element.removeEventListener) {
-    element.removeEventListener(type, handler, false); 
+    element.removeEventListener(type, handler, false);
   } else if (element.detachEvent) {
     element.detachEvent('on' + type, handler); 
   } else {
     element['on' + type] = null;
   }
-};  
+}
+
+Object.prototype.hasClass = function (cls) {
+  return this.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+}
+
+Object.prototype.addClass = function (cls) {
+  if (!this.hasClass(cls)) this.className += " " + cls;
+}
+
+Object.prototype.removeClass = function (cls) {
+  if (this.hasClass(cls)) {
+    var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+    this.className = this.className.replace(reg, ' ');
+    this.className = this.className.replace(/\s+/, ' ');
+  }
+}
 
 function setCookie (name, value, time) {
   var Minutes = time;

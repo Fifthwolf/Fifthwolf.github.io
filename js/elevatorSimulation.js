@@ -1,6 +1,7 @@
 var content = document.getElementsByClassName('content')[0];
 var control = content.getElementsByClassName('control')[0];
 var inside = control.getElementsByClassName('inside')[0];
+var insideButtonSpan = inside.getElementsByClassName('button')[0].getElementsByTagName('span');
 var outside = control.getElementsByClassName('outside')[0];
 var dataShow = control.getElementsByClassName('dataShow')[0];
 var dataSpan = dataShow.getElementsByTagName('span');
@@ -18,6 +19,7 @@ var data = {
   h: 0,
   height: 10, //总高度
   way: 0, //0静止，1下，2上
+  open: false,  //门是否关闭状态
   upTarget: [], //上升时目标
   downTarget: [], //下降时目标
   upAndDownTarget: [], //二维数组，存储外侧按钮
@@ -32,21 +34,22 @@ window.onload = function () {
     data.upAndDownTarget[i] = [false,false]; //[下降，上升]
   }
   data.height = data.DTED[data.DTED.length - 1] - data.DTED[0];
+  outsideUpAndDown.getElementsByClassName('down')[0].style.visibility = 'hidden';
 }
 
 addEvent (inside, 'click', function (e) {
   var e = e || window.event;
   if (e.target.nodeName.toUpperCase() === 'SPAN') {
+    if (data.h != data.DTED[e.target.innerHTML - 1]) {
+      e.target.addClass('inchoose');
+    }
     var target = e.target.innerHTML - 1;
     if (data.current < target) {
       data.upTarget[target] = true;
-      addData(target);
-    } else {
-      if (data.h != data.DTED[target]) {
-        data.downTarget[target] = true;
-        addData(target);
-      }
+    } else if (data.h > data.DTED[target]) {
+      data.downTarget[target] = true;
     }
+    addData(target);
   }
 });
 
@@ -61,6 +64,16 @@ addEvent (outsideFloor, 'click', function (e) {
     target.addClass('choose');
     data.upAndDownTEMP = parseInt(target.innerHTML) - 1;
   }
+  if (span[7].hasClass('choose')) {
+    outsideUpAndDown.getElementsByClassName('down')[0].style.visibility = 'hidden';
+  } else {
+    outsideUpAndDown.getElementsByClassName('down')[0].style.visibility = 'visible';
+  }
+  if (span[0].hasClass('choose')) {
+    outsideUpAndDown.getElementsByClassName('up')[0].style.visibility = 'hidden';
+  } else {
+    outsideUpAndDown.getElementsByClassName('up')[0].style.visibility = 'visible';
+  }
 });
 
 addEvent (outsideUpAndDown, 'click', function (e) {
@@ -71,23 +84,18 @@ addEvent (outsideUpAndDown, 'click', function (e) {
   }
   if (target.nodeName.toUpperCase() === 'SPAN') {
     if (target.hasClass('down')) {
-      if (data.h != data.DTED[target]) {
-        data.upAndDownTarget[data.upAndDownTEMP][0] = true;
-        data.downTarget[data.upAndDownTEMP] = true;
-        addData(data.upAndDownTEMP);
-      }
+      data.upAndDownTarget[data.upAndDownTEMP][0] = true;
+      data.downTarget[data.upAndDownTEMP] = true;
+      addData(data.upAndDownTEMP);
     }
     if (target.hasClass('up')) {
-      if (data.h != data.DTED[target]) {
-        data.upAndDownTarget[data.upAndDownTEMP][1] = true;
-        data.upTarget[data.upAndDownTEMP] = true;
-        addData(data.upAndDownTEMP);
-      }
+      data.upAndDownTarget[data.upAndDownTEMP][1] = true;
+      data.upTarget[data.upAndDownTEMP] = true;
+      addData(data.upAndDownTEMP);
     }
     if (data.way === 0) {
-      if (data.way != 0 && data.h != data.DTED[target]) {
+      if (data.h != data.DTED[target]) {
         addData(data.upAndDownTEMP);
-        move();
       }
     }
   }
@@ -97,36 +105,43 @@ function addData (target) {
   if (data.way === 0) {
     if (data.current < target) {
       data.way = 2;
-    } else {
+    } else if (data.h > data.DTED[target]) {
       data.way = 1;
     }
   }
-  move();
+  voteTime(move);
+
+  function voteTime (method) {
+    if (data.open === false) {
+      method();
+    } else {
+      setTimeout(function () {
+        voteTime(method);
+      }, 20);
+    }
+  }
 }
 
 function move () {
+  clearTimeout(RUN);
+  RUN = null;
   if (data.way === 2) {
-    clearTimeout(RUN);
-    RUN = null;
-    if (nextTarget(2)) {
+    if (nextTarget(2) !== false) {
       moveUp(nextTarget(2));
-    } else {
+    } else if (nextTargetMax(2) !== false) {
       moveUp(nextTargetMax(2));
     }
   }
 
   if (data.way === 1) {
-    clearTimeout(RUN);
-    RUN = null;
-    if (nextTarget(1)) {
+    if (nextTarget(1) !== false) {
       moveDown(nextTarget(1));
-    } else {
+    } else if (nextTargetMax(1) !== false) {
       moveDown(nextTargetMax(1));
     }
   }
 
   if (data.way === 0) {
-    RUN = null;
     if (data.current != 0) {
       RUN = setTimeout(function () {
         clearTimeout(RUN);
@@ -134,7 +149,6 @@ function move () {
         moveDown(0);
       }, 5000);
     }
-
   }
 
   function moveUp (target) {
@@ -147,6 +161,11 @@ function move () {
         moveUp(target);
       }
       if (data.h === data.DTED[target]) {
+        insideButtonSpan[insideButtonSpan.length - 3 - target].removeClass('inchoose');
+        data.open = true;
+        setTimeout(function () {
+          data.open = false;
+        }, 2000);
         data.upTarget[target] = false;
         data.upAndDownTarget[target][1] = false;
         data.current = target;
@@ -155,14 +174,18 @@ function move () {
         }
         currentChangedByHeight();
         dataSpan[0].innerHTML = parseInt(data.current) + 1;
-        if (nextTarget(2)) {
+        if (nextTarget(2) !== false) {
           setTimeout(function () {
             moveUp(nextTarget(2));
           }, 2000);
-        } else if (nextTarget(1)) {
+        } else if (nextTargetMax(2) !== false) {
+          setTimeout(function () {
+            moveUp(nextTargetMax(2));
+          }, 2000);
+        } else if (nextTarget(1) !== false) {
           setTimeout(function () {
             data.way = 1;
-            move ();
+            move();
           }, 2000);
         } else {
           data.way = 0;
@@ -182,6 +205,11 @@ function move () {
         moveDown(target);
       }
       if (data.h === data.DTED[target]) {
+        insideButtonSpan[insideButtonSpan.length - 3 - target].removeClass('inchoose');
+        data.open = true;
+        setTimeout(function () {
+          data.open = false;
+        }, 2000);
         data.downTarget[target] = false;
         data.upAndDownTarget[target][0] = false;
         data.current = target;
@@ -190,11 +218,15 @@ function move () {
         }
         currentChangedByHeight();
         dataSpan[0].innerHTML = parseInt(data.current) + 1;
-        if (nextTarget(1)) {
+        if (nextTarget(1) !== false) {
           setTimeout(function () {
             moveDown(nextTarget(1));
           }, 2000);
-        } else if (nextTarget(2)) {
+        } else if (nextTargetMax(1) !== false) {
+          setTimeout(function () {
+            moveDown(nextTargetMax(1));
+          }, 2000);
+        } else if (nextTarget(2) !== false) {
           setTimeout(function () {
             data.way = 2;
             move ();
@@ -239,7 +271,7 @@ function nextTarget (way) {
 
 function nextTargetMax (way) {
   if (way === 2) {
-    for (var i = 7; i > data.current; i--) {
+    for (var i = 7; data.DTED[i] > data.DTED[data.current]; i--) {
       if (data.downTarget[i] === true) {
         return i;
       }
@@ -302,19 +334,3 @@ addEvent (outside, 'mouseout', function (e) {
     target.parentNode.removeClass('hover');
   }
 });
-
-Object.prototype.hasClass = function (cls) {
-  return this.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
-};
-
-Object.prototype.addClass = function (cls) {
-  if (!this.hasClass(cls)) this.className += " " + cls;
-};
-
-Object.prototype.removeClass = function (cls) {  
-  if (this.hasClass(cls)) {
-    var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
-    this.className = this.className.replace(reg, ' ');
-    this.className = this.className.replace(/\s+/, ' ');
-  }
-};
