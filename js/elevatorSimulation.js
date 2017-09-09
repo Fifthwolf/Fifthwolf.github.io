@@ -154,11 +154,9 @@ function move () {
   function moveUp (target) {
     RUN = setTimeout(function () {
       data.h += data.v;
-      dataSpan[3].innerHTML = data.h;
       if (data.h < data.DTED[target]) {
-        currentChangedByHeight();
-        dataSpan[0].innerHTML = parseInt(data.current) + 1;
         moveUp(target);
+        dataShowChange();
       }
       if (data.h === data.DTED[target]) {
         insideButtonSpan[insideButtonSpan.length - 3 - target].removeClass('inchoose');
@@ -169,11 +167,10 @@ function move () {
         data.upTarget[target] = false;
         data.upAndDownTarget[target][1] = false;
         data.current = target;
+        dataShowChange();
         if (!nextTargetMax(2)) {
           data.downTarget[target] = false;
         }
-        currentChangedByHeight();
-        dataSpan[0].innerHTML = parseInt(data.current) + 1;
         if (nextTarget(2) !== false) {
           setTimeout(function () {
             moveUp(nextTarget(2));
@@ -198,11 +195,10 @@ function move () {
   function moveDown (target) {
     RUN = setTimeout(function () {
       data.h -= data.v;
-      dataSpan[3].innerHTML = data.h;
+      dataShowChange();
       if (data.h > data.DTED[target]) {
-        currentChangedByHeight();
-        dataSpan[0].innerHTML = parseInt(data.current) + 1;
         moveDown(target);
+        dataShowChange();
       }
       if (data.h === data.DTED[target]) {
         insideButtonSpan[insideButtonSpan.length - 3 - target].removeClass('inchoose');
@@ -213,11 +209,10 @@ function move () {
         data.downTarget[target] = false;
         data.upAndDownTarget[target][0] = false;
         data.current = target;
+        dataShowChange();
         if (!nextTargetMax(1)) {
           data.upTarget[target] = false;
         }
-        currentChangedByHeight();
-        dataSpan[0].innerHTML = parseInt(data.current) + 1;
         if (nextTarget(1) !== false) {
           setTimeout(function () {
             moveDown(nextTarget(1));
@@ -237,6 +232,16 @@ function move () {
         }
       }
     }, 100);
+  }
+
+  function dataShowChange () {
+    dataSpan[0].innerHTML = parseInt(data.current) + 1;
+    dataSpan[1].innerHTML = data.h;
+    dataSpan[2].innerHTML = openOrClose();
+    currentChangedByHeight();
+    function openOrClose() {
+      return data.open ? '开' : '关';
+    };
   }
 
   function currentChangedByHeight () {
