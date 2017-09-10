@@ -1,3 +1,30 @@
-
+#main .right .content {
+  text-align: center; }
+  #main .right .content .cell {
+    margin: 0 auto;
+    padding: 5px;
+    min-height: 200px;
+    border-radius: 12px;
+    background-color: #baaea0; }
+    #main .right .content .cell div {
+      font-size: 0;
+      margin: 0; }
+      #main .right .content .cell div span {
+        display: inline-block;
+        margin: 5px;
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        background-color: #ccc0b2; }
+  #main .right .content div {
+    margin-top: 20px;
+    font-size: 24px; }
+    #main .right .content div input {
+      font-size: 20px;
+      line-height: 20px; }
+  #main .right .content button {
+    margin-top: 10px;
+    width: 60px;
+    height: 30px; }
 
 /*# sourceMappingURL=2048.css.map */

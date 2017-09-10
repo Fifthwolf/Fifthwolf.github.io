@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SVG钟表</title>
+  <title>2048</title>
   <link rel="stylesheet" type="text/css" href="../public.css" />
   <link rel="stylesheet" type="text/css" href="../publicDemo.css" />
-  <link rel="stylesheet" type="text/css" href="../css/SVGClock.css" />
+  <link rel="stylesheet" type="text/css" href="../css/2048.css" />
   <link rel="stylesheet" type="text/css" href="../fontawesome/css/font-awesome.min.css" />
 </head>
 <body>
@@ -31,13 +31,15 @@
     </div>
     <div class="right">
       <div class="quit"><a href="../"><i class="fa fa-arrow-left"></i></a></div>
-      <div class="desc">说明：使用SVG的图像绘制功能制作钟表的各项部件，并利用CSS3的transform中平移、旋转功能实现表针的走动。</div>
+      <div class="desc">说明：风靡一时的2048小游戏仿制</div>
       <div class="content">
-
+      <div class="cell"></div>
+        <div>格子尺寸<input id="length" type="text" value="4" size="1" />&nbsp;&nbsp;(4～8)</div>
+        <button id="generate">改变</button>
       </div>
     </div>
   </div>
 </body>
 <script src="../public.js"></script>
-<script src="../js/SVGClock.js"></script>
+<script src="../js/2048.js"></script>
 </html>
