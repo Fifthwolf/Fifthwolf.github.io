@@ -56,13 +56,13 @@ function starGame (length) {
     var keynum = window.event ? e.keyCode : e.which;
     switch (keynum) {
       //左
-      case 37: moveBoxLeft(box, length); break;
+      case 37: moveBox(box, length, 'left'); break;
       //上
-      case 38: moveBoxTop(box, length); break;
+      case 38: moveBox(box, length, 'top'); break;
       //右
-      case 39: console.log(39); break;
+      case 39: moveBox(box, length, 'right'); break;
       //下
-      case 40: console.log(40); break;
+      case 40: moveBox(box, length, 'bottom'); break;
     }
   });
 
@@ -87,118 +87,151 @@ function initializeBox (box, length) {
   }
 }
 
-//向左移动
-function moveBoxLeft (box, length) {
-  mergeBoxLeft(box, length);
-  for (var i = 0; i < length; i++) {
-    var empty = 0;
-    for (var j = 0; j < length; j++) {
-      var boxType = box[i][j].getAttribute('boxType');
-      if (boxType !== '0') {
-        tempAttribute = boxType;
-        tempInnerHTML = box[i][j].innerHTML;   
-        box[i][j].setAttribute('boxType', '0');
-        box[i][j].setAttribute('class', '');
-        box[i][j].innerHTML = '&nbsp;';
-        box[i][empty].setAttribute('boxType', tempAttribute);
-        box[i][empty].setAttribute('class', 'type' + tempAttribute);
-        box[i][empty].innerHTML = tempInnerHTML;
-        empty++;
+function moveBox (box, length, direction) {
+  mergeBox(box, length, direction);
+
+  var x, y;
+  if (direction === 'left' || direction === 'top') {
+    for (var i = 0; i < length; i++) {
+      var empty = 0;
+      for (var j = 0; j < length; j++) {
+        if (direction === 'left') {
+          x = i;
+          y = j;
+        } else if (direction === 'top') {
+          x = j;
+          y = i;
+        }
+        var boxType = box[x][y].getAttribute('boxType');
+        if (boxType !== '0') {
+          move(box, x, y, empty, boxType, direction);
+          empty++;
+        }
       }
     }
   }
+
+  if (direction === 'right' || direction === 'bottom') {
+    for (var i = length - 1; i >= 0; i--) {
+      var empty = length - 1;
+      for (var j = length - 1; j >= 0; j--) {
+        if (direction === 'right') {
+          x = i;
+          y = j;
+        } else if (direction === 'bottom') {
+          x = j;
+          y = i;
+        }
+        var boxType = box[x][y].getAttribute('boxType');
+        if (boxType !== '0') {
+          move(box, x, y, empty, boxType, direction);
+          empty--;
+        }
+      }
+    }
+  }
+
   initializeBox(box, length);
-}
 
-//向左合并
-function mergeBoxLeft (box, length) {
-  for (var i = 0; i < length; i++) {
-    var boxPre, boxTypeTemp;
-    var merge = 0;
-    for (var j = 0; j < length; j++) {
-      var boxType = box[i][j].getAttribute('boxType');
-      if (boxType === '0') {
-        continue;
-      } else {
-        if (merge === 0) {
-          boxPre = box[i][j];
-          boxPreType = boxPre.getAttribute('boxType');
-          merge = 1;
-          continue;
-        }
-        if (merge === 1) {
-          if (boxPreType === boxType) {
-            boxPre.setAttribute('boxType', parseInt(boxType) + 1);
-            boxPre.setAttribute('class', 'type' + parseInt(boxType) + 1);
-            boxPre.innerHTML = data.value[parseInt(boxType) + 1];
-            box[i][j].setAttribute('boxType', '0');
-            box[i][j].setAttribute('class', '');
-            box[i][j].innerHTML = '&nbsp;';
-            merge = 0;
+  function move (box, x, y, empty, boxType, direction) {
+    tempAttribute = boxType;
+    tempInnerHTML = box[x][y].innerHTML;   
+    box[x][y].setAttribute('boxType', '0');
+    box[x][y].setAttribute('class', '');
+    box[x][y].innerHTML = '&nbsp;';
+    if (direction === 'left' || direction === 'right') {
+      box[x][empty].setAttribute('boxType', tempAttribute);
+      box[x][empty].setAttribute('class', 'type' + tempAttribute);
+      box[x][empty].innerHTML = tempInnerHTML;
+    } else if (direction === 'top' || direction === 'bottom') {
+      box[empty][y].setAttribute('boxType', tempAttribute);
+      box[empty][y].setAttribute('class', 'type' + tempAttribute);
+      box[empty][y].innerHTML = tempInnerHTML;
+    }
+  }
+
+  function mergeBox (box, length, direction) {
+    var x, y; 
+    
+    if (direction === 'left' || direction === 'top') {
+      for (var i = 0; i < length; i++) {
+        var boxPre, boxTypeTemp;
+        var mergeState = 0;
+        for (var j = 0; j < length; j++) {
+          if (direction === 'left') {
+            x = i;
+            y = j;
+          } else if (direction === 'top') {
+            x = j;
+            y = i;
+          }
+          var boxType = box[x][y].getAttribute('boxType');
+          if (boxType === '0') {
+            continue;
           } else {
-            boxPre = box[i][j];
-            boxPreType = boxPre.getAttribute('boxType');
-          }  
+            if (mergeState === 0) {
+              boxPre = box[x][y];
+              boxPreType = boxPre.getAttribute('boxType');
+              mergeState = 1;
+              continue;
+            }
+            if (mergeState === 1) {
+              if (boxPreType === boxType) {
+                mergeSuccess(box, x, y, boxPre);
+                mergeState = 0;
+              } else {
+                boxPre = box[x][y];
+                boxPreType = boxPre.getAttribute('boxType');
+              }  
+            }
+          }
         }
       }
     }
-  }
-}
 
-//向上移动
-function moveBoxTop (box, length) {
-  mergeBoxTop(box, length);
-  for (var i = 0; i < length; i++) {
-    var empty = 0;
-    for (var j = 0; j < length; j++) {
-      var boxType = box[j][i].getAttribute('boxType');
-      if (boxType !== '0') {
-        tempAttribute = boxType;
-        tempInnerHTML = box[j][i].innerHTML;   
-        box[j][i].setAttribute('boxType', '0');
-        box[j][i].setAttribute('class', '');
-        box[j][i].innerHTML = '&nbsp;';
-        box[empty][i].setAttribute('boxType', tempAttribute);
-        box[empty][i].setAttribute('class', 'type' + tempAttribute);
-        box[empty][i].innerHTML = tempInnerHTML;
-        empty++;
+    if (direction === 'right' || direction === 'bottom') {
+      for (var i = length - 1; i >= 0; i--) {
+        var boxPre, boxTypeTemp;
+        var mergeState = 0;
+        for (var j = length - 1; j >= 0; j--) {
+          if (direction === 'right') {
+            x = i;
+            y = j;
+          } else if (direction === 'bottom') {
+            x = j;
+            y = i;
+          }
+          var boxType = box[x][y].getAttribute('boxType');
+          if (boxType === '0') {
+            continue;
+          } else {
+            if (mergeState === 0) {
+              boxPre = box[x][y];
+              boxPreType = boxPre.getAttribute('boxType');
+              mergeState = 1;
+              continue;
+            }
+            if (mergeState === 1) {
+              if (boxPreType === boxType) {
+                mergeSuccess(box, x, y, boxPre);
+                mergeState = 0;
+              } else {
+                boxPre = box[x][y];
+                boxPreType = boxPre.getAttribute('boxType');
+              }  
+            }
+          }
+        }
       }
     }
-  }
-  initializeBox(box, length);
-}
 
-//向上合并
-function mergeBoxTop (box, length) {
-  for (var i = 0; i < length; i++) {
-    var boxPre, boxTypeTemp;
-    var merge = 0;
-    for (var j = 0; j < length; j++) {
-      var boxType = box[j][i].getAttribute('boxType');
-      if (boxType === '0') {
-        continue;
-      } else {
-        if (merge === 0) {
-          boxPre = box[j][i];
-          boxPreType = boxPre.getAttribute('boxType');
-          merge = 1;
-          continue;
-        }
-        if (merge === 1) {
-          if (boxPreType === boxType) {
-            boxPre.setAttribute('boxType', parseInt(boxType) + 1);
-            boxPre.setAttribute('class', 'type' + parseInt(boxType) + 1);
-            boxPre.innerHTML = data.value[parseInt(boxType) + 1];
-            box[j][i].setAttribute('boxType', '0');
-            box[j][i].setAttribute('class', '');
-            box[j][i].innerHTML = '&nbsp;';
-            merge = 0;
-          } else {
-            boxPre = box[j][i];
-            boxPreType = boxPre.getAttribute('boxType');
-          }  
-        }
-      }
+    function mergeSuccess (box, x, y, boxPre) {
+      boxPre.setAttribute('boxType', parseInt(boxType) + 1);
+      boxPre.setAttribute('class', 'type' + parseInt(boxType) + 1);
+      boxPre.innerHTML = data.value[parseInt(boxType) + 1];
+      box[x][y].setAttribute('boxType', '0');
+      box[x][y].setAttribute('class', '');
+      box[x][y].innerHTML = '&nbsp;';
     }
   }
 }
