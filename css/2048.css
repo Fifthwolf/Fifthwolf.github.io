@@ -15,7 +15,40 @@
         width: 50px;
         height: 50px;
         border-radius: 8px;
+        font-size: 28px;
+        line-height: 50px;
+        color: #fff;
         background-color: #ccc0b2; }
+        #main .right .content .cell div span.type1 {
+          background-color: #e9e4c4; }
+        #main .right .content .cell div span.type2 {
+          background-color: #f0b66c; }
+        #main .right .content .cell div span.type3 {
+          background-color: #f6954e; }
+        #main .right .content .cell div span.type4 {
+          background-color: #f77d4c; }
+        #main .right .content .cell div span.type5 {
+          background-color: #f85303; }
+        #main .right .content .cell div span.type6 {
+          background-color: #e9dd63; }
+        #main .right .content .cell div span.type7 {
+          background-color: #e9dc4f; }
+        #main .right .content .cell div span.type8 {
+          background-color: #e6da36; }
+        #main .right .content .cell div span.type9 {
+          background-color: #f0e10d; }
+        #main .right .content .cell div span.type10 {
+          background-color: #b4ee03; }
+        #main .right .content .cell div span.type11 {
+          background-color: #93ee03; }
+        #main .right .content .cell div span.type12 {
+          background-color: #5bee03; }
+        #main .right .content .cell div span.type13 {
+          background-color: #08ee03; }
+        #main .right .content .cell div span.type14 {
+          background-color: #025d00; }
+        #main .right .content .cell div span.type15 {
+          background-color: #031374; }
   #main .right .content div {
     margin-top: 20px;
     font-size: 24px; }
