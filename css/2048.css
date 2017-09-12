@@ -22,6 +22,7 @@
           border-radius: 8px;
           font-size: 28px;
           line-height: 50px;
+          vertical-align: top;
           color: #fff;
           background-color: #ccc0b2; }
           #main .right .content .mainView .cell div span.type1 {
@@ -60,13 +61,14 @@
           #main .right .content .mainView .cell div span.type15 {
             font-size: 14px;
             background-color: #031374; }
+    #main .right .content .mainView .moblieControl {
+      display: none; }
     #main .right .content .mainView .cellMask {
       display: none;
       position: absolute;
       top: 0;
       left: 50%;
       padding: 5px;
-      cursor: pointer;
       border-radius: 12px;
       background-color: rgba(17, 34, 51, 0.5); }
       #main .right .content .mainView .cellMask p {
@@ -85,7 +87,8 @@
         color: #fff;
         font-size: 20px;
         line-height: 40px;
-        font-weight: bold; }
+        font-weight: bold;
+        cursor: pointer; }
   #main .right .content .option {
     margin-top: 16px;
     font-size: 16px; }
@@ -96,5 +99,110 @@
     margin-top: 10px;
     width: 60px;
     height: 30px; }
+@media only screen and (max-width: 1000px) {
+  #main .right .content .score {
+    margin-bottom: 90px;
+    font-size: 40px; }
+  #main .right .content .mainView .cell {
+    border-radius: 24px; }
+    #main .right .content .mainView .cell div span {
+      margin: 10px;
+      width: 80px;
+      height: 80px;
+      border-radius: 14px;
+      font-size: 56px;
+      line-height: 80px; }
+      #main .right .content .mainView .cell div span.type7 {
+        font-size: 40px; }
+      #main .right .content .mainView .cell div span.type8 {
+        font-size: 40px; }
+      #main .right .content .mainView .cell div span.type9 {
+        font-size: 40px; }
+      #main .right .content .mainView .cell div span.type10 {
+        font-size: 32px; }
+      #main .right .content .mainView .cell div span.type11 {
+        font-size: 32px; }
+      #main .right .content .mainView .cell div span.type12 {
+        font-size: 32px; }
+      #main .right .content .mainView .cell div span.type13 {
+        font-size: 32px; }
+      #main .right .content .mainView .cell div span.type14 {
+        font-size: 20px; }
+      #main .right .content .mainView .cell div span.type15 {
+        font-size: 20px; }
+  #main .right .content .mainView .moblieControl {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    padding: 5px; }
+    #main .right .content .mainView .moblieControl .triangle {
+      position: absolute;
+      width: 0;
+      height: 0; }
+    #main .right .content .mainView .moblieControl .controlLeft {
+      top: 50%;
+      margin-top: -80px;
+      left: -60px;
+      border-top: 80px solid transparent;
+      border-right: 50px solid #567;
+      border-bottom: 80px solid transparent; }
+      #main .right .content .mainView .moblieControl .controlLeft.hover {
+        border-right: 50px solid #234; }
+    #main .right .content .mainView .moblieControl .controlRight {
+      top: 50%;
+      margin-top: -80px;
+      right: -60px;
+      border-top: 80px solid transparent;
+      border-left: 50px solid #567;
+      border-bottom: 80px solid transparent; }
+      #main .right .content .mainView .moblieControl .controlRight.hover {
+        border-left: 50px solid #234; }
+    #main .right .content .mainView .moblieControl .controlTop {
+      top: -60px;
+      left: 50%;
+      margin-left: -80px;
+      border-left: 80px solid transparent;
+      border-right: 80px solid transparent;
+      border-bottom: 50px solid #567; }
+      #main .right .content .mainView .moblieControl .controlTop.hover {
+        border-bottom: 50px solid #234; }
+    #main .right .content .mainView .moblieControl .controlBottom {
+      bottom: -60px;
+      left: 50%;
+      margin-left: -80px;
+      border-left: 80px solid transparent;
+      border-right: 80px solid transparent;
+      border-top: 50px solid #567; }
+      #main .right .content .mainView .moblieControl .controlBottom.hover {
+        border-top: 50px solid #234; }
+  #main .right .content .mainView .cellMask {
+    padding: 10px;
+    border-radius: 24px; }
+    #main .right .content .mainView .cellMask p {
+      margin: 20px;
+      font-size: 64px; }
+      #main .right .content .mainView .cellMask p:first-child {
+        margin-top: 80px; }
+    #main .right .content .mainView .cellMask .restart {
+      margin: 0 auto;
+      width: 200px;
+      height: 80px;
+      border-radius: 40px;
+      box-shadow: 0px 6px 10px #123;
+      font-size: 40px;
+      line-height: 80px; }
+  #main .right .content .option {
+    margin-top: 100px;
+    font-size: 46px; }
+    #main .right .content .option input {
+      font-size: 46px;
+      line-height: 46px; }
+  #main .right .content button {
+    margin-top: 30px;
+    width: 180px;
+    height: 80px;
+    font-size: 46px;
+    line-height: 80px; } }
 
 /*# sourceMappingURL=2048.css.map */

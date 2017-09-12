@@ -2,6 +2,7 @@
 var score = content.getElementsByClassName('score')[0];
 var scoreSpan = score.getElementsByTagName('span')[0];
 var cell = content.getElementsByClassName('cell')[0];
+var moblieControl = content.getElementsByClassName('moblieControl')[0];
 var cellMask = content.getElementsByClassName('cellMask')[0];
 var restartButton = cellMask.getElementsByClassName('restart')[0];
 var changeButton = document.getElementById('change');
@@ -13,10 +14,23 @@ var data = {
   step: 0,
   score: 0,
   moveEvent:false,
+  sides: 60,
   box: null
 }
 
 window.onload = function () {
+  if (!judgeWidth()) {
+    data.sides = 100;
+    addEvent (moblieControl, 'click', function (e) {
+      e = e || window.event;
+      if (e.target.hasClass('triangle')) {
+        e.target.addClass('hover');
+      }
+      setTimeout(function () {
+        e.target.removeClass('hover');
+      }, 200);
+    });
+  }
   data.value[0] = '&nbsp;';
   for (var i = 1; i < 16; i++) {
     data.value[i] = Math.pow(2, i);
@@ -36,14 +50,14 @@ addEvent (changeButton, 'click', function () {
   }
 });
 
+addEvent (restartButton, 'click', restart);
+
 function restart () {
   cellMask.style.display = 'none';
   data.score = 0;
   createCell(data.length);
   starGame(data.length);
 }
-
-addEvent (restartButton, 'click', restart);
 
 function createCell (length) {
   cell.innerHTML = '';
@@ -59,10 +73,15 @@ function createCell (length) {
     }
     cell.appendChild(row[i]);
   }
-  cell.style.width = length * 60 + 'px';
-  cellMask.style.width = length * 60 + 'px';
-  cellMask.style.height = length * 60 + 'px';
-  cellMask.style.marginLeft = -(length * 60) / 2 - 5 + 'px';
+  cell.style.width = length * data.sides + 'px';
+  if (!judgeWidth()) {
+    moblieControl.style.width = length * data.sides + 'px';
+    moblieControl.style.height = length * data.sides + 'px';
+    moblieControl.style.marginLeft = -(length * data.sides) / 2 - 5 + 'px';
+  }
+  cellMask.style.width = length * data.sides + 'px';
+  cellMask.style.height = length * data.sides + 'px';
+  cellMask.style.marginLeft = -(length * data.sides) / 2 - 5 + 'px';
 }
 
 function starGame (length) {
@@ -73,19 +92,37 @@ function starGame (length) {
     data.box[i] = row[i].getElementsByTagName('span');
   }
   if (data.moveEvent === false) {
-    addEvent (document, 'keydown', function (e) {
-      var keynum = window.event ? e.keyCode : e.which;
-      switch (keynum) {
-        //左
-        case 37: moveBox(data.box, 'left'); break;
-        //上
-        case 38: moveBox(data.box, 'top'); break;
-        //右
-        case 39: moveBox(data.box, 'right'); break;
-        //下
-        case 40: moveBox(data.box, 'bottom'); break;
-      }
-    });
+    if (judgeWidth()) {
+      addEvent (document, 'keydown', function (e) {
+        var keynum = window.event ? e.keyCode : e.which;
+        switch (keynum) {
+          //左
+          case 37: moveBox(data.box, 'left'); break;
+          //上
+          case 38: moveBox(data.box, 'top'); break;
+          //右
+          case 39: moveBox(data.box, 'right'); break;
+          //下
+          case 40: moveBox(data.box, 'bottom'); break;
+        }
+      });
+    } else if (!judgeWidth()) {
+      addEvent (moblieControl, 'click', function (e) {
+        e = e || window.event;
+        if (e.target.hasClass('controlLeft')) {
+          moveBox(data.box, 'left');
+        }
+        if (e.target.hasClass('controlTop')) {
+          moveBox(data.box, 'top');
+        }
+        if (e.target.hasClass('controlRight')) {
+          moveBox(data.box, 'right');
+        }
+        if (e.target.hasClass('controlBottom')) {
+          moveBox(data.box, 'bottom');
+        }
+      });
+    }
     data.moveEvent = true;
   }
 
@@ -94,7 +131,7 @@ function starGame (length) {
 }
 
 function fail () {
-  cellMask.getElementsByTagName('p')[0].style.marginTop = (data.length - 4) * 30 + 40 + 'px';
+  cellMask.getElementsByTagName('p')[0].style.marginTop = (data.length - 3) * data.sides / 2 + 'px';
   cellMask.getElementsByTagName('p')[1].innerHTML = data.score;
   data.step = 0;
   cellMask.style.display = 'block';
