@@ -1,4 +1,4 @@
-var content = document.getElementsByClassName('content')[0];
+﻿var content = document.getElementsByClassName('content')[0];
 var cell = content.getElementsByClassName('cell')[0];
 var changeButton = document.getElementById('change');
 
@@ -70,12 +70,22 @@ function starGame (length) {
   initializeBox(box, length);
 }
 
+//清空
+function clearBox (box, length) {
+  cell.innerHTML = '';
+  var span = document.createElement('span');
+}
+
+
 //初始化格子
 function initializeBox (box, length) {
-  if (fail(box, length)) {
-    return;
-  }
-  for (var i = 2; i > 0; ) {
+  var i = Math.min(surplus(box, length), 2);
+  if (i === 0 && fail(box, length)) {
+    clearBox(box, length);
+    console.log('fail');
+    return 0;
+  } 
+  for (; i > 0; ) {
     var x = parseInt(Math.random() * 4);
     var y = parseInt(Math.random() * 4);
     if (box[x][y].getAttribute('boxType') === '0') {
@@ -84,6 +94,18 @@ function initializeBox (box, length) {
       box[x][y].setAttribute('class', 'type1');
       i--;
     }
+  }
+
+  function surplus(box, length) {
+    var x = 0;
+    for (var i = 0; i < length; i++) {
+      for (var j = 0; j < length; j++) {
+        if (box[i][j].getAttribute('boxType') === '0') {
+          x++;
+        }
+      }
+    }
+    return x;
   }
 }
 
@@ -237,13 +259,15 @@ function moveBox (box, length, direction) {
 }
 
 function fail (box, length) {
-  var surplusBox = 0;
   for (var i = 0; i < length; i++) {
-    for (var j = 0; j < length; j++) {
-      if (box[i][j].getAttribute('boxType') === '0') {
-        surplusBox++;
+    for (var j = 0; j < length - 1; j++) {
+      if(box[i][j].getAttribute('boxType') === box[i][j + 1].getAttribute('boxType')) {
+        return false;
+      }
+      if(box[j][i].getAttribute('boxType') === box[j + 1][i].getAttribute('boxType')) {
+        return false;
       }
     }
   }
-  return surplusBox < 2 ? true : false;
+  return true;
 }
