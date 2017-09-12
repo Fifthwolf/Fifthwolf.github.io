@@ -21,7 +21,7 @@ var data = {
 window.onload = function () {
   if (!judgeWidth()) {
     data.sides = 100;
-    addEvent (moblieControl, 'click', function (e) {
+    addEvent (moblieControl, 'touchstart', function (e) {
       e = e || window.event;
       if (e.target.hasClass('triangle')) {
         e.target.addClass('hover');
@@ -107,7 +107,7 @@ function starGame (length) {
         }
       });
     } else if (!judgeWidth()) {
-      addEvent (moblieControl, 'click', function (e) {
+      addEvent (moblieControl, 'touchstart', function (e) {
         e = e || window.event;
         if (e.target.hasClass('controlLeft')) {
           moveBox(data.box, 'left');
