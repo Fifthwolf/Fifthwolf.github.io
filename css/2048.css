@@ -1,60 +1,97 @@
 #main .right .content {
   text-align: center; }
-  #main .right .content .cell {
-    margin: 0 auto;
-    padding: 5px;
-    min-height: 200px;
-    border-radius: 12px;
-    background-color: #baaea0; }
-    #main .right .content .cell div {
-      font-size: 0;
-      margin: 0; }
-      #main .right .content .cell div span {
-        display: inline-block;
-        margin: 5px;
-        width: 50px;
-        height: 50px;
-        border-radius: 8px;
-        font-size: 28px;
-        line-height: 50px;
+  #main .right .content .score {
+    margin-bottom: 10px;
+    font-size: 20px; }
+  #main .right .content .mainView {
+    position: relative; }
+    #main .right .content .mainView .cell {
+      margin: 0 auto;
+      padding: 5px;
+      min-height: 200px;
+      border-radius: 12px;
+      background-color: #baaea0; }
+      #main .right .content .mainView .cell div {
+        font-size: 0;
+        margin: 0; }
+        #main .right .content .mainView .cell div span {
+          display: inline-block;
+          margin: 5px;
+          width: 50px;
+          height: 50px;
+          border-radius: 8px;
+          font-size: 28px;
+          line-height: 50px;
+          color: #fff;
+          background-color: #ccc0b2; }
+          #main .right .content .mainView .cell div span.type1 {
+            background-color: #e9e4c4; }
+          #main .right .content .mainView .cell div span.type2 {
+            background-color: #f0b66c; }
+          #main .right .content .mainView .cell div span.type3 {
+            background-color: #f6954e; }
+          #main .right .content .mainView .cell div span.type4 {
+            background-color: #f77d4c; }
+          #main .right .content .mainView .cell div span.type5 {
+            background-color: #f85303; }
+          #main .right .content .mainView .cell div span.type6 {
+            background-color: #e9dd63; }
+          #main .right .content .mainView .cell div span.type7 {
+            background-color: #e9dc4f; }
+          #main .right .content .mainView .cell div span.type8 {
+            background-color: #e6da36; }
+          #main .right .content .mainView .cell div span.type9 {
+            background-color: #f0e10d; }
+          #main .right .content .mainView .cell div span.type10 {
+            font-size: 18px;
+            background-color: #b4ee03; }
+          #main .right .content .mainView .cell div span.type11 {
+            font-size: 18px;
+            background-color: #93ee03; }
+          #main .right .content .mainView .cell div span.type12 {
+            font-size: 18px;
+            background-color: #5bee03; }
+          #main .right .content .mainView .cell div span.type13 {
+            font-size: 18px;
+            background-color: #08ee03; }
+          #main .right .content .mainView .cell div span.type14 {
+            font-size: 14px;
+            background-color: #025d00; }
+          #main .right .content .mainView .cell div span.type15 {
+            font-size: 14px;
+            background-color: #031374; }
+    #main .right .content .mainView .cellMask {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      padding: 5px;
+      cursor: pointer;
+      border-radius: 12px;
+      background-color: rgba(17, 34, 51, 0.5); }
+      #main .right .content .mainView .cellMask p {
+        margin: 10px;
         color: #fff;
-        background-color: #ccc0b2; }
-        #main .right .content .cell div span.type1 {
-          background-color: #e9e4c4; }
-        #main .right .content .cell div span.type2 {
-          background-color: #f0b66c; }
-        #main .right .content .cell div span.type3 {
-          background-color: #f6954e; }
-        #main .right .content .cell div span.type4 {
-          background-color: #f77d4c; }
-        #main .right .content .cell div span.type5 {
-          background-color: #f85303; }
-        #main .right .content .cell div span.type6 {
-          background-color: #e9dd63; }
-        #main .right .content .cell div span.type7 {
-          background-color: #e9dc4f; }
-        #main .right .content .cell div span.type8 {
-          background-color: #e6da36; }
-        #main .right .content .cell div span.type9 {
-          background-color: #f0e10d; }
-        #main .right .content .cell div span.type10 {
-          background-color: #b4ee03; }
-        #main .right .content .cell div span.type11 {
-          background-color: #93ee03; }
-        #main .right .content .cell div span.type12 {
-          background-color: #5bee03; }
-        #main .right .content .cell div span.type13 {
-          background-color: #08ee03; }
-        #main .right .content .cell div span.type14 {
-          background-color: #025d00; }
-        #main .right .content .cell div span.type15 {
-          background-color: #031374; }
-  #main .right .content div {
-    margin-top: 20px;
-    font-size: 24px; }
-    #main .right .content div input {
-      font-size: 20px;
-      line-height: 20px; }
+        font-size: 32px; }
+        #main .right .content .mainView .cellMask p:first-child {
+          margin-top: 40px; }
+      #main .right .content .mainView .cellMask .restart {
+        margin: 0 auto;
+        width: 100px;
+        height: 40px;
+        background-color: #f6954e;
+        border-radius: 20px;
+        box-shadow: 0px 3px 5px #123;
+        color: #fff;
+        font-size: 20px;
+        line-height: 40px;
+        font-weight: bold; }
+  #main .right .content .option {
+    margin-top: 16px;
+    font-size: 16px; }
+    #main .right .content .option input {
+      font-size: 16px;
+      line-height: 16px; }
   #main .right .content button {
     margin-top: 10px;
     width: 60px;

@@ -1,11 +1,19 @@
 ﻿var content = document.getElementsByClassName('content')[0];
+var score = content.getElementsByClassName('score')[0];
+var scoreSpan = score.getElementsByTagName('span')[0];
 var cell = content.getElementsByClassName('cell')[0];
+var cellMask = content.getElementsByClassName('cellMask')[0];
+var restartButton = cellMask.getElementsByClassName('restart')[0];
 var changeButton = document.getElementById('change');
 
-var length = 4;
-
 var data = {
-  value:[]
+  start: true,
+  value: [],
+  length: 4,
+  step: 0,
+  score: 0,
+  moveEvent:false,
+  box: null
 }
 
 window.onload = function () {
@@ -13,20 +21,29 @@ window.onload = function () {
   for (var i = 1; i < 16; i++) {
     data.value[i] = Math.pow(2, i);
   }
-  createCell(length);
-  starGame(length);
+  createCell(data.length);
+  starGame(data.length);
 }
 
 addEvent (changeButton, 'click', function () {
   var changeLength = Number(document.getElementById('length').value);
   if(changeLength >= 4 && changeLength <= 8 && _isInteger(changeLength)){
-    createCell(changeLength);
-    length = changeLength;
+    data.length = changeLength;
+    restart();
   }
   function _isInteger (obj) {
     return typeof obj === 'number' && obj % 1 === 0;
   }
 });
+
+function restart () {
+  cellMask.style.display = 'none';
+  data.score = 0;
+  createCell(data.length);
+  starGame(data.length);
+}
+
+addEvent (restartButton, 'click', restart);
 
 function createCell (length) {
   cell.innerHTML = '';
@@ -43,74 +60,82 @@ function createCell (length) {
     cell.appendChild(row[i]);
   }
   cell.style.width = length * 60 + 'px';
+  cellMask.style.width = length * 60 + 'px';
+  cellMask.style.height = length * 60 + 'px';
+  cellMask.style.marginLeft = -(length * 60) / 2 - 5 + 'px';
 }
 
 function starGame (length) {
-  var box = new Array(length);
+  data.box = null;
+  data.box = new Array(length);
   var row = cell.getElementsByTagName('div');
   for (var i = 0; i < length; i++) {
-    box[i] = row[i].getElementsByTagName('span');
+    data.box[i] = row[i].getElementsByTagName('span');
+  }
+  if (data.moveEvent === false) {
+    addEvent (document, 'keydown', function (e) {
+      var keynum = window.event ? e.keyCode : e.which;
+      switch (keynum) {
+        //左
+        case 37: moveBox(data.box, 'left'); break;
+        //上
+        case 38: moveBox(data.box, 'top'); break;
+        //右
+        case 39: moveBox(data.box, 'right'); break;
+        //下
+        case 40: moveBox(data.box, 'bottom'); break;
+      }
+    });
+    data.moveEvent = true;
   }
 
-  addEvent (document, 'keydown', function (e) {
-    var keynum = window.event ? e.keyCode : e.which;
-    switch (keynum) {
-      //左
-      case 37: moveBox(box, length, 'left'); break;
-      //上
-      case 38: moveBox(box, length, 'top'); break;
-      //右
-      case 39: moveBox(box, length, 'right'); break;
-      //下
-      case 40: moveBox(box, length, 'bottom'); break;
-    }
-  });
-
   //增加格子
-  initializeBox(box, length);
+  initializeBox(data.box, length);
 }
 
-//清空
-function clearBox (box, length) {
-  cell.innerHTML = '';
-  var span = document.createElement('span');
+function fail () {
+  cellMask.getElementsByTagName('p')[0].style.marginTop = (data.length - 4) * 30 + 40 + 'px';
+  cellMask.getElementsByTagName('p')[1].innerHTML = data.score;
+  data.step = 0;
+  cellMask.style.display = 'block';
 }
-
 
 //初始化格子
 function initializeBox (box, length) {
-  var i = Math.min(surplus(box, length), 2);
-  if (i === 0 && fail(box, length)) {
-    clearBox(box, length);
-    console.log('fail');
+  var createBox;
+  var createBox = Math.min(surplus(box, length), 2);
+  if (createBox === 0 && adjoinBox(box, length)) {
+    fail();
     return 0;
-  } 
-  for (; i > 0; ) {
-    var x = parseInt(Math.random() * 4);
-    var y = parseInt(Math.random() * 4);
+  }
+  for (; createBox > 0; ) {
+    var x = parseInt(Math.random() * length);
+    var y = parseInt(Math.random() * length);
     if (box[x][y].getAttribute('boxType') === '0') {
       box[x][y].innerHTML = data.value[1];
       box[x][y].setAttribute('boxType','1');
       box[x][y].setAttribute('class', 'type1');
-      i--;
+      createBox--;
     }
   }
 
   function surplus(box, length) {
-    var x = 0;
+    var surplusBox = 0;
     for (var i = 0; i < length; i++) {
       for (var j = 0; j < length; j++) {
         if (box[i][j].getAttribute('boxType') === '0') {
-          x++;
+          surplusBox++;
         }
       }
     }
-    return x;
+    return surplusBox;
   }
 }
 
-function moveBox (box, length, direction) {
-  mergeBox(box, length, direction);
+function moveBox (box, direction) {
+  var length = data.length;
+  data.step++;
+  mergeBox(box, data.length, direction);
 
   var x, y;
   if (direction === 'left' || direction === 'top') {
@@ -254,11 +279,13 @@ function moveBox (box, length, direction) {
       box[x][y].setAttribute('boxType', '0');
       box[x][y].setAttribute('class', '');
       box[x][y].innerHTML = '&nbsp;';
+      data.score += Math.pow(2, parseInt(boxType) + 1);
+      scoreSpan.innerHTML = data.score;
     }
   }
 }
 
-function fail (box, length) {
+function adjoinBox (box, length) {
   for (var i = 0; i < length; i++) {
     for (var j = 0; j < length - 1; j++) {
       if(box[i][j].getAttribute('boxType') === box[i][j + 1].getAttribute('boxType')) {
