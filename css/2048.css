@@ -101,7 +101,7 @@
     height: 30px; }
 @media only screen and (max-width: 1000px) {
   #main .right .content .score {
-    margin-bottom: 90px;
+    margin-bottom: 150px;
     font-size: 40px; }
   #main .right .content .mainView .cell {
     border-radius: 24px; }
@@ -143,41 +143,44 @@
     #main .right .content .mainView .moblieControl .controlLeft {
       top: 50%;
       margin-top: -80px;
-      left: -60px;
-      border-top: 80px solid transparent;
+      left: -105px;
+      border-top: 100px solid transparent;
       border-right: 50px solid #567;
-      border-bottom: 80px solid transparent; }
+      border-bottom: 100px solid transparent;
+      border-left: 50px solid transparent; }
       #main .right .content .mainView .moblieControl .controlLeft.hover {
         border-right: 50px solid #234; }
     #main .right .content .mainView .moblieControl .controlRight {
       top: 50%;
       margin-top: -80px;
-      right: -60px;
-      border-top: 80px solid transparent;
+      right: -105px;
+      border-top: 100px solid transparent;
       border-left: 50px solid #567;
-      border-bottom: 80px solid transparent; }
+      border-bottom: 100px solid transparent;
+      border-right: 50px solid transparent; }
       #main .right .content .mainView .moblieControl .controlRight.hover {
         border-left: 50px solid #234; }
     #main .right .content .mainView .moblieControl .controlTop {
-      top: -60px;
+      top: -105px;
       left: 50%;
       margin-left: -80px;
-      border-left: 80px solid transparent;
-      border-right: 80px solid transparent;
-      border-bottom: 50px solid #567; }
+      border-left: 100px solid transparent;
+      border-right: 100px solid transparent;
+      border-bottom: 50px solid #567;
+      border-top: 50px solid transparent; }
       #main .right .content .mainView .moblieControl .controlTop.hover {
         border-bottom: 50px solid #234; }
     #main .right .content .mainView .moblieControl .controlBottom {
-      bottom: -60px;
+      bottom: -105px;
       left: 50%;
       margin-left: -80px;
-      border-left: 80px solid transparent;
-      border-right: 80px solid transparent;
-      border-top: 50px solid #567; }
+      border-left: 100px solid transparent;
+      border-right: 100px solid transparent;
+      border-top: 50px solid #567;
+      border-bottom: 50px solid transparent; }
       #main .right .content .mainView .moblieControl .controlBottom.hover {
         border-top: 50px solid #234; }
   #main .right .content .mainView .cellMask {
-    padding: 10px;
     border-radius: 24px; }
     #main .right .content .mainView .cellMask p {
       margin: 20px;
@@ -193,7 +196,7 @@
       font-size: 40px;
       line-height: 80px; }
   #main .right .content .option {
-    margin-top: 100px;
+    margin-top: 200px;
     font-size: 46px; }
     #main .right .content .option input {
       font-size: 46px;
