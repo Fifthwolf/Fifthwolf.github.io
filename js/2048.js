@@ -18,6 +18,7 @@ var data = {
   box: null
 }
 
+/*
 window.onload = function () {
   if (judgeWidth()) {
     document.getElementsByTagName('body')[0].style.backgroundImage = 'url("../image/background.jpg")';
@@ -43,6 +44,35 @@ window.onload = function () {
   createCell(data.length);
   starGame(data.length);
 }
+*/
+
+addEvent (window, 'load', function () {
+  if (!judgeWidth()) {
+    data.sides = 100;
+    addEvent (moblieControl, 'touchstart', function (e) {
+      e = e || window.event;
+      if (e.target.hasClass('triangle')) {
+        e.target.addClass('hover');
+      }
+      setTimeout(function () {
+        e.target.removeClass('hover');
+      }, 200);
+    });
+  }
+  data.value[0] = '&nbsp;';
+  for (var i = 1; i < 16; i++) {
+    data.value[i] = Math.pow(2, i);
+  }
+  createCell(data.length);
+  starGame(data.length);
+
+  if (judgeWidth()) {
+    document.getElementsByTagName('body')[0].style.backgroundImage = 'url("../image/background.jpg")';
+  } else {
+    document.getElementsByTagName('body')[0].style.backgroundImage = 'url("../image/background-mobile.jpg")';
+  }
+  document.getElementsByClassName('image')[0].style.backgroundImage = 'url("../image/TX.png")';
+});
 
 addEvent (changeButton, 'click', function () {
   var changeLength = Number(document.getElementById('length').value);
