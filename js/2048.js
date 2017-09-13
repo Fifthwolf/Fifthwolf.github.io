@@ -18,13 +18,7 @@ var data = {
   box: null
 }
 
-/*
 window.onload = function () {
-  if (judgeWidth()) {
-    document.getElementsByTagName('body')[0].style.backgroundImage = 'url("../image/background.jpg")';
-  } else {
-    document.getElementsByTagName('body')[0].style.backgroundImage = 'url("../image/background-mobile.jpg")';
-  }
   if (!judgeWidth()) {
     data.sides = 100;
     addEvent (moblieControl, 'touchstart', function (e) {
@@ -44,35 +38,6 @@ window.onload = function () {
   createCell(data.length);
   starGame(data.length);
 }
-*/
-
-addEvent (window, 'load', function () {
-  if (!judgeWidth()) {
-    data.sides = 100;
-    addEvent (moblieControl, 'touchstart', function (e) {
-      e = e || window.event;
-      if (e.target.hasClass('triangle')) {
-        e.target.addClass('hover');
-      }
-      setTimeout(function () {
-        e.target.removeClass('hover');
-      }, 200);
-    });
-  }
-  data.value[0] = '&nbsp;';
-  for (var i = 1; i < 16; i++) {
-    data.value[i] = Math.pow(2, i);
-  }
-  createCell(data.length);
-  starGame(data.length);
-
-  if (judgeWidth()) {
-    document.getElementsByTagName('body')[0].style.backgroundImage = 'url("../image/background.jpg")';
-  } else {
-    document.getElementsByTagName('body')[0].style.backgroundImage = 'url("../image/background-mobile.jpg")';
-  }
-  document.getElementsByClassName('image')[0].style.backgroundImage = 'url("../image/TX.png")';
-});
 
 addEvent (changeButton, 'click', function () {
   var changeLength = Number(document.getElementById('length').value);
@@ -90,7 +55,6 @@ addEvent (restartButton, 'click', restart);
 function restart () {
   cellMask.style.display = 'none';
   data.score = 0;
-  scoreSpan.innerHTML = data.score;
   createCell(data.length);
   starGame(data.length);
 }
@@ -176,8 +140,7 @@ function fail () {
 //初始化格子
 function initializeBox (box, length) {
   var createBox;
-  // var createBox = Math.min(surplus(box, length), 2);
-  var createBox = surplus(box, length);
+  var createBox = Math.min(surplus(box, length), 2);
   if (createBox === 0 && adjoinBox(box, length)) {
     fail();
     return 0;
@@ -199,9 +162,6 @@ function initializeBox (box, length) {
       for (var j = 0; j < length; j++) {
         if (box[i][j].getAttribute('boxType') === '0') {
           surplusBox++;
-          if (surplusBox >= 2) {
-            return surplusBox;
-          }
         }
       }
     }

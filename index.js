@@ -21,14 +21,6 @@ window.onresize = function () {
   useElementToAppropriate(star, document);
 }
 
-window.onload = function () {
-  if (judgeWidth()) {
-    document.getElementsByTagName('body')[0].style.backgroundImage = 'url("image/background.jpg")';
-  } else {
-    document.getElementsByTagName('body')[0].style.backgroundImage = 'url("image/background-mobile.jpg")';
-  }
-}
-
 addEvent(own, 'click', function (e) {
   var target = e.target || e.srcElement;
   if (judgeWidth()) {

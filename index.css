@@ -57,7 +57,7 @@
           width: 110px;
           height: 110px;
           border-radius: 50%;
-          background: #fff url("image/empty.png") 0 0 no-repeat;
+          background: #fff url("image/TX.png") 0 0 no-repeat;
           background-size: 100%; }
       @media only screen and (max-width: 1000px) {
         #star .head .content {
@@ -89,7 +89,7 @@
               width: 230px;
               height: 230px;
               border-radius: 50%;
-              background: #fff url("image/empty.png") 0 0 no-repeat;
+              background: #fff url("image/TX.png") 0 0 no-repeat;
               background-size: 100%; } }
       #star .head .content span {
         font-size: 26px;

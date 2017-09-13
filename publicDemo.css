@@ -27,7 +27,7 @@ body * {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    background: #fff url("image/empty.png") 0 0 no-repeat;
+    background: #fff url("image/TX.png") 0 0 no-repeat;
     background-size: 100%; }
 #main .left .own {
   margin-top: 40px;
@@ -102,7 +102,7 @@ body * {
           width: 150px;
           height: 150px;
           border-radius: 50%;
-          background: #fff url("image/empty.png") 0 0 no-repeat;
+          background: #fff url("image/TX.png") 0 0 no-repeat;
           background-size: 100%; }
       #main .left .own {
         margin-top: 40px;
