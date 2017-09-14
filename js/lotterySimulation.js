@@ -7,6 +7,10 @@ var input_special = document.getElementById("special");
 var input_max = document.getElementById("max");
 var list = document.getElementsByClassName("list")[0];
 
+window.onload = function () {
+  delayedLoadingPublicPictures ('../');
+}
+
 button_generate.onclick = function () {
   var basic = Number(removeSpace(input_basic.value));
   var special = Number(removeSpace(input_special.value));

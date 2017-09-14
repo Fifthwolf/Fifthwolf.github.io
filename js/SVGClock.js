@@ -7,6 +7,10 @@ var sec = clock.getElementById("sec");
 var msec = clock.getElementById("msec");
 var dial = clock.getElementsByClassName("dial")[0];
 
+window.onload = function () {
+  delayedLoadingPublicPictures ('../');
+}
+
 setTime();
 
 setInterval(function () {

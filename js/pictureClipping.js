@@ -7,7 +7,8 @@ var buttonDiv = mainDiv.getElementsByTagName("div");
 //阻止拖动时浏览器其他事件
 document.onselectstart = new Function('event.returnValue=false;');
 
-window.onload = function() {
+window.onload = function () {
+  delayedLoadingPublicPictures ('../');
   var show = document.getElementById("show");
   var showPic = document.createElement("img");
   showPic.src = img2.src;

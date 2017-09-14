@@ -19,12 +19,7 @@ var data = {
 }
 
 window.onload = function () {
-  if (judgeWidth()) {
-    document.getElementsByTagName('body')[0].style.backgroundImage = 'url("../image/background.jpg")';
-  } else {
-    document.getElementsByTagName('body')[0].style.backgroundImage = 'url("../image/background-mobile.jpg")';
-  }
-  document.getElementsByClassName('image')[0].style.backgroundImage = 'url("../image/TX.png")';
+  delayedLoadingPublicPictures ('../');
   if (!judgeWidth()) {
     data.sides = 100;
     addEvent (moblieControl, 'touchstart', function (e) {

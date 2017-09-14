@@ -1,6 +1,7 @@
 var content = document.getElementsByClassName('content')[0];
 
 window.onload = function () {
+  delayedLoadingPublicPictures ('../');
   var cul = new Array(7);
   for(var i = 0; i < 7; i++){
     cul[i] = document.createElement('ul');

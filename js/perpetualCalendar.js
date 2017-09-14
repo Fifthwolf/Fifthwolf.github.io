@@ -26,6 +26,7 @@ month.onchange = function () {
 }
 
 window.onload = function () {
+  delayedLoadingPublicPictures ('../');
   dayList(now);
   var currentYear = getSelectOption(year, now.getFullYear());
   var currentMonth = getSelectOption(month, now.getMonth() + 1);

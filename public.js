@@ -11,6 +11,16 @@ window.onresize = function () {
   adjustmentWindow();
 }
 
+function delayedLoadingPublicPictures (prefix) {
+  var body = document.getElementsByTagName('body')[0];
+  if (judgeWidth()) {
+    body.style.backgroundImage = 'url("' + prefix + 'image/background.jpg")';
+  } else {
+    body.style.backgroundImage = 'url("' + prefix + 'image/background-mobile.jpg")';
+  }
+  left.getElementsByClassName('image')[0].style.backgroundImage = 'url("' + prefix + 'image/TX.png")';
+}
+
 function adjustmentWindow () {
   if (judgeWidth()) {
     main.style.display = 'flex';
