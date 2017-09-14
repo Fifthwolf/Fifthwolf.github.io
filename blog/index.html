@@ -21,6 +21,18 @@
     </div>
   </header>
   <div id="content">
+  <div class="content">
+      <div class="content-left">
+        <div class="content-day">14</div>
+        <div class="content-ym">2017-09</div>
+      </div>
+      <div class="content-right">
+        <div class="content-title">延迟加载图片</div>
+        <div class="content-abstract">
+          <p>CSS中的background如果不加载完毕，则后面的CSS样式则被阻塞，在网络条件差的情况下机及其影响体验。所以将background的图片地址设为一个仅有1像素的空白图片，再在JS的window.onload中进行更改，即可不影响体验。同理在img中可将src的地址设置为读取图像，另自定义一个属性设置为真实地址，在JS中进行更改即可。</p>
+        </div>
+      </div>
+    </div>
     <div class="content">
       <div class="content-left">
         <div class="content-day">02</div>
