@@ -55,6 +55,16 @@ function judgeWidth() {
   return (screenWidth >= 1000);
 }
 
+function deferLoadImage() {
+  var body = document.getElementsByTagName('body')[0];
+  if (judgeWidth()) {
+    body.style.backgroundImage = 'url("../image/background.jpg")';
+  } else {
+    body.style.backgroundImage = 'url("../image/background-mobile.jpg")';
+  }
+  document.getElementsByClassName('image')[0].style.backgroundImage = 'url("../image/TX.png")';
+}
+
 function addEvent (element, type, handler) {
   if (element.addEventListener) {
     element.addEventListener(type, handler, false);

@@ -142,7 +142,7 @@
       height: 0; }
     #main .right .content .mainView .moblieControl .controlLeft {
       top: 50%;
-      margin-top: -80px;
+      margin-top: -100px;
       left: -105px;
       border-top: 100px solid transparent;
       border-right: 50px solid #567;
@@ -152,7 +152,7 @@
         border-right: 50px solid #234; }
     #main .right .content .mainView .moblieControl .controlRight {
       top: 50%;
-      margin-top: -80px;
+      margin-top: -100px;
       right: -105px;
       border-top: 100px solid transparent;
       border-left: 50px solid #567;
@@ -163,7 +163,7 @@
     #main .right .content .mainView .moblieControl .controlTop {
       top: -105px;
       left: 50%;
-      margin-left: -80px;
+      margin-left: -100px;
       border-left: 100px solid transparent;
       border-right: 100px solid transparent;
       border-bottom: 50px solid #567;
@@ -173,7 +173,7 @@
     #main .right .content .mainView .moblieControl .controlBottom {
       bottom: -105px;
       left: 50%;
-      margin-left: -80px;
+      margin-left: -100px;
       border-left: 100px solid transparent;
       border-right: 100px solid transparent;
       border-top: 50px solid #567;
