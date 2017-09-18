@@ -1,5 +1,5 @@
 ﻿var content = document.getElementsByClassName('content')[0];
-var mainView = content.getElementsByClassName('mainView')[0];
+var mainViewBox = content.getElementsByClassName('box')[0];
 
 window.onload = function () {
   delayedLoadingPublicPictures ('../');
@@ -19,5 +19,5 @@ for (var i = 0; i < data.row; i++) {
     col[j] = document.createElement('span');
     row[i].appendChild(col[j]);
   }
-  mainView.appendChild(row[i]);
+  mainViewBox.appendChild(row[i]);
 }
