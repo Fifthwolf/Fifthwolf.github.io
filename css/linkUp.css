@@ -4,7 +4,7 @@
   width: 700px;
   height: 520px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.3); }
   #main .right .content .mainView .box div {
     width: 700px;
@@ -15,6 +15,29 @@
       width: 48px;
       height: 63px;
       border-radius: 8px;
-      background-color: #ccc; }
+      vertical-align: top;
+      line-height: 63px;
+      text-align: center;
+      font-size: 24px; }
+      #main .right .content .mainView .box div span.type1 {
+        background-color: #fc9; }
+      #main .right .content .mainView .box div span.type2 {
+        background-color: #ff9; }
+      #main .right .content .mainView .box div span.type3 {
+        background-color: #9c9; }
+      #main .right .content .mainView .box div span.type4 {
+        background-color: #096; }
+      #main .right .content .mainView .box div span.type5 {
+        background-color: #fc0; }
+      #main .right .content .mainView .box div span.type6 {
+        background-color: #09c; }
+      #main .right .content .mainView .box div span.type7 {
+        background-color: #369; }
+      #main .right .content .mainView .box div span.type8 {
+        background-color: #c60; }
+      #main .right .content .mainView .box div span.type9 {
+        background-color: #cc3; }
+      #main .right .content .mainView .box div span.type10 {
+        background-color: #9cf; }
 
 /*# sourceMappingURL=linkUp.css.map */
