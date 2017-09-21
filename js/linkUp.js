@@ -248,5 +248,181 @@ function judgement (preOrdinate, nowOrdinate) {
     }
   }
 
+  //两个框不同行且不同列
+  var xMax = Math.max(preOrdinate.x, nowOrdinate.x);
+  var xMin = Math.min(preOrdinate.x, nowOrdinate.x);
+  var yMax = Math.max(preOrdinate.y, nowOrdinate.y);
+  var yMin = Math.min(preOrdinate.y, nowOrdinate.y);
+
+  if (preOrdinate.y > nowOrdinate.y) {
+    temp = preOrdinate;
+    preOrdinate = nowOrdinate;
+    nowOrdinate = temp;
+  }
+
+  //左右搜索
+  for (var y = 0; y < data.col + 2; y++) {
+    temp = 0;
+    if (y < preOrdinate.y) {
+      for (var inY = y; inY < preOrdinate.y; inY++) {
+        if (data.box[preOrdinate.x][inY] !== 0) {
+          temp++;
+          break;
+        }
+      }
+      if (y < nowOrdinate.y) {
+        for (var inY = y; inY < nowOrdinate.y; inY++) {
+          if (data.box[nowOrdinate.x][inY] !== 0) {
+            temp++;
+            break;
+          }
+        }
+      } else if (y < nowOrdinate.y) {
+        for (var inY = y; inY > nowOrdinate.y; inY--) {
+          if (data.box[nowOrdinate.x][inY] !== 0) {
+            temp++;
+            break;
+          }
+        }
+      }
+    } else if (y == preOrdinate.y) {
+      if (y < nowOrdinate.y) {
+        for (var inY = y; inY < nowOrdinate.y; inY++) {
+          if (data.box[nowOrdinate.x][inY] !== 0) {
+            temp++;
+            break;
+          }
+        }
+      } else if (y > nowOrdinate.y) {
+        for (var inY = y; inY > nowOrdinate.y; inY--) {
+          if (data.box[nowOrdinate.x][inY] !== 0) {
+            temp++;
+            break;
+          }
+        }
+      }
+    } else if (y > preOrdinate.y) {
+      for (var inY = y; inY > preOrdinate.y; inY--) {
+        if (data.box[preOrdinate.x][inY] !== 0) {
+          temp++;
+          break;
+        }
+      }
+      if (y < nowOrdinate.y) {
+        for (var inY = y; inY < nowOrdinate.y; inY++) {
+          if (data.box[nowOrdinate.x][inY] !== 0) {
+            temp++;
+            break;
+          }
+        }
+      } else if (y > nowOrdinate.y) {
+        for (var inY = y; inY > nowOrdinate.y; inY--) {
+          if (data.box[nowOrdinate.x][inY] !== 0) {
+            temp++;
+            break;
+          }
+        }
+      }
+    }
+
+    if (temp > 0) {
+      continue;
+    }
+    for (var x = xMin + 1, len = xMax; x < len; x++) {
+      if (data.box[x][y] !== 0) {
+        temp++;
+        break;
+      }
+    }
+    if (temp > 0) {
+      continue;
+    }
+    if (temp === 0) {
+      return true;
+    }
+  }
+
+  //上下搜索
+  for (var x = 0; x < data.row + 2; x++) {
+    temp = 0;
+    if (x < preOrdinate.x) {
+      for (var inX = x; inX < preOrdinate.x; inX++) {
+          if (data.box[inX][preOrdinate.y] !== 0) {
+          temp++;
+          break;
+        }
+      }
+      if (x < nowOrdinate.x) {
+        for (var inX = x; inX < nowOrdinate.x; inX++) {
+          if (data.box[inX][nowOrdinate.y] !== 0) {
+            temp++;
+            break;
+          }
+        }
+      } else if (x < nowOrdinate.x) {
+        for (var inX = x; inX > nowOrdinate.x; inX--) {
+          if (data.box[inX][nowOrdinate.y] !== 0) {
+            temp++;
+            break;
+          }
+        }
+      }
+    } else if (x == preOrdinate.x) {
+      if (x < nowOrdinate.x) {
+        for (var inX = x; inX < nowOrdinate.x; inX++) {
+          if (data.box[inX][nowOrdinate.y] !== 0) {
+            temp++;
+            break;
+          }
+        }
+      } else if (x > nowOrdinate.x) {
+        for (var inX = x; inX > nowOrdinate.x; inX--) {
+          if (data.box[inX][nowOrdinate.y] !== 0) {
+            temp++;
+            break;
+          }
+        }
+      }
+    } else if (x > preOrdinate.x) {
+      for (var inX = x; inX > preOrdinate.x; inX--) {
+        if (data.box[inX][preOrdinate.y] !== 0) {
+          temp++;
+          break;
+        }
+      }
+      if (x < nowOrdinate.x) {
+        for (var inX = x; inX < nowOrdinate.x; inX++) {
+          if (data.box[inX][nowOrdinate.y] !== 0) {
+            temp++;
+            break;
+          }
+        }
+      } else if (x > nowOrdinate.x) {
+        for (var inX = x; inX > nowOrdinate.x; inX--) {
+          if (data.box[inX][nowOrdinate.y] !== 0) {
+            temp++;
+            break;
+          }
+        }
+      }
+    }
+
+    if (temp > 0) {
+      continue;
+    }
+    for (var y = yMin + 1, len = yMax; y < len; y++) {
+      if (data.box[x][y] !== 0) {
+        temp++;
+        break;
+      }
+    }
+    if (temp > 0) {
+      continue;
+    }
+    if (temp === 0) {
+      return true;
+    }
+  }
+
   return false;
 }
