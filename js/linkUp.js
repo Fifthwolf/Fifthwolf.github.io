@@ -38,7 +38,9 @@ addEvent(mainViewBox, 'click', function(e) {
       data.preChoose.removeClass('choose');
       elimination(data.preChoose, e.target);
     } else {
-      e.target.addClass('choose');
+      if (e.target.getAttribute('boxType') != 0) {
+        e.target.addClass('choose');
+      }
       data.preChoose = e.target;
     }
   }
@@ -93,8 +95,10 @@ function elimination (preElement, nowElement) {
     data.box[nowOrdinate.x][nowOrdinate.y] = 0;
     data.preChoose = null;
   } else {
-    nowElement.addClass('choose');
-    data.preChoose = nowElement;
+    if (nowElement.getAttribute('boxType') != 0) {
+      nowElement.addClass('choose');
+      data.preChoose = nowElement;
+    }
   }
 }
 
@@ -254,12 +258,6 @@ function judgement (preOrdinate, nowOrdinate) {
   var yMax = Math.max(preOrdinate.y, nowOrdinate.y);
   var yMin = Math.min(preOrdinate.y, nowOrdinate.y);
 
-  if (preOrdinate.y > nowOrdinate.y) {
-    temp = preOrdinate;
-    preOrdinate = nowOrdinate;
-    nowOrdinate = temp;
-  }
-
   //左右搜索
   for (var y = 0; y < data.col + 2; y++) {
     temp = 0;
@@ -270,37 +268,6 @@ function judgement (preOrdinate, nowOrdinate) {
           break;
         }
       }
-      if (y < nowOrdinate.y) {
-        for (var inY = y; inY < nowOrdinate.y; inY++) {
-          if (data.box[nowOrdinate.x][inY] !== 0) {
-            temp++;
-            break;
-          }
-        }
-      } else if (y < nowOrdinate.y) {
-        for (var inY = y; inY > nowOrdinate.y; inY--) {
-          if (data.box[nowOrdinate.x][inY] !== 0) {
-            temp++;
-            break;
-          }
-        }
-      }
-    } else if (y == preOrdinate.y) {
-      if (y < nowOrdinate.y) {
-        for (var inY = y; inY < nowOrdinate.y; inY++) {
-          if (data.box[nowOrdinate.x][inY] !== 0) {
-            temp++;
-            break;
-          }
-        }
-      } else if (y > nowOrdinate.y) {
-        for (var inY = y; inY > nowOrdinate.y; inY--) {
-          if (data.box[nowOrdinate.x][inY] !== 0) {
-            temp++;
-            break;
-          }
-        }
-      }
     } else if (y > preOrdinate.y) {
       for (var inY = y; inY > preOrdinate.y; inY--) {
         if (data.box[preOrdinate.x][inY] !== 0) {
@@ -308,19 +275,19 @@ function judgement (preOrdinate, nowOrdinate) {
           break;
         }
       }
-      if (y < nowOrdinate.y) {
-        for (var inY = y; inY < nowOrdinate.y; inY++) {
-          if (data.box[nowOrdinate.x][inY] !== 0) {
-            temp++;
-            break;
-          }
+    }
+    if (y < nowOrdinate.y) {
+      for (var inY = y; inY < nowOrdinate.y; inY++) {
+        if (data.box[nowOrdinate.x][inY] !== 0) {
+          temp++;
+          break;
         }
-      } else if (y > nowOrdinate.y) {
-        for (var inY = y; inY > nowOrdinate.y; inY--) {
-          if (data.box[nowOrdinate.x][inY] !== 0) {
-            temp++;
-            break;
-          }
+      }
+    } else if (y > nowOrdinate.y) {
+      for (var inY = y; inY > nowOrdinate.y; inY--) {
+        if (data.box[nowOrdinate.x][inY] !== 0) {
+          temp++;
+          break;
         }
       }
     }
@@ -328,7 +295,10 @@ function judgement (preOrdinate, nowOrdinate) {
     if (temp > 0) {
       continue;
     }
-    for (var x = xMin + 1, len = xMax; x < len; x++) {
+    for (var x = xMin, len = xMax; x <= len; x++) {
+      if (x == preOrdinate.x && y == preOrdinate.y || x == nowOrdinate.x && y == nowOrdinate.y) {
+        continue;
+      }
       if (data.box[x][y] !== 0) {
         temp++;
         break;
@@ -347,40 +317,9 @@ function judgement (preOrdinate, nowOrdinate) {
     temp = 0;
     if (x < preOrdinate.x) {
       for (var inX = x; inX < preOrdinate.x; inX++) {
-          if (data.box[inX][preOrdinate.y] !== 0) {
+        if (data.box[inX][preOrdinate.y] !== 0) {
           temp++;
           break;
-        }
-      }
-      if (x < nowOrdinate.x) {
-        for (var inX = x; inX < nowOrdinate.x; inX++) {
-          if (data.box[inX][nowOrdinate.y] !== 0) {
-            temp++;
-            break;
-          }
-        }
-      } else if (x < nowOrdinate.x) {
-        for (var inX = x; inX > nowOrdinate.x; inX--) {
-          if (data.box[inX][nowOrdinate.y] !== 0) {
-            temp++;
-            break;
-          }
-        }
-      }
-    } else if (x == preOrdinate.x) {
-      if (x < nowOrdinate.x) {
-        for (var inX = x; inX < nowOrdinate.x; inX++) {
-          if (data.box[inX][nowOrdinate.y] !== 0) {
-            temp++;
-            break;
-          }
-        }
-      } else if (x > nowOrdinate.x) {
-        for (var inX = x; inX > nowOrdinate.x; inX--) {
-          if (data.box[inX][nowOrdinate.y] !== 0) {
-            temp++;
-            break;
-          }
         }
       }
     } else if (x > preOrdinate.x) {
@@ -390,19 +329,19 @@ function judgement (preOrdinate, nowOrdinate) {
           break;
         }
       }
-      if (x < nowOrdinate.x) {
-        for (var inX = x; inX < nowOrdinate.x; inX++) {
-          if (data.box[inX][nowOrdinate.y] !== 0) {
-            temp++;
-            break;
-          }
+    }
+    if (x < nowOrdinate.x) {
+      for (var inX = x; inX < nowOrdinate.x; inX++) {
+        if (data.box[inX][nowOrdinate.y] !== 0) {
+          temp++;
+          break;
         }
-      } else if (x > nowOrdinate.x) {
-        for (var inX = x; inX > nowOrdinate.x; inX--) {
-          if (data.box[inX][nowOrdinate.y] !== 0) {
-            temp++;
-            break;
-          }
+      }
+    } else if (x > nowOrdinate.x) {
+      for (var inX = x; inX > nowOrdinate.x; inX--) {
+        if (data.box[inX][nowOrdinate.y] !== 0) {
+          temp++;
+          break;
         }
       }
     }
@@ -410,7 +349,10 @@ function judgement (preOrdinate, nowOrdinate) {
     if (temp > 0) {
       continue;
     }
-    for (var y = yMin + 1, len = yMax; y < len; y++) {
+    for (var y = yMin, len = yMax; y <= len; y++) {
+      if (x == preOrdinate.x && y == preOrdinate.y || x == nowOrdinate.x && y == nowOrdinate.y) {
+        continue;
+      }
       if (data.box[x][y] !== 0) {
         temp++;
         break;
