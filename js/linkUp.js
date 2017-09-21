@@ -34,15 +34,23 @@ function createFrame () {
 
 addEvent(mainViewBox, 'click', function(e) {
   if (e.target.nodeName.toUpperCase() === 'SPAN') {
-    if (data.preChoose) {
-      data.preChoose.removeClass('choose');
-      elimination(data.preChoose, e.target);
-    } else {
-      if (e.target.getAttribute('boxType') != 0) {
+    if (e.target.getAttribute('boxType') != 0) {
+      if (data.preChoose) {
+        data.preChoose.removeClass('choose');
+        elimination(data.preChoose, e.target);
+        return;
+      } else {
         e.target.addClass('choose');
+        data.preChoose = e.target;
+        return;
       }
-      data.preChoose = e.target;
     }
+  }
+  try {
+    data.preChoose.removeClass('choose');
+    data.preChoose = null;
+  } catch (e) {
+    return;
   }
 });
 
@@ -261,33 +269,23 @@ function judgement (preOrdinate, nowOrdinate) {
   //左右搜索
   for (var y = 0; y < data.col + 2; y++) {
     temp = 0;
-    if (y < preOrdinate.y) {
-      for (var inY = y; inY < preOrdinate.y; inY++) {
-        if (data.box[preOrdinate.x][inY] !== 0) {
-          temp++;
-          break;
+    retrievalY(y, preOrdinate);
+    retrievalY(y, nowOrdinate);
+
+    function retrievalY (initialValue, ordinate) {
+      if (initialValue < ordinate.y) {
+        for (var value = initialValue; value < ordinate.y; value++) {
+          if (data.box[ordinate.x][value] !== 0) {
+            temp++;
+            break;
+          }
         }
-      }
-    } else if (y > preOrdinate.y) {
-      for (var inY = y; inY > preOrdinate.y; inY--) {
-        if (data.box[preOrdinate.x][inY] !== 0) {
-          temp++;
-          break;
-        }
-      }
-    }
-    if (y < nowOrdinate.y) {
-      for (var inY = y; inY < nowOrdinate.y; inY++) {
-        if (data.box[nowOrdinate.x][inY] !== 0) {
-          temp++;
-          break;
-        }
-      }
-    } else if (y > nowOrdinate.y) {
-      for (var inY = y; inY > nowOrdinate.y; inY--) {
-        if (data.box[nowOrdinate.x][inY] !== 0) {
-          temp++;
-          break;
+      } else if (y > ordinate.y) {
+        for (var value = initialValue; value > ordinate.y; value--) {
+          if (data.box[ordinate.x][value] !== 0) {
+            temp++;
+            break;
+          }
         }
       }
     }
@@ -315,33 +313,23 @@ function judgement (preOrdinate, nowOrdinate) {
   //上下搜索
   for (var x = 0; x < data.row + 2; x++) {
     temp = 0;
-    if (x < preOrdinate.x) {
-      for (var inX = x; inX < preOrdinate.x; inX++) {
-        if (data.box[inX][preOrdinate.y] !== 0) {
-          temp++;
-          break;
+    retrievalX(x, preOrdinate);
+    retrievalX(x, nowOrdinate);
+
+    function retrievalX (initialValue, ordinate) {
+      if (initialValue < ordinate.x) {
+        for (var value = initialValue; value < ordinate.x; value++) {
+          if (data.box[value][ordinate.y] !== 0) {
+            temp++;
+            break;
+          }
         }
-      }
-    } else if (x > preOrdinate.x) {
-      for (var inX = x; inX > preOrdinate.x; inX--) {
-        if (data.box[inX][preOrdinate.y] !== 0) {
-          temp++;
-          break;
-        }
-      }
-    }
-    if (x < nowOrdinate.x) {
-      for (var inX = x; inX < nowOrdinate.x; inX++) {
-        if (data.box[inX][nowOrdinate.y] !== 0) {
-          temp++;
-          break;
-        }
-      }
-    } else if (x > nowOrdinate.x) {
-      for (var inX = x; inX > nowOrdinate.x; inX--) {
-        if (data.box[inX][nowOrdinate.y] !== 0) {
-          temp++;
-          break;
+      } else if (initialValue > ordinate.x) {
+        for (var value = initialValue; value > ordinate.x; value--) {
+          if (data.box[value][ordinate.y] !== 0) {
+            temp++;
+            break;
+          }
         }
       }
     }
