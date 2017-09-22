@@ -1,5 +1,6 @@
 ﻿var content = document.getElementsByClassName('content')[0];
 var scoreSpan = content.getElementsByClassName('score')[0].getElementsByTagName('span')[0];
+var surplusSpan = content.getElementsByClassName('surplus')[0].getElementsByTagName('span')[0];
 var pause = content.getElementsByClassName('pause')[0];
 var mainViewBox = content.getElementsByClassName('box')[0];
 var cellMask = content.getElementsByClassName('cellMask')[0];
@@ -16,7 +17,7 @@ data = {
   col: 14,
   type: 8,
   box: [],
-  state: 0, //0为未运行，1为正在运行，2为暂停
+  surplus: 0,
   time: 0,
   preChoose: null
 }
@@ -43,7 +44,6 @@ addEvent(starButton, 'click', start);
 addEvent(pause, 'click', function(e) {
   clearInterval(TIME);
   TIME = null;
-  data.state = 2;
   pause.style.display = 'none';
   starButton.innerHTML = '继续游戏';
   cellMask.style.display = 'block';
@@ -73,12 +73,14 @@ addEvent(mainViewBox, 'click', function(e) {
 });
 
 function start () {
+  TIME = null;
   data.time = 0;
-  data.state = 1;
+  data.surplus = 112;
+  surplusSpan.innerHTML = data.surplus + '个';
   cellMask.style.display = 'none';
   pause.style.display = 'block';
   initialization();
-  timer ();
+  timer();
   removeEvent(starButton, 'click', start);
   addEvent(starButton, 'click', restart);
 }
@@ -109,6 +111,7 @@ function initialization () {
     var type = parseInt(Math.random() * data.type + 1);
     for (var i = 0; i < 2; i++) {
       var index = parseInt(Math.random() * spanArray.length);
+      spanArray[index].removeAttribute('class');
       spanArray[index].setAttribute('boxType',type);
       spanArray[index].addClass('type' + type);
       spanArray[index].innerHTML = type;
@@ -137,11 +140,17 @@ function elimination (preElement, nowElement) {
     data.box[preOrdinate.x][preOrdinate.y] = 0;
     data.box[nowOrdinate.x][nowOrdinate.y] = 0;
     data.preChoose = null;
+    data.surplus -= 2;
+    surplusSpan.innerHTML = data.surplus + '个';
   } else {
     if (nowElement.getAttribute('boxType') != 0) {
       nowElement.addClass('choose');
       data.preChoose = nowElement;
     }
+  }
+
+  if (data.surplus == 0) {
+    over();
   }
 }
 
@@ -176,53 +185,6 @@ function judgement (preOrdinate, nowOrdinate) {
     if (temp === 0) {
       return true;
     }
-
-    //弓形连接
-    for (var x = 0; x < data.row + 2; x++) {
-      if (x == preOrdinate.x) {
-        continue;
-      }
-      temp = 0;
-      if (x < preOrdinate.x) {
-        for (var inX = x; inX < preOrdinate.x; inX++) {
-          if (data.box[inX][yMin] !== 0) {
-            temp++;
-            break;
-          }
-          if (data.box[inX][yMax] !== 0) {
-            temp++;
-            break;
-          }
-        }
-      } else {
-        for (var inX = x; inX > preOrdinate.x; inX--) {
-          if (data.box[inX][yMin] !== 0) {
-            temp++;
-            break;
-          }
-          if (data.box[inX][yMax] !== 0) {
-            temp++;
-            break;
-          }
-        }
-      }
-
-      if (temp > 0) {
-        continue;
-      }
-      for (var y = yMin + 1, len = yMax; y < len; y++) {
-        if (data.box[x][y] !== 0) {
-          temp++;
-          break;
-        }
-      }
-      if (temp > 0) {
-        continue;
-      }
-      if (temp === 0) {
-        return true;
-      }
-    }
   }
 
   //两个框位于同一列
@@ -245,53 +207,6 @@ function judgement (preOrdinate, nowOrdinate) {
     }
     if (temp === 0) {
       return true;
-    }
-
-    //弓形连接
-    for (var y = 0; y < data.col + 2; y++) {
-      if (y == preOrdinate.y) {
-        continue;
-      }
-      temp = 0;
-      if (y < preOrdinate.y) {
-        for (var inY = y; inY < preOrdinate.y; inY++) {
-          if (data.box[xMin][inY] !== 0) {
-            temp++;
-            break;
-          }
-          if (data.box[xMax][inY] !== 0) {
-            temp++;
-            break;
-          }
-        }
-      } else {
-        for (var inY = y; inY > preOrdinate.y; inY--) {
-          if (data.box[xMin][inY] !== 0) {
-            temp++;
-            break;
-          }
-          if (data.box[xMax][inY] !== 0) {
-            temp++;
-            break;
-          }
-        }
-      }
-
-      if (temp > 0) {
-        continue;
-      }
-      for (var x = xMin + 1, len = xMax; x < len; x++) {
-        if (data.box[x][y] !== 0) {
-          temp++;
-          break;
-        }
-      }
-      if (temp > 0) {
-        continue;
-      }
-      if (temp === 0) {
-        return true;
-      }
     }
   }
 
@@ -397,4 +312,15 @@ function timer () {
     data.time += 0.1;
     scoreSpan.innerHTML = data.time.toFixed(1) + '秒';
   }, 100);
+}
+
+function over () {
+  clearInterval(TIME);
+  TIME = null;
+  cellMask.style.display = 'block';
+  cellMask.style.backgroundColor = 'rgba(17, 34, 63, 0.6)';
+  pause.style.display = 'none';
+  starButton.innerHTML = '再来一局';
+  removeEvent(starButton, 'click', restart);
+  addEvent(starButton, 'click', start);
 }
