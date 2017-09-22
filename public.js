@@ -5,11 +5,15 @@ var left = main.getElementsByClassName('left')[0];
 var right = main.getElementsByClassName('right')[0];
 var desc = right.getElementsByClassName('desc')[0];
 
-adjustmentWindow();
-
 window.onresize = function () {
   adjustmentWindow();
+  adjustmentLeft();
 }
+
+addEvent(window, 'load' ,function () {
+  adjustmentWindow();
+  adjustmentLeft();
+});
 
 function delayedLoadingPublicPictures (prefix) {
   var body = document.getElementsByTagName('body')[0];
@@ -30,6 +34,11 @@ function adjustmentWindow () {
     main.style.display = 'block';
     useElementHeightSuit(right, left, main);
   }
+}
+
+function adjustmentLeft () {
+  height = left.offsetHeight - 325;
+  own.style.height = height + 'px';
 }
 
 function useElementHeightSuit (element, previous, parent) {
