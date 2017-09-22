@@ -105,7 +105,8 @@ body * {
           background-size: 100%; }
       #main .left .own {
         margin-top: 40px;
-        border-top: 5px solid #ccc; }
+        border-top: 5px solid #ccc;
+        overflow: visible; }
         #main .left .own li {
           display: inline-block;
           color: #fff;
@@ -148,7 +149,7 @@ body * {
         #main .left .link::before {
           content: '-link-';
           position: absolute;
-          font-family: 16px;
+          font-size: 16px;
           color: #ccc;
           top: -28px;
           left: 20px; }

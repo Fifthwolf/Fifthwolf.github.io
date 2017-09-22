@@ -7,12 +7,16 @@ var desc = right.getElementsByClassName('desc')[0];
 
 window.onresize = function () {
   adjustmentWindow();
-  adjustmentLeft();
+  if (judgeWidth()) {
+    adjustmentLeft();
+  }
 }
 
 addEvent(window, 'load' ,function () {
   adjustmentWindow();
-  adjustmentLeft();
+  if (judgeWidth()) {
+    adjustmentLeft();
+  }
 });
 
 function delayedLoadingPublicPictures (prefix) {

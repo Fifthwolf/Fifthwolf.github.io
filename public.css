@@ -56,6 +56,15 @@ body {
       margin-top: 40px;
       border-top: 5px solid #ccc;
       overflow-y: scroll; }
+      #main .left .own::-webkit-scrollbar {
+        position: absolute;
+        width: 10px; }
+      #main .left .own::-webkit-scrollbar-thumb {
+        height: 20px;
+        border-radius: 10px;
+        background-color: rgba(17, 34, 51, 0.75); }
+        #main .left .own::-webkit-scrollbar-thumb:hover {
+          background-color: rgba(17, 34, 51, 0.9); }
       #main .left .own li {
         display: inline-block;
         color: #fff;
@@ -75,15 +84,6 @@ body {
             color: #123; }
         #main .left .own li i {
           margin: 0 25px 0 40px; }
-      #main .left .own::-webkit-scrollbar {
-        position: absolute;
-        width: 10px; }
-      #main .left .own::-webkit-scrollbar-thumb {
-        height: 20px;
-        border-radius: 10px;
-        background-color: rgba(17, 34, 51, 0.75); }
-        #main .left .own::-webkit-scrollbar-thumb:hover {
-          background-color: rgba(17, 34, 51, 0.9); }
     #main .left .link {
       margin-top: 40px;
       border-top: 5px solid #ccc;
@@ -95,7 +95,7 @@ body {
       #main .left .link::before {
         content: '-link-';
         position: absolute;
-        font-family: 16px;
+        font-size: 16px;
         color: #ccc;
         top: -28px;
         left: 20px; }
@@ -174,7 +174,8 @@ body {
             background-size: 100%; }
         #main .left .own {
           margin-top: 40px;
-          border-top: 5px solid #ccc; }
+          border-top: 5px solid #ccc;
+          overflow: visible; }
           #main .left .own li {
             display: inline-block;
             color: #fff;
@@ -211,7 +212,7 @@ body {
           #main .left .link::before {
             content: '-link-';
             position: absolute;
-            font-family: 16px;
+            font-size: 16px;
             color: #ccc;
             top: -28px;
             left: 20px; }
