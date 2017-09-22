@@ -1,10 +1,14 @@
 ﻿var content = document.getElementsByClassName('content')[0];
+var scoreSpan = content.getElementsByClassName('score')[0].getElementsByTagName('span')[0];
+var pause = content.getElementsByClassName('pause')[0];
 var mainViewBox = content.getElementsByClassName('box')[0];
+var cellMask = content.getElementsByClassName('cellMask')[0];
+var starButton = cellMask.getElementsByClassName('starButton')[0];
+var TIME;
 
 window.onload = function () {
   delayedLoadingPublicPictures ('../');
   createFrame();
-  initialization();
 }
 
 data = {
@@ -12,6 +16,8 @@ data = {
   col: 14,
   type: 8,
   box: [],
+  state: 0, //0为未运行，1为正在运行，2为暂停
+  time: 0,
   preChoose: null
 }
 
@@ -31,6 +37,18 @@ function createFrame () {
     mainViewBox.appendChild(row[i]);
   }
 }
+
+addEvent(starButton, 'click', start);
+
+addEvent(pause, 'click', function(e) {
+  clearInterval(TIME);
+  TIME = null;
+  data.state = 2;
+  pause.style.display = 'none';
+  starButton.innerHTML = '继续游戏';
+  cellMask.style.display = 'block';
+  cellMask.style.backgroundColor = '#567';
+});
 
 addEvent(mainViewBox, 'click', function(e) {
   if (e.target.nodeName.toUpperCase() === 'SPAN') {
@@ -53,6 +71,23 @@ addEvent(mainViewBox, 'click', function(e) {
     return;
   }
 });
+
+function start () {
+  data.time = 0;
+  data.state = 1;
+  cellMask.style.display = 'none';
+  pause.style.display = 'block';
+  initialization();
+  timer ();
+  removeEvent(starButton, 'click', start);
+  addEvent(starButton, 'click', restart);
+}
+
+function restart () {
+  cellMask.style.display = 'none';
+  pause.style.display = 'block';
+  timer();
+}
 
 function initialization () {
   data.box = null;
@@ -355,4 +390,11 @@ function judgement (preOrdinate, nowOrdinate) {
   }
 
   return false;
+}
+
+function timer () {
+  TIME = setInterval(function () {
+    data.time += 0.1;
+    scoreSpan.innerHTML = data.time.toFixed(1) + '秒';
+  }, 100);
 }
