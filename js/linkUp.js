@@ -216,9 +216,12 @@ function judgement (preOrdinate, nowOrdinate) {
   }
 
   function lineRoute () {
-    //data.tempRoute.push([preOrdinate.x,preOrdinate.y]);
-    //data.tempRoute.push([nowOrdinate.x,nowOrdinate.y]);
-    //console.log(data.tempRoute);
+    data.tempRoute.push([preOrdinate.x,preOrdinate.y]);
+    data.tempRoute.push([nowOrdinate.x,nowOrdinate.y]);
+    for(var i = 0, len = data.tempRoute.length; i < len; i++) {
+      console.log(parseInt(data.tempRoute[i][0]),parseInt(data.tempRoute[i][1]));
+    }
+    data.tempRoute = [];
   }
 
   //两个框不同行且不同列
@@ -226,6 +229,14 @@ function judgement (preOrdinate, nowOrdinate) {
   var xMin = Math.min(preOrdinate.x, nowOrdinate.x);
   var yMax = Math.max(preOrdinate.y, nowOrdinate.y);
   var yMin = Math.min(preOrdinate.y, nowOrdinate.y);
+
+  
+  if (preOrdinate.x > nowOrdinate.x) {
+    var temp = preOrdinate;
+    preOrdinate = nowOrdinate;
+    nowOrdinate = temp;
+  }
+
 
   //左右搜索
   for (var y = 0; y < data.col + 2; y++) {
@@ -238,7 +249,6 @@ function judgement (preOrdinate, nowOrdinate) {
         var tempRoute = 0;
         for (var value = initialValue; value < ordinate.y; value++) {
           if (data.box[ordinate.x][value] !== 0) {
-            //data.tempRoute = [];
             temp++;
             break;
           }
@@ -251,7 +261,6 @@ function judgement (preOrdinate, nowOrdinate) {
         var tempRoute = 0;
         for (var value = initialValue; value > ordinate.y; value--) {
           if (data.box[ordinate.x][value] !== 0) {
-            //data.tempRoute = [];
             temp++;
             break;
           }
@@ -297,7 +306,6 @@ function judgement (preOrdinate, nowOrdinate) {
         var tempRoute = 0;
         for (var value = initialValue; value < ordinate.x; value++) {
           if (data.box[value][ordinate.y] !== 0) {
-            //data.tempRoute = [];
             temp++;
             break;
           }
@@ -310,7 +318,6 @@ function judgement (preOrdinate, nowOrdinate) {
         var tempRoute = 0;
         for (var value = initialValue; value > ordinate.x; value--) {  
           if (data.box[value][ordinate.y] !== 0) {
-            //data.tempRoute = [];
             temp++;
             break;
           }
@@ -348,19 +355,8 @@ function judgement (preOrdinate, nowOrdinate) {
   function polylineRoute () {
     data.tempRoute.unshift([preOrdinate.x,preOrdinate.y]);
     data.tempRoute.push([nowOrdinate.x,nowOrdinate.y]);
-    /*
-    for (var i = 0, len = data.tempRoute.length; i < len - 1; i++) {
-      for (var j = i + 1 ; j < len; j++) {
-        if (data.tempRoute[i][0] == data.tempRoute[j][0]
-         && data.tempRoute[i][1] == data.tempRoute[j][1]) {
-          data.tempRoute.splice(j,1);
-          data.tempRoute.splice(i,1);
-        }
-      }
-    }
-    */
     for(var i = 0, len = data.tempRoute.length; i < len; i++) {
-      console.log(data.tempRoute[i][0],data.tempRoute[i][1]);
+      console.log(parseInt(data.tempRoute[i][0]),parseInt(data.tempRoute[i][1]));
     }
     data.tempRoute = [];
   }
