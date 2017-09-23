@@ -19,6 +19,7 @@ data = {
   box: [],
   surplus: 0,
   time: 0,
+  tempRoute: [],
   preChoose: null
 }
 
@@ -168,6 +169,7 @@ function judgement (preOrdinate, nowOrdinate) {
   if (preOrdinate.x === nowOrdinate.x) {
     //相邻
     if (Math.abs(preOrdinate.y - nowOrdinate.y) === 1) {
+      lineRoute();
       return true;
     }
 
@@ -183,6 +185,7 @@ function judgement (preOrdinate, nowOrdinate) {
       }
     }
     if (temp === 0) {
+      lineRoute();
       return true;
     }
   }
@@ -191,6 +194,7 @@ function judgement (preOrdinate, nowOrdinate) {
   if (preOrdinate.y === nowOrdinate.y) {
     //相邻
     if (Math.abs(preOrdinate.x - nowOrdinate.x) === 1) {
+      lineRoute();
       return true;
     }
 
@@ -206,8 +210,15 @@ function judgement (preOrdinate, nowOrdinate) {
       }
     }
     if (temp === 0) {
+      lineRoute();
       return true;
     }
+  }
+
+  function lineRoute () {
+    data.tempRoute.push([preOrdinate.x,preOrdinate.y]);
+    data.tempRoute.push([nowOrdinate.x,nowOrdinate.y]);
+    console.log(data.tempRoute);
   }
 
   //两个框不同行且不同列
@@ -229,6 +240,7 @@ function judgement (preOrdinate, nowOrdinate) {
             temp++;
             break;
           }
+          data.tempRoute.push([ordinate.x,value]);
         }
       } else if (y > ordinate.y) {
         for (var value = initialValue; value > ordinate.y; value--) {
@@ -236,11 +248,13 @@ function judgement (preOrdinate, nowOrdinate) {
             temp++;
             break;
           }
+          data.tempRoute.push([ordinate.x,value]);
         }
       }
     }
 
     if (temp > 0) {
+      data.tempRoute = [];
       continue;
     }
     for (var x = xMin, len = xMax; x <= len; x++) {
@@ -256,6 +270,7 @@ function judgement (preOrdinate, nowOrdinate) {
       continue;
     }
     if (temp === 0) {
+      polylineRoute();
       return true;
     }
   }
@@ -273,6 +288,7 @@ function judgement (preOrdinate, nowOrdinate) {
             temp++;
             break;
           }
+          data.tempRoute.push([value,ordinate.y]);
         }
       } else if (initialValue > ordinate.x) {
         for (var value = initialValue; value > ordinate.x; value--) {
@@ -280,11 +296,13 @@ function judgement (preOrdinate, nowOrdinate) {
             temp++;
             break;
           }
+          data.tempRoute.push([value,ordinate.y]);
         }
       }
     }
 
     if (temp > 0) {
+      data.tempRoute = [];
       continue;
     }
     for (var y = yMin, len = yMax; y <= len; y++) {
@@ -300,7 +318,25 @@ function judgement (preOrdinate, nowOrdinate) {
       continue;
     }
     if (temp === 0) {
+      polylineRoute();
       return true;
+    }
+  }
+
+  function polylineRoute () {
+    data.tempRoute.unshift([preOrdinate.x,preOrdinate.y]);
+    data.tempRoute.push([nowOrdinate.x,nowOrdinate.y]);
+    for (var i = 0, len = data.tempRoute.length; i < len - 1; i++) {
+      for (var j = i + 1 ; j < len; j++) {
+        if (data.tempRoute[i][0] == data.tempRoute[j][0]
+         && data.tempRoute[i][1] == data.tempRoute[j][1]) {
+          data.tempRoute.splice(j,1);
+          data.tempRoute.splice(i,1);
+        }
+      }
+    }
+    for(var i = 0, len = data.tempRoute.length; i < len; i++) {
+      console.log(data.tempRoute[i][0],data.tempRoute[i][1]);
     }
   }
 
