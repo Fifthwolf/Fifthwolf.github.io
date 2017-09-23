@@ -239,6 +239,7 @@ function judgement (preOrdinate, nowOrdinate) {
 
   //向左搜索
   for (var y = preOrdinate.y; y >= 0; y--) {
+    console.log(y,'left');
     temp = 0;
     retrievalY(y, preOrdinate);
     retrievalY(y, nowOrdinate);
@@ -267,7 +268,9 @@ function judgement (preOrdinate, nowOrdinate) {
   }
 
   //向右搜索
-  for (var y = preOrdinate.y + 1; y < data.col + 2; y++) {
+  for (var y = preOrdinate.y; y < data.col + 2; y++) {
+    console.log(y,'right');
+
     temp = 0;
     retrievalY(y, preOrdinate);
     retrievalY(y, nowOrdinate);
@@ -353,7 +356,7 @@ function judgement (preOrdinate, nowOrdinate) {
   }
 
   //向下搜索
-  for (var x = preOrdinate.x + 1; x < data.row + 2; x++) {
+  for (var x = preOrdinate.x; x < data.row + 2; x++) {
     temp = 0;
     retrievalX(x, preOrdinate);
     retrievalX(x, nowOrdinate);
