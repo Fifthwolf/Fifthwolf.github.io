@@ -216,9 +216,9 @@ function judgement (preOrdinate, nowOrdinate) {
   }
 
   function lineRoute () {
-    data.tempRoute.push([preOrdinate.x,preOrdinate.y]);
-    data.tempRoute.push([nowOrdinate.x,nowOrdinate.y]);
-    console.log(data.tempRoute);
+    //data.tempRoute.push([preOrdinate.x,preOrdinate.y]);
+    //data.tempRoute.push([nowOrdinate.x,nowOrdinate.y]);
+    //console.log(data.tempRoute);
   }
 
   //两个框不同行且不同列
@@ -235,20 +235,30 @@ function judgement (preOrdinate, nowOrdinate) {
 
     function retrievalY (initialValue, ordinate) {
       if (initialValue < ordinate.y) {
+        var tempRoute = 0;
         for (var value = initialValue; value < ordinate.y; value++) {
           if (data.box[ordinate.x][value] !== 0) {
+            //data.tempRoute = [];
             temp++;
             break;
           }
-          data.tempRoute.push([ordinate.x,value]);
+          if (tempRoute == 0) {
+            data.tempRoute.push([ordinate.x,value]);
+            tempRoute = 1;
+          }
         }
       } else if (y > ordinate.y) {
+        var tempRoute = 0;
         for (var value = initialValue; value > ordinate.y; value--) {
           if (data.box[ordinate.x][value] !== 0) {
+            //data.tempRoute = [];
             temp++;
             break;
           }
-          data.tempRoute.push([ordinate.x,value]);
+          if (tempRoute == 0) {
+            data.tempRoute.push([ordinate.x,value]);
+            tempRoute = 1;
+          }
         }
       }
     }
@@ -267,6 +277,7 @@ function judgement (preOrdinate, nowOrdinate) {
       }
     }
     if (temp > 0) {
+      data.tempRoute = [];
       continue;
     }
     if (temp === 0) {
@@ -283,20 +294,30 @@ function judgement (preOrdinate, nowOrdinate) {
 
     function retrievalX (initialValue, ordinate) {
       if (initialValue < ordinate.x) {
+        var tempRoute = 0;
         for (var value = initialValue; value < ordinate.x; value++) {
           if (data.box[value][ordinate.y] !== 0) {
+            //data.tempRoute = [];
             temp++;
             break;
           }
-          data.tempRoute.push([value,ordinate.y]);
+          if (tempRoute == 0) {
+            data.tempRoute.push([value,ordinate.y]);
+            tempRoute = 1;
+          }
         }
       } else if (initialValue > ordinate.x) {
-        for (var value = initialValue; value > ordinate.x; value--) {
+        var tempRoute = 0;
+        for (var value = initialValue; value > ordinate.x; value--) {  
           if (data.box[value][ordinate.y] !== 0) {
+            //data.tempRoute = [];
             temp++;
             break;
           }
-          data.tempRoute.push([value,ordinate.y]);
+          if (tempRoute == 0) {
+            data.tempRoute.push([value,ordinate.y]);
+            tempRoute = 1;
+          }  
         }
       }
     }
@@ -315,6 +336,7 @@ function judgement (preOrdinate, nowOrdinate) {
       }
     }
     if (temp > 0) {
+      data.tempRoute = [];
       continue;
     }
     if (temp === 0) {
@@ -326,6 +348,7 @@ function judgement (preOrdinate, nowOrdinate) {
   function polylineRoute () {
     data.tempRoute.unshift([preOrdinate.x,preOrdinate.y]);
     data.tempRoute.push([nowOrdinate.x,nowOrdinate.y]);
+    /*
     for (var i = 0, len = data.tempRoute.length; i < len - 1; i++) {
       for (var j = i + 1 ; j < len; j++) {
         if (data.tempRoute[i][0] == data.tempRoute[j][0]
@@ -335,9 +358,11 @@ function judgement (preOrdinate, nowOrdinate) {
         }
       }
     }
+    */
     for(var i = 0, len = data.tempRoute.length; i < len; i++) {
       console.log(data.tempRoute[i][0],data.tempRoute[i][1]);
     }
+    data.tempRoute = [];
   }
 
   return false;
