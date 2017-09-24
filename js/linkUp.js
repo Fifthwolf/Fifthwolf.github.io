@@ -160,6 +160,7 @@ function judgement (preOrdinate, nowOrdinate) {
   if (preOrdinate.x == nowOrdinate.x && preOrdinate.y == nowOrdinate.y) {
     return false;
   }
+  
   //判断两个框是否同一类型
   if (data.box[preOrdinate.x][preOrdinate.y] !== data.box[nowOrdinate.x][nowOrdinate.y]) {
     return false;
@@ -176,7 +177,7 @@ function judgement (preOrdinate, nowOrdinate) {
     var yMax = Math.max(preOrdinate.y, nowOrdinate.y);
     var yMin = Math.min(preOrdinate.y, nowOrdinate.y);
 
-    //不相邻，直线连接 
+    //不相邻，直线连接
     var temp = 0;
     for (var y = yMin + 1, len = yMax; y < len; y++) {
       if (data.box[preOrdinate.x][y] !== 0) {
@@ -201,7 +202,7 @@ function judgement (preOrdinate, nowOrdinate) {
     var xMax = Math.max(preOrdinate.x, nowOrdinate.x);
     var xMin = Math.min(preOrdinate.x, nowOrdinate.x);
 
-    //不相邻，直线连接 
+    //不相邻，直线连接
     var temp = 0;
     for (var x = xMin + 1, len = xMax; x < len; x++) {
       if (data.box[x][preOrdinate.y] !== 0) {
@@ -230,13 +231,12 @@ function judgement (preOrdinate, nowOrdinate) {
   var yMax = Math.max(preOrdinate.y, nowOrdinate.y);
   var yMin = Math.min(preOrdinate.y, nowOrdinate.y);
 
-  
   if (preOrdinate.x > nowOrdinate.x) {
     var temp = preOrdinate;
     preOrdinate = nowOrdinate;
     nowOrdinate = temp;
   }
-
+  
   //左右搜索
   for (var y = preOrdinate.y, incre = 0, plusMinus = 1; incre < data.col * 2; incre++) {
     y += incre * plusMinus;
@@ -270,7 +270,7 @@ function judgement (preOrdinate, nowOrdinate) {
       }
     }
   }
-
+  
   function retrievalY (initialValue, ordinate) {
     if (initialValue < ordinate.y) {
       var tempRoute = 0;
@@ -332,7 +332,7 @@ function judgement (preOrdinate, nowOrdinate) {
       }
     }
   }
-
+  
   function retrievalX (initialValue, ordinate) {
     if (initialValue < ordinate.x) {
       var tempRoute = 0;
