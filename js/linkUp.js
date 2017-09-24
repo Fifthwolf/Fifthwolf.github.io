@@ -128,8 +128,8 @@ function initialization () {
 
 //选择两个框，进行判断
 function elimination (preElement, nowElement) {
-  var preOrdinate = {x: preElement.parentNode.getAttribute('row'), y: preElement.getAttribute('col')};
-  var nowOrdinate = {x: nowElement.parentNode.getAttribute('row'), y: nowElement.getAttribute('col')};
+  var preOrdinate = {x: parseInt(preElement.parentNode.getAttribute('row')), y: parseInt(preElement.getAttribute('col'))};
+  var nowOrdinate = {x: parseInt(nowElement.parentNode.getAttribute('row')), y: parseInt(nowElement.getAttribute('col'))};
   
   if (judgement(preOrdinate, nowOrdinate)) {
     preElement.setAttribute('boxType', '0');
@@ -237,64 +237,37 @@ function judgement (preOrdinate, nowOrdinate) {
     nowOrdinate = temp;
   }
 
-  //向左搜索
-  for (var y = preOrdinate.y; y >= 0; y--) {
-    console.log(y,'left');
-    temp = 0;
-    retrievalY(y, preOrdinate);
-    retrievalY(y, nowOrdinate);
-
-    if (temp > 0) {
-      data.tempRoute = [];
-      continue;
-    }
-    for (var x = xMin, len = xMax; x <= len; x++) {
-      if (x == preOrdinate.x && y == preOrdinate.y || x == nowOrdinate.x && y == nowOrdinate.y) {
+  //左右搜索
+  for (var y = preOrdinate.y, incre = 0, plusMinus = 1; incre < data.col * 2; incre++) {
+    y += incre * plusMinus;
+    plusMinus = -plusMinus;
+    
+    if (y >= 0 && y < data.col + 2) {
+      temp = 0;
+      retrievalY(y, preOrdinate);
+      retrievalY(y, nowOrdinate);
+  
+      if (temp > 0) {
+        data.tempRoute = [];
         continue;
       }
-      if (data.box[x][y] !== 0) {
-        temp++;
-        break;
+      for (var x = xMin, len = xMax; x <= len; x++) {
+        if (x == preOrdinate.x && y == preOrdinate.y || x == nowOrdinate.x && y == nowOrdinate.y) {
+          continue;
+        }
+        if (data.box[x][y] !== 0) {
+          temp++;
+          break;
+        }
       }
-    }
-    if (temp > 0) {
-      data.tempRoute = [];
-      continue;
-    }
-    if (temp === 0) {
-      polylineRoute();
-      return true;
-    }
-  }
-
-  //向右搜索
-  for (var y = preOrdinate.y; y < data.col + 2; y++) {
-    console.log(y,'right');
-
-    temp = 0;
-    retrievalY(y, preOrdinate);
-    retrievalY(y, nowOrdinate);
-
-    if (temp > 0) {
-      data.tempRoute = [];
-      continue;
-    }
-    for (var x = xMin, len = xMax; x <= len; x++) {
-      if (x == preOrdinate.x && y == preOrdinate.y || x == nowOrdinate.x && y == nowOrdinate.y) {
+      if (temp > 0) {
+        data.tempRoute = [];
         continue;
       }
-      if (data.box[x][y] !== 0) {
-        temp++;
-        break;
+      if (temp === 0) {
+        polylineRoute();
+        return true;
       }
-    }
-    if (temp > 0) {
-      data.tempRoute = [];
-      continue;
-    }
-    if (temp === 0) {
-      polylineRoute();
-      return true;
     }
   }
 
@@ -326,61 +299,37 @@ function judgement (preOrdinate, nowOrdinate) {
     }
   }
 
-  //向上搜索
-  for (var x = preOrdinate.x; x >= 0; x--) {
-    temp = 0;
-    retrievalX(x, preOrdinate);
-    retrievalX(x, nowOrdinate);
+  //上下搜索
+  for (var x = preOrdinate.x, incre = 0, plusMinus = 1; incre < data.row * 2; incre++) {
+    x += incre * plusMinus;
+    plusMinus = -plusMinus;
 
-    if (temp > 0) {
-      data.tempRoute = [];
-      continue;
-    }
-    for (var y = yMin, len = yMax; y <= len; y++) {
-      if (x == preOrdinate.x && y == preOrdinate.y || x == nowOrdinate.x && y == nowOrdinate.y) {
+    if (x >= 0 && x < data.row + 2) {
+      temp = 0;
+      retrievalX(x, preOrdinate);
+      retrievalX(x, nowOrdinate);
+  
+      if (temp > 0) {
+        data.tempRoute = [];
         continue;
       }
-      if (data.box[x][y] !== 0) {
-        temp++;
-        break;
+      for (var y = yMin, len = yMax; y <= len; y++) {
+        if (x == preOrdinate.x && y == preOrdinate.y || x == nowOrdinate.x && y == nowOrdinate.y) {
+          continue;
+        }
+        if (data.box[x][y] !== 0) {
+          temp++;
+          break;
+        }
       }
-    }
-    if (temp > 0) {
-      data.tempRoute = [];
-      continue;
-    }
-    if (temp === 0) {
-      polylineRoute();
-      return true;
-    }
-  }
-
-  //向下搜索
-  for (var x = preOrdinate.x; x < data.row + 2; x++) {
-    temp = 0;
-    retrievalX(x, preOrdinate);
-    retrievalX(x, nowOrdinate);
-
-    if (temp > 0) {
-      data.tempRoute = [];
-      continue;
-    }
-    for (var y = yMin, len = yMax; y <= len; y++) {
-      if (x == preOrdinate.x && y == preOrdinate.y || x == nowOrdinate.x && y == nowOrdinate.y) {
+      if (temp > 0) {
+        data.tempRoute = [];
         continue;
       }
-      if (data.box[x][y] !== 0) {
-        temp++;
-        break;
+      if (temp === 0) {
+        polylineRoute();
+        return true;
       }
-    }
-    if (temp > 0) {
-      data.tempRoute = [];
-      continue;
-    }
-    if (temp === 0) {
-      polylineRoute();
-      return true;
     }
   }
 
