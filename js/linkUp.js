@@ -3,6 +3,7 @@ var scoreSpan = content.getElementsByClassName('score')[0].getElementsByTagName(
 var surplusSpan = content.getElementsByClassName('surplus')[0].getElementsByTagName('span')[0];
 var pause = content.getElementsByClassName('pause')[0];
 var mainViewBox = content.getElementsByClassName('box')[0];
+var SVG = document.getElementById('lineRoute');
 var cellMask = content.getElementsByClassName('cellMask')[0];
 var starButton = cellMask.getElementsByClassName('starButton')[0];
 var TIME;
@@ -15,7 +16,7 @@ window.onload = function () {
 data = {
   row: 8,
   col: 14,
-  type: 8,
+  type: 2,
   box: [],
   surplus: 0,
   time: 0,
@@ -132,6 +133,23 @@ function elimination (preElement, nowElement) {
   var nowOrdinate = {x: parseInt(nowElement.parentNode.getAttribute('row')), y: parseInt(nowElement.getAttribute('col'))};
   
   if (judgement(preOrdinate, nowOrdinate)) {
+    showLineRoute();
+    setTimeout(function () {
+      eliminateBox();
+      data.tempRoute = [];
+    }, 200);
+  } else {
+    if (nowElement.getAttribute('boxType') != 0) {
+      nowElement.addClass('choose');
+      data.preChoose = nowElement;
+    }
+  }
+
+  if (data.surplus == 0) {
+    over();
+  }
+
+  function eliminateBox () {
     preElement.setAttribute('boxType', '0');
     preElement.removeAttribute('class');
     preElement.innerHTML = '';
@@ -143,15 +161,31 @@ function elimination (preElement, nowElement) {
     data.preChoose = null;
     data.surplus -= 2;
     surplusSpan.innerHTML = data.surplus + '个';
-  } else {
-    if (nowElement.getAttribute('boxType') != 0) {
-      nowElement.addClass('choose');
-      data.preChoose = nowElement;
-    }
   }
 
-  if (data.surplus == 0) {
-    over();
+  function showLineRoute () {
+    var SVG_NS = 'http://www.w3.org/2000/svg';
+    var polyline = document.createElementNS(SVG_NS,'polyline');
+    pointsData();
+    function pointsData () {
+      var rote = '';
+      var len = data.tempRoute.length;
+      while (len--) {
+        var point1 = String(Math.max(0, Math.min(720, parseInt(data.tempRoute[len][1]) * 50 - 15)));
+        var point2 = String(Math.max(0, Math.min(540, parseInt(data.tempRoute[len][0]) * 65 - 22.5)));
+        if (len > 0) {
+          rote += point1 + ' ' + point2 + ', ';
+        } else {
+          rote += point1 + ' ' + point2;
+        }
+      }
+      console.log(rote);
+      polyline.setAttribute('points', rote);
+      SVG.appendChild(polyline);
+      setTimeout(function () {
+        SVG.removeChild(polyline);
+      }, 200);
+    }
   }
 }
 
@@ -216,15 +250,6 @@ function judgement (preOrdinate, nowOrdinate) {
     }
   }
 
-  function lineRoute () {
-    data.tempRoute.push([preOrdinate.x,preOrdinate.y]);
-    data.tempRoute.push([nowOrdinate.x,nowOrdinate.y]);
-    for(var i = 0, len = data.tempRoute.length; i < len; i++) {
-      console.log(parseInt(data.tempRoute[i][0]),parseInt(data.tempRoute[i][1]));
-    }
-    data.tempRoute = [];
-  }
-
   //两个框不同行且不同列
   var xMax = Math.max(preOrdinate.x, nowOrdinate.x);
   var xMin = Math.min(preOrdinate.x, nowOrdinate.x);
@@ -265,7 +290,7 @@ function judgement (preOrdinate, nowOrdinate) {
         continue;
       }
       if (temp === 0) {
-        polylineRoute();
+        lineRoute();
         return true;
       }
     }
@@ -327,7 +352,7 @@ function judgement (preOrdinate, nowOrdinate) {
         continue;
       }
       if (temp === 0) {
-        polylineRoute();
+        lineRoute();
         return true;
       }
     }
@@ -361,13 +386,9 @@ function judgement (preOrdinate, nowOrdinate) {
     }
   }
 
-  function polylineRoute () {
+  function lineRoute () {
     data.tempRoute.unshift([preOrdinate.x,preOrdinate.y]);
     data.tempRoute.push([nowOrdinate.x,nowOrdinate.y]);
-    for(var i = 0, len = data.tempRoute.length; i < len; i++) {
-      console.log(parseInt(data.tempRoute[i][0]),parseInt(data.tempRoute[i][1]));
-    }
-    data.tempRoute = [];
   }
 
   return false;
