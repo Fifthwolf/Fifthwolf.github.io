@@ -16,7 +16,7 @@ window.onload = function () {
 data = {
   row: 8,
   col: 14,
-  type: 2,
+  type: 8,
   box: [],
   surplus: 0,
   time: 0,
@@ -145,10 +145,6 @@ function elimination (preElement, nowElement) {
     }
   }
 
-  if (data.surplus == 0) {
-    over();
-  }
-
   function eliminateBox () {
     preElement.setAttribute('boxType', '0');
     preElement.removeAttribute('class');
@@ -161,6 +157,9 @@ function elimination (preElement, nowElement) {
     data.preChoose = null;
     data.surplus -= 2;
     surplusSpan.innerHTML = data.surplus + '个';
+    if (data.surplus == 0) {
+      over();
+    }
   }
 
   function showLineRoute () {
@@ -171,15 +170,14 @@ function elimination (preElement, nowElement) {
       var rote = '';
       var len = data.tempRoute.length;
       while (len--) {
-        var point1 = String(Math.max(0, Math.min(720, parseInt(data.tempRoute[len][1]) * 50 - 15)));
-        var point2 = String(Math.max(0, Math.min(540, parseInt(data.tempRoute[len][0]) * 65 - 22.5)));
+        var point1 = String(Math.max(2, Math.min(718, parseInt(data.tempRoute[len][1]) * 50 - 15)));
+        var point2 = String(Math.max(2, Math.min(538, parseInt(data.tempRoute[len][0]) * 65 - 22.5)));
         if (len > 0) {
           rote += point1 + ' ' + point2 + ', ';
         } else {
           rote += point1 + ' ' + point2;
         }
       }
-      console.log(rote);
       polyline.setAttribute('points', rote);
       SVG.appendChild(polyline);
       setTimeout(function () {
