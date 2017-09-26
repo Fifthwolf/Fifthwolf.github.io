@@ -7,7 +7,6 @@ var demoLis = demoUl.getElementsByTagName('li');
 var TEMP;
 
 useElementToAppropriate(star, document);
-useDEMOUlMargin(demoUl, demoLis, 10);
 
 if(getCookie('main')){
   star.style.display = 'none';
@@ -16,6 +15,7 @@ if(getCookie('main')){
 }
 
 window.onload = function () {
+  useDEMOUlMargin(demoUl, demoLis, 10);
   delayedLoadingPublicPictures ('');
   star.getElementsByClassName('image')[0].style.backgroundImage = 'url("image/TX.png")'; 
   var img = document.getElementsByTagName('img');
