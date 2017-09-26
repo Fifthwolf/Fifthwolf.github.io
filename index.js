@@ -15,13 +15,13 @@ if(getCookie('main')){
 }
 
 window.onload = function () {
-  useDEMOUlMargin(demoUl, demoLis, 10);
   delayedLoadingPublicPictures ('');
   star.getElementsByClassName('image')[0].style.backgroundImage = 'url("image/TX.png")'; 
   var img = document.getElementsByTagName('img');
   for (var i = 0, len = img.length; i < len; i++) {
     img[i].setAttribute('src', img[i].getAttribute('data-src'));
   }
+  useDEMOUlMargin(demoUl, demoLis, 10);
 }
 
 window.onresize = function () {
@@ -52,6 +52,7 @@ addEvent(own, 'click', function (e) {
 addEvent(eGo, 'click', function () {
   setCookie('main', 'flex', 5);
   var deg = 0;
+  useDEMOUlMargin(demoUl, demoLis, 10);
   if (judgeWidth()) {
     main.style.display = 'flex';
   }
