@@ -1,11 +1,14 @@
 ﻿var content = document.getElementsByClassName('content')[0];
 var scoreSpan = content.getElementsByClassName('score')[0].getElementsByTagName('span')[0];
-var surplusSpan = content.getElementsByClassName('surplus')[0].getElementsByTagName('span')[0];
+var surplus = content.getElementsByClassName('surplus')[0];
+var surplusSpan = surplus.getElementsByTagName('span')[0];
 var pause = content.getElementsByClassName('pause')[0];
 var mainViewBox = content.getElementsByClassName('box')[0];
 var SVG = document.getElementById('lineRoute');
 var cellMask = content.getElementsByClassName('cellMask')[0];
 var starButton = cellMask.getElementsByClassName('starButton')[0];
+var final = cellMask.getElementsByClassName('final')[0];
+var finalTime = final.getElementsByTagName('span')[0];
 var TIME;
 
 window.onload = function () {
@@ -77,10 +80,12 @@ addEvent(mainViewBox, 'click', function(e) {
 function start () {
   TIME = null;
   data.time = 0;
-  data.surplus = 112;
-  surplusSpan.innerHTML = data.surplus + '个';
+  data.surplus = data.row * data.col;
+  surplusSpan.innerHTML = data.surplus;
+  surplus.style.display = 'block';
   cellMask.style.display = 'none';
   pause.style.display = 'block';
+  final.style.display = 'none';
   initialization();
   timer();
   removeEvent(starButton, 'click', start);
@@ -134,6 +139,8 @@ function elimination (preElement, nowElement) {
   
   if (judgement(preOrdinate, nowOrdinate)) {
     showLineRoute();
+    preElement.addClass('success');
+    nowElement.addClass('success');
     setTimeout(function () {
       eliminateBox();
       data.tempRoute = [];
@@ -156,7 +163,7 @@ function elimination (preElement, nowElement) {
     data.box[nowOrdinate.x][nowOrdinate.y] = 0;
     data.preChoose = null;
     data.surplus -= 2;
-    surplusSpan.innerHTML = data.surplus + '个';
+    surplusSpan.innerHTML = data.surplus;
     if (data.surplus == 0) {
       over();
     }
@@ -395,13 +402,16 @@ function judgement (preOrdinate, nowOrdinate) {
 function timer () {
   TIME = setInterval(function () {
     data.time += 0.1;
-    scoreSpan.innerHTML = data.time.toFixed(1) + '秒';
+    scoreSpan.innerHTML = data.time.toFixed(1);
   }, 100);
 }
 
 function over () {
   clearInterval(TIME);
   TIME = null;
+  surplus.style.display = 'none';
+  final.style.display = 'block';
+  finalTime.innerHTML = data.time.toFixed(1);
   cellMask.style.display = 'block';
   cellMask.style.backgroundColor = 'rgba(17, 34, 63, 0.6)';
   pause.style.display = 'none';
