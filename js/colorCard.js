@@ -21,7 +21,3 @@ window.onload = function () {
     content.appendChild(cul[i]);
   }
 }
-
-window.onresize = function () {
-  adjustmentWindow();
-}
