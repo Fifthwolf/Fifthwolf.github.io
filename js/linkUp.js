@@ -36,7 +36,7 @@ function createFrame () {
     for (var j = 0; j < data.col; j++) {
       var col = new Array(data.col);
       col[j] = document.createElement('span');
-      col[j].setAttribute('boxType', '0');
+      col[j].setAttribute('boxType', 0);
       col[j].setAttribute('col', j + 1);
       row[i].appendChild(col[j]);
     }
