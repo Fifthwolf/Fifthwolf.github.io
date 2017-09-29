@@ -23,8 +23,11 @@ function createFrame () {
     for (var j = 0; j < data.col; j++) {
       var col = new Array(data.col);
       col[j] = document.createElement('span');
-      col[j].setAttribute('boxType', 0);
+      col[j].setAttribute('mine', 0); //周边地雷个数，true为自身地雷
+      col[j].setAttribute('state', false); //是否已开
+      col[j].setAttribute('flag', false); //插旗
       col[j].setAttribute('col', j + 1);
+      //col[j].setAttribute('class', 'state mine' + j);
       row[i].appendChild(col[j]);
     }
     mainViewBox.appendChild(row[i]);
