@@ -77,6 +77,8 @@
             line-height: 46px;
             font-size: 30px;
             font-weight: bold; }
+          #main .right .content .mainView .box div span.mineTrue {
+            background-color: #f00; }
           #main .right .content .mainView .box div span.mine1 {
             color: #00f; }
           #main .right .content .mainView .box div span.mine2 {
