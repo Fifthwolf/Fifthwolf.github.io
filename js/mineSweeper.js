@@ -1,9 +1,10 @@
 var content = document.getElementsByClassName('content')[0];
 var showView = content.getElementsByClassName('showView')[0];
-var time = showView.getElementsByClassName('time')[0];
+var timeDiv = showView.getElementsByClassName('time')[0];
 var smile = showView.getElementsByClassName('smile')[0];
 var surplus = showView.getElementsByClassName('surplus')[0];
 var mainViewBox = content.getElementsByClassName('box')[0];
+var TIME;
 
 window.onload = function () {
   delayedLoadingPublicPictures ('../');
@@ -14,18 +15,28 @@ data = {
   row: 9,
   col: 9,
   mine: 10,
-  surplus: 0,
+  surplus: 81,
+  surplusFlag: 10,
   box: [],
   time: 0,
   start: false
 }
 
 addEvent(smile, 'click', function(e) {
+  data.start = false;
+  clearInterval(TIME);
+  timeDiv.innerHTML = '000';
   createFrame();
 });
 
 addEvent(mainViewBox, 'click', function(e) {
-  createMine(e.target);
+  if (data.start === false) {
+    data.start = true;
+    createMine(e.target);
+    TIME = setInterval(function () {
+      timer();
+    }, 1000);
+  }
   mouseclick(e.target);
 });
 
@@ -75,11 +86,11 @@ function mouseclick (ele) {
       data.box[currentRow][currentCol].state = true;
       data.surplus--;
       if (data.surplus == data.mine) {
-        console.log('win');
+        success();
       }
       if (data.box[currentRow][currentCol].mine === true) {
         ele.addClass('mineTrue');
-        over();
+        fail();
       } else {
         calculationAround(ele);
       }
@@ -94,9 +105,13 @@ function setFlag (ele) {
     if (data.box[currentRow][currentCol].state === false) {
       if (data.box[currentRow][currentCol].flag === false) {
         data.box[currentRow][currentCol].flag = true;
+        data.surplusFlag--;
+        surplus.innerHTML = PrefixInteger(data.surplusFlag, 3);
         ele.addClass('flag');
       } else {
         data.box[currentRow][currentCol].flag = false;
+        data.surplusFlag++;
+        surplus.innerHTML = PrefixInteger(data.surplusFlag, 3);
         ele.removeClass('flag');
       }
     }
@@ -203,8 +218,24 @@ function createMine (ele) {
     }
     data.box[row][col].mine = true;
   }
+  data.surplusFlag = data.mine;
 }
 
-function over () {
+function timer () {
+  data.time++;
+  timeDiv.innerHTML = PrefixInteger(data.time, 3);
+}
+
+function success () {
+  clearInterval(TIME);
+  console.log('win');
+}
+
+function fail () {
+  clearInterval(TIME);
   //游戏结束
+}
+
+function PrefixInteger(num, n) {
+  return (Array(n).join(0) + num).slice(-n);
 }
