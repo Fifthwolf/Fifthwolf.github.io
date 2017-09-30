@@ -8,7 +8,6 @@ var mainViewBox = content.getElementsByClassName('box')[0];
 window.onload = function () {
   delayedLoadingPublicPictures ('../');
   createFrame();
-  initialization();
 }
 
 data = {
@@ -18,14 +17,15 @@ data = {
   surplus: 0,
   box: [],
   time: 0,
+  start: false
 }
 
 addEvent(smile, 'click', function(e) {
   createFrame();
-  initialization();
 });
 
 addEvent(mainViewBox, 'click', function(e) {
+  createMine(e.target);
   mouseclick(e.target);
 });
 
@@ -162,6 +162,7 @@ function createFrame () {
     }
     mainViewBox.appendChild(row[i]);
   }
+  initialization();
 }
 
 function initialization () {
@@ -179,21 +180,28 @@ function initialization () {
   var spanElements = mainViewBox.getElementsByTagName('span');
   var spanArray = new Array();
   for (var i = 0, len = spanElements.length; i < len; i++) {
-    data.box[parseInt(i / data.col)][parseInt(i % data.col)].state = false; //是否打开
+    data.box[parseInt(i / data.col)][parseInt(i % data.col)].state = false; //是否已点开
     data.box[parseInt(i / data.col)][parseInt(i % data.col)].flag = false; //插旗
     data.box[parseInt(i / data.col)][parseInt(i % data.col)].ele = spanElements[i]; //对应HTML元素
   }
-  
-  //生成地雷
+}
+
+function createMine (ele) {
+  var currentRow = parseInt(ele.parentNode.getAttribute('row'));
+  var currentCol = parseInt(ele.getAttribute('col'));
   for (var i = data.mine; i > 0; i--) {
-    var index = parseInt(Math.random() * spanElements.length);
-    var currentRow = parseInt(index / data.col);
-    var currentCol = parseInt(index % data.col);
-    if (data.box[currentRow][currentCol].mine === true) {
+    var index = parseInt(Math.random() * data.row * data.col);
+    var row = parseInt(index / data.col);
+    var col = parseInt(index % data.col);
+    if (data.box[row][col].mine === true) {
       i++;
       continue;
     }
-    data.box[currentRow][currentCol].mine = true;
+    if (row === currentRow && col ===currentCol) {
+      i++;
+      continue;
+    }
+    data.box[row][col].mine = true;
   }
 }
 
