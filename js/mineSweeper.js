@@ -107,12 +107,17 @@ function setFlag (ele) {
         data.box[currentRow][currentCol].flag = true;
         data.surplusFlag--;
         surplus.innerHTML = PrefixInteger(data.surplusFlag, 3);
-        ele.addClass('flag');
+        var flagEle = document.createElement('i');
+        flagEle.setAttribute('class', 'fa fa-flag');
+        //flagEle.setAttribute('class', 'fa fa-bomb');
+        ele.appendChild(flagEle);
       } else {
         data.box[currentRow][currentCol].flag = false;
         data.surplusFlag++;
         surplus.innerHTML = PrefixInteger(data.surplusFlag, 3);
-        ele.removeClass('flag');
+        var flagEle = ele.getElementsByClassName('fa')[0];
+        console.log(flagEle);
+        ele.removeChild(flagEle);
       }
     }
   }
