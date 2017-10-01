@@ -26,6 +26,8 @@ addEvent(smile, 'click', function(e) {
   data.start = false;
   clearInterval(TIME);
   timeDiv.innerHTML = '000';
+  data.surplusFlag = data.mine;
+  surplus.innerHTML = PrefixInteger(data.surplusFlag, 3);
   createFrame();
 });
 
@@ -103,22 +105,22 @@ function setFlag (ele) {
     var currentRow = parseInt(ele.parentNode.getAttribute('row'));
     var currentCol = parseInt(ele.getAttribute('col'));
     if (data.box[currentRow][currentCol].state === false) {
-      if (data.box[currentRow][currentCol].flag === false) {
-        data.box[currentRow][currentCol].flag = true;
-        data.surplusFlag--;
-        surplus.innerHTML = PrefixInteger(data.surplusFlag, 3);
-        var flagEle = document.createElement('i');
-        flagEle.setAttribute('class', 'fa fa-flag');
-        //flagEle.setAttribute('class', 'fa fa-bomb');
-        ele.appendChild(flagEle);
-      } else {
-        data.box[currentRow][currentCol].flag = false;
-        data.surplusFlag++;
-        surplus.innerHTML = PrefixInteger(data.surplusFlag, 3);
-        var flagEle = ele.getElementsByClassName('fa')[0];
-        console.log(flagEle);
-        ele.removeChild(flagEle);
+      switch (data.box[currentRow][currentCol].flag) {
+        case false:
+          data.box[currentRow][currentCol].flag = true;
+          data.surplusFlag--;
+          var flagEle = document.createElement('i');
+          flagEle.setAttribute('class', 'fa fa-flag');
+          ele.appendChild(flagEle);
+          break;
+        case true:
+          data.box[currentRow][currentCol].flag = false;
+          data.surplusFlag++;
+          var flagEle = ele.getElementsByClassName('fa')[0];
+          ele.removeChild(flagEle);
+          break;
       }
+      surplus.innerHTML = data.surplusFlag >= 0 ? PrefixInteger(data.surplusFlag, 3) : data.surplusFlag;
     }
   }
 }
@@ -217,7 +219,7 @@ function createMine (ele) {
       i++;
       continue;
     }
-    if (row === currentRow && col ===currentCol) {
+    if (row === currentRow && col === currentCol) {
       i++;
       continue;
     }
@@ -234,6 +236,17 @@ function timer () {
 function success () {
   clearInterval(TIME);
   console.log('win');
+  for (var i = 0; i < data.row; i++) {
+    for (var j = 0; j < data.col; j++) {
+      if (data.box[i][j].mine === true &&
+        data.box[i][j].ele.getElementsByTagName('*').length === 0) {
+        data.box[i][j].flag = true;
+        var flagEle = document.createElement('i');
+        flagEle.setAttribute('class', 'fa fa-flag');
+        data.box[i][j].ele.appendChild(flagEle);
+      }
+    }
+  }
 }
 
 function fail () {
