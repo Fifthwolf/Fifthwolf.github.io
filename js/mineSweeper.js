@@ -247,6 +247,8 @@ function success () {
       }
     }
   }
+  data.surplusFlag = 0;
+  surplus.innerHTML = data.surplusFlag >= 0 ? PrefixInteger(data.surplusFlag, 3) : data.surplusFlag;
 }
 
 function fail () {
