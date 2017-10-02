@@ -109,9 +109,7 @@ function setFlag (ele) {
         case false:
           data.box[currentRow][currentCol].flag = true;
           data.surplusFlag--;
-          var flagEle = document.createElement('i');
-          flagEle.setAttribute('class', 'fa fa-flag');
-          ele.appendChild(flagEle);
+          addChildIcon(ele, 'flag');
           break;
         case true:
           data.box[currentRow][currentCol].flag = false;
@@ -241,9 +239,7 @@ function success () {
       if (data.box[i][j].mine === true &&
         data.box[i][j].ele.getElementsByTagName('*').length === 0) {
         data.box[i][j].flag = true;
-        var flagEle = document.createElement('i');
-        flagEle.setAttribute('class', 'fa fa-flag');
-        data.box[i][j].ele.appendChild(flagEle);
+        addChildIcon(data.box[i][j].ele, 'flag');
       }
     }
   }
@@ -253,7 +249,19 @@ function success () {
 
 function fail () {
   clearInterval(TIME);
-  //游戏结束
+  for (var i = 0; i < data.row; i++) {
+    for (var j = 0; j < data.col; j++) {
+      if (data.box[i][j].mine === true && data.box[i][j].flag === false) {
+        addChildIcon(data.box[i][j].ele, 'bomb');
+      }
+    }
+  }
+}
+
+function addChildIcon (parentNode, iconClass) {
+  var element = document.createElement('i');
+  element.setAttribute('class', 'fa fa-' + iconClass);
+  parentNode.appendChild(element);
 }
 
 function PrefixInteger(num, n) {
