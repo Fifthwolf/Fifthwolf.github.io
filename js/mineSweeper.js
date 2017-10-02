@@ -22,16 +22,27 @@ data = {
   start: false
 }
 
-addEvent(smile, 'click', function(e) {
+addEvent(smile, 'click', smileClick);
+
+function smileClick (e) {
   data.start = false;
   clearInterval(TIME);
   timeDiv.innerHTML = '000';
   data.surplusFlag = data.mine;
   surplus.innerHTML = PrefixInteger(data.surplusFlag, 3);
+  addEvent(mainViewBox, 'click', mainViewBoxClick);
   createFrame();
-});
+}
 
-addEvent(mainViewBox, 'click', function(e) {
+mainViewBox.oncontextmenu = function (e) {
+  return false;
+}
+
+addEvent(mainViewBox, 'click', mainViewBoxClick);
+addEvent(mainViewBox, 'mousedown', mouseMiddleClick);
+addEvent(mainViewBox, 'contextmenu', setFlag);
+
+function mainViewBoxClick (e) {
   if (data.start === false) {
     data.start = true;
     createMine(e.target);
@@ -40,50 +51,13 @@ addEvent(mainViewBox, 'click', function(e) {
     }, 1000);
   }
   mouseclick(e.target);
-});
-
-mainViewBox.oncontextmenu = function(e){
-  return false;
 }
-
-addEvent(mainViewBox, 'contextmenu', function(e) {
-  setFlag(e.target);
-});
-
-addEvent(mainViewBox, 'mousedown', function(e) {
-  if (e.target.nodeName.toUpperCase() === 'SPAN') {
-    if (e.button === 1) {
-      var currentRow = parseInt(e.target.parentNode.getAttribute('row'));
-      var currentCol = parseInt(e.target.getAttribute('col'));
-      if (data.box[currentRow][currentCol].state === true) {
-        var rowStart = Math.max(0, currentRow - 1);
-        var rowEnd = Math.min(data.row - 1, currentRow + 1);
-        var colStart = Math.max(0, currentCol - 1);
-        var colEnd = Math.min(data.col - 1, currentCol + 1);
-        var flag = 0;
-        for (var i = rowStart; i <= rowEnd; i++) {
-          for (var j = colStart; j <= colEnd; j++) {
-            if (e.target === data.box[i][j].ele) {
-              continue;
-            }
-            if (data.box[i][j].flag === true) {
-              flag++;
-            }
-          }
-        }
-        if (flag === data.box[currentRow][currentCol].mine) {
-          openAround(e.target, rowStart, rowEnd, colStart, colEnd);
-        }
-      }
-    }
-  }
-});
 
 function mouseclick (ele) {
   if (ele.nodeName.toUpperCase() === 'SPAN') {
     var currentRow = parseInt(ele.parentNode.getAttribute('row'));
     var currentCol = parseInt(ele.getAttribute('col'));
-    if (data.box[currentRow][currentCol].state === false) {
+    if (data.box[currentRow][currentCol].state === false && data.box[currentRow][currentCol].flag === false) {
       ele.addClass('state');
       data.box[currentRow][currentCol].state = true;
       data.surplus--;
@@ -100,7 +74,38 @@ function mouseclick (ele) {
   }
 }
 
-function setFlag (ele) {
+function mouseMiddleClick (e) {
+  var ele= e.target;
+  if (ele.nodeName.toUpperCase() === 'SPAN') {
+    if (e.button === 1) {
+      var currentRow = parseInt(ele.parentNode.getAttribute('row'));
+      var currentCol = parseInt(ele.getAttribute('col'));
+      if (data.box[currentRow][currentCol].state === true) {
+        var rowStart = Math.max(0, currentRow - 1);
+        var rowEnd = Math.min(data.row - 1, currentRow + 1);
+        var colStart = Math.max(0, currentCol - 1);
+        var colEnd = Math.min(data.col - 1, currentCol + 1);
+        var flag = 0;
+        for (var i = rowStart; i <= rowEnd; i++) {
+          for (var j = colStart; j <= colEnd; j++) {
+            if (ele === data.box[i][j].ele) {
+              continue;
+            }
+            if (data.box[i][j].flag === true) {
+              flag++;
+            }
+          }
+        }
+        if (flag === data.box[currentRow][currentCol].mine) {
+          openAround(ele, rowStart, rowEnd, colStart, colEnd);
+        }
+      }
+    }
+  }
+}
+
+function setFlag (e) {
+  var ele = e.target;
   if (ele.nodeName.toUpperCase() === 'SPAN') {
     var currentRow = parseInt(ele.parentNode.getAttribute('row'));
     var currentCol = parseInt(ele.getAttribute('col'));
@@ -114,8 +119,7 @@ function setFlag (ele) {
         case true:
           data.box[currentRow][currentCol].flag = false;
           data.surplusFlag++;
-          var flagEle = ele.getElementsByClassName('fa')[0];
-          ele.removeChild(flagEle);
+          removeChildIcon (ele);
           break;
       }
       surplus.innerHTML = data.surplusFlag >= 0 ? PrefixInteger(data.surplusFlag, 3) : data.surplusFlag;
@@ -256,12 +260,18 @@ function fail () {
       }
     }
   }
+  removeEvent(mainViewBox, 'click', mainViewBoxClick);
 }
 
 function addChildIcon (parentNode, iconClass) {
   var element = document.createElement('i');
   element.setAttribute('class', 'fa fa-' + iconClass);
   parentNode.appendChild(element);
+}
+
+function removeChildIcon (parentNode) {
+  var element = parentNode.getElementsByClassName('fa')[0];
+  parentNode.removeChild(element);
 }
 
 function PrefixInteger(num, n) {
