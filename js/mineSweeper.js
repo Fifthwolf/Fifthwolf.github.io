@@ -26,9 +26,10 @@ data = {
 addEvent(smile, 'click', smileClick);
 
 function smileClick (e) {
-  data.start = false;
   clearInterval(TIME);
-  timeDiv.innerHTML = '000';
+  data.start = false;
+  data.time = 0;
+  timeDiv.innerHTML = PrefixInteger(data.time, 3);
   data.surplusFlag = data.mine;
   surplus.innerHTML = PrefixInteger(data.surplusFlag, 3);
   if (data.fail === true) {
