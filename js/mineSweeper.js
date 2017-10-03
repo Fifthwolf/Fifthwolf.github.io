@@ -19,7 +19,8 @@ data = {
   surplusFlag: 10,
   box: [],
   time: 0,
-  start: false
+  start: false,
+  fail: false
 }
 
 addEvent(smile, 'click', smileClick);
@@ -30,6 +31,12 @@ function smileClick (e) {
   timeDiv.innerHTML = '000';
   data.surplusFlag = data.mine;
   surplus.innerHTML = PrefixInteger(data.surplusFlag, 3);
+  if (data.fail === true) {
+    removeChildIcon(smile);
+    var element = document.createElement('span');
+    smile.appendChild(element);
+    addChildIcon(smile, 'smile-o');
+  }
   addEvent(mainViewBox, 'click', mainViewBoxClick);
   createFrame();
 }
@@ -55,8 +62,7 @@ function mainViewBoxClick (e) {
 
 function mouseclick (ele) {
   if (ele.nodeName.toUpperCase() === 'SPAN') {
-    var currentRow = parseInt(ele.parentNode.getAttribute('row'));
-    var currentCol = parseInt(ele.getAttribute('col'));
+    let {currentRow, currentCol} = aroundData(ele); 
     if (data.box[currentRow][currentCol].state === false && data.box[currentRow][currentCol].flag === false) {
       ele.addClass('state');
       data.box[currentRow][currentCol].state = true;
@@ -68,7 +74,7 @@ function mouseclick (ele) {
         ele.addClass('mineTrue');
         fail();
       } else {
-        calculationAround(ele);
+        aroundMine(ele);
       }
     }
   }
@@ -76,29 +82,22 @@ function mouseclick (ele) {
 
 function mouseMiddleClick (e) {
   var ele= e.target;
-  if (ele.nodeName.toUpperCase() === 'SPAN') {
-    if (e.button === 1) {
-      var currentRow = parseInt(ele.parentNode.getAttribute('row'));
-      var currentCol = parseInt(ele.getAttribute('col'));
-      if (data.box[currentRow][currentCol].state === true) {
-        var rowStart = Math.max(0, currentRow - 1);
-        var rowEnd = Math.min(data.row - 1, currentRow + 1);
-        var colStart = Math.max(0, currentCol - 1);
-        var colEnd = Math.min(data.col - 1, currentCol + 1);
-        var flag = 0;
-        for (var i = rowStart; i <= rowEnd; i++) {
-          for (var j = colStart; j <= colEnd; j++) {
-            if (ele === data.box[i][j].ele) {
-              continue;
-            }
-            if (data.box[i][j].flag === true) {
-              flag++;
-            }
+  let {currentRow, currentCol, rowStart, rowEnd, colStart, colEnd} = aroundData(ele);
+  if (e.button === 1 && ele.nodeName.toUpperCase() === 'SPAN') {
+    if (data.box[currentRow][currentCol].state === true) {
+      var flag = 0;
+      for (var i = rowStart; i <= rowEnd; i++) {
+        for (var j = colStart; j <= colEnd; j++) {
+          if (ele === data.box[i][j].ele) {
+            continue;
+          }
+          if (data.box[i][j].flag === true) {
+            flag++;
           }
         }
-        if (flag === data.box[currentRow][currentCol].mine) {
-          openAround(ele, rowStart, rowEnd, colStart, colEnd);
-        }
+      }
+      if (flag === data.box[currentRow][currentCol].mine) {
+        openAround(ele, rowStart, rowEnd, colStart, colEnd);
       }
     }
   }
@@ -107,8 +106,7 @@ function mouseMiddleClick (e) {
 function setFlag (e) {
   var ele = e.target;
   if (ele.nodeName.toUpperCase() === 'SPAN') {
-    var currentRow = parseInt(ele.parentNode.getAttribute('row'));
-    var currentCol = parseInt(ele.getAttribute('col'));
+    let {currentRow, currentCol} = aroundData(ele);
     if (data.box[currentRow][currentCol].state === false) {
       switch (data.box[currentRow][currentCol].flag) {
         case false:
@@ -119,7 +117,7 @@ function setFlag (e) {
         case true:
           data.box[currentRow][currentCol].flag = false;
           data.surplusFlag++;
-          removeChildIcon (ele);
+          removeChildIcon(ele);
           break;
       }
       surplus.innerHTML = data.surplusFlag >= 0 ? PrefixInteger(data.surplusFlag, 3) : data.surplusFlag;
@@ -127,13 +125,8 @@ function setFlag (e) {
   }
 }
 
-function calculationAround (ele) {
-  var currentRow = parseInt(ele.parentNode.getAttribute('row'));
-  var currentCol = parseInt(ele.getAttribute('col'));
-  var rowStart = Math.max(0, currentRow - 1);
-  var rowEnd = Math.min(data.row - 1, currentRow + 1);
-  var colStart = Math.max(0, currentCol - 1);
-  var colEnd = Math.min(data.col - 1, currentCol + 1);
+function aroundMine (ele) {
+  let {currentRow, currentCol, rowStart, rowEnd, colStart, colEnd} = aroundData(ele);
   var mineNum = 0;
   for (var i = rowStart; i <= rowEnd; i++) {
     for (var j = colStart; j <= colEnd; j++) {
@@ -170,7 +163,6 @@ function openAround (ele, rowStart, rowEnd, colStart, colEnd) {
   }
 }
 
-//创建DIV、SPAN 框架元素
 function createFrame () {
   mainViewBox.innerHTML = '';
   data.surplus = data.row * data.col;
@@ -211,8 +203,7 @@ function initialization () {
 }
 
 function createMine (ele) {
-  var currentRow = parseInt(ele.parentNode.getAttribute('row'));
-  var currentCol = parseInt(ele.getAttribute('col'));
+  let {currentRow, currentCol} = aroundData(ele); 
   for (var i = data.mine; i > 0; i--) {
     var index = parseInt(Math.random() * data.row * data.col);
     var row = parseInt(index / data.col);
@@ -228,6 +219,16 @@ function createMine (ele) {
     data.box[row][col].mine = true;
   }
   data.surplusFlag = data.mine;
+}
+
+function aroundData (ele) {
+  var currentRow = parseInt(ele.parentNode.getAttribute('row'));
+  var currentCol = parseInt(ele.getAttribute('col'));
+  var rowStart = Math.max(0, currentRow - 1);
+  var rowEnd = Math.min(data.row - 1, currentRow + 1);
+  var colStart = Math.max(0, currentCol - 1);
+  var colEnd = Math.min(data.col - 1, currentCol + 1);
+  return {currentRow, currentCol, rowStart, rowEnd, colStart, colEnd};
 }
 
 function timer () {
@@ -253,6 +254,7 @@ function success () {
 
 function fail () {
   clearInterval(TIME);
+  data.fail = true;
   for (var i = 0; i < data.row; i++) {
     for (var j = 0; j < data.col; j++) {
       if (data.box[i][j].mine === true && data.box[i][j].flag === false) {
@@ -264,6 +266,9 @@ function fail () {
     }
   }
   removeEvent(mainViewBox, 'click', mainViewBoxClick);
+  smile.removeChild(smile.getElementsByTagName('span')[0]);
+  removeChildIcon(smile);
+  addChildIcon(smile, 'ambulance');
 }
 
 function addChildIcon (parentNode, iconClass) {
