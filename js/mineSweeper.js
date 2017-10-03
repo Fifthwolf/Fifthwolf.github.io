@@ -149,7 +149,7 @@ function calculationAround (ele) {
     data.box[currentRow][currentCol].mine = mineNum;
     ele.addClass('mine' + mineNum);
     ele.innerHTML = mineNum;
-  } else if (mineNum === 0) {
+  } else {
     openAround(ele, rowStart, rowEnd, colStart, colEnd);
   }
 }
@@ -196,7 +196,7 @@ function initialization () {
     data.box[i] = new Array(data.col);
     for (var j = 0; j < data.col; j++) {
       data.box[i][j] = {};
-      data.box[i][j].mine = 0;
+      data.box[i][j].mine = false;
       data.box[i][j].state = false;
       data.box[i][j].flag = false;
     }
@@ -257,6 +257,9 @@ function fail () {
     for (var j = 0; j < data.col; j++) {
       if (data.box[i][j].mine === true && data.box[i][j].flag === false) {
         addChildIcon(data.box[i][j].ele, 'bomb');
+      }
+      if (data.box[i][j].flag === true && data.box[i][j].mine === false) {
+        addChildIcon(data.box[i][j].ele, 'times');
       }
     }
   }
