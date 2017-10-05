@@ -79,7 +79,8 @@
             left: 1px;
             top: 2px;
             font-size: 32px;
-            color: #f00; }
+            color: #f00;
+            pointer-events: none; }
           #main .right .content .mainView .box div span.state {
             width: 46px;
             height: 46px;

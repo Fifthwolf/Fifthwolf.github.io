@@ -19,17 +19,38 @@ data = {
   surplusFlag: 10,
   box: [],
   time: 0,
-  start: false
+  start: false,
+  fail: false
 }
 
-addEvent(smile, 'click', function(e) {
-  data.start = false;
-  clearInterval(TIME);
-  timeDiv.innerHTML = '000';
-  createFrame();
-});
+addEvent(smile, 'click', smileClick);
 
-addEvent(mainViewBox, 'click', function(e) {
+function smileClick (e) {
+  clearInterval(TIME);
+  data.start = false;
+  data.time = 0;
+  timeDiv.innerHTML = PrefixInteger(data.time, 3);
+  data.surplusFlag = data.mine;
+  surplus.innerHTML = PrefixInteger(data.surplusFlag, 3);
+  if (data.fail === true) {
+    removeChildIcon(smile);
+    var element = document.createElement('span');
+    smile.appendChild(element);
+    addChildIcon(smile, 'smile-o');
+  }
+  addEvent(mainViewBox, 'click', mainViewBoxClick);
+  createFrame();
+}
+
+mainViewBox.oncontextmenu = function (e) {
+  return false;
+}
+
+addEvent(mainViewBox, 'click', mainViewBoxClick);
+addEvent(mainViewBox, 'mousedown', mouseMiddleClick);
+addEvent(mainViewBox, 'contextmenu', setFlag);
+
+function mainViewBoxClick (e) {
   if (data.start === false) {
     data.start = true;
     createMine(e.target);
@@ -38,50 +59,12 @@ addEvent(mainViewBox, 'click', function(e) {
     }, 1000);
   }
   mouseclick(e.target);
-});
-
-mainViewBox.oncontextmenu = function(e){
-  return false;
 }
-
-addEvent(mainViewBox, 'contextmenu', function(e) {
-  setFlag(e.target);
-});
-
-addEvent(mainViewBox, 'mousedown', function(e) {
-  if (e.target.nodeName.toUpperCase() === 'SPAN') {
-    if (e.button === 1) {
-      var currentRow = parseInt(e.target.parentNode.getAttribute('row'));
-      var currentCol = parseInt(e.target.getAttribute('col'));
-      if (data.box[currentRow][currentCol].state === true) {
-        var rowStart = Math.max(0, currentRow - 1);
-        var rowEnd = Math.min(data.row - 1, currentRow + 1);
-        var colStart = Math.max(0, currentCol - 1);
-        var colEnd = Math.min(data.col - 1, currentCol + 1);
-        var flag = 0;
-        for (var i = rowStart; i <= rowEnd; i++) {
-          for (var j = colStart; j <= colEnd; j++) {
-            if (e.target === data.box[i][j].ele) {
-              continue;
-            }
-            if (data.box[i][j].flag === true) {
-              flag++;
-            }
-          }
-        }
-        if (flag === data.box[currentRow][currentCol].mine) {
-          openAround(e.target, rowStart, rowEnd, colStart, colEnd);
-        }
-      }
-    }
-  }
-});
 
 function mouseclick (ele) {
   if (ele.nodeName.toUpperCase() === 'SPAN') {
-    var currentRow = parseInt(ele.parentNode.getAttribute('row'));
-    var currentCol = parseInt(ele.getAttribute('col'));
-    if (data.box[currentRow][currentCol].state === false) {
+    let {currentRow, currentCol} = aroundData(ele); 
+    if (data.box[currentRow][currentCol].state === false && data.box[currentRow][currentCol].flag === false) {
       ele.addClass('state');
       data.box[currentRow][currentCol].state = true;
       data.surplus--;
@@ -92,44 +75,59 @@ function mouseclick (ele) {
         ele.addClass('mineTrue');
         fail();
       } else {
-        calculationAround(ele);
+        aroundMine(ele);
       }
     }
   }
 }
 
-function setFlag (ele) {
+function mouseMiddleClick (e) {
+  var ele= e.target;
+  let {currentRow, currentCol, rowStart, rowEnd, colStart, colEnd} = aroundData(ele);
+  if (e.button === 1 && ele.nodeName.toUpperCase() === 'SPAN') {
+    if (data.box[currentRow][currentCol].state === true) {
+      var flag = 0;
+      for (var i = rowStart; i <= rowEnd; i++) {
+        for (var j = colStart; j <= colEnd; j++) {
+          if (ele === data.box[i][j].ele) {
+            continue;
+          }
+          if (data.box[i][j].flag === true) {
+            flag++;
+          }
+        }
+      }
+      if (flag === data.box[currentRow][currentCol].mine) {
+        openAround(ele, rowStart, rowEnd, colStart, colEnd);
+      }
+    }
+  }
+}
+
+function setFlag (e) {
+  var ele = e.target;
   if (ele.nodeName.toUpperCase() === 'SPAN') {
-    var currentRow = parseInt(ele.parentNode.getAttribute('row'));
-    var currentCol = parseInt(ele.getAttribute('col'));
+    let {currentRow, currentCol} = aroundData(ele);
     if (data.box[currentRow][currentCol].state === false) {
-      if (data.box[currentRow][currentCol].flag === false) {
-        data.box[currentRow][currentCol].flag = true;
-        data.surplusFlag--;
-        surplus.innerHTML = PrefixInteger(data.surplusFlag, 3);
-        var flagEle = document.createElement('i');
-        flagEle.setAttribute('class', 'fa fa-flag');
-        //flagEle.setAttribute('class', 'fa fa-bomb');
-        ele.appendChild(flagEle);
-      } else {
-        data.box[currentRow][currentCol].flag = false;
-        data.surplusFlag++;
-        surplus.innerHTML = PrefixInteger(data.surplusFlag, 3);
-        var flagEle = ele.getElementsByClassName('fa')[0];
-        console.log(flagEle);
-        ele.removeChild(flagEle);
+      switch (data.box[currentRow][currentCol].flag) {
+        case false:
+          data.box[currentRow][currentCol].flag = true;
+          data.surplusFlag--;
+          addChildIcon(ele, 'flag');
+          break;
+        case true:
+          data.box[currentRow][currentCol].flag = false;
+          data.surplusFlag++;
+          removeChildIcon(ele);
+          break;
       }
+      surplus.innerHTML = data.surplusFlag >= 0 ? PrefixInteger(data.surplusFlag, 3) : data.surplusFlag;
     }
   }
 }
 
-function calculationAround (ele) {
-  var currentRow = parseInt(ele.parentNode.getAttribute('row'));
-  var currentCol = parseInt(ele.getAttribute('col'));
-  var rowStart = Math.max(0, currentRow - 1);
-  var rowEnd = Math.min(data.row - 1, currentRow + 1);
-  var colStart = Math.max(0, currentCol - 1);
-  var colEnd = Math.min(data.col - 1, currentCol + 1);
+function aroundMine (ele) {
+  let {currentRow, currentCol, rowStart, rowEnd, colStart, colEnd} = aroundData(ele);
   var mineNum = 0;
   for (var i = rowStart; i <= rowEnd; i++) {
     for (var j = colStart; j <= colEnd; j++) {
@@ -145,7 +143,7 @@ function calculationAround (ele) {
     data.box[currentRow][currentCol].mine = mineNum;
     ele.addClass('mine' + mineNum);
     ele.innerHTML = mineNum;
-  } else if (mineNum === 0) {
+  } else {
     openAround(ele, rowStart, rowEnd, colStart, colEnd);
   }
 }
@@ -166,7 +164,6 @@ function openAround (ele, rowStart, rowEnd, colStart, colEnd) {
   }
 }
 
-//创建DIV、SPAN 框架元素
 function createFrame () {
   mainViewBox.innerHTML = '';
   data.surplus = data.row * data.col;
@@ -192,7 +189,7 @@ function initialization () {
     data.box[i] = new Array(data.col);
     for (var j = 0; j < data.col; j++) {
       data.box[i][j] = {};
-      data.box[i][j].mine = 0;
+      data.box[i][j].mine = false;
       data.box[i][j].state = false;
       data.box[i][j].flag = false;
     }
@@ -207,8 +204,7 @@ function initialization () {
 }
 
 function createMine (ele) {
-  var currentRow = parseInt(ele.parentNode.getAttribute('row'));
-  var currentCol = parseInt(ele.getAttribute('col'));
+  let {currentRow, currentCol} = aroundData(ele); 
   for (var i = data.mine; i > 0; i--) {
     var index = parseInt(Math.random() * data.row * data.col);
     var row = parseInt(index / data.col);
@@ -217,13 +213,23 @@ function createMine (ele) {
       i++;
       continue;
     }
-    if (row === currentRow && col ===currentCol) {
+    if (row === currentRow && col === currentCol) {
       i++;
       continue;
     }
     data.box[row][col].mine = true;
   }
   data.surplusFlag = data.mine;
+}
+
+function aroundData (ele) {
+  var currentRow = parseInt(ele.parentNode.getAttribute('row'));
+  var currentCol = parseInt(ele.getAttribute('col'));
+  var rowStart = Math.max(0, currentRow - 1);
+  var rowEnd = Math.min(data.row - 1, currentRow + 1);
+  var colStart = Math.max(0, currentCol - 1);
+  var colEnd = Math.min(data.col - 1, currentCol + 1);
+  return {currentRow, currentCol, rowStart, rowEnd, colStart, colEnd};
 }
 
 function timer () {
@@ -234,11 +240,47 @@ function timer () {
 function success () {
   clearInterval(TIME);
   console.log('win');
+  for (var i = 0; i < data.row; i++) {
+    for (var j = 0; j < data.col; j++) {
+      if (data.box[i][j].mine === true &&
+        data.box[i][j].ele.getElementsByTagName('*').length === 0) {
+        data.box[i][j].flag = true;
+        addChildIcon(data.box[i][j].ele, 'flag');
+      }
+    }
+  }
+  data.surplusFlag = 0;
+  surplus.innerHTML = data.surplusFlag >= 0 ? PrefixInteger(data.surplusFlag, 3) : data.surplusFlag;
 }
 
 function fail () {
   clearInterval(TIME);
-  //游戏结束
+  data.fail = true;
+  for (var i = 0; i < data.row; i++) {
+    for (var j = 0; j < data.col; j++) {
+      if (data.box[i][j].mine === true && data.box[i][j].flag === false) {
+        addChildIcon(data.box[i][j].ele, 'bomb');
+      }
+      if (data.box[i][j].flag === true && data.box[i][j].mine === false) {
+        addChildIcon(data.box[i][j].ele, 'times');
+      }
+    }
+  }
+  removeEvent(mainViewBox, 'click', mainViewBoxClick);
+  smile.removeChild(smile.getElementsByTagName('span')[0]);
+  removeChildIcon(smile);
+  addChildIcon(smile, 'ambulance');
+}
+
+function addChildIcon (parentNode, iconClass) {
+  var element = document.createElement('i');
+  element.setAttribute('class', 'fa fa-' + iconClass);
+  parentNode.appendChild(element);
+}
+
+function removeChildIcon (parentNode) {
+  var element = parentNode.getElementsByClassName('fa')[0];
+  parentNode.removeChild(element);
 }
 
 function PrefixInteger(num, n) {
