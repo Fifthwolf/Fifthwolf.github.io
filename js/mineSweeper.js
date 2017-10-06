@@ -33,10 +33,10 @@ function smileClick (e) {
   data.surplusFlag = data.mine;
   surplus.innerHTML = PrefixInteger(data.surplusFlag, 3);
   removeChildIcon(smile);
+  addChildIcon(smile, 'smile-o');
   if (data.fail === true) {
     var element = document.createElement('span');
     smile.appendChild(element);
-    addChildIcon(smile, 'smile-o');
   }
   addEvent(mainViewBox, 'click', mainViewBoxClick);
   createFrame();
