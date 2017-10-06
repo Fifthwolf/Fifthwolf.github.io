@@ -38,6 +38,7 @@ function smileClick (e) {
     var element = document.createElement('span');
     smile.appendChild(element);
   }
+  data.fail = false;
   addEvent(mainViewBox, 'click', mainViewBoxClick);
   createFrame();
 }
@@ -68,14 +69,15 @@ function mouseclick (ele) {
       ele.addClass('state');
       data.box[currentRow][currentCol].state = true;
       data.surplus--;
-      if (data.surplus == data.mine) {
-        success();
-      }
       if (data.box[currentRow][currentCol].mine === true) {
         ele.addClass('mineTrue');
         fail();
+        return;
       } else {
         aroundMine(ele);
+      }
+      if (data.surplus == data.mine) {
+        success();
       }
     }
   }
