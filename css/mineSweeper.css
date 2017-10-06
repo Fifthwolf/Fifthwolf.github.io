@@ -44,11 +44,19 @@
         font-size: 30px;
         line-height: 36px;
         z-index: 1; }
+        #main .right .content .showView .smile i.fa {
+          position: absolute; }
         #main .right .content .showView .smile i.fa-ambulance {
-          position: absolute;
           left: 1px;
           top: 1px;
           color: #f00; }
+        #main .right .content .showView .smile i.fa-circle {
+          font-size: 14px;
+          top: -6px; }
+        #main .right .content .showView .smile i.fa-circle:nth-last-child(2) {
+          left: 4px; }
+        #main .right .content .showView .smile i.fa-circle:nth-last-child(1) {
+          right: -10px; }
     #main .right .content .showView .surplus {
       float: right; }
   #main .right .content .mainView {

@@ -32,8 +32,8 @@ function smileClick (e) {
   timeDiv.innerHTML = PrefixInteger(data.time, 3);
   data.surplusFlag = data.mine;
   surplus.innerHTML = PrefixInteger(data.surplusFlag, 3);
+  removeChildIcon(smile);
   if (data.fail === true) {
-    removeChildIcon(smile);
     var element = document.createElement('span');
     smile.appendChild(element);
     addChildIcon(smile, 'smile-o');
@@ -239,7 +239,6 @@ function timer () {
 
 function success () {
   clearInterval(TIME);
-  console.log('win');
   for (var i = 0; i < data.row; i++) {
     for (var j = 0; j < data.col; j++) {
       if (data.box[i][j].mine === true &&
@@ -249,6 +248,8 @@ function success () {
       }
     }
   }
+  addChildIcon(smile, 'circle');
+  addChildIcon(smile, 'circle');
   data.surplusFlag = 0;
   surplus.innerHTML = data.surplusFlag >= 0 ? PrefixInteger(data.surplusFlag, 3) : data.surplusFlag;
 }
@@ -279,8 +280,10 @@ function addChildIcon (parentNode, iconClass) {
 }
 
 function removeChildIcon (parentNode) {
-  var element = parentNode.getElementsByClassName('fa')[0];
-  parentNode.removeChild(element);
+  var elements = parentNode.getElementsByClassName('fa');
+  for (var i = elements.length - 1; i >= 0; i--) {
+    parentNode.removeChild(elements[i]);
+  }
 }
 
 function PrefixInteger(num, n) {
