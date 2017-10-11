@@ -1,3 +1,44 @@
-
+#main .right .content .showView {
+  margin: -10px auto 20px;
+  width: 620px;
+  height: 60px;
+  border: 1px solid #ccc;
+  text-align: center; }
+  #main .right .content .showView div {
+    display: inline-block;
+    line-height: 60px; }
+  #main .right .content .showView .score, #main .right .content .showView .time {
+    width: 120px;
+    height: 60px;
+    border: 2px solid #ccc;
+    background-color: rgba(17, 34, 51, 0.8);
+    font-size: 48px;
+    color: #f00; }
+  #main .right .content .showView .score {
+    float: left; }
+  #main .right .content .showView .pause {
+    width: 120px;
+    height: 60px;
+    border-radius: 15px;
+    font-size: 30px;
+    color: #fff;
+    background-color: #567;
+    cursor: pointer; }
+  #main .right .content .showView .time {
+    float: right; }
+#main .right .content .mainView {
+  position: relative; }
+  #main .right .content .mainView .box {
+    margin: 0 auto;
+    padding: 10px;
+    width: 600px;
+    height: 400px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer; }
+    #main .right .content .mainView .box div {
+      width: 600px;
+      height: 20px; }
 
 /*# sourceMappingURL=retroSnaker.css.map */
