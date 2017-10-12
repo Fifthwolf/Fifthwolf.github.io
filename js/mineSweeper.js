@@ -172,7 +172,7 @@ function createFrame () {
   for (var i = 0; i < data.row; i++) {
     var row = new Array(data.row);
     row[i] = document.createElement('div');
-    row[i].setAttribute('row',i);
+    row[i].setAttribute('row', i);
     for (var j = 0; j < data.col; j++) {
       var col = new Array(data.col);
       col[j] = document.createElement('span');
