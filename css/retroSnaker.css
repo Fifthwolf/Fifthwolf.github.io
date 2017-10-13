@@ -68,5 +68,32 @@
           border-bottom: 10px solid transparent; }
         #main .right .content .mainView .box div span.body {
           background-color: #f80; }
+  #main .right .content .mainView .cellMask {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 600px;
+    height: 400px;
+    background-color: rgba(85, 102, 119, 0.5);
+    text-align: center; }
+    #main .right .content .mainView .cellMask .starButton {
+      margin: 160px auto 0;
+      width: 180px;
+      height: 80px;
+      border-radius: 30px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+      font-size: 32px;
+      line-height: 80px;
+      text-align: center;
+      color: #fff;
+      text-shadow: 0px 3px 5px #000;
+      background-color: rgba(17, 34, 51, 0.5);
+      cursor: pointer; }
+    #main .right .content .mainView .cellMask .final {
+      display: none;
+      margin-top: 20px;
+      font-size: 36px;
+      line-height: 60px;
+      color: #fff; }
 
 /*# sourceMappingURL=retroSnaker.css.map */
