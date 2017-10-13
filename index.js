@@ -50,7 +50,7 @@ addEvent(own, 'click', function (e) {
 });
 
 addEvent(eGo, 'click', function () {
-  setCookie('main', 'flex', 5);
+  setCookie('main', 'flex', 10);
   var deg = 0;
   useDEMOUlMargin(demoUl, demoLis, 10);
   if (judgeWidth()) {

@@ -47,5 +47,26 @@
         display: inline-block;
         width: 20px;
         height: 20px; }
+        #main .right .content .mainView .box div span.head {
+          width: 0;
+          height: 0; }
+        #main .right .content .mainView .box div span.head1 {
+          border-right: 10px solid transparent;
+          border-bottom: 20px solid #f80;
+          border-left: 10px solid transparent; }
+        #main .right .content .mainView .box div span.head2 {
+          border-top: 10px solid transparent;
+          border-bottom: 10px solid transparent;
+          border-left: 20px solid #f80; }
+        #main .right .content .mainView .box div span.head3 {
+          border-top: 20px solid #f80;
+          border-right: 10px solid transparent;
+          border-left: 10px solid transparent; }
+        #main .right .content .mainView .box div span.head4 {
+          border-top: 10px solid transparent;
+          border-right: 20px solid #f80;
+          border-bottom: 10px solid transparent; }
+        #main .right .content .mainView .box div span.body {
+          background-color: #f80; }
 
 /*# sourceMappingURL=retroSnaker.css.map */

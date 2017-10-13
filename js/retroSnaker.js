@@ -11,7 +11,7 @@ var data = {
   col: 30,
   start: false,
   box: [],
-  direction: 1 //1上2右3下4左
+  direction: 1, //1上2右3下4左
   snake: []
 }
 
