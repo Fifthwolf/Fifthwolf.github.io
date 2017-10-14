@@ -61,12 +61,40 @@ function starGame () {
       break;
   }
   draw();
+  TIME = setInterval(function () {
+    running();
+  }, 500);
+}
+
+function running () {
+  switch (data.direction) {
+    case 1:
+      data.snake.unshift([data.snake[0][0] - 1, data.snake[0][1]]);
+      break;
+    case 2:
+      data.snake.unshift([data.snake[0][0], data.snake[0][1] + 1]);
+      break;
+    case 3:
+      data.snake.unshift([data.snake[0][0] + 1, data.snake[0][1]]);
+      break;
+    case 4:
+      data.snake.unshift([data.snake[0][0], data.snake[0][1] - 1]);
+      break;
+  }
+  data.snake.pop();
+  draw();
 }
 
 function draw () {
+  for (var i = 0; i < data.row; i++) {
+    for (var j = 0; j < data.col; j++) {
+      data.box[i][j].className = '';
+    }
+  }
   data.box[data.snake[0][0]][data.snake[0][1]].addClass('head');
   data.box[data.snake[0][0]][data.snake[0][1]].addClass('head' + data.direction);
   for (var i = 1, len = data.snake.length; i < len; i++) {
     data.box[data.snake[i][0]][data.snake[i][1]].addClass('body');
   }
+  console.log(data.snake);
 }
