@@ -1,5 +1,9 @@
 ﻿var content = document.getElementsByClassName('content')[0];
+var pauseButton = content.getElementsByClassName('pause')[0];
 var mainViewBox = content.getElementsByClassName('box')[0];
+var cellMask = content.getElementsByClassName('cellMask')[0];
+var starButton = cellMask.getElementsByClassName('starButton')[0];
+var TIME;
 
 window.onload = function () {
   delayedLoadingPublicPictures ('../');
@@ -15,6 +19,8 @@ var data = {
   snake: []
 }
 
+addEvent(starButton, 'click', starGame);
+
 function createFrame () {
   mainViewBox.innerHTML = '';
   for (var i = 0; i < data.row; i++) {
@@ -29,4 +35,10 @@ function createFrame () {
     }
     mainViewBox.appendChild(row[i]);
   }
+}
+
+function starGame () {
+  data.start = true;
+  cellMask.style.display = 'none';
+  pauseButton.style.display = 'inline-block';
 }

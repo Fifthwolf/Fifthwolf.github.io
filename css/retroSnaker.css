@@ -6,22 +6,22 @@
   text-align: center; }
   #main .right .content .showView div {
     display: inline-block;
-    line-height: 60px; }
+    line-height: 60px;
+    color: #fff; }
   #main .right .content .showView .score, #main .right .content .showView .time {
     width: 120px;
     height: 60px;
     border: 2px solid #ccc;
     background-color: rgba(17, 34, 51, 0.8);
-    font-size: 48px;
-    color: #f00; }
+    font-size: 48px; }
   #main .right .content .showView .score {
     float: left; }
   #main .right .content .showView .pause {
+    display: none;
     width: 120px;
     height: 60px;
     border-radius: 15px;
     font-size: 30px;
-    color: #fff;
     background-color: #567;
     cursor: pointer; }
   #main .right .content .showView .time {
@@ -74,7 +74,7 @@
     top: 10px;
     width: 600px;
     height: 400px;
-    background-color: rgba(85, 102, 119, 0.5);
+    background-color: rgba(85, 102, 119, 0.7);
     text-align: center; }
     #main .right .content .mainView .cellMask .starButton {
       margin: 160px auto 0;
