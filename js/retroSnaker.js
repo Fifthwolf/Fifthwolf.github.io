@@ -5,6 +5,7 @@ var timeBox = content.getElementsByClassName('time')[0];
 var mainViewBox = content.getElementsByClassName('box')[0];
 var cellMask = content.getElementsByClassName('cellMask')[0];
 var starButton = cellMask.getElementsByClassName('starButton')[0];
+var final = cellMask.getElementsByClassName('final')[0];
 var TIME;
 var GAMERUN;
 
@@ -54,6 +55,10 @@ function starGame () {
   pauseButton.style.display = 'inline-block';
   data.start = true;
   data.snake = [[10, 15]];
+  data.time = 0;
+  data.score = 0;
+  timeBox.innerHTML = PrefixInteger(data.time, 3);
+  scoreBox.innerHTML = PrefixInteger(data.score, 3);
   data.pretreatmentDirection = parseInt(Math.random() * 100 % 4 + 1);
   data.direction = data.pretreatmentDirection;
   switch (data.direction) {
@@ -144,7 +149,11 @@ function running () {
   if (judgeFail()) {
     clearInterval(GAMERUN);
     clearInterval(TIME);
-    console.log('fail');
+    cellMask.style.display = 'block';
+    starButton.innerHTML = '重新开始';
+    var finalSpan = final.getElementsByTagName('span')[0];
+    final.style.display = 'inline-block';
+    finalSpan.innerHTML = data.time;
     return;
   }
   draw();
