@@ -1,9 +1,12 @@
 ﻿var content = document.getElementsByClassName('content')[0];
+var scoreBox = content.getElementsByClassName('score')[0];
 var pauseButton = content.getElementsByClassName('pause')[0];
+var timeBox = content.getElementsByClassName('time')[0];
 var mainViewBox = content.getElementsByClassName('box')[0];
 var cellMask = content.getElementsByClassName('cellMask')[0];
 var starButton = cellMask.getElementsByClassName('starButton')[0];
 var TIME;
+var GAMERUN;
 
 window.onload = function () {
   delayedLoadingPublicPictures ('../');
@@ -15,9 +18,12 @@ var data = {
   col: 30,
   start: false,
   box: [],
+  pretreatmentDirection: 1, //1上2右3下4左
   direction: 1, //1上2右3下4左
   snake: [],
-  eattingPoint: []
+  eattingPoint: [],
+  time: 0,
+  score: 0
 }
 
 addEvent(starButton, 'click', starGame);
@@ -48,7 +54,8 @@ function starGame () {
   pauseButton.style.display = 'inline-block';
   data.start = true;
   data.snake = [[10, 15]];
-  data.direction = parseInt(Math.random() * 100 % 4 + 1);
+  data.pretreatmentDirection = parseInt(Math.random() * 100 % 4 + 1);
+  data.direction = data.pretreatmentDirection;
   switch (data.direction) {
     case 1:
     data.snake.push([data.snake[0][0] + 1, data.snake[0][1]]);
@@ -69,26 +76,49 @@ function starGame () {
   }
   createEatPoing();
   draw();
-  TIME = setInterval(function () {
+  GAMERUN = setInterval(function () {
     running();
   }, 200);
+  TIME = setInterval(function () {
+    data.time += 1;
+    timeBox.innerHTML = PrefixInteger(data.time, 3);
+  }, 1000);
 }
 
 function changeDirection (e) {
   var keynum = window.event ? e.keyCode : e.which;
   switch (keynum) {
     //左
-    case 37: data.direction = 4; break;
+    case 37:
+      if (data.direction === 1 || data.direction === 3) {
+        data.pretreatmentDirection = 4;
+      }
+      break;
     //上
-    case 38: data.direction = 1; break;
+    case 38:
+      if (data.direction === 2 || data.direction === 4) {
+        data.pretreatmentDirection = 1;
+      }
+      break;
     //右
-    case 39: data.direction = 2; break;
+    case 39:
+      if (data.direction === 1 || data.direction === 3) {
+        data.pretreatmentDirection = 2;
+      }
+      break;
     //下
-    case 40: data.direction = 3; break;
+    case 40:
+      if (data.direction === 2 || data.direction === 4) {
+        data.pretreatmentDirection = 3;
+      }
+      break;
   }
 }
 
 function running () {
+  if (data.pretreatmentDirection != data.direction) {
+    data.direction = data.pretreatmentDirection;
+  }
   var head = [data.snake[0][0], data.snake[0][1]];
   switch (data.direction) {
     case 1:
@@ -106,8 +136,16 @@ function running () {
   }
   if (head[0] === data.eattingPoint[0] && head[1] === data.eattingPoint[1]) {
     createEatPoing();
+    data.score += 1;
+    scoreBox.innerHTML = PrefixInteger(data.score, 3);
   } else {
     data.snake.pop();
+  }
+  if (judgeFail()) {
+    clearInterval(GAMERUN);
+    clearInterval(TIME);
+    console.log('fail');
+    return;
   }
   draw();
 }
@@ -127,6 +165,19 @@ function createEatPoing () {
   data.eattingPoint = [row, col];
 }
 
+function judgeFail () {
+  //碰壁
+  if (data.snake[0][0] < 0 || data.snake[0][0] > data.row - 1 || data.snake[0][1] < 0 || data.snake[0][1] > data.col - 1) {
+    return true;
+  }
+  //碰自身
+  for (var i = 1, len = data.snake.length; i < len; i++) {
+    if (data.snake[0][0] === data.snake[i][0] && data.snake[0][1] === data.snake[i][1]) {
+      return true;
+    }
+  }
+}
+
 function draw () {
   for (var i = 0; i < data.row; i++) {
     for (var j = 0; j < data.col; j++) {
@@ -139,4 +190,8 @@ function draw () {
     data.box[data.snake[i][0]][data.snake[i][1]].addClass('body');
   }
   data.box[data.eattingPoint[0]][data.eattingPoint[1]].addClass('eatPoint');
+}
+
+function PrefixInteger(num, n) {
+  return (Array(n).join(0) + num).slice(-n);
 }
