@@ -68,6 +68,8 @@
           border-bottom: 10px solid transparent; }
         #main .right .content .mainView .box div span.body {
           background-color: #f80; }
+        #main .right .content .mainView .box div span.eatPoint {
+          background-color: #f00; }
   #main .right .content .mainView .cellMask {
     position: absolute;
     left: 10px;
