@@ -18,6 +18,7 @@ var data = {
   row: 20,
   col: 30,
   start: false,
+  pause: false,
   box: [],
   pretreatmentDirection: 1, //1上2右3下4左
   direction: 1, //1上2右3下4左
@@ -29,7 +30,7 @@ var data = {
 
 addEvent(starButton, 'click', starGame);
 addEvent(document, 'keydown', changeDirection);
-
+addEvent(pauseButton, 'click', pauseGame);
 
 function createFrame () {
   mainViewBox.innerHTML = '';
@@ -51,43 +52,61 @@ function createFrame () {
 }
 
 function starGame () {
-  cellMask.style.display = 'none';
-  pauseButton.style.display = 'inline-block';
-  data.start = true;
-  data.snake = [[10, 15]];
-  data.time = 0;
-  data.score = 0;
-  timeBox.innerHTML = PrefixInteger(data.time, 3);
-  scoreBox.innerHTML = PrefixInteger(data.score, 3);
+  dataReset();
   data.pretreatmentDirection = parseInt(Math.random() * 100 % 4 + 1);
   data.direction = data.pretreatmentDirection;
   switch (data.direction) {
     case 1:
-    data.snake.push([data.snake[0][0] + 1, data.snake[0][1]]);
-    data.snake.push([data.snake[0][0] + 2, data.snake[0][1]]);
-    break;
+      data.snake.push([data.snake[0][0] + 1, data.snake[0][1]]);
+      data.snake.push([data.snake[0][0] + 2, data.snake[0][1]]);
+      break;
     case 2:
-    data.snake.push([data.snake[0][0], data.snake[0][1] - 1]);
-    data.snake.push([data.snake[0][0], data.snake[0][1] - 2]);
-    break;
+      data.snake.push([data.snake[0][0], data.snake[0][1] - 1]);
+      data.snake.push([data.snake[0][0], data.snake[0][1] - 2]);
+      break;
     case 3:
-    data.snake.push([data.snake[0][0] - 1, data.snake[0][1]]);
-    data.snake.push([data.snake[0][0] - 2, data.snake[0][1]]);
-    break;
+      data.snake.push([data.snake[0][0] - 1, data.snake[0][1]]);
+      data.snake.push([data.snake[0][0] - 2, data.snake[0][1]]);
+      break;
     case 4:
-    data.snake.push([data.snake[0][0], data.snake[0][1] + 1]);
-    data.snake.push([data.snake[0][0], data.snake[0][1] + 2]);
-    break;
+      data.snake.push([data.snake[0][0], data.snake[0][1] + 1]);
+      data.snake.push([data.snake[0][0], data.snake[0][1] + 2]);
+      break;
   }
   createEatPoing();
   draw();
-  GAMERUN = setInterval(function () {
-    running();
-  }, 200);
-  TIME = setInterval(function () {
-    data.time += 1;
+  GAMERUN = setInterval(running, 200);
+  TIME = setInterval(timeAdd, 100);
+
+  function dataReset () {
+    cellMask.style.display = 'none';
+    pauseButton.style.display = 'inline-block';
+    data.start = true;
+    data.snake = [[10, 15]];
+    data.time = 0;
+    data.score = 0;
     timeBox.innerHTML = PrefixInteger(data.time, 3);
-  }, 1000);
+    scoreBox.innerHTML = PrefixInteger(data.score, 3);
+  }
+}
+
+function pauseGame () {
+  if (data.pause === false) {
+    data.pause = true;
+    pauseButton.innerHTML = 'CONTINUE';
+    clearInterval(TIME);
+    clearInterval(GAMERUN);
+  } else if (data.pause === true) {
+    data.pause = false;
+    pauseButton.innerHTML = 'PAUSE';
+    GAMERUN = setInterval(running, 200);
+    TIME = setInterval(timeAdd, 100);
+  }
+}
+
+function timeAdd () {
+  data.time += 1;
+  timeBox.innerHTML = PrefixInteger(parseInt(data.time / 10), 3);
 }
 
 function changeDirection (e) {
@@ -147,13 +166,7 @@ function running () {
     data.snake.pop();
   }
   if (judgeFail()) {
-    clearInterval(GAMERUN);
-    clearInterval(TIME);
-    cellMask.style.display = 'block';
-    starButton.innerHTML = '重新开始';
-    var finalSpan = final.getElementsByTagName('span')[0];
-    final.style.display = 'inline-block';
-    finalSpan.innerHTML = data.time;
+    gameFail();
     return;
   }
   draw();
@@ -185,6 +198,17 @@ function judgeFail () {
       return true;
     }
   }
+}
+
+function gameFail () {
+  clearInterval(GAMERUN);
+  clearInterval(TIME);
+  cellMask.style.display = 'block';
+  starButton.innerHTML = '重新开始';
+  var finalSpan = final.getElementsByTagName('span')[0];
+  final.style.display = 'inline-block';
+  finalSpan.innerHTML = parseInt(data.time / 10);
+  pauseButton.style.display = 'none';
 }
 
 function draw () {
