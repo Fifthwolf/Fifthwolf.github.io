@@ -29,8 +29,47 @@ var data = {
 }
 
 addEvent(starButton, 'click', starGame);
-addEvent(document, 'keydown', changeDirection);
+addEvent(document, 'keydown', keydownChange);
 addEvent(pauseButton, 'click', pauseGame);
+touch(mainViewBox);
+
+function touch (element) {
+  var startx, starty;
+  var endx, endy;
+
+  function _cons () {
+    var minMove = 150;
+    var moveX = startx - endx;
+    var moveY = starty - endy;
+    if (Math.abs(moveY) < Math.abs(moveX)) {
+      if (moveX > minMove) {
+        changeDirection(4);
+      } else if (moveX < -minMove) {
+        changeDirection(2);
+      }
+    } else {
+      if (moveY > minMove) {
+        changeDirection(1);
+      } else if (moveY < -minMove) {
+        changeDirection(3);
+      }
+    }
+  }
+
+  addEvent(element, 'touchstart', function (e) {
+    e.preventDefault();
+    var touch = e.changedTouches;
+    startx = touch[0].clientX;
+    starty = touch[0].clientY;
+  });
+
+  addEvent(element, 'touchend', function (e) {
+    var touch = e.changedTouches;
+    endx = touch[0].clientX;
+    endy = touch[0].clientY;
+    _cons();
+  });
+}
 
 function createFrame () {
   mainViewBox.innerHTML = '';
@@ -57,21 +96,21 @@ function starGame () {
   data.direction = data.pretreatmentDirection;
   switch (data.direction) {
     case 1:
-      data.snake.push([data.snake[0][0] + 1, data.snake[0][1]]);
-      data.snake.push([data.snake[0][0] + 2, data.snake[0][1]]);
-      break;
+    data.snake.push([data.snake[0][0] + 1, data.snake[0][1]]);
+    data.snake.push([data.snake[0][0] + 2, data.snake[0][1]]);
+    break;
     case 2:
-      data.snake.push([data.snake[0][0], data.snake[0][1] - 1]);
-      data.snake.push([data.snake[0][0], data.snake[0][1] - 2]);
-      break;
+    data.snake.push([data.snake[0][0], data.snake[0][1] - 1]);
+    data.snake.push([data.snake[0][0], data.snake[0][1] - 2]);
+    break;
     case 3:
-      data.snake.push([data.snake[0][0] - 1, data.snake[0][1]]);
-      data.snake.push([data.snake[0][0] - 2, data.snake[0][1]]);
-      break;
+    data.snake.push([data.snake[0][0] - 1, data.snake[0][1]]);
+    data.snake.push([data.snake[0][0] - 2, data.snake[0][1]]);
+    break;
     case 4:
-      data.snake.push([data.snake[0][0], data.snake[0][1] + 1]);
-      data.snake.push([data.snake[0][0], data.snake[0][1] + 2]);
-      break;
+    data.snake.push([data.snake[0][0], data.snake[0][1] + 1]);
+    data.snake.push([data.snake[0][0], data.snake[0][1] + 2]);
+    break;
   }
   createEatPoing();
   draw();
@@ -109,34 +148,38 @@ function timeAdd () {
   timeBox.innerHTML = PrefixInteger(parseInt(data.time / 10), 3);
 }
 
-function changeDirection (e) {
+function keydownChange (e) {
   var keynum = window.event ? e.keyCode : e.which;
   switch (keynum) {
     //左
     case 37:
-      if (data.direction === 1 || data.direction === 3) {
-        data.pretreatmentDirection = 4;
-      }
-      break;
+    if (data.direction === 1 || data.direction === 3) {
+      changeDirection(4);
+    }
+    break;
     //上
     case 38:
-      if (data.direction === 2 || data.direction === 4) {
-        data.pretreatmentDirection = 1;
-      }
-      break;
+    if (data.direction === 2 || data.direction === 4) {
+      changeDirection(1);
+    }
+    break;
     //右
     case 39:
-      if (data.direction === 1 || data.direction === 3) {
-        data.pretreatmentDirection = 2;
-      }
-      break;
+    if (data.direction === 1 || data.direction === 3) {
+      changeDirection(2);
+    }
+    break;
     //下
     case 40:
-      if (data.direction === 2 || data.direction === 4) {
-        data.pretreatmentDirection = 3;
-      }
-      break;
+    if (data.direction === 2 || data.direction === 4) {
+      changeDirection(3);
+    }
+    break;
   }
+}
+
+function changeDirection (direction) {
+  data.pretreatmentDirection = direction;
 }
 
 function running () {
@@ -146,17 +189,17 @@ function running () {
   var head = [data.snake[0][0], data.snake[0][1]];
   switch (data.direction) {
     case 1:
-      data.snake.unshift([data.snake[0][0] - 1, data.snake[0][1]]);
-      break;
+    data.snake.unshift([data.snake[0][0] - 1, data.snake[0][1]]);
+    break;
     case 2:
-      data.snake.unshift([data.snake[0][0], data.snake[0][1] + 1]);
-      break;
+    data.snake.unshift([data.snake[0][0], data.snake[0][1] + 1]);
+    break;
     case 3:
-      data.snake.unshift([data.snake[0][0] + 1, data.snake[0][1]]);
-      break;
+    data.snake.unshift([data.snake[0][0] + 1, data.snake[0][1]]);
+    break;
     case 4:
-      data.snake.unshift([data.snake[0][0], data.snake[0][1] - 1]);
-      break;
+    data.snake.unshift([data.snake[0][0], data.snake[0][1] - 1]);
+    break;
   }
   if (head[0] === data.eattingPoint[0] && head[1] === data.eattingPoint[1]) {
     createEatPoing();

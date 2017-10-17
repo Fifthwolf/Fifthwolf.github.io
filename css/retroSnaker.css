@@ -99,6 +99,7 @@
       color: #fff; }
 @media only screen and (max-width: 1000px) {
   #main .right .content .showView {
+    margin: 40px auto 20px;
     width: 775px;
     height: 75px; }
     #main .right .content .showView div {
