@@ -7,7 +7,7 @@ window.onload = function () {
 }
 
 function createDial () {
-  canvas.width = 600;
+  canvas.width = judgeWidth() ? 600 : content.clientWidth;
   canvas.height = canvas.width;
   radius = canvas.width / 2;
   var dialContext = canvas.getContext('2d');
