@@ -152,34 +152,23 @@ function keydownChange (e) {
   var keynum = window.event ? e.keyCode : e.which;
   switch (keynum) {
     //左
-    case 37:
-    if (data.direction === 1 || data.direction === 3) {
-      changeDirection(4);
-    }
-    break;
+    case 37: changeDirection(4); break;
     //上
-    case 38:
-    if (data.direction === 2 || data.direction === 4) {
-      changeDirection(1);
-    }
-    break;
+    case 38: changeDirection(1); break;
     //右
-    case 39:
-    if (data.direction === 1 || data.direction === 3) {
-      changeDirection(2);
-    }
-    break;
+    case 39: changeDirection(2); break;
     //下
-    case 40:
-    if (data.direction === 2 || data.direction === 4) {
-      changeDirection(3);
-    }
-    break;
+    case 40: changeDirection(3); break;
   }
 }
 
 function changeDirection (direction) {
-  data.pretreatmentDirection = direction;
+  if ((direction === 2 || direction === 4) && (data.direction === 1 || data.direction === 3)) {
+    data.pretreatmentDirection = direction;
+  }
+  if ((direction === 1 || direction === 3) && (data.direction === 2 || data.direction === 4)) {
+    data.pretreatmentDirection = direction;
+  }
 }
 
 function running () {
