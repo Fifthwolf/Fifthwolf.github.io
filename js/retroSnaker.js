@@ -12,6 +12,9 @@ var GAMERUN;
 window.onload = function () {
   delayedLoadingPublicPictures ('../');
   createFrame();
+  if (!judgeWidth()) {
+    mobileControlShow();
+  }
 }
 
 var data = {
@@ -69,6 +72,29 @@ function touch (element) {
     endy = touch[0].clientY;
     _cons();
   });
+}
+
+function mobileControlShow () {
+  var mobileControl = document.getElementById('mobileControl');
+  var controlCanvas = document.getElementById('controlCanvas');
+  controlCanvas.width = 300;
+  controlCanvas.height = 300;
+  var context = controlCanvas.getContext('2d');
+  context.beginPath();
+  context.arc(150, 150, 150, 0, 2 * Math.PI);
+  context.clip();
+  context.strokeStyle = "rgba(17, 34, 51, 0.5)";
+  context.lineWidth = 5;
+  drawArc(context, 0, 0);
+  drawArc(context, 0, 300);
+  drawArc(context, 300, 0);
+  drawArc(context, 300, 300);
+
+  function drawArc (ctx, x, y) {
+    ctx.beginPath();
+    ctx.arc(x, y, 120, 0, 2 * Math.PI);
+    ctx.stroke();
+  }
 }
 
 function createFrame () {

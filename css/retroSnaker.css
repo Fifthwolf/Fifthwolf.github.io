@@ -97,6 +97,8 @@
       font-size: 36px;
       line-height: 60px;
       color: #fff; }
+#main .right .content #mobileControl {
+  display: none; }
 @media only screen and (max-width: 1000px) {
   #main .right .content .showView {
     margin: 40px auto 20px;
@@ -111,6 +113,7 @@
       width: 225px;
       height: 75px; }
   #main .right .content .mainView {
+    margin-bottom: 300px;
     width: 750px;
     height: 500px; }
     #main .right .content .mainView .box {
@@ -150,6 +153,16 @@
       #main .right .content .mainView .cellMask .final {
         margin-top: 25px;
         line-height: 75px;
-        font-size: 48px; } }
+        font-size: 48px; }
+  #main .right .content #mobileControl {
+    display: block;
+    position: fixed;
+    left: 40px;
+    bottom: 40px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 2px solid #000;
+    background-color: rgba(17, 34, 51, 0.5); } }
 
 /*# sourceMappingURL=retroSnaker.css.map */
