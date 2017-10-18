@@ -13,7 +13,7 @@ window.onload = function () {
   delayedLoadingPublicPictures ('../');
   createFrame();
   if (!judgeWidth()) {
-    mobileControlShow();
+    mobileControl();
   }
 }
 
@@ -34,9 +34,9 @@ var data = {
 addEvent(starButton, 'click', starGame);
 addEvent(document, 'keydown', keydownChange);
 addEvent(pauseButton, 'click', pauseGame);
-touch(mainViewBox);
+mainViewTouch(mainViewBox);
 
-function touch (element) {
+function mainViewTouch (element) {
   var startx, starty;
   var endx, endy;
 
@@ -74,26 +74,97 @@ function touch (element) {
   });
 }
 
-function mobileControlShow () {
+function mobileControl () {
   var mobileControl = document.getElementById('mobileControl');
   var controlCanvas = document.getElementById('controlCanvas');
-  controlCanvas.width = 300;
-  controlCanvas.height = 300;
-  var context = controlCanvas.getContext('2d');
-  context.beginPath();
-  context.arc(150, 150, 150, 0, 2 * Math.PI);
-  context.clip();
-  context.strokeStyle = "rgba(17, 34, 51, 0.5)";
-  context.lineWidth = 5;
-  drawArc(context, 0, 0);
-  drawArc(context, 0, 300);
-  drawArc(context, 300, 0);
-  drawArc(context, 300, 300);
+  var mobileButton = document.getElementById('mobileButton');
+  drawControl();
+  mobileControlTouch(mobileControl);
 
-  function drawArc (ctx, x, y) {
-    ctx.beginPath();
-    ctx.arc(x, y, 120, 0, 2 * Math.PI);
-    ctx.stroke();
+  function drawControl () {
+    controlCanvas.width = 300;
+    controlCanvas.height = 300;
+    var context = controlCanvas.getContext('2d');
+    context.beginPath();
+    context.arc(150, 150, 150, 0, 2 * Math.PI);
+    context.clip();
+    context.strokeStyle = "rgba(17, 34, 51, 0.5)";
+    context.lineWidth = 5;
+    _drawArc(context, 0, 0);
+    _drawArc(context, 0, 300);
+    _drawArc(context, 300, 0);
+    _drawArc(context, 300, 300);
+
+    function _drawArc (ctx, x, y) {
+      ctx.beginPath();
+      ctx.arc(x, y, 120, 0, 2 * Math.PI);
+      ctx.stroke();
+    }
+  }
+
+  function mobileControlTouch (element) {
+    var buttonX, buttonY;
+    var elementPosition = element.getBoundingClientRect();
+
+    function buttonMove (e, flag) {
+      if (flag) {
+        e.preventDefault();
+        var touch = e.changedTouches;
+        buttonX = touch[0].clientX - elementPosition.left - 150;
+        buttonY = touch[0].clientY - elementPosition.top - 150;
+      } else {
+        buttonX = 0;
+        buttonY = 0;
+      }
+      if (buttonX * buttonX + buttonY * buttonY > 150 * 150) {
+        var angle = Math.atan(buttonY / buttonX);
+        if (buttonX < 0) {
+          buttonX = -Math.cos(angle) * 150;
+          buttonY = -Math.sin(angle) * 150;
+        } else if (buttonX > 0) {
+          buttonX = Math.cos(angle) * 150;
+          buttonY = Math.sin(angle) * 150;
+        } else {
+          buttonX = 0;
+        }  
+      }
+      if (flag) {
+        _cons(buttonX, buttonY);
+      }
+      mobileButton.style.left = buttonX + 98 +'px';
+      mobileButton.style.top = buttonY + 98 +'px';   
+    }
+
+    function _cons (buttonX, buttonY) {
+      if (buttonX * buttonX + buttonY * buttonY > 50 * 50) {
+        if (Math.abs(buttonX) > Math.abs(buttonY)) {
+          if (buttonX > 0) {
+            changeDirection(2);
+          } else {
+            changeDirection(4);
+          }
+        } else {
+          if (buttonY > 0) {
+            changeDirection(3);
+          } else {
+            changeDirection(1);
+          }
+        }
+      }
+    }
+
+    addEvent(element, 'touchstart', function (e) {
+      buttonMove(e, true);
+    });
+
+    addEvent(element, 'touchmove', function (e) {
+      buttonMove(e, true);
+    });
+
+    addEvent(element, 'touchend', function (e) {
+      var touch = e.changedTouches;
+      buttonMove(e, false);
+    });
   }
 }
 

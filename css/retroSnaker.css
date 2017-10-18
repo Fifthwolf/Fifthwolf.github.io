@@ -163,6 +163,15 @@
     height: 300px;
     border-radius: 50%;
     border: 2px solid #000;
-    background-color: rgba(17, 34, 51, 0.5); } }
+    background-color: rgba(17, 34, 51, 0.5); }
+    #main .right .content #mobileControl #mobileButton {
+      position: absolute;
+      left: 98px;
+      top: 98px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      background-color: rgba(17, 34, 51, 0.8); } }
 
 /*# sourceMappingURL=retroSnaker.css.map */
