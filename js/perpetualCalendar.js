@@ -33,6 +33,9 @@ window.onload = function () {
   var currentDay = getSelectDays(tdDays);
   currentYear.setAttribute('selected','true');
   currentMonth.setAttribute('selected','true');
+  if (!judgeWidth()) {
+    touch(content);
+  }
 }
 
 window.onresize = function () {
@@ -53,8 +56,6 @@ addEvent(tableBody, 'mouseout', function (e) {
   }
 });
 
-touch(right);
-
 //移动端添加滑动事件
 function touch (element) {
   var startx;
@@ -69,12 +70,14 @@ function touch (element) {
   }
 
   addEvent(element, 'touchstart', function (e) {
+    e.preventDefault();
     var touch = e.changedTouches;
     startx = touch[0].clientX;
     starty = touch[0].clientY;
   });
 
   addEvent(element, 'touchend', function (e) {
+    e.preventDefault();
     var touch = e.changedTouches;
     endx = touch[0].clientX;
     endy = touch[0].clientY;
