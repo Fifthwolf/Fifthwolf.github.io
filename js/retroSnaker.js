@@ -34,45 +34,6 @@ var data = {
 addEvent(starButton, 'click', starGame);
 addEvent(document, 'keydown', keydownChange);
 addEvent(pauseButton, 'click', pauseGame);
-mainViewTouch(mainViewBox);
-
-function mainViewTouch (element) {
-  var startx, starty;
-  var endx, endy;
-
-  function _cons () {
-    var minMove = 150;
-    var moveX = startx - endx;
-    var moveY = starty - endy;
-    if (Math.abs(moveY) < Math.abs(moveX)) {
-      if (moveX > minMove) {
-        changeDirection(4);
-      } else if (moveX < -minMove) {
-        changeDirection(2);
-      }
-    } else {
-      if (moveY > minMove) {
-        changeDirection(1);
-      } else if (moveY < -minMove) {
-        changeDirection(3);
-      }
-    }
-  }
-
-  addEvent(element, 'touchstart', function (e) {
-    e.preventDefault();
-    var touch = e.changedTouches;
-    startx = touch[0].clientX;
-    starty = touch[0].clientY;
-  });
-
-  addEvent(element, 'touchend', function (e) {
-    var touch = e.changedTouches;
-    endx = touch[0].clientX;
-    endy = touch[0].clientY;
-    _cons();
-  });
-}
 
 function mobileControl () {
   var mobileControl = document.getElementById('mobileControl');
