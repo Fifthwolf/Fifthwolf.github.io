@@ -25,5 +25,40 @@
     border: 1px solid #ccc;
     border-radius: 10px;
     background-color: rgba(17, 34, 51, 0.3); }
+    #main .right .content .showView .showViewBox {
+      margin: 20px auto;
+      width: 160px;
+      border-radius: 10px;
+      background-color: rgba(17, 34, 51, 0.3); }
+    #main .right .content .showView .content {
+      text-align: center;
+      margin: 20px auto;
+      line-height: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff; }
+    #main .right .content .showView .next {
+      text-align: center; }
+      #main .right .content .showView .next .nextBox {
+        padding: 20px;
+        width: 120px;
+        height: 60px; }
+        #main .right .content .showView .next .nextBox div {
+          width: 120px;
+          height: 30px; }
+          #main .right .content .showView .next .nextBox div span {
+            display: inline-block;
+            width: 30px;
+            height: 30px; }
+    #main .right .content .showView .start {
+      width: 105px;
+      height: 45px;
+      border-radius: 22.5px;
+      font-size: 24px;
+      line-height: 45px;
+      text-shadow: 1px 2px 2px #000;
+      background-color: #345;
+      box-shadow: 1px 2px 2px #000;
+      cursor: pointer; }
 
 /*# sourceMappingURL=tetris.css.map */
