@@ -18,6 +18,20 @@
           display: inline-block;
           width: 30px;
           height: 30px; }
+          #main .right .content .mainView .box div span.type1 {
+            background-color: #00f000; }
+          #main .right .content .mainView .box div span.type2 {
+            background-color: #d80000; }
+          #main .right .content .mainView .box div span.type3 {
+            background-color: #ed9e00; }
+          #main .right .content .mainView .box div span.type4 {
+            background-color: #0000f0; }
+          #main .right .content .mainView .box div span.type5 {
+            background-color: #00f0f0; }
+          #main .right .content .mainView .box div span.type6 {
+            background-color: #efef00; }
+          #main .right .content .mainView .box div span.type7 {
+            background-color: #a000f0; }
   #main .right .content .showView {
     float: left;
     width: 210px;
