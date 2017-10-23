@@ -63,7 +63,7 @@ function inGame () {
 
 function createDropBox () {
   data.dropBox = true;
-  if (data.nextBoxType != false) {
+  if (data.nextBoxType !== false) {
     data.currentBoxType = data.nextBoxType;
   } else {
     data.currentBoxType = parseInt(Math.random() * 7 * 100) % 7;
@@ -71,15 +71,18 @@ function createDropBox () {
   data.nextBoxType = parseInt(Math.random() * 7 * 100) % 7;
   for (var i = 0; i < 2; i++) {
     for (var j = 3; j < 7; j++) {
-      data.box[i][j].type = data.boxType[data.currentBoxType][i][j - 3];
+      if (data.boxType[data.currentBoxType][i][j - 3] === 1) {
+        data.box[i][j].type = data.currentBoxType + 1;
+      }
     }
   }
 }
 
 function changeSpanColor () {
-  for (var i = 0, len = mainBox.getElementsByTagName('span'); i < len ; i++) {
-    var currentBox = data.box[i / data.row][i];
+  for (var i = 0, len = mainBox.getElementsByTagName('span').length; i < len ; i++) {
+    var currentBox = data.box[parseInt(i / data.col)][parseInt(i % data.col)];
     if (currentBox.type !== false) {
+      currentBox.ele.addClass('typed');
       currentBox.ele.addClass('type' + currentBox.type);
     } else {
       currentBox.ele.className = '';
