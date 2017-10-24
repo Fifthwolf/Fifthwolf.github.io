@@ -82,6 +82,7 @@ function createDropBox () {
 
 function boxDrop () {
   var flag = true;
+  var limit = [];
   outer:for (var i = data.row - 2; i >= 0; i--) {
     for (var j = data.col - 1; j >= 0; j--) {
       if(data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
@@ -90,31 +91,51 @@ function boxDrop () {
           break outer;
         }
         data.box[i + 1][j].type = data.box[i][j].type;
+        limit.push(j);
         data.box[i][j].type = false;
       }
     }
   }
+  limit.sort(function (a, b) {
+    return a - b;
+  });
+  var left = limit[0];
+  var right = limit[limit.length - 1];
+  var bottom = false;
   if (flag) {
-    for (var i = data.row - 2; i >= 0; i--) {
-      for (var j = data.col - 1; j >= 0; j--) {
-        if(data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
-          data.box[i + 1][j].type = data.box[i][j].type;
-          data.box[i][j].type = false;
+    outer:for (var i = data.row - 1; i >= 0; i--) {
+      for (var j = left; j <= right; j++) {
+        if (data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
+          if (i === data.row - 1 || data.box[i + 1][j].type == 8) {
+            bottom = true;
+            break outer;
+          }
         }
       }
     }
-  } else {
-    data.dropBox = false;
-    console.log('buttom');
+    if (bottom) {
+      for (var i = data.row - 1; i >= 0; i--) {
+        for (var j = left; j <= right; j++) {
+          if (data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
+            data.box[i][j].type = 8;
+          } 
+        }
+      }
+      data.dropBox = false;
+    }
   }
 }
 
 function changeSpanColor () {
   for (var i = 0, len = mainBox.getElementsByTagName('span').length; i < len ; i++) {
     var currentBox = data.box[parseInt(i / data.col)][parseInt(i % data.col)];
-    if (currentBox.type !== false) {
+    if (currentBox.type >= 1 && currentBox.type <= 7) {
       currentBox.ele.addClass('typed');
       currentBox.ele.addClass('type' + currentBox.type);
+    } else if (currentBox.type === 8) {
+      currentBox.ele.className = '';
+      currentBox.ele.addClass('typed');
+      currentBox.ele.addClass('level' + data.level);
     } else {
       currentBox.ele.className = '';
     }
