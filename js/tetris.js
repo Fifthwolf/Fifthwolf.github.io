@@ -20,7 +20,7 @@ data = {
   nextBoxType: false,
   dropBox: false,
   level: 0,
-  timeInterval: 1000,
+  timeInterval: 100,
   score: 0,
   box: [],
   boxType: [
@@ -51,12 +51,14 @@ function createFrame () {
 function starGame () {
   initialization();
   inGame();
-  TIME = setInterval(inGame, data.timeInterval);
+  TIME = setInterval(inGame, 100);
 }
 
 function inGame () {
   if (data.dropBox === false) {
     createDropBox();
+  } else {
+    boxDrop();
   }
   changeSpanColor();
 }
@@ -75,6 +77,35 @@ function createDropBox () {
         data.box[i][j].type = data.currentBoxType + 1;
       }
     }
+  }
+}
+
+function boxDrop () {
+  var flag = true;
+  outer:for (var i = data.row - 2; i >= 0; i--) {
+    for (var j = data.col - 1; j >= 0; j--) {
+      if(data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
+        if (data.box[i + 1][j].type !== false) {
+          flag = false;
+          break outer;
+        }
+        data.box[i + 1][j].type = data.box[i][j].type;
+        data.box[i][j].type = false;
+      }
+    }
+  }
+  if (flag) {
+    for (var i = data.row - 2; i >= 0; i--) {
+      for (var j = data.col - 1; j >= 0; j--) {
+        if(data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
+          data.box[i + 1][j].type = data.box[i][j].type;
+          data.box[i][j].type = false;
+        }
+      }
+    }
+  } else {
+    data.dropBox = false;
+    console.log('buttom');
   }
 }
 
@@ -105,7 +136,7 @@ function initialization () {
       data.box[i][j] = {};
       data.box[i][j].ele = currentSpans[j];
       data.box[i][j].type = false;
-      // 格子类型 false:空 1:S 2:Z 3:L 4:J 5:I 6:O 7:T
+      // 格子类型 false:空 1:S 2:Z 3:L 4:J 5:I 6:O 7:T 8:buttom
     }
   }
 }
