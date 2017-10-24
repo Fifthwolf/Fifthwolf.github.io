@@ -38,6 +38,20 @@
             background-color: #efef00; }
           #main .right .content .mainView .box div span.type7 {
             background-color: #a000f0; }
+          #main .right .content .mainView .box div span.level1 {
+            background-color: #00f000; }
+          #main .right .content .mainView .box div span.level2 {
+            background-color: #d80000; }
+          #main .right .content .mainView .box div span.level3 {
+            background-color: #ed9e00; }
+          #main .right .content .mainView .box div span.level4 {
+            background-color: #0000f0; }
+          #main .right .content .mainView .box div span.level5 {
+            background-color: #00f0f0; }
+          #main .right .content .mainView .box div span.level6 {
+            background-color: #efef00; }
+          #main .right .content .mainView .box div span.level7 {
+            background-color: #a000f0; }
   #main .right .content .showView {
     float: left;
     width: 210px;

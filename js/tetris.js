@@ -20,7 +20,7 @@ data = {
   nextBoxType: false,
   dropBox: false,
   level: 0,
-  timeInterval: 100,
+  timeInterval: 1000,
   score: 0,
   box: [],
   boxType: [
@@ -42,6 +42,88 @@ data = {
 }
 
 addEvent(starButton, 'click', starGame);
+addEvent(document, 'keydown', keydownEvent);
+
+function keydownEvent (e) {
+  var keynum = window.event ? e.keyCode : e.which;
+  switch (keynum) {
+    //左
+    case 37: changeDirectionLeft(); break;
+    //上
+    case 38: changeRotate(); break;
+    //右
+    case 39: changeDirectionRight(); break;
+    //下
+    case 40: boxDrop(); break;
+  }
+  changeSpanColor();
+}
+
+function changeDirectionLeft () {
+  var flag = true;
+  var limit = [];
+  outer:for (var i = 0; i < data.row; i++) {
+    for (var j = 0; j < data.col; j++) {
+      if (data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
+        limit.push(i);
+        if (j <= 0 || data.box[i][j - 1].type !== false) {
+          flag = false;
+          break outer;
+        } else {
+          break;
+        }
+      }
+    }
+  }
+  limit.sort(function (a, b) {
+    return a - b;
+  });
+  var top = limit[0];
+  var bottom = limit[limit.length - 1];
+  if (flag) {
+    outer:for (var i = top; i <= bottom; i++) {
+      for (var j = 1; j < data.col; j++) {
+        if (data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
+          data.box[i][j - 1].type = data.box[i][j].type;
+          data.box[i][j].type = false;
+        }
+      }
+    }
+  }
+}
+
+function changeDirectionRight () {
+  var flag = true;
+  var limit = [];
+  outer:for (var i = data.row - 1; i >= 0; i--) {
+    for (var j = data.col - 1; j >= 0; j--) {
+      if (data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
+        limit.push(i);
+        if (j >= data.col - 1 || data.box[i][j + 1].type !== false) {
+          flag = false;
+          break outer;
+        } else {
+          break;
+        }
+      }
+    }
+  }
+  limit.sort(function (a, b) {
+    return a - b;
+  });
+  var top = limit[0];
+  var bottom = limit[limit.length - 1];
+  if (flag) {
+    outer:for (var i = top; i <= bottom; i++) {
+      for (var j = data.col - 2; j >= 0; j--) {
+        if (data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
+          data.box[i][j + 1].type = data.box[i][j].type;
+          data.box[i][j].type = false;
+        }
+      }
+    }
+  }
+}
 
 function createFrame () {
   createFrameContext(mainBox, data.row, data.col);
@@ -51,7 +133,7 @@ function createFrame () {
 function starGame () {
   initialization();
   inGame();
-  TIME = setInterval(inGame, 100);
+  TIME = setInterval(inGame, data.timeInterval);
 }
 
 function inGame () {
@@ -83,16 +165,16 @@ function createDropBox () {
 function boxDrop () {
   var flag = true;
   var limit = [];
-  outer:for (var i = data.row - 2; i >= 0; i--) {
-    for (var j = data.col - 1; j >= 0; j--) {
-      if(data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
+  outer:for (var j = data.col - 1; j >= 0; j--) {
+    for (var i = data.row - 2; i >= 0; i--) {
+      if (data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
+        limit.push(j);
         if (data.box[i + 1][j].type !== false) {
           flag = false;
           break outer;
+        } else {
+          break;
         }
-        data.box[i + 1][j].type = data.box[i][j].type;
-        limit.push(j);
-        data.box[i][j].type = false;
       }
     }
   }
@@ -103,17 +185,28 @@ function boxDrop () {
   var right = limit[limit.length - 1];
   var bottom = false;
   if (flag) {
-    outer:for (var i = data.row - 1; i >= 0; i--) {
-      for (var j = left; j <= right; j++) {
+    for (var j = left; j <= right; j++) {
+      for (var i = data.row - 2; i >= 0; i--) {
+        if (data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
+          data.box[i + 1][j].type = data.box[i][j].type;
+          data.box[i][j].type = false;
+        }
+      }
+    }
+    outer:for (var j = data.col - 1; j >= 0; j--) {
+      for (var i = data.row - 1; i >= 0; i--) {
         if (data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
           if (i === data.row - 1 || data.box[i + 1][j].type == 8) {
             bottom = true;
             break outer;
+          } else {
+            break;
           }
         }
       }
     }
     if (bottom) {
+      console.log(1);
       for (var i = data.row - 1; i >= 0; i--) {
         for (var j = left; j <= right; j++) {
           if (data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
@@ -124,6 +217,18 @@ function boxDrop () {
       data.dropBox = false;
     }
   }
+}
+
+function tempShow () {
+  var a = [];
+  for (var i = 0; i < data.row; i++) {
+    for (var j = 0; j < data.col; j++) {
+      a.push(data.box[i][j].type);
+    }
+    console.log(a);
+    a = [];
+  }
+  console.log('_________________');
 }
 
 function changeSpanColor () {
@@ -146,7 +251,7 @@ function initialization () {
   createFrame();
   data.start = true;
   data.level = 1;
-  data.timeInterval = 1000;
+  data.timeInterval = 300;
   data.score = 0;
   data.box = [];
   data.box = new Array(data.row);
