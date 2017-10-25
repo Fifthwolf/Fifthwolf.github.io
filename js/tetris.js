@@ -147,8 +147,45 @@ function changeRotate () {
   var left = limitX[0];
   var right = limitX[limitX.length - 1];
   var length = Math.max((bottom - top), (right - left)) + 1;
-  console.log(length);
-  
+  var temp = new Array(length);
+  for (var i = 0; i < length; i++) {
+    temp[i] = new Array(length);
+  }
+  outer:for (var i = 0; i < length; i++) {
+    for (var j = 0; j <length; j++) {
+      var x = j + left;
+      var y = i + top;
+      if (data.box[y][x].type >= 1 && data.box[y][x].type <= 7) {
+        //console.log(y, x);
+        //console.log(length - 1 - i, j);
+        console.log(length - 1 - j + top, i + left);
+        if (data.box[length - 1 - j + top][i + left].type !== false) {
+          console.log(1);
+          flag = false;
+          break outer;
+        }
+      }
+    }
+  }
+  if (flag) {
+    for (var i = 0; i < length; i++) {
+      for (var j = 0; j <length; j++) {
+
+        var x = j + left;
+        var y = i + top;
+        if (data.box[y][x].type >= 1 && data.box[y][x].type <= 7) {
+
+          temp[i].push(1);
+        } else {
+          temp[i].push(0);
+        }
+      }
+    }
+  }
+  for (var i = 0; i < length; i++) {
+    console.log(temp[i]);
+  }
+
   /*
   if (flag) {
     outer:for (var i = top; i <= bottom; i++) {
