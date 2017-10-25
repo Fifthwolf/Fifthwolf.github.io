@@ -125,6 +125,44 @@ function changeDirectionRight () {
   }
 }
 
+function changeRotate () {
+  var flag = true;
+  var limitX = [], limitY = [];
+  outer:for (var i = 0; i < data.row; i++) {
+    for (var j = 0; j < data.col; j++) {
+      if (data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
+        limitY.push(i);
+        limitX.push(j);
+      }
+    }
+  }
+  limitX.sort(function (a, b) {
+    return a - b;
+  });
+  limitY.sort(function (a, b) {
+    return a - b;
+  });
+  var top = limitY[0];
+  var bottom = limitY[limitY.length - 1];
+  var left = limitX[0];
+  var right = limitX[limitX.length - 1];
+  var length = Math.max((bottom - top), (right - left)) + 1;
+  console.log(length);
+  
+  /*
+  if (flag) {
+    outer:for (var i = top; i <= bottom; i++) {
+      for (var j = 1; j < data.col; j++) {
+        if (data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
+          data.box[i][j - 1].type = data.box[i][j].type;
+          data.box[i][j].type = false;
+        }
+      }
+    }
+  }
+  */
+}
+
 function createFrame () {
   createFrameContext(mainBox, data.row, data.col);
   createFrameContext(nextBox, 2, 4);
