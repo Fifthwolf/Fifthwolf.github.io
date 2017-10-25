@@ -156,11 +156,7 @@ function changeRotate () {
       var x = j + left;
       var y = i + top;
       if (data.box[y][x].type >= 1 && data.box[y][x].type <= 7) {
-        //console.log(y, x);
-        //console.log(length - 1 - i, j);
-        console.log(length - 1 - j + top, i + left);
-        if (data.box[length - 1 - j + top][i + left].type !== false) {
-          console.log(1);
+        if (data.box[j + top][length - 1 - i + left].type === 8) {
           flag = false;
           break outer;
         }
@@ -168,23 +164,42 @@ function changeRotate () {
     }
   }
   if (flag) {
+    var tempType = 0;
     for (var i = 0; i < length; i++) {
       for (var j = 0; j <length; j++) {
-
         var x = j + left;
         var y = i + top;
         if (data.box[y][x].type >= 1 && data.box[y][x].type <= 7) {
-
-          temp[i].push(1);
+          temp[j][length - 1 - i] = 1;
+          tempType = data.box[y][x].type;
         } else {
-          temp[i].push(0);
+          temp[j][length - 1 - i] = 0;
+        }
+      }
+    }
+    for (var i = 0; i < length; i++) {
+      console.log(temp[i]);
+    }
+    for (var i = 0; i < length; i++) {
+      for (var j = 0; j <length; j++) {
+        var x = j + left;
+        var y = i + top;
+        if (data.box[y][x].type >= 1 && data.box[y][x].type <= 7) {
+          data.box[y][x].type = 0;
+        }
+      }
+    }
+    for (var i = 0; i < length; i++) {
+      for (var j = 0; j <length; j++) {
+        var x = j + left;
+        var y = i + top;
+        if (temp[i][j] === 1) {
+          data.box[y][x].type = tempType;
         }
       }
     }
   }
-  for (var i = 0; i < length; i++) {
-    console.log(temp[i]);
-  }
+  
 
   /*
   if (flag) {
@@ -228,6 +243,7 @@ function createDropBox () {
     data.currentBoxType = parseInt(Math.random() * 7 * 100) % 7;
   }
   data.nextBoxType = parseInt(Math.random() * 7 * 100) % 7;
+  data.currentBoxType = 4;
   for (var i = 0; i < 2; i++) {
     for (var j = 3; j < 7; j++) {
       if (data.boxType[data.currentBoxType][i][j - 3] === 1) {
