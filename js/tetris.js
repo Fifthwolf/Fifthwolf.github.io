@@ -12,19 +12,23 @@ window.onload = function () {
   createFrame();
 }
 
-data = {
+var data = {
   row: 20,
   col: 10,
   start: false,
   currentBoxType: 0,
-  currentBoxRotateShift: 2,
+  currentBoxState: 0,
+  currentBoxRotateShift: 0,
   nextBoxType: false,
   dropBox: false,
   level: 0,
   timeInterval: 1000,
   score: 0,
   box: [],
-  boxType: [
+}
+
+/*
+data.boxType = [
   [[0,1,1,0],
   [1,1,0,0]], //S
   [[1,1,0,0],
@@ -40,8 +44,122 @@ data = {
   [[0,1,0,0],
   [1,1,1,0]], //T
   ]
-}
+*/
 
+data.boxType = [
+  [
+    [
+      [0,0,0],
+      [0,1,1],
+      [1,1,0]
+    ],
+    [
+      [0,1,0],
+      [0,1,1],
+      [0,0,1]
+    ]
+  ], //S
+  [
+    [
+      [0,0,0],
+      [1,1,0],
+      [0,1,1]
+    ],
+    [
+      [0,0,1],
+      [0,1,1],
+      [0,1,0]
+    ]
+  ], //Z
+  [
+    [
+      [0,1,0],
+      [0,1,0],
+      [0,1,1]
+    ],
+    [
+      [0,0,0],
+      [1,1,1],
+      [1,0,0]
+    ],
+    [
+      [1,1,0],
+      [0,1,0],
+      [0,1,0]
+    ],
+    [
+      [0,0,1],
+      [1,1,1],
+      [0,0,0]
+    ]
+  ], //L
+  [
+    [
+      [1,0,0],
+      [1,1,1],
+      [0,0,0]
+    ],
+    [
+      [0,1,1],
+      [0,1,0],
+      [0,1,0]
+    ],
+    [
+      [0,0,0],
+      [1,1,1],
+      [0,0,1]
+    ],
+    [
+      [0,1,0],
+      [0,1,0],
+      [1,1,0]
+    ]
+  ], //J
+  [
+    [
+      [0,0,0,0],
+      [1,1,1,1],
+      [0,0,0,0],
+      [0,0,0,0],
+    ],
+    [
+      [0,1,0,0],
+      [0,1,0,0],
+      [0,1,0,0],
+      [0,1,0,0],
+    ]
+  ], //I
+  [
+    [
+      [1,1],
+      [1,1]
+    ]
+  ], //O
+  [
+    [
+      [0,0,0],
+      [1,1,1],
+      [0,1,0]
+    ],
+    [
+      [0,1,0],
+      [1,1,0],
+      [0,1,0]
+    ],
+    [
+      [0,1,0],
+      [1,1,1],
+      [0,0,0]
+    ],
+    [
+      [0,1,0],
+      [0,1,1],
+      [0,1,0]
+    ] //T
+  ]
+];
+
+/*
 addEvent(starButton, 'click', starGame);
 addEvent(document, 'keydown', keydownEvent);
 
@@ -128,8 +246,87 @@ function changeDirectionRight () {
 
 function changeRotate () {
   var flag = true;
+  var length = boxLimit().length, left = boxLimit().left, top = boxLimit().top;
+
+  //初始化临时变量
+  var temp = new Array(length);
+  for (var i = 0; i < length; i++) {
+    temp[i] = new Array(length);
+    for (var j = 0; j < length; j++) {
+      temp[i][j] = 0;
+    }
+  }
+
+  switch (data.currentBoxType) {
+    case 0:
+    if (data.currentBoxState === 0) {
+      data.currentBoxRotateShift = 1;
+      data.currentBoxState = 1;
+    } else if (data.currentBoxState === 1) {
+      data.currentBoxRotateShift = 0;
+      data.currentBoxState = 0;
+    }
+    break;
+    case 1: data.currentBoxState = 0; break;
+    case 2: data.currentBoxState = 0; break;
+    case 3: data.currentBoxState = 0; break;
+    case 4: data.currentBoxState = 0; break;
+    case 5: data.currentBoxState = 0; break;
+    case 6: data.currentBoxState = 0; break;
+    
+  }
+
+  outer:for (var i = 0; i < length; i++) {
+    for (var j = 0; j < length; j++) {
+      var x = j + left - data.currentBoxRotateShift;
+      var y = i + top;
+      if (data.box[y][x].type >= 1 && data.box[y][x].type <= 7) {
+        if (data.box[j + top][length - 1 - i + left].type === 8) {
+          flag = false;
+          break outer;
+        }
+      }
+    }
+  }
+
+  if (flag) {
+    var tempType = 0;
+    for (var i = 0; i < length; i++) {
+      for (var j = 0; j < length; j++) {
+        var x = j + left - data.currentBoxRotateShift;
+        var y = i + top;
+        //data.currentBoxRotateShift = 0;
+        //currentBoxRotateShift
+        if (data.box[y][x].type >= 1 && data.box[y][x].type <= 7) {
+          temp[j][length - 1 - i] = 1;
+          tempType = data.box[y][x].type;
+        }
+      }
+    }
+    for (var i = 0; i < length; i++) {
+      for (var j = 0; j < length; j++) {
+        var x = j + left - data.currentBoxRotateShift;
+        var y = i + top;
+        if (data.box[y][x].type >= 1 && data.box[y][x].type <= 7) {
+          data.box[y][x].type = false;
+        }
+      }
+    }
+    for (var i = 0; i < length; i++) {
+      for (var j = 0; j < length; j++) {
+        var x = j + left - data.currentBoxRotateShift;
+        var y = i + top;
+        if (temp[i][j] === 1) {
+          data.box[y][x].type = tempType;
+        }
+      }
+    }
+  }
+}
+
+function boxLimit () {
   var limitX = [], limitY = [];
-  outer:for (var i = 0; i < data.row; i++) {
+  for (var i = 0; i < data.row; i++) {
     for (var j = 0; j < data.col; j++) {
       if (data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
         limitY.push(i);
@@ -148,78 +345,7 @@ function changeRotate () {
   var left = limitX[0];
   var right = limitX[limitX.length - 1];
   var length = Math.max((bottom - top), (right - left)) + 1;
-  var temp = new Array(length);
-  for (var i = 0; i < length; i++) {
-    temp[i] = new Array(length);
-    for (var j = 0; j < length; j++) {
-      temp[i][j] = 0;
-    }
-  }
-  outer:for (var i = 0; i < length; i++) {
-    for (var j = 0; j <length; j++) {
-      var x = j + left - data.currentBoxRotateShift;
-      var y = i + top;
-      if (data.box[y][x].type >= 1 && data.box[y][x].type <= 7) {
-        if (data.box[j + top][length - 1 - i + left].type === 8) {
-          flag = false;
-          break outer;
-        }
-      }
-    }
-  }
-  if (flag) {
-    var tempType = 0;
-    for (var i = 0; i < length; i++) {
-      for (var j = 0; j <length; j++) {
-        var x = j + left - data.currentBoxRotateShift;
-        var y = i + top;
-        //data.currentBoxRotateShift = 0;
-        //currentBoxRotateShift
-        if (data.box[y][x].type >= 1 && data.box[y][x].type <= 7) {
-          temp[j][length - 1 - i] = 1;
-          tempType = data.box[y][x].type;
-        }
-      }
-    }
-    for (var i = 0; i < length; i++) {
-      console.log(temp[i]);
-    }
-    for (var i = 0; i < length; i++) {
-      for (var j = 0; j <length; j++) {
-        var x = j + left - data.currentBoxRotateShift;
-        var y = i + top;
-        if (data.box[y][x].type >= 1 && data.box[y][x].type <= 7) {
-          data.box[y][x].type = false;
-        }
-      }
-    }
-    for (var i = 0; i < length; i++) {
-      for (var j = 0; j <length; j++) {
-        var x = j + left - data.currentBoxRotateShift;
-        var y = i + top;
-        if (temp[i][j] === 1) {
-          data.box[y][x].type = tempType;
-        }
-      }
-    }
-  }
-  switch (data.currentBoxType) {
-    case 0:
-      if (data.currentBoxRotateShift === 0) {
-        console.log(1);
-        data.currentBoxRotateShift = 1;
-      } else {
-        data.currentBoxRotateShift = 0;
-      }
-      break;
-    case 1: data.currentBoxRotateShift = 2; break;
-    case 2: data.currentBoxRotateShift = 2; break;
-    case 3: data.currentBoxRotateShift = 2; break;
-    case 4: data.currentBoxRotateShift = 2; break;
-    case 5: data.currentBoxRotateShift = 2; break;
-    case 6: data.currentBoxRotateShift = 2; break;
-    
-  }
+  return {top, left, length};
 }
 
 function createFrame () {
@@ -252,13 +378,13 @@ function createDropBox () {
   data.nextBoxType = parseInt(Math.random() * 7 * 100) % 7;
   data.currentBoxType = 0;
   switch (data.currentBoxType) {
-    case 0: data.currentBoxRotateShift = 0; break;
-    case 1: data.currentBoxRotateShift = 0; break;
-    case 2: data.currentBoxRotateShift = 0; break;
-    case 3: data.currentBoxRotateShift = 0; break;
-    case 4: data.currentBoxRotateShift = 0; break;
-    case 5: data.currentBoxRotateShift = 0; break;
-    case 6: data.currentBoxRotateShift = 0; break;
+    case 0: data.currentBoxState = 0; break;
+    case 1: data.currentBoxState = 0; break;
+    case 2: data.currentBoxState = 0; break;
+    case 3: data.currentBoxState = 0; break;
+    case 4: data.currentBoxState = 0; break;
+    case 5: data.currentBoxState = 0; break;
+    case 6: data.currentBoxState = 0; break;
   }
   for (var i = 0; i < 2; i++) {
     for (var j = 3; j < 7; j++) {
@@ -389,3 +515,4 @@ function createFrameContext (ele, rowValue, colValue) {
     ele.appendChild(row[i]);
   }
 }
+*/
