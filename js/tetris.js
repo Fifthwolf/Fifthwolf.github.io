@@ -17,6 +17,7 @@ data = {
   col: 10,
   start: false,
   currentBoxType: 0,
+  currentBoxRotateShift: 2,
   nextBoxType: false,
   dropBox: false,
   level: 0,
@@ -150,10 +151,13 @@ function changeRotate () {
   var temp = new Array(length);
   for (var i = 0; i < length; i++) {
     temp[i] = new Array(length);
+    for (var j = 0; j < length; j++) {
+      temp[i][j] = 0;
+    }
   }
   outer:for (var i = 0; i < length; i++) {
     for (var j = 0; j <length; j++) {
-      var x = j + left;
+      var x = j + left - data.currentBoxRotateShift;
       var y = i + top;
       if (data.box[y][x].type >= 1 && data.box[y][x].type <= 7) {
         if (data.box[j + top][length - 1 - i + left].type === 8) {
@@ -167,13 +171,13 @@ function changeRotate () {
     var tempType = 0;
     for (var i = 0; i < length; i++) {
       for (var j = 0; j <length; j++) {
-        var x = j + left;
+        var x = j + left - data.currentBoxRotateShift;
         var y = i + top;
+        //data.currentBoxRotateShift = 0;
+        //currentBoxRotateShift
         if (data.box[y][x].type >= 1 && data.box[y][x].type <= 7) {
           temp[j][length - 1 - i] = 1;
           tempType = data.box[y][x].type;
-        } else {
-          temp[j][length - 1 - i] = 0;
         }
       }
     }
@@ -182,16 +186,16 @@ function changeRotate () {
     }
     for (var i = 0; i < length; i++) {
       for (var j = 0; j <length; j++) {
-        var x = j + left;
+        var x = j + left - data.currentBoxRotateShift;
         var y = i + top;
         if (data.box[y][x].type >= 1 && data.box[y][x].type <= 7) {
-          data.box[y][x].type = 0;
+          data.box[y][x].type = false;
         }
       }
     }
     for (var i = 0; i < length; i++) {
       for (var j = 0; j <length; j++) {
-        var x = j + left;
+        var x = j + left - data.currentBoxRotateShift;
         var y = i + top;
         if (temp[i][j] === 1) {
           data.box[y][x].type = tempType;
@@ -199,20 +203,23 @@ function changeRotate () {
       }
     }
   }
-  
-
-  /*
-  if (flag) {
-    outer:for (var i = top; i <= bottom; i++) {
-      for (var j = 1; j < data.col; j++) {
-        if (data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
-          data.box[i][j - 1].type = data.box[i][j].type;
-          data.box[i][j].type = false;
-        }
+  switch (data.currentBoxType) {
+    case 0:
+      if (data.currentBoxRotateShift === 0) {
+        console.log(1);
+        data.currentBoxRotateShift = 1;
+      } else {
+        data.currentBoxRotateShift = 0;
       }
-    }
+      break;
+    case 1: data.currentBoxRotateShift = 2; break;
+    case 2: data.currentBoxRotateShift = 2; break;
+    case 3: data.currentBoxRotateShift = 2; break;
+    case 4: data.currentBoxRotateShift = 2; break;
+    case 5: data.currentBoxRotateShift = 2; break;
+    case 6: data.currentBoxRotateShift = 2; break;
+    
   }
-  */
 }
 
 function createFrame () {
@@ -243,7 +250,16 @@ function createDropBox () {
     data.currentBoxType = parseInt(Math.random() * 7 * 100) % 7;
   }
   data.nextBoxType = parseInt(Math.random() * 7 * 100) % 7;
-  data.currentBoxType = 4;
+  data.currentBoxType = 0;
+  switch (data.currentBoxType) {
+    case 0: data.currentBoxRotateShift = 0; break;
+    case 1: data.currentBoxRotateShift = 0; break;
+    case 2: data.currentBoxRotateShift = 0; break;
+    case 3: data.currentBoxRotateShift = 0; break;
+    case 4: data.currentBoxRotateShift = 0; break;
+    case 5: data.currentBoxRotateShift = 0; break;
+    case 6: data.currentBoxRotateShift = 0; break;
+  }
   for (var i = 0; i < 2; i++) {
     for (var j = 3; j < 7; j++) {
       if (data.boxType[data.currentBoxType][i][j - 3] === 1) {
@@ -297,7 +313,6 @@ function boxDrop () {
       }
     }
     if (bottom) {
-      console.log(1);
       for (var i = data.row - 1; i >= 0; i--) {
         for (var j = left; j <= right; j++) {
           if (data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
@@ -342,7 +357,7 @@ function initialization () {
   createFrame();
   data.start = true;
   data.level = 1;
-  data.timeInterval = 300;
+  data.timeInterval = 1000;
   data.score = 0;
   data.box = [];
   data.box = new Array(data.row);
