@@ -261,20 +261,7 @@ function boxDrop () {
     }
   }
 }
-*/
-function tempShow () {
-  var a = [];
-  for (var i = 0; i < data.row; i++) {
-    for (var j = 0; j < data.col; j++) {
-      a.push(data.box[i][j].type);
-    }
-    console.log(a);
-    a = [];
-  }
-  console.log('_________________');
-}
 
-/*
 function changeDirectionLeft () {
   var flag = true;
   var limit = [];
@@ -420,15 +407,26 @@ function changeRotate () {
     }
   }
 }
+*/
 
 function boxLimit () {
-  var limitX = [], limitY = [];
-  for (var i = 0; i < data.row; i++) {
+  var limitX = [], limitY = [], flag = true, starBox = false;
+  outer:for (var i = 0; i < data.row; i++) {
+    if (starBox === true) {
+      flag = false;
+    }
     for (var j = 0; j < data.col; j++) {
       if (data.box[i][j].type >= 1 && data.box[i][j].type <= 7) {
+        if (starBox === false) {
+          starBox = true;
+        }
+        flag = true;
         limitY.push(i);
         limitX.push(j);
       }
+    }
+    if (!flag) {
+      break outer;
     }
   }
   limitX.sort(function (a, b) {
@@ -442,9 +440,9 @@ function boxLimit () {
   var left = limitX[0];
   var right = limitX[limitX.length - 1];
   var length = Math.max((bottom - top), (right - left)) + 1;
-  return {top, left, length};
+  return {top, bottom, left, right, length};
 }
-*/
+
 
 function changeSpanColor () {
   for (var i = 0, len = mainBox.getElementsByTagName('span').length; i < len ; i++) {
@@ -504,4 +502,16 @@ function createFrameContext (ele, rowValue, colValue) {
     }
     ele.appendChild(row[i]);
   }
+}
+
+function tempShow () {
+  var a = [];
+  for (var i = 0; i < data.row; i++) {
+    for (var j = 0; j < data.col; j++) {
+      a.push(data.box[i][j].type);
+    }
+    console.log(a);
+    a = [];
+  }
+  console.log('_________________');
 }
