@@ -21,9 +21,12 @@ var data = {
   currentBoxRotate: 0,
   currentBoxBase: [0, 0],
   nextBoxType: false,
-  level: 0,
   timeInterval: 1000,
+  level: 0,
+  line: 0,
   score: 0,
+  scoreValue: [100, 200, 400, 800],
+  clearAnimation: [],
   box: [],
 }
 
@@ -181,10 +184,12 @@ function createDropBox () {
     data.currentBoxType = parseInt(Math.random() * data.boxType.length * 100) % data.boxType.length;
   }
   data.nextBoxType = parseInt(Math.random() * data.boxType.length * 100) % data.boxType.length;
+  data.currentBoxType = 4;
   var length = data.boxShift[data.currentBoxType][0],
       shiftX = data.boxShift[data.currentBoxType][1],
       shiftY = data.boxShift[data.currentBoxType][2];
   data.currentBoxBase = [0 - shiftY, 3 + shiftX];
+  data.currentBoxRotate = 0;
   outer:for (var i = 0 + shiftY, len = length; i < len; i++) {
     for (var j = 3 + shiftX; j < 3 + len + shiftX; j++) {
       if (data.boxType[data.currentBoxType][0][i][j - shiftX - 3] === 1) {   
@@ -398,12 +403,57 @@ function judgeLineFull () {
       line.push(i);
     }
   }
-
-  if (line.length > 0) {
-
+  var clearTimes = line.length;
+  flag = false;
+  if (clearTimes >= 1) {
+    data.score += data.scoreValue[clearTimes - 1];
+    data.line += clearTimes;
+    clearInterval(TIME);
+    for (var i = 0; i < line.length; i++) {
+      _animation(line[i]);
+    }
+  } else {
+    createDropBox();
   }
-  
-  createDropBox();
+
+  function _animation (line) {
+    var opacity = 1, alphaOpacity = 0;
+    opacityAnimation();
+    function opacityAnimation () {
+      opacity -= 0.05;
+      alphaOpacity += 5;
+      for (var i = 0; i < data.col; i++) {
+        data.box[line][i].ele.style.opacity = opacity;
+      }
+      if (alphaOpacity <= 100) {
+        setTimeout(opacityAnimation, 15);
+      } else {
+        for (var i = 0; i < data.col; i++) {
+          data.box[line][i].ele.style.opacity = 1;
+        }
+        if (!flag) {
+          _refreshAllBox();
+          lineBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.line, 2);
+          scoreBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.score, 5);
+        }
+      }
+    }
+  }
+
+  function _refreshAllBox () {
+    flag = true;
+    for (var times = 0; times < clearTimes; times++) {
+      for (var j = 0; j < data.col; j++) {
+        for (var i = line[0] + times, clearLine = line[0]; i >= 1; i--) {
+          data.box[i][j].type = data.box[i - 1][j].type;
+        } 
+      }  
+      line.shift();
+    }
+    createDropBox();
+    changeSpanColor();
+    TIME = setInterval(inGame, data.timeInterval);
+  }
 }
 
 function fail () {
@@ -414,11 +464,14 @@ function fail () {
 function initialization () {
   createFrame();
   data.start = true;
-  data.level = 1;
   data.timeInterval = 1000;
+  data.level = 1;
+  data.line = 0;
   data.score = 0;
+  levelBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.level, 2);
   data.box = [];
   data.box = new Array(data.row);
+  data.clearAnimation = new Array(4);
   for (var i = 0, currentDivs = mainBox.getElementsByTagName('div'), ilen = currentDivs.length; i < ilen; i++) {
     data.box[i]  = new Array(data.col);
     var currentDiv = currentDivs[i];
@@ -431,6 +484,7 @@ function initialization () {
   }
   for (var i = 0; i < 9; i++) {
     data.box[19][i].type = 0;
+    data.box[18][i].type = 0;
   }
 }
 
@@ -467,3 +521,8 @@ function tempShow () {
   }
   console.log('_________________');
 }
+
+function PrefixInteger(num, n) {
+  return (Array(n).join(0) + num).slice(-n);
+}
+
