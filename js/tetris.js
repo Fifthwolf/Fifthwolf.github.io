@@ -18,11 +18,9 @@ var data = {
   col: 10,
   start: false,
   currentBoxType: 0,
-  currentBoxState: 0,
   currentBoxRotate: 0,
   currentBoxBase: [0, 0],
   nextBoxType: false,
-  dropBox: false,
   level: 0,
   timeInterval: 1000,
   score: 0,
@@ -151,54 +149,47 @@ addEvent(starButton, 'click', starGame);
 function starGame () {
   addEvent(document, 'keydown', keydownEvent);
   initialization();
-  inGame();
+  createDropBox();
+  changeSpanColor();
   TIME = setInterval(inGame, data.timeInterval);
 
   function keydownEvent (e) {
     var keynum = window.event ? e.keyCode : e.which;
-    e.preventDefault();
     switch (keynum) {
       //左
-      case 37: changeDirectionLeft(); break;
+      case 37: changeDirectionLeft(); e.preventDefault(); break;
       //上
-      case 38: changeRotate(); break;
+      case 38: changeRotate(); e.preventDefault(); break;
       //右
-      case 39: changeDirectionRight(); break;
+      case 39: changeDirectionRight(); e.preventDefault(); break;
       //下
-      case 40: boxDrop(); break;
+      case 40: boxDrop(); e.preventDefault(); break;
     }
     changeSpanColor();
   }
 }
 
 function inGame () {
-  if (data.dropBox === false) {
-    createDropBox();
-  } else {
-    boxDrop();
-  }
+  boxDrop();
   changeSpanColor();
 }
 
 function createDropBox () {
-  data.dropBox = true;
   if (data.nextBoxType !== false) {
     data.currentBoxType = data.nextBoxType;
   } else {
     data.currentBoxType = parseInt(Math.random() * data.boxType.length * 100) % data.boxType.length;
   }
   data.nextBoxType = parseInt(Math.random() * data.boxType.length * 100) % data.boxType.length;
-  data.currentBoxState = data.boxShift[data.currentBoxType][0];
   var length = data.boxShift[data.currentBoxType][0],
       shiftX = data.boxShift[data.currentBoxType][1],
       shiftY = data.boxShift[data.currentBoxType][2];
   data.currentBoxBase = [0 - shiftY, 3 + shiftX];
-  console.log(data.currentBoxBase);
   outer:for (var i = 0 + shiftY, len = length; i < len; i++) {
     for (var j = 3 + shiftX; j < 3 + len + shiftX; j++) {
       if (data.boxType[data.currentBoxType][0][i][j - shiftX - 3] === 1) {   
         if (data.box[i - shiftY][j].type !== false) {
-          console.log('fail');
+          fail();
           break outer;
         }
         data.box[i - shiftY][j].type = data.currentBoxType + 1;
@@ -208,7 +199,6 @@ function createDropBox () {
 }
 
 function boxDrop () {
-  console.log(data.currentBoxBase);
   var flag = true;
   var left = boxLimit().left, right = boxLimit().right,
       top = boxLimit().top, bottom = boxLimit().bottom;
@@ -241,7 +231,7 @@ function boxDrop () {
         }
       }
     }
-    createDropBox();
+    judgeLineFull();
   }
 }
 
@@ -309,7 +299,6 @@ function changeRotate () {
       top = boxLimit().top, bottom = boxLimit().bottom;
   var baseLimit = data.boxShift[data.currentBoxType][0];
   var tempBoxRotate = (data.currentBoxRotate + 1) % data.boxShift[data.currentBoxType][3];
-
   outer:for (var i = 0; i < baseLimit; i++) {
     for (var j = 0; j < baseLimit; j++) {
       if (data.boxType[data.currentBoxType][tempBoxRotate][i][j] === 1) {
@@ -325,7 +314,6 @@ function changeRotate () {
       } 
     }
   }
-  console.log(flag);
   if (flag) {
     data.currentBoxRotate = tempBoxRotate;
     for (var i = 0; i < baseLimit; i++) {
@@ -396,6 +384,33 @@ function changeSpanColor () {
   }
 }
 
+function judgeLineFull () {
+  var flag, line = [];
+  outer:for (var i = data.row - 1; i >= 0; i--) {
+    flag = true;
+    for (var j = 0; j < data.col; j++) {
+      if (data.box[i][j].type !== 0) {
+        flag = false;  
+        break;
+      }
+    }
+    if (flag) {
+      line.push(i);
+    }
+  }
+
+  if (line.length > 0) {
+
+  }
+  
+  createDropBox();
+}
+
+function fail () {
+  clearInterval(TIME);
+  console.log('fail');
+}
+
 function initialization () {
   createFrame();
   data.start = true;
@@ -414,8 +429,10 @@ function initialization () {
       // 格子类型 false:空 0:buttom 1:S 2:Z 3:L 4:J 5:I 6:O 7:T
     }
   }
+  for (var i = 0; i < 9; i++) {
+    data.box[19][i].type = 0;
+  }
 }
-
 
 function createFrame () {
   createFrameContext(mainBox, data.row, data.col);
