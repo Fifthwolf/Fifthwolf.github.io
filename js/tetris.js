@@ -426,13 +426,15 @@ function judgeLineFull () {
         data.box[line][i].ele.style.opacity = opacity;
       }
       if (alphaOpacity <= 100) {
-        setTimeout(opacityAnimation, 15);
+        setTimeout(opacityAnimation, data.timeInterval / 60);
       } else {
         for (var i = 0; i < data.col; i++) {
           data.box[line][i].ele.style.opacity = 1;
         }
         if (!flag) {
           _refreshAllBox();
+          _upLevel();
+          levelBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.level, 2);
           lineBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.line, 2);
           scoreBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.score, 5);
         }
@@ -453,6 +455,19 @@ function judgeLineFull () {
     createDropBox();
     changeSpanColor();
     TIME = setInterval(inGame, data.timeInterval);
+  }
+
+  function _upLevel () {
+    data.level = Math.min(parseInt(data.line / 30) + 1, 7);
+    switch (data.level) {
+      case 1: data.timeInterval = 1000; break;
+      case 2: data.timeInterval = 850; break;
+      case 3: data.timeInterval = 700; break;
+      case 4: data.timeInterval = 550; break;
+      case 5: data.timeInterval = 400; break;
+      case 6: data.timeInterval = 200; break;
+      case 7: data.timeInterval = 100; break;
+    }
   }
 }
 
