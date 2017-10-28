@@ -1,5 +1,7 @@
 var content = document.getElementsByClassName('content')[0];
 var mainBox = document.getElementById('mainBox');
+var cellMask = document.getElementById('cellMask');
+var maskScore = document.getElementById('maskScore');
 var showView = content.getElementsByClassName('showView')[0];
 var nextBox = showView.getElementsByClassName('nextBox')[0];
 var levelBox = document.getElementById('level');
@@ -17,6 +19,7 @@ var data = {
   row: 20,
   col: 10,
   start: false,
+  pause: false,
   currentBoxType: 0,
   currentBoxRotate: 0,
   currentBoxBase: [0, 0],
@@ -149,15 +152,34 @@ data.boxShift = [
 ];//length, shiftX, shiftY, rotateType
 
 addEvent(starButton, 'click', starGame);
+addEvent(document, 'keydown', keydownEvent);
 
 function starGame () {
-  addEvent(document, 'keydown', keydownEvent);
-  initialization();
-  createDropBox();
-  TIME = setInterval(inGame, data.timeInterval);
+  if (data.start === false) { //游戏未开始
+    if (data.pause === false) {
+      cellMask.style.display = 'none';
+      data.start = true;
+      starButton.innerHTML = 'PAUSE';
+      initialization();
+      createDropBox();
+      TIME = setInterval(inGame, data.timeInterval);
+    }
+  } else { //游戏已开始
+    if (data.pause === false) { //未暂停
+      data.pause = true;
+      clearInterval(TIME);
+      starButton.innerHTML = 'GO ON';
+    } else { //已暂停
+      data.pause = false;
+      TIME = setInterval(inGame, data.timeInterval);
+      starButton.innerHTML = 'PAUSE';
+    }
+  }
+}
 
-  function keydownEvent (e) {
-    var keynum = window.event ? e.keyCode : e.which;
+function keydownEvent (e) {
+  var keynum = window.event ? e.keyCode : e.which;
+  if (data.start === true && data.pause === false) {
     switch (keynum) {
       //左
       case 37: changeDirectionLeft(); e.preventDefault(); break;
@@ -168,8 +190,8 @@ function starGame () {
       //下
       case 40: boxDrop(); e.preventDefault(); break;
     }
-    changeSpanColor(mainBox, data.box, data.col);
   }
+  changeSpanColor(mainBox, data.box, data.col);
 }
 
 function inGame () {
@@ -485,7 +507,11 @@ function judgeLineFull () {
 
 function fail () {
   clearInterval(TIME);
-  console.log('fail');
+  maskScore.innerHTML = data.score;
+  data.start = false;
+  data.pause = false;
+  cellMask.style.display = 'block';
+  starButton.innerHTML = 'RESTART';
 }
 
 function initialization () {
@@ -495,7 +521,6 @@ function initialization () {
   data.level = 1;
   data.line = 0;
   data.score = 0;
-  levelBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.level, 2);
   data.box = [];
   data.nextBox = [];
   data.box = new Array(data.row);
@@ -520,6 +545,9 @@ function initialization () {
       data.nextBox[i][j].type = false;
     }
   }
+  levelBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.level, 2);
+  lineBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.line, 2);
+  scoreBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.score, 5);
 }
 
 function createFrame () {
@@ -542,18 +570,6 @@ function createFrameContext (ele, rowValue, colValue) {
     }
     ele.appendChild(row[i]);
   }
-}
-
-function tempShow () {
-  var a = [];
-  for (var i = 0; i < data.row; i++) {
-    for (var j = 0; j < data.col; j++) {
-      a.push(data.box[i][j].type);
-    }
-    console.log(a);
-    a = [];
-  }
-  console.log('_________________');
 }
 
 function PrefixInteger(num, n) {
