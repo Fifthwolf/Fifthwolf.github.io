@@ -28,6 +28,7 @@ var data = {
   scoreValue: [100, 200, 400, 800],
   clearAnimation: [],
   box: [],
+  nextBox: []
 }
 
 data.boxType = [
@@ -153,7 +154,6 @@ function starGame () {
   addEvent(document, 'keydown', keydownEvent);
   initialization();
   createDropBox();
-  changeSpanColor();
   TIME = setInterval(inGame, data.timeInterval);
 
   function keydownEvent (e) {
@@ -168,13 +168,13 @@ function starGame () {
       //下
       case 40: boxDrop(); e.preventDefault(); break;
     }
-    changeSpanColor();
+    changeSpanColor(mainBox, data.box, data.col);
   }
 }
 
 function inGame () {
   boxDrop();
-  changeSpanColor();
+  changeSpanColor(mainBox, data.box, data.col);
 }
 
 function createDropBox () {
@@ -184,7 +184,6 @@ function createDropBox () {
     data.currentBoxType = parseInt(Math.random() * data.boxType.length * 100) % data.boxType.length;
   }
   data.nextBoxType = parseInt(Math.random() * data.boxType.length * 100) % data.boxType.length;
-  data.currentBoxType = 4;
   var length = data.boxShift[data.currentBoxType][0],
       shiftX = data.boxShift[data.currentBoxType][1],
       shiftY = data.boxShift[data.currentBoxType][2];
@@ -201,6 +200,19 @@ function createDropBox () {
       }
     }
   }
+  var nextShiftX = data.boxShift[data.nextBoxType][1],
+      nextShiftY = data.boxShift[data.nextBoxType][2];
+  for (var i = 0; i < 2; i++) {
+    for (var j = 0; j < 4; j++) {
+      if (data.boxType[data.nextBoxType][0][i + nextShiftY][j - nextShiftX] === 1) {
+        data.nextBox[i][j].type = data.nextBoxType + 1;
+      } else {
+        data.nextBox[i][j].type = false;
+      }
+    } 
+  }
+  changeSpanColor(mainBox, data.box, data.col);
+  changeSpanColor(nextBox, data.nextBox, 4);
 }
 
 function boxDrop () {
@@ -372,9 +384,9 @@ function boxLimit () {
   return {top, bottom, left, right, length};
 }
 
-function changeSpanColor () {
-  for (var i = 0, len = mainBox.getElementsByTagName('span').length; i < len ; i++) {
-    var currentBox = data.box[parseInt(i / data.col)][parseInt(i % data.col)];
+function changeSpanColor (ele, transferData, col) {
+  for (var i = 0, len = ele.getElementsByTagName('span').length; i < len ; i++) {
+    var currentBox = transferData[parseInt(i / col)][parseInt(i % col)];
     if (currentBox.type === 0) {
       currentBox.ele.className = '';
       currentBox.ele.addClass('typed');
@@ -453,7 +465,7 @@ function judgeLineFull () {
       line.shift();
     }
     createDropBox();
-    changeSpanColor();
+    changeSpanColor(mainBox, data.box, data.col);
     TIME = setInterval(inGame, data.timeInterval);
   }
 
@@ -485,7 +497,9 @@ function initialization () {
   data.score = 0;
   levelBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.level, 2);
   data.box = [];
+  data.nextBox = [];
   data.box = new Array(data.row);
+  data.nextBox = new Array(2);
   data.clearAnimation = new Array(4);
   for (var i = 0, currentDivs = mainBox.getElementsByTagName('div'), ilen = currentDivs.length; i < ilen; i++) {
     data.box[i]  = new Array(data.col);
@@ -497,9 +511,14 @@ function initialization () {
       // 格子类型 false:空 0:buttom 1:S 2:Z 3:L 4:J 5:I 6:O 7:T
     }
   }
-  for (var i = 0; i < 9; i++) {
-    data.box[19][i].type = 0;
-    data.box[18][i].type = 0;
+  for (var i = 0, currentDivs = nextBox.getElementsByTagName('div'), ilen = currentDivs.length; i < ilen; i++) {
+    data.nextBox[i]  = new Array(2);
+    var currentDiv = currentDivs[i];
+    for (var j = 0, currentSpans = currentDiv.getElementsByTagName('span'), jlen = currentSpans.length; j < jlen; j++) {
+      data.nextBox[i][j] = {};
+      data.nextBox[i][j].ele = currentSpans[j];
+      data.nextBox[i][j].type = false;
+    }
   }
 }
 
