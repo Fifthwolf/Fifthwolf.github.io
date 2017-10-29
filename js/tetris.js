@@ -190,8 +190,8 @@ function keydownEvent (e) {
       //下
       case 40: boxDrop(); e.preventDefault(); break;
     }
+    changeSpanColor(mainBox, data.box, data.col);
   }
-  changeSpanColor(mainBox, data.box, data.col);
 }
 
 function inGame () {
