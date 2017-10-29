@@ -469,7 +469,7 @@ function judgeLineFull () {
           _refreshAllBox();
           _upLevel();
           levelBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.level, 2);
-          lineBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.line, 2);
+          lineBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.line, 3);
           scoreBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.score, 5);
         }
       }
