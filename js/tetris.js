@@ -9,6 +9,7 @@ var lineBox = document.getElementById('line');
 var scoreBox = document.getElementById('score');
 var starButton = document.getElementById('start');
 var TIME;
+var mobileControlTIME = {};
 
 window.onload = function () {
   delayedLoadingPublicPictures ('../');
@@ -182,6 +183,31 @@ function starGame () {
 
 function keydownEvent (e) {
   var keynum = window.event ? e.keyCode : e.which;
+  changeBoxState(e, keynum);
+}
+
+function mobileControl () {
+  var mobileControlDiv = document.getElementById('mobileControl');
+  addEvent(mobileControlDiv, 'touchstart', function (e) {
+    e.preventDefault();
+    var ele = e.target;
+    var command = parseInt(ele.getAttribute('func'));
+    ele.addClass('hover');
+    changeBoxState(e, command);
+    mobileControlTIME[command] = setInterval(function () {
+      changeBoxState(e, command);
+    }, 80);
+  });
+  addEvent(mobileControlDiv, 'touchend', function (e) {
+    e.preventDefault();
+    var ele = e.target;
+    var command = parseInt(ele.getAttribute('func'));
+    ele.removeClass('hover');
+    clearInterval(mobileControlTIME[command]);
+  });
+}
+
+function changeBoxState (e, keynum) {
   if (data.start === true && data.pause === false) {
     switch (keynum) {
       //左
@@ -195,27 +221,6 @@ function keydownEvent (e) {
     }
     changeSpanColor(mainBox, data.box, data.col);
   }
-}
-
-function mobileControl () {
-  var mobileControlDiv = document.getElementById('mobileControl');
-  addEvent(mobileControlDiv, 'touchstart', function (e) {
-    var command = e.target.getAttribute('func');
-    if (data.start === true && data.pause === false) {
-      console.log(command);
-    switch (command) {
-      //左
-      case 1: console.log(1); changeDirectionLeft(); e.preventDefault(); break;
-      //上
-      case 3: console.log(3); changeRotate(); e.preventDefault(); break;
-      //右
-      case 2: console.log(2); changeDirectionRight(); e.preventDefault(); break;
-      //下
-      case 4: console.log(4); boxDrop(); e.preventDefault(); break;
-    }
-    changeSpanColor(mainBox, data.box, data.col);
-  }
-  });
 }
 
 function inGame () {
