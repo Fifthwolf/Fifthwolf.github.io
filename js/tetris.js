@@ -13,6 +13,9 @@ var TIME;
 window.onload = function () {
   delayedLoadingPublicPictures ('../');
   createFrame();
+  if (!judgeWidth()) {
+    mobileControl();
+  }
 }
 
 var data = {
@@ -192,6 +195,27 @@ function keydownEvent (e) {
     }
     changeSpanColor(mainBox, data.box, data.col);
   }
+}
+
+function mobileControl () {
+  var mobileControlDiv = document.getElementById('mobileControl');
+  addEvent(mobileControlDiv, 'touchstart', function (e) {
+    var command = e.target.getAttribute('func');
+    if (data.start === true && data.pause === false) {
+      console.log(command);
+    switch (command) {
+      //左
+      case 1: console.log(1); changeDirectionLeft(); e.preventDefault(); break;
+      //上
+      case 3: console.log(3); changeRotate(); e.preventDefault(); break;
+      //右
+      case 2: console.log(2); changeDirectionRight(); e.preventDefault(); break;
+      //下
+      case 4: console.log(4); boxDrop(); e.preventDefault(); break;
+    }
+    changeSpanColor(mainBox, data.box, data.col);
+  }
+  });
 }
 
 function inGame () {
@@ -575,4 +599,3 @@ function createFrameContext (ele, rowValue, colValue) {
 function PrefixInteger(num, n) {
   return (Array(n).join(0) + num).slice(-n);
 }
-

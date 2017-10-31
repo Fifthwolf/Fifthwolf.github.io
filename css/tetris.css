@@ -130,61 +130,65 @@
       background-color: #345;
       box-shadow: 1px 2px 2px #000;
       cursor: pointer; }
+  #main .right .content .mobileControl {
+    display: none; }
 @media only screen and (max-width: 1000px) {
   #main .right .content {
     width: 810px; }
-    #main .right .content .mainView .box {
-      width: 450px;
-      height: 900px; }
-      #main .right .content .mainView .box div {
+    #main .right .content .mainView {
+      margin-bottom: 100px; }
+      #main .right .content .mainView .box {
         width: 450px;
-        height: 45px; }
-        #main .right .content .mainView .box div span {
-          width: 45px;
+        height: 900px; }
+        #main .right .content .mainView .box div {
+          width: 450px;
           height: 45px; }
-          #main .right .content .mainView .box div span.typed {
-            width: 33px;
-            height: 33px;
-            border: 6px solid #fff;
-            border-right-color: #808080;
-            border-bottom-color: #808080; }
-          #main .right .content .mainView .box div span.type1 {
-            background-color: #00f000; }
-          #main .right .content .mainView .box div span.type2 {
-            background-color: #d80000; }
-          #main .right .content .mainView .box div span.type3 {
-            background-color: #ed9e00; }
-          #main .right .content .mainView .box div span.type4 {
-            background-color: #0000f0; }
-          #main .right .content .mainView .box div span.type5 {
-            background-color: #00f0f0; }
-          #main .right .content .mainView .box div span.type6 {
-            background-color: #efef00; }
-          #main .right .content .mainView .box div span.type7 {
-            background-color: #a000f0; }
-          #main .right .content .mainView .box div span.level1 {
-            background-color: #00f000; }
-          #main .right .content .mainView .box div span.level2 {
-            background-color: #d80000; }
-          #main .right .content .mainView .box div span.level3 {
-            background-color: #ed9e00; }
-          #main .right .content .mainView .box div span.level4 {
-            background-color: #0000f0; }
-          #main .right .content .mainView .box div span.level5 {
-            background-color: #00f0f0; }
-          #main .right .content .mainView .box div span.level6 {
-            background-color: #efef00; }
-          #main .right .content .mainView .box div span.level7 {
-            background-color: #a000f0; }
-    #main .right .content .mainView .cellMask {
-      margin-left: -180px;
-      top: 315px;
-      width: 360px;
-      height: 225px;
-      font-size: 52px;
-      line-height: 112.5px;
-      color: #fff;
-      text-shadow: 0px 3px 5px #000; }
+          #main .right .content .mainView .box div span {
+            width: 45px;
+            height: 45px; }
+            #main .right .content .mainView .box div span.typed {
+              width: 33px;
+              height: 33px;
+              border: 6px solid #fff;
+              border-right-color: #808080;
+              border-bottom-color: #808080; }
+            #main .right .content .mainView .box div span.type1 {
+              background-color: #00f000; }
+            #main .right .content .mainView .box div span.type2 {
+              background-color: #d80000; }
+            #main .right .content .mainView .box div span.type3 {
+              background-color: #ed9e00; }
+            #main .right .content .mainView .box div span.type4 {
+              background-color: #0000f0; }
+            #main .right .content .mainView .box div span.type5 {
+              background-color: #00f0f0; }
+            #main .right .content .mainView .box div span.type6 {
+              background-color: #efef00; }
+            #main .right .content .mainView .box div span.type7 {
+              background-color: #a000f0; }
+            #main .right .content .mainView .box div span.level1 {
+              background-color: #00f000; }
+            #main .right .content .mainView .box div span.level2 {
+              background-color: #d80000; }
+            #main .right .content .mainView .box div span.level3 {
+              background-color: #ed9e00; }
+            #main .right .content .mainView .box div span.level4 {
+              background-color: #0000f0; }
+            #main .right .content .mainView .box div span.level5 {
+              background-color: #00f0f0; }
+            #main .right .content .mainView .box div span.level6 {
+              background-color: #efef00; }
+            #main .right .content .mainView .box div span.level7 {
+              background-color: #a000f0; }
+      #main .right .content .mainView .cellMask {
+        margin-left: -180px;
+        top: 315px;
+        width: 360px;
+        height: 225px;
+        font-size: 52px;
+        line-height: 112.5px;
+        color: #fff;
+        text-shadow: 0px 3px 5px #000; }
     #main .right .content .showView {
       width: 315px;
       height: 920px; }
@@ -230,6 +234,31 @@
         font-size: 36px;
         line-height: 81px;
         text-shadow: 2px 3px 4px #000;
-        box-shadow: 2px 3px 3px #000; } }
+        box-shadow: 2px 3px 3px #000; }
+    #main .right .content .mobileControl {
+      display: block; }
+      #main .right .content .mobileControl .mobile {
+        position: fixed;
+        width: 240px;
+        height: 120px;
+        border: 5px solid #123;
+        border-radius: 50%;
+        background-color: #567;
+        bottom: 20px;
+        text-align: center; }
+        #main .right .content .mobileControl .mobile i {
+          display: inline-block;
+          float: left;
+          font-size: 64px;
+          line-height: 120px;
+          color: #fff;
+          width: 120px;
+          height: 120px; }
+          #main .right .content .mobileControl .mobile i.hover {
+            color: #123; }
+      #main .right .content .mobileControl .leftControl {
+        left: 20px; }
+      #main .right .content .mobileControl .rightControl {
+        right: 20px; } }
 
 /*# sourceMappingURL=tetris.css.map */
