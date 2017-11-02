@@ -16,7 +16,8 @@
         <div class="image"></div>
       </div>
       <ul class="own">
-        <li class="choose"><a href="#">俄罗斯方块</a></li>
+        <li class="choose"><a href="#">五子棋</a></li>
+        <li><a href="tetris.html">俄罗斯方块</a></li>
         <li><a href="canvasClock.html">canvas钟表</a></li>
         <li><a href="retroSnaker.html">贪吃蛇</a></li>
         <li><a href="mineSweeper.html">扫雷</a></li>
@@ -36,8 +37,16 @@
     </div>
     <div class="right">
       <div class="quit"><a href="../"><i class="fa fa-arrow-left"></i></a></div>
-      <div class="desc">说明：使用方向键移动、旋转和摆放游戏自动输出的各种方块，使之排列成完整的一行或多行并且消除得分。</div>
+      <div class="desc">说明：双方分别使用黑白两色的棋子，下在棋盘直线与横线的交叉点上，先形成5子连线者获胜。</div>
       <div class="content">
+        <div class="mainView">
+          <canvas id="canvas"></canvas>
+        </div>
+        <div class="showView">
+          <div class="radio"><input type="radio" name="model" checked="true" value="PVE"><span>人机对战</span></div>
+          <div class="radio"><input type="radio" name="model" value="PVP"><span>双人对战</span></div>
+          <div class="star">START</div>
+        </div>
       </div>
     </div>
   </div>

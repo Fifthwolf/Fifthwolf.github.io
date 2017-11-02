@@ -1,3 +1,45 @@
-
+#main .right .content {
+  margin: 0 auto;
+  width: 760px; }
+  #main .right .content .mainView {
+    float: left;
+    width: 600px;
+    height: 600px;
+    border-radius: 10px 0 0 10px;
+    background-color: rgba(85, 102, 119, 0.5); }
+  #main .right .content .showView {
+    float: right;
+    width: 160px;
+    height: 600px;
+    border-radius: 0 10px 10px 0;
+    background-color: rgba(17, 34, 51, 0.5); }
+    #main .right .content .showView .radio {
+      position: relative;
+      margin: 20px 0 0 15px;
+      width: 120px;
+      height: 40px; }
+      #main .right .content .showView .radio input {
+        position: absolute;
+        margin: 5px;
+        width: 30px;
+        height: 30px;
+        line-height: 40px; }
+      #main .right .content .showView .radio span {
+        position: absolute;
+        margin-left: 40px;
+        font-size: 20px;
+        line-height: 40px; }
+    #main .right .content .showView .star {
+      text-align: center;
+      margin: 20px auto;
+      width: 100px;
+      height: 60px;
+      font-size: 24px;
+      color: #fff;
+      text-shadow: 2px 2px 2px #000;
+      line-height: 60px;
+      border-radius: 20px;
+      background-color: rgba(51, 68, 85, 0.85);
+      box-shadow: 2px 2px 2px #000; }
 
 /*# sourceMappingURL=gobang.css.map */
