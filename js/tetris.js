@@ -155,10 +155,10 @@ data.boxShift = [
   [3, 0, 1, 2], [3, 0, 1, 2], [3, 0, 0, 4], [3, 0, 0, 4], [4, 0, 1, 2], [2, 1, 0, 1], [3, 0, 1, 4]
 ];//length, shiftX, shiftY, rotateType
 
-addEvent(starButton, 'click', starGame);
+addEvent(starButton, 'click', startGame);
 addEvent(document, 'keydown', keydownEvent);
 
-function starGame () {
+function startGame () {
   if (data.start === false) { //游戏未开始
     if (data.pause === false) {
       cellMask.style.display = 'none';
