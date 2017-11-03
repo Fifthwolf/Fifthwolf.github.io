@@ -29,10 +29,10 @@
         margin-left: 35px;
         font-size: 20px;
         line-height: 35px; }
-    #main .right .content .showView .start {
+    #main .right .content .showView .button {
       text-align: center;
       margin: 20px auto;
-      width: 87.5px;
+      width: 112px;
       height: 52.5px;
       font-size: 24px;
       color: #fff;
@@ -40,6 +40,13 @@
       line-height: 52.5px;
       border-radius: 20px;
       background-color: rgba(51, 68, 85, 0.85);
-      box-shadow: 2px 2px 2px #000; }
+      box-shadow: 2px 2px 2px #000;
+      cursor: pointer; }
+    #main .right .content .showView .inGame {
+      margin: 20px auto;
+      padding-right: 3px;
+      width: 122.5px;
+      border: 1px solid #ccc;
+      border-radius: 10px; }
 
 /*# sourceMappingURL=gobang.css.map */
