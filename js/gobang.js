@@ -104,12 +104,12 @@ function playing (e) { //游戏开始后在棋盘落子
   var e = e || window.e;
   _clickPosition(e);
   if (_clickPosition(e) !== false) {
-    var x = _clickPosition(e).x;
-    var y = _clickPosition(e).y;
-    if (data.chess[x][y].type === false) {
-      data.chess[x][y].type = data.currentPlayer;
-      data.chess[x][y].step = data.currentStep;
-      _drawChess(x, y, data.currentPlayer);
+    var clickX = _clickPosition(e).clickX;
+    var clickY = _clickPosition(e).clickY;
+    if (data.chess[clickY][clickX].type === false) {
+      data.chess[clickY][clickX].type = data.currentPlayer;
+      data.chess[clickY][clickX].step = data.currentStep;
+      _drawChess(clickX, clickY, data.currentPlayer);
       data.currentPlayer = (data.currentPlayer + 1) % 2;
       data.currentStep++;
     }
@@ -124,8 +124,8 @@ function playing (e) { //游戏开始后在棋盘落子
     var x = _getMousePos(e).x - (clickX + 1) * 35;
     var y = _getMousePos(e).y - (clickY + 1) * 35;
     var deviation = x * x + y * y;
-    if (deviation < 225) {
-      return {'x': clickX, 'y': clickY};
+    if (deviation < 196) {
+      return {clickX, clickY};
     } else {
       return false;
     }
@@ -138,9 +138,41 @@ function playing (e) { //游戏开始后在棋盘落子
     }
   }
 
-  function _drawChess (x, y, type) {
-    
+  function _drawChess (clickX, clickY, type) {
+    var x = (clickX + 1) * 35;
+    var y = (clickY + 1) * 35;
+    var chessRadius = 14;
+    var cxt = chessBoard.getContext('2d');
+    cxt.beginPath();
+    var chessColor = cxt.createRadialGradient(x - chessRadius / 2, y + chessRadius / 2, chessRadius, x + chessRadius / 2, y - chessRadius / 2, chessRadius);
+    if (type === 0) {
+      chessColor.addColorStop(0, '#444');
+      chessColor.addColorStop(1, '#000');
+    } else {
+      chessColor.addColorStop(0, '#111');
+      chessColor.addColorStop(1, '#fff');
+    }
+    cxt.fillStyle = chessColor;
+    cxt.arc(x, y, chessRadius, 0, 2 * Math.PI);
+    cxt.fill();
+    if (type === 0) {
+      cxt.beginPath();
+      cxt.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      cxt.arc(x + 7, y - 4, chessRadius / 5, 0, 2 * Math.PI);
+      cxt.fill();
+    }
   }
+
+  //全局图
+  /*
+  for (var i = 0; i < 15; i++) {
+    var m = [];
+    for (var j = 0; j < 15; j++) {
+      m.push(data.chess[i][j].type);
+    }
+    console.log(m);
+  }
+  */
 }
 
 function amai () { //AI落子
