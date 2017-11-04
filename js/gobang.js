@@ -9,7 +9,9 @@ window.onload = function () {
 }
 
 var data = {
-  chess: []
+  chess: [],
+  currentPlayer: 0, // 默认黑子先手，0为当前黑执子，1为当前白执子
+  currentStep: 1
 }
 
 addEvent(startButton, 'click', startGame);
@@ -30,10 +32,12 @@ function resetData () { //data.chess数据重置
     data.chess[i] = new Array(15);
     for (var j = 0; j < 15; j++) {
       data.chess[i][j] = {};
-      data.chess[i][j].type = false;
+      data.chess[i][j].type = false; //false无子，0黑子，1白子
       data.chess[i][j].step = false;
     }
   }
+  data.currentPlayer = 0;
+  data.currentStep = 1;
 }
 
 function victory () { //判断胜利
@@ -98,16 +102,44 @@ function createFrame () { //创建canvas chessBoard棋盘
 
 function playing (e) { //游戏开始后在棋盘落子
   var e = e || window.e;
-  console.log(getMousePos(e).x);
-  console.log(getMousePos(e).y);
+  _clickPosition(e);
+  if (_clickPosition(e) !== false) {
+    var x = _clickPosition(e).x;
+    var y = _clickPosition(e).y;
+    if (data.chess[x][y].type === false) {
+      data.chess[x][y].type = data.currentPlayer;
+      data.chess[x][y].step = data.currentStep;
+      _drawChess(x, y, data.currentPlayer);
+      data.currentPlayer = (data.currentPlayer + 1) % 2;
+      data.currentStep++;
+    }
+  }
   //amai();
-  victory();
 
-  function getMousePos (e) {
-    var e = event || window.event;
-    var x = e.clientX - chessBoard.getBoundingClientRect().left;
-    var y = e.clientY - chessBoard.getBoundingClientRect().top;
-    return {'x': x,'y': y};
+  victory();
+  
+  function _clickPosition (e) {
+    var clickX = parseInt((_getMousePos(e).x + 17.5) / 35 - 1);
+    var clickY = parseInt((_getMousePos(e).y + 17.5) / 35 - 1);
+    var x = _getMousePos(e).x - (clickX + 1) * 35;
+    var y = _getMousePos(e).y - (clickY + 1) * 35;
+    var deviation = x * x + y * y;
+    if (deviation < 225) {
+      return {'x': clickX, 'y': clickY};
+    } else {
+      return false;
+    }
+
+    function _getMousePos (e) {
+      var e = event || window.event;
+      var x = e.clientX - chessBoard.getBoundingClientRect().left;
+      var y = e.clientY - chessBoard.getBoundingClientRect().top;
+      return {'x': x, 'y': y};
+    }
+  }
+
+  function _drawChess (x, y, type) {
+    
   }
 }
 
