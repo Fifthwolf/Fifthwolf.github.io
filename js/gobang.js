@@ -15,14 +15,13 @@ var data = {
 }
 
 addEvent(startButton, 'click', startGame);
-addEvent(chessBoard, 'click', playing);
 
 function startGame () {
   inGameDiv.style.display = 'block';
   startButton.style.display = 'none';
   createFrame();
   resetData();
-  // addEvent(chessBoard, 'click', playing);
+  addEvent(chessBoard, 'click', playing);
 }
 
 function resetData () { //data.chess数据重置
@@ -38,10 +37,6 @@ function resetData () { //data.chess数据重置
   }
   data.currentPlayer = 0;
   data.currentStep = 1;
-}
-
-function victory () { //判断胜利
-
 }
 
 function createFrame () { //创建canvas chessBoard棋盘
@@ -110,14 +105,17 @@ function playing (e) { //游戏开始后在棋盘落子
       data.chess[clickY][clickX].type = data.currentPlayer;
       data.chess[clickY][clickX].step = data.currentStep;
       _drawChess(clickX, clickY, data.currentPlayer);
+      if (judgeVictory(data.currentPlayer, clickY, clickX) !== false) {
+        playerWin(data.currentPlayer);
+        return;
+      }
       data.currentPlayer = (data.currentPlayer + 1) % 2;
       data.currentStep++;
     }
   }
+
   //amai();
 
-  victory();
-  
   function _clickPosition (e) {
     var clickX = parseInt((_getMousePos(e).x + 17.5) / 35 - 1);
     var clickY = parseInt((_getMousePos(e).y + 17.5) / 35 - 1);
@@ -173,6 +171,76 @@ function playing (e) { //游戏开始后在棋盘落子
     console.log(m);
   }
   */
+}
+
+function judgeVictory (type, row, col) { //判断胜利
+  //
+  var length = 4;
+  var limitLeft = Math.max(0, col - length),
+      limitRight = Math.min(14, col + length);
+      limitTop = Math.max(0, row - length),
+      limitBottom = Math.min(14, row + length);
+
+  // 横向判断
+  var continuity = 0;
+  for (var j = limitLeft; j <= limitRight; j++) {
+    data.chess[row][j].type === type ? continuity++ : continuity = 0;
+    if (continuity == 5) {
+      return type;
+    }
+  }
+
+  //纵向判断
+  continuity = 0;
+  for (var i = limitTop; i <= limitBottom; i++) {
+    data.chess[i][col].type === type ? continuity++ : continuity = 0;
+    if (continuity == 5) {
+      return type;
+    }
+  }
+
+  //正斜判断
+  continuity = 0;
+  for (var i = row - 4, j = col + 4, len = 0; len < 9; i++, j--, len++) {
+    if (i < 0 || j < 0 || i > 14 || j > 14) {
+      continue;
+    }
+    data.chess[i][j].type === type ? continuity++ : continuity = 0;
+    if (continuity == 5) {
+      return type;
+    }
+  }
+
+  //反斜判断
+  continuity = 0;
+  for (var i = row - 4, j = col - 4, len = 0; len < 9; i++, j++, len++) {
+    if (i < 0 || j < 0 || i > 14 || j > 14) {
+      continue;
+    }
+    data.chess[i][j].type === type ? continuity++ : continuity = 0;
+    if (continuity == 5) {
+      return type;
+    }
+  }
+
+  return false;
+}
+
+function playerWin (type) {
+  _drawWinText(type);
+
+  function _drawWinText (type) {
+    var text = type ? '白方胜利' : '黑方胜利';
+    var cxt = chessBoard.getContext('2d');
+    cxt.beginPath();
+    cxt.fillStyle = 'rgba(85, 102, 119, 0.75)';
+    cxt.fillRect(15, 15, 530, 530);
+    cxt.fillStyle = '#fff';
+    cxt.font = 'bold 80px Microsoft YaHei';
+    cxt.textAlign = 'center';
+    cxt.textBaseline = 'middle';
+    cxt.fillText(text, 280, 280);
+  }
 }
 
 function amai () { //AI落子
