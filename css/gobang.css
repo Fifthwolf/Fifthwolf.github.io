@@ -43,6 +43,7 @@
       box-shadow: 2px 2px 2px #000;
       cursor: pointer; }
     #main .right .content .showView .inGame {
+      display: none;
       margin: 20px auto;
       padding-right: 3px;
       width: 122.5px;

@@ -1,6 +1,7 @@
 var content = document.getElementsByClassName('content')[0];
 var chessBoard = document.getElementById('chessBoard');
 var startButton = document.getElementById('startButton');
+var inGameDiv = document.getElementById('inGame');
 
 window.onload = function () {
   delayedLoadingPublicPictures ('../');
@@ -12,15 +13,27 @@ var data = {
 }
 
 addEvent(startButton, 'click', startGame);
+addEvent(chessBoard, 'click', playing);
 
 function startGame () {
+  inGameDiv.style.display = 'block';
+  startButton.style.display = 'none';
   createFrame();
   resetData();
-  addEvent(startButton, 'click', playing);
+  // addEvent(chessBoard, 'click', playing);
 }
 
 function resetData () { //data.chess数据重置
-
+  data.chess = [];
+  data.chess = new Array(15);
+  for (var i = 0; i < 15; i++) {
+    data.chess[i] = new Array(15);
+    for (var j = 0; j < 15; j++) {
+      data.chess[i][j] = {};
+      data.chess[i][j].type = false;
+      data.chess[i][j].step = false;
+    }
+  }
 }
 
 function victory () { //判断胜利
@@ -83,10 +96,19 @@ function createFrame () { //创建canvas chessBoard棋盘
   }
 }
 
-function playing () { //游戏开始后在棋盘落子
-  //...
+function playing (e) { //游戏开始后在棋盘落子
+  var e = e || window.e;
+  console.log(getMousePos(e).x);
+  console.log(getMousePos(e).y);
   //amai();
   victory();
+
+  function getMousePos (e) {
+    var e = event || window.event;
+    var x = e.clientX - chessBoard.getBoundingClientRect().left;
+    var y = e.clientY - chessBoard.getBoundingClientRect().top;
+    return {'x': x,'y': y};
+  }
 }
 
 function amai () { //AI落子
