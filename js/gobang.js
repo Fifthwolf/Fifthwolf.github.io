@@ -2,6 +2,9 @@ var content = document.getElementsByClassName('content')[0];
 var chessBoard = document.getElementById('chessBoard');
 var startButton = document.getElementById('startButton');
 var inGameDiv = document.getElementById('inGame');
+var falseMove = inGameDiv.getElementsByClassName('falseMove')[0];
+var surrender = inGameDiv.getElementsByClassName('surrender')[0];
+var history = inGameDiv.getElementsByClassName('history')[0];
 
 window.onload = function () {
   delayedLoadingPublicPictures ('../');
@@ -22,6 +25,9 @@ function startGame () {
   createFrame();
   resetData();
   addEvent(chessBoard, 'click', playing);
+  addEvent(surrender, 'click', function () {
+    playerWin(data.currentPlayer, false);
+  });
 }
 
 function resetData () { //data.chess数据重置
@@ -106,7 +112,7 @@ function playing (e) { //游戏开始后在棋盘落子
       data.chess[clickY][clickX].step = data.currentStep;
       _drawChess(clickX, clickY, data.currentPlayer);
       if (judgeVictory(data.currentPlayer, clickY, clickX) !== false) {
-        playerWin(data.currentPlayer);
+        playerWin(data.currentPlayer, true);
         return;
       }
       data.currentPlayer = (data.currentPlayer + 1) % 2;
@@ -226,11 +232,20 @@ function judgeVictory (type, row, col) { //判断胜利
   return false;
 }
 
-function playerWin (type) {
-  _drawWinText(type);
+function playerWin (player, type) {
+  removeEvent(chessBoard, 'click', playing);
+  inGameDiv.style.display = 'none';
+  startButton.innerHTML = '再来一局';
+  startButton.style.display = 'block';
+  _drawWinText(player, type);
 
-  function _drawWinText (type) {
-    var text = type ? '白方胜利' : '黑方胜利';
+  function _drawWinText (player, type) {
+    var text;
+    if (type) {
+      text = player ? '白方胜利' : '黑方胜利';
+    } else {
+      text = player ? '白方认输' : '黑方认输';
+    }
     var cxt = chessBoard.getContext('2d');
     cxt.beginPath();
     cxt.fillStyle = 'rgba(85, 102, 119, 0.75)';
@@ -242,6 +257,8 @@ function playerWin (type) {
     cxt.fillText(text, 280, 280);
   }
 }
+
+
 
 function amai () { //AI落子
 
