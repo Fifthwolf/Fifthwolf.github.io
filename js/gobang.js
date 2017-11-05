@@ -2,6 +2,7 @@ var content = document.getElementsByClassName('content')[0];
 var chessBoard = document.getElementById('chessBoard');
 var startButton = document.getElementById('startButton');
 var inGameDiv = document.getElementById('inGame');
+var currentColor = inGameDiv.getElementsByTagName('span')[0];
 var falseMove = inGameDiv.getElementsByClassName('falseMove')[0];
 var surrender = inGameDiv.getElementsByClassName('surrender')[0];
 var history = inGameDiv.getElementsByClassName('history')[0];
@@ -13,8 +14,10 @@ window.onload = function () {
 
 var data = {
   chess: [],
+  chessStep: [],
   currentPlayer: 0, // 默认黑子先手，0为当前黑执子，1为当前白执子
-  currentStep: 1
+  currentStep: 0,
+  amai: false,
 }
 
 addEvent(startButton, 'click', startGame);
@@ -25,6 +28,7 @@ function startGame () {
   createFrame();
   resetData();
   addEvent(chessBoard, 'click', playing);
+  addEvent(falseMove, 'click', revoke);
   addEvent(surrender, 'click', function () {
     playerWin(data.currentPlayer, false);
   });
@@ -36,13 +40,12 @@ function resetData () { //data.chess数据重置
   for (var i = 0; i < 15; i++) {
     data.chess[i] = new Array(15);
     for (var j = 0; j < 15; j++) {
-      data.chess[i][j] = {};
-      data.chess[i][j].type = false; //false无子，0黑子，1白子
-      data.chess[i][j].step = false;
+      data.chess[i][j] = false; //false无子，0黑子，1白子
     }
   }
   data.currentPlayer = 0;
-  data.currentStep = 1;
+  data.currentStep = 0;
+  currentColor.innerHTML = data.currentPlayer === 0 ? '黑' : '白';
 }
 
 function createFrame () { //创建canvas chessBoard棋盘
@@ -103,21 +106,10 @@ function createFrame () { //创建canvas chessBoard棋盘
 
 function playing (e) { //游戏开始后在棋盘落子
   var e = e || window.e;
-  _clickPosition(e);
   if (_clickPosition(e) !== false) {
     var clickX = _clickPosition(e).clickX;
     var clickY = _clickPosition(e).clickY;
-    if (data.chess[clickY][clickX].type === false) {
-      data.chess[clickY][clickX].type = data.currentPlayer;
-      data.chess[clickY][clickX].step = data.currentStep;
-      _drawChess(clickX, clickY, data.currentPlayer);
-      if (judgeVictory(data.currentPlayer, clickY, clickX) !== false) {
-        playerWin(data.currentPlayer, true);
-        return;
-      }
-      data.currentPlayer = (data.currentPlayer + 1) % 2;
-      data.currentStep++;
-    }
+    playChess(clickX, clickY);
   }
 
   //amai();
@@ -142,45 +134,86 @@ function playing (e) { //游戏开始后在棋盘落子
     }
   }
 
-  function _drawChess (clickX, clickY, type) {
-    var x = (clickX + 1) * 35;
-    var y = (clickY + 1) * 35;
-    var chessRadius = 14;
-    var cxt = chessBoard.getContext('2d');
-    cxt.beginPath();
-    var chessColor = cxt.createRadialGradient(x - chessRadius / 2, y + chessRadius / 2, chessRadius, x + chessRadius / 2, y - chessRadius / 2, chessRadius);
-    if (type === 0) {
-      chessColor.addColorStop(0, '#444');
-      chessColor.addColorStop(1, '#000');
-    } else {
-      chessColor.addColorStop(0, '#111');
-      chessColor.addColorStop(1, '#fff');
-    }
-    cxt.fillStyle = chessColor;
-    cxt.arc(x, y, chessRadius, 0, 2 * Math.PI);
-    cxt.fill();
-    if (type === 0) {
-      cxt.beginPath();
-      cxt.fillStyle = 'rgba(255, 255, 255, 0.8)';
-      cxt.arc(x + 7, y - 4, chessRadius / 5, 0, 2 * Math.PI);
-      cxt.fill();
-    }
-  }
-
   //全局图
   /*
   for (var i = 0; i < 15; i++) {
     var m = [];
     for (var j = 0; j < 15; j++) {
-      m.push(data.chess[i][j].type);
+      m.push(data.chess[i][j]);
     }
     console.log(m);
   }
   */
 }
 
+function playChess (clickX, clickY) {
+  if (data.chess[clickY][clickX] === false) {
+    data.chess[clickY][clickX] = data.currentPlayer;
+    data.chessStep[data.currentStep] = [clickY, clickX];
+    drawChess(clickX, clickY, data.currentPlayer);
+    if (judgeVictory(data.currentPlayer, clickY, clickX) !== false) {
+      playerWin(data.currentPlayer, true);
+      return;
+    }
+    data.currentPlayer = (data.currentPlayer + 1) % 2;
+    data.currentStep++;
+    data.currentStep >= 2 ? falseMove.removeClass('disabled') : falseMove.addClass('disabled');
+    currentColor.innerHTML = data.currentPlayer === 0 ? '黑' : '白';  
+  }
+}
+
+function revoke () {
+  var cxt = chessBoard.getContext('2d');
+  var len = Math.min(2, data.currentStep);
+  if (len < 2) {
+    return false;
+  } else
+  while(len--) {
+    _resetChess(data.chessStep[data.currentStep - 1][0], data.chessStep[data.currentStep - 1][1]);
+  }
+  createFrame();
+  for (var i = 0; i < 15; i++) {
+    for (var j = 0; j < 15; j++) {
+      if (data.chess[i][j] !== false) {
+        drawChess(j, i, data.chess[i][j]);
+      }
+    }
+  }
+  data.currentStep >= 2 ? falseMove.removeClass('disabled') : falseMove.addClass('disabled');
+
+  function _resetChess (i, j) {
+    data.chess[i][j] = false;
+    data.currentStep--;
+    data.chessStep.length = data.currentStep;
+  }
+}
+
+function drawChess (clickX, clickY, type) {
+  var x = (clickX + 1) * 35;
+  var y = (clickY + 1) * 35;
+  var chessRadius = 14;
+  var cxt = chessBoard.getContext('2d');
+  cxt.beginPath();
+  var chessColor = cxt.createRadialGradient(x - chessRadius / 2, y + chessRadius / 2, chessRadius, x + chessRadius / 2, y - chessRadius / 2, chessRadius);
+  if (type === 0) {
+    chessColor.addColorStop(0, '#444');
+    chessColor.addColorStop(1, '#000');
+  } else {
+    chessColor.addColorStop(0, '#111');
+    chessColor.addColorStop(1, '#fff');
+  }
+  cxt.fillStyle = chessColor;
+  cxt.arc(x, y, chessRadius, 0, 2 * Math.PI);
+  cxt.fill();
+  if (type === 0) {
+    cxt.beginPath();
+    cxt.fillStyle = 'rgba(255, 255, 255, 0.8)';
+    cxt.arc(x + 7, y - 4, chessRadius / 5, 0, 2 * Math.PI);
+    cxt.fill();
+  }
+}
+
 function judgeVictory (type, row, col) { //判断胜利
-  //
   var length = 4;
   var limitLeft = Math.max(0, col - length),
       limitRight = Math.min(14, col + length);
@@ -190,7 +223,7 @@ function judgeVictory (type, row, col) { //判断胜利
   // 横向判断
   var continuity = 0;
   for (var j = limitLeft; j <= limitRight; j++) {
-    data.chess[row][j].type === type ? continuity++ : continuity = 0;
+    data.chess[row][j] === type ? continuity++ : continuity = 0;
     if (continuity == 5) {
       return type;
     }
@@ -199,7 +232,7 @@ function judgeVictory (type, row, col) { //判断胜利
   //纵向判断
   continuity = 0;
   for (var i = limitTop; i <= limitBottom; i++) {
-    data.chess[i][col].type === type ? continuity++ : continuity = 0;
+    data.chess[i][col] === type ? continuity++ : continuity = 0;
     if (continuity == 5) {
       return type;
     }
@@ -211,7 +244,7 @@ function judgeVictory (type, row, col) { //判断胜利
     if (i < 0 || j < 0 || i > 14 || j > 14) {
       continue;
     }
-    data.chess[i][j].type === type ? continuity++ : continuity = 0;
+    data.chess[i][j] === type ? continuity++ : continuity = 0;
     if (continuity == 5) {
       return type;
     }
@@ -223,7 +256,7 @@ function judgeVictory (type, row, col) { //判断胜利
     if (i < 0 || j < 0 || i > 14 || j > 14) {
       continue;
     }
-    data.chess[i][j].type === type ? continuity++ : continuity = 0;
+    data.chess[i][j] === type ? continuity++ : continuity = 0;
     if (continuity == 5) {
       return type;
     }
@@ -257,8 +290,6 @@ function playerWin (player, type) {
     cxt.fillText(text, 280, 280);
   }
 }
-
-
 
 function amai () { //AI落子
 
