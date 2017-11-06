@@ -46,6 +46,7 @@ function resetData () { //data.chess数据重置
   data.currentPlayer = 0;
   data.currentStep = 0;
   currentColor.innerHTML = data.currentPlayer === 0 ? '黑' : '白';
+  falseMove.addClass('disabled');
 }
 
 function createFrame () { //创建canvas chessBoard棋盘
