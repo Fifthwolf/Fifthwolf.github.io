@@ -118,11 +118,8 @@ function playing (e) { //游戏开始后在棋盘落子
   if (_clickPosition(e) !== false) {
     var clickX = _clickPosition(e).clickX;
     var clickY = _clickPosition(e).clickY;
-    if (data.chess[clickY][clickX] === false) {
-      playChess(clickX, clickY);
-      if (data.amai === true) {
-        amai();
-      }
+    if (playChess(clickX, clickY) && data.amai === true) {
+      amai();
     } 
   }
 
@@ -145,32 +142,24 @@ function playing (e) { //游戏开始后在棋盘落子
       return {'x': x, 'y': y};
     }
   }
-
-  //全局图
-  /*
-  for (var i = 0; i < 15; i++) {
-    var m = [];
-    for (var j = 0; j < 15; j++) {
-      m.push(data.chess[i][j]);
-    }
-    console.log(m);
-  }
-  */
 }
 
 function playChess (clickX, clickY) {
-  data.chess[clickY][clickX] = data.currentPlayer;
-  data.chessStep[data.currentStep] = [clickY, clickX];
-  drawChess(clickX, clickY, data.currentPlayer);
-  if (judgeVictory(data.currentPlayer, clickY, clickX) !== false) {
-    playerWin(data.currentPlayer, true);
-    data.amai = false;
-    return;
+  if (data.chess[clickY][clickX] === false) {
+    data.chess[clickY][clickX] = data.currentPlayer;
+    data.chessStep[data.currentStep] = [clickY, clickX];
+    drawChess(clickX, clickY, data.currentPlayer);
+    if (judgeVictory(data.currentPlayer, clickY, clickX) !== false) {
+      playerWin(data.currentPlayer, true);
+      return false;
+    }
+    data.currentPlayer = (data.currentPlayer + 1) % 2;
+    data.currentStep++;
+    data.currentStep >= 2 ? falseMove.removeClass('disabled') : falseMove.addClass('disabled');
+    currentColor.innerHTML = data.currentPlayer === 0 ? '黑' : '白';
+    return true;
   }
-  data.currentPlayer = (data.currentPlayer + 1) % 2;
-  data.currentStep++;
-  data.currentStep >= 2 ? falseMove.removeClass('disabled') : falseMove.addClass('disabled');
-  currentColor.innerHTML = data.currentPlayer === 0 ? '黑' : '白';  
+  return false;
 }
 
 function revoke () {
@@ -329,7 +318,73 @@ function playerWin (player, type) {
 }
 
 function amai () { //AI落子
-  var x = parseInt(Math.random()*14);
-  var y = parseInt(Math.random()*14);
-  playChess(x, y);
+  var AIchess = new Array(15);
+  for (var i = 0; i < 15; i++) {
+    AIchess[i] = new Array(15);
+    for (var j = 0; j < 15; j++) {
+      AIchess[i][j] = 0;
+      if (data.chess[i][j] !== false) {
+        continue;
+      }
+      _AIScore(i, j, data.currentPlayer);
+    }
+  }
+
+  var tempPosition, scoreMax = 0;
+  outer:for (var i = 0; i < 15; i++) { //初始化tempPosition位置
+    for (var j = 0; j < 15; j++) {
+      if (data.chess[i][j] === false) {
+        tempPosition = [i, j];
+        break outer;
+      }
+    }
+  }
+
+  for (var i = 0; i < 15; i++) {
+    for (var j = 0; j < 15; j++) {
+      if (data.chess[i][j] !== false) {
+        continue;
+      }
+      if (AIchess[i][j] > scoreMax) {
+        scoreMax = AIchess[i][j];
+        tempPosition = [i, j];
+      }
+    }
+  }
+  playChess(tempPosition[1], tempPosition[0]);
+  
+  function _AIScore (i, j, type) { //判断得分
+    data.chess[i][j] = type;
+
+    if (judgeVictory(type, i, j) !== false) { //落子即胜利
+      AIchess[i][j] += 100000;
+    }
+
+    var length = 4;
+    var limitLeft = Math.max(0, j - length),
+        limitRight = Math.min(14, j + length);
+        limitTop = Math.max(0, i - length),
+        limitBottom = Math.min(14, i + length);
+
+    data.chess[i][j] = false;
+  }
 }
+
+/*
+data.currentPlayer = 1;
+playChess(0,0);
+data.currentPlayer = 1;
+playChess(1,1);
+data.currentPlayer = 1;
+playChess(2,2);
+data.currentPlayer = 1;
+playChess(3,3);
+
+for (var i = 0; i < 15; i++) {
+  var m = [];
+  for (var j = 0; j < 15; j++) {
+    m.push(data.chess[i][j]);
+  }
+  console.log(m);
+}
+*/
