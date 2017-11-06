@@ -1,5 +1,7 @@
 var content = document.getElementsByClassName('content')[0];
 var chessBoard = document.getElementById('chessBoard');
+var PVE = document.getElementById('PVE');
+var PVP = document.getElementById('PVP');
 var startButton = document.getElementById('startButton');
 var inGameDiv = document.getElementById('inGame');
 var currentColor = inGameDiv.getElementsByTagName('span')[0];
@@ -23,8 +25,6 @@ var data = {
 addEvent(startButton, 'click', startGame);
 
 function startGame () {
-  inGameDiv.style.display = 'block';
-  startButton.style.display = 'none';
   createFrame();
   resetData();
   addEvent(chessBoard, 'click', playing);
@@ -45,6 +45,11 @@ function resetData () { //data.chess数据重置
   }
   data.currentPlayer = 0;
   data.currentStep = 0;
+  PVE.checked ? data.amai = true : data.amai = false;
+  PVE.setAttribute('disabled', true);
+  PVP.setAttribute('disabled', true);
+  inGameDiv.style.display = 'block';
+  startButton.style.display = 'none';
   currentColor.innerHTML = data.currentPlayer === 0 ? '黑' : '白';
   falseMove.addClass('disabled');
 }
@@ -113,7 +118,9 @@ function playing (e) { //游戏开始后在棋盘落子
     playChess(clickX, clickY);
   }
 
-  //amai();
+  if (data.amai === true) {
+    amai();
+  }
 
   function _clickPosition (e) {
     var clickX = parseInt((_getMousePos(e).x + 17.5) / 35 - 1);
@@ -271,6 +278,8 @@ function playerWin (player, type) {
   inGameDiv.style.display = 'none';
   startButton.innerHTML = '再来一局';
   startButton.style.display = 'block';
+  PVE.removeAttribute('disabled');
+  PVP.removeAttribute('disabled');
   _drawWinText(player, type);
 
   function _drawWinText (player, type) {
@@ -293,5 +302,7 @@ function playerWin (player, type) {
 }
 
 function amai () { //AI落子
-
+  var x = parseInt(Math.random()*14);
+  var y = parseInt(Math.random()*14);
+  playChess(x, y);
 }

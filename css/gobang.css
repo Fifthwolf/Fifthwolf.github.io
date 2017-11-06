@@ -55,8 +55,8 @@
         font-size: 16px;
         color: #fff; }
       #main .right .content .showView .inGame .disabled {
-        color: #999991;
-        text-shadow: 0px 0px 0px #000;
-        background-color: rgba(225, 223, 228, 0.85); }
+        color: #ccc;
+        text-shadow: 1px 1px 0px rgba(204, 204, 204, 0.5);
+        background-color: rgba(160, 170, 180, 0.85); }
 
 /*# sourceMappingURL=gobang.css.map */
