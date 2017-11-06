@@ -3,11 +3,12 @@ var chessBoard = document.getElementById('chessBoard');
 var PVE = document.getElementById('PVE');
 var PVP = document.getElementById('PVP');
 var startButton = document.getElementById('startButton');
+var historyDiv = document.getElementById('showHistory');
 var inGameDiv = document.getElementById('inGame');
 var currentColor = inGameDiv.getElementsByTagName('span')[0];
 var falseMove = inGameDiv.getElementsByClassName('falseMove')[0];
 var surrender = inGameDiv.getElementsByClassName('surrender')[0];
-var history = inGameDiv.getElementsByClassName('history')[0];
+
 
 window.onload = function () {
   delayedLoadingPublicPictures ('../');
@@ -32,6 +33,7 @@ function startGame () {
   addEvent(surrender, 'click', function () {
     playerWin(data.currentPlayer, false);
   });
+  addEvent(historyDiv, 'click', showHistory);
 }
 
 function resetData () { //data.chess数据重置
@@ -50,6 +52,7 @@ function resetData () { //data.chess数据重置
   PVP.setAttribute('disabled', true);
   inGameDiv.style.display = 'block';
   startButton.style.display = 'none';
+  historyDiv.style.display = 'none';
   currentColor.innerHTML = data.currentPlayer === 0 ? '黑' : '白';
   falseMove.addClass('disabled');
 }
@@ -115,11 +118,12 @@ function playing (e) { //游戏开始后在棋盘落子
   if (_clickPosition(e) !== false) {
     var clickX = _clickPosition(e).clickX;
     var clickY = _clickPosition(e).clickY;
-    playChess(clickX, clickY);
-  }
-
-  if (data.amai === true) {
-    amai();
+    if (data.chess[clickY][clickX] === false) {
+      playChess(clickX, clickY);
+      if (data.amai === true) {
+        amai();
+      }
+    } 
   }
 
   function _clickPosition (e) {
@@ -155,23 +159,21 @@ function playing (e) { //游戏开始后在棋盘落子
 }
 
 function playChess (clickX, clickY) {
-  if (data.chess[clickY][clickX] === false) {
-    data.chess[clickY][clickX] = data.currentPlayer;
-    data.chessStep[data.currentStep] = [clickY, clickX];
-    drawChess(clickX, clickY, data.currentPlayer);
-    if (judgeVictory(data.currentPlayer, clickY, clickX) !== false) {
-      playerWin(data.currentPlayer, true);
-      return;
-    }
-    data.currentPlayer = (data.currentPlayer + 1) % 2;
-    data.currentStep++;
-    data.currentStep >= 2 ? falseMove.removeClass('disabled') : falseMove.addClass('disabled');
-    currentColor.innerHTML = data.currentPlayer === 0 ? '黑' : '白';  
+  data.chess[clickY][clickX] = data.currentPlayer;
+  data.chessStep[data.currentStep] = [clickY, clickX];
+  drawChess(clickX, clickY, data.currentPlayer);
+  if (judgeVictory(data.currentPlayer, clickY, clickX) !== false) {
+    playerWin(data.currentPlayer, true);
+    data.amai = false;
+    return;
   }
+  data.currentPlayer = (data.currentPlayer + 1) % 2;
+  data.currentStep++;
+  data.currentStep >= 2 ? falseMove.removeClass('disabled') : falseMove.addClass('disabled');
+  currentColor.innerHTML = data.currentPlayer === 0 ? '黑' : '白';  
 }
 
 function revoke () {
-  var cxt = chessBoard.getContext('2d');
   var len = Math.min(2, data.currentStep);
   if (len < 2) {
     return false;
@@ -193,6 +195,30 @@ function revoke () {
     data.chess[i][j] = false;
     data.currentStep--;
     data.chessStep.length = data.currentStep;
+  }
+}
+
+function showHistory () {
+  removeEvent(historyDiv, 'click', showHistory);
+  createFrame();
+  var x, y;
+  for (var i = 0, len = data.chessStep.length; i < len; i++) {
+    x = data.chessStep[i][0];
+    y = data.chessStep[i][1];
+    drawChess(y, x, data.chess[x][y]);
+    _drawNumber(y, x, data.chess[x][y], i);
+  }
+
+  function _drawNumber (clickX, clickY, type, number) {
+    var x = (clickX + 1) * 35;
+    var y = (clickY + 1) * 35;
+    var cxt = chessBoard.getContext('2d');
+    cxt.beginPath();
+    type === 0 ? cxt.fillStyle = '#fff' : cxt.fillStyle = '#000';
+    cxt.font = 'bold 14px Microsoft YaHei';
+    cxt.textAlign = 'center';
+    cxt.textBaseline = 'middle';
+    cxt.fillText(number + 1, x, y);
   }
 }
 
@@ -278,6 +304,7 @@ function playerWin (player, type) {
   inGameDiv.style.display = 'none';
   startButton.innerHTML = '再来一局';
   startButton.style.display = 'block';
+  historyDiv.style.display = 'block';
   PVE.removeAttribute('disabled');
   PVP.removeAttribute('disabled');
   _drawWinText(player, type);
