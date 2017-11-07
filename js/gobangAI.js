@@ -70,17 +70,17 @@ function amai (chess, currentPlayer) { //AI落子
     if (wePosition.length === 1) {
       tempPosition = wePosition[0];
     } else {
-      tempPosition = maxPosition(wePosition, AIchess.other);
+      tempPosition = _maxPosition(wePosition, AIchess.other);
     }
   } else {
     if (otherPosition.length === 1) {
       tempPosition = otherPosition[0];
     } else {
-      tempPosition = maxPosition(otherPosition, AIchess.we);
+      tempPosition = _maxPosition(otherPosition, AIchess.we);
     }
   }
 
-  function maxPosition (currentPosition, compareChess) {
+  function _maxPosition (currentPosition, compareChess) {
     var position, maxScore = 0;
     for (var i = 0; i < currentPosition.length; i++) {
       if (compareChess[currentPosition[i][0]][currentPosition[i][1]] > maxScore) {
@@ -185,9 +185,11 @@ function amai (chess, currentPlayer) { //AI落子
   for (var j = limitLeft; j <= limitRight; j++) {
     chess[row][j] === type ? continuity++ : continuity = 0;
     if (continuity == continuityChess) {
-      if (chess[row][j + 1] === false && chess[row][j - 4] === false) {
-        return 10000; //活4
-      } else if (chess[row][j + 1] === false || chess[row][j - 4] === false) {
+      if (j + 1 <= 14  && j - 4 >= 0) {
+        if (chess[row][j + 1] === false && chess[row][j - 4] === false) {
+          return 10000; //活4
+        }
+      } else if (j + 1 <= 14 && chess[row][j + 1] === false || j - 4 >= 0 && chess[row][j - 4] === false) {
         death4++; //死4
       }
     }
@@ -198,9 +200,11 @@ function amai (chess, currentPlayer) { //AI落子
   for (var i = limitTop; i <= limitBottom; i++) {
     chess[i][col] === type ? continuity++ : continuity = 0;
     if (continuity == continuityChess) {
-      if (chess[row + 1][j] === false && chess[row - 4][j] === false) {
-        return 10000; //活4
-      } else if (chess[row + 1][j] === false || chess[row - 4][j] === false) {
+      if (row + 1 <= 14 && row - 4 >= 0) {
+        if (chess[row + 1][j] === false && chess[row - 4][j] === false) {
+          return 10000; //活4
+        }
+      } else if (row + 1 <= 14 && chess[row + 1][j] === false || row - 4 >= 0 && chess[row - 4][j] === false) {
         death4++; //死4
       }
     }
@@ -214,9 +218,12 @@ function amai (chess, currentPlayer) { //AI落子
     }
     chess[i][j] === type ? continuity++ : continuity = 0;
     if (continuity == continuityChess) {
-      if (chess[row + 1][j - 1] === false && chess[row - 4][j + 4] === false) {
-        return 10000; //活4
-      } else if (chess[row + 1][j - 1] === false || chess[row - 4][j + 4] === false) {
+      if (row + 1 <= 14 && j - 1 >= 0 && row - 4 >= 0 && j + 4 <= 14) {
+        if (chess[row + 1][j - 1] === false && chess[row - 4][j + 4] === false) {
+          return 10000; //活4
+        }
+      } else if (row + 1 <= 14 && j - 1 >= 0 && chess[row + 1][j - 1] === false ||
+        row - 4 >= 0 && j + 4 <= 14 && chess[row - 4][j + 4] === false) {
         death4++; //死4
       }
     }
@@ -230,9 +237,12 @@ function amai (chess, currentPlayer) { //AI落子
     }
     chess[i][j] === type ? continuity++ : continuity = 0;
     if (continuity == continuityChess) {
-      if (chess[row + 1][j + 1] === false && chess[row - 4][j - 4] === false) {
-        return 10000; //活4
-      } else if (chess[row + 1][j + 1] === false || chess[row - 4][j - 4] === false) {
+      if (row + 1 <= 14 && j + 1 <= 14 && row - 4 >= 0 && j - 4 >= 0) {
+        if (chess[row + 1][j + 1] === false && chess[row - 4][j - 4] === false) {
+          return 10000; //活4
+        }
+      } else if (row + 1 <= 14 && j + 1 <= 14 && chess[row + 1][j + 1] === false ||
+        row - 4 >= 0 && j - 4 >= 0 && chess[row - 4][j - 4] === false) {
         death4++; //死4
       }
     }
