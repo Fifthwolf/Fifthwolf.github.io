@@ -25,7 +25,7 @@ function amai (chess, currentPlayer) { //AI落子
     }
   }
 
-  var tempPosition, scoreMax = 0;
+  var wePosition, otherPosition, tempPosition, weScoreMax = 0, otherScoreMax = 0;
   outer:for (var i = 0; i < 15; i++) { //初始化tempPosition位置
     for (var j = 0; j < 15; j++) {
       if (chess[i][j] === false) {
@@ -40,11 +40,44 @@ function amai (chess, currentPlayer) { //AI落子
       if (chess[i][j] !== false) {
         continue;
       }
-      if (AIchess.we[i][j] > scoreMax) {
-        scoreMax = AIchess.we[i][j];
-        tempPosition = [i, j];
+      if (AIchess.we[i][j] > weScoreMax) {
+        weScoreMax = AIchess.we[i][j];
+        wePosition = [[i, j]];
+      } else if (AIchess.we[i][j] === weScoreMax) {
+        wePosition.push([i, j]);
+      }
+      if (AIchess.other[i][j] > otherScoreMax) {
+        otherScoreMax = AIchess.other[i][j];
+        otherPosition = [[i, j]];
+      } else if (AIchess.other[i][j] === otherScoreMax) {
+        otherPosition.push([i, j]);
       }
     }
+  }
+
+  if (weScoreMax >= otherScoreMax) {
+    if (wePosition.length === 1) {
+      tempPosition = wePosition[0];
+    } else {
+      tempPosition = maxPosition(wePosition, AIchess.other);
+    }
+  } else {
+    if (otherPosition.length === 1) {
+      tempPosition = otherPosition[0];
+    } else {
+      tempPosition = maxPosition(otherPosition, AIchess.we);
+    }
+  }
+
+  function maxPosition (currentPosition, compareChess) {
+    var position, maxScore = 0;
+    for (var i = 0; i < currentPosition.length; i++) {
+      if (compareChess[currentPosition[i][0]][currentPosition[i][1]] > maxScore) {
+        maxScore = compareChess[currentPosition[i][0]][currentPosition[i][1]];
+        position = [currentPosition[i][0], currentPosition[i][1]];
+      }
+    }
+    return position;
   }
 
   //输出得分表
