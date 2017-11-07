@@ -1,3 +1,5 @@
+
+
 var content = document.getElementsByClassName('content')[0];
 var chessBoard = document.getElementById('chessBoard');
 var PVE = document.getElementById('PVE');
@@ -119,7 +121,7 @@ function playing (e) { //游戏开始后在棋盘落子
     var clickX = _clickPosition(e).clickX;
     var clickY = _clickPosition(e).clickY;
     if (playChess(clickX, clickY) && data.amai === true) {
-      amai();
+      amai(data.chess, data.currentPlayer);
     } 
   }
 
@@ -317,6 +319,7 @@ function playerWin (player, type) {
   }
 }
 
+/*
 function amai () { //AI落子
   var AIchess = {
     we: [],
@@ -326,7 +329,7 @@ function amai () { //AI落子
   AIchess.we = new Array(15);
   AIchess.other = new Array(15);
 
-  /* 逐格打分 */
+  /* 逐格打分 */ /*
   for (var i = 0; i < 15; i++) {
     AIchess.we[i] = new Array(15);
     AIchess.other[i] = new Array(15);
@@ -351,7 +354,7 @@ function amai () { //AI落子
     }
   }
   */
-
+/*
   var tempPosition, scoreMax = 0;
   var i = 7, j = 7, direction = 0, limit = 1;
   outer:while (true) {
@@ -475,6 +478,7 @@ function amai () { //AI落子
     return false;
   }
 }
+*/
 
 /*
 data.currentPlayer = 1;
