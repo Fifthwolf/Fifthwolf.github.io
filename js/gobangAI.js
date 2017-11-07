@@ -21,11 +21,13 @@ function amai (chess, currentPlayer) { //AI落子
       if (chess[i][j] !== false) {
         continue;
       }
-      _AIScore(i, j, currentPlayer);
+      _AIScore(i, j, currentPlayer, AIchess.we);
+      _AIScore(i, j, (currentPlayer + 1) % 2, AIchess.other);
     }
   }
+  /* 逐格打分 */
 
-  var wePosition, otherPosition, tempPosition, weScoreMax = 0, otherScoreMax = 0;
+  var tempPosition;
   outer:for (var i = 0; i < 15; i++) { //初始化tempPosition位置
     for (var j = 0; j < 15; j++) {
       if (chess[i][j] === false) {
@@ -35,6 +37,7 @@ function amai (chess, currentPlayer) { //AI落子
     }
   }
 
+  var wePosition, otherPosition, weScoreMax = 0, otherScoreMax = 0;
   for (var i = 0; i < 15; i++) {
     for (var j = 0; j < 15; j++) {
       if (chess[i][j] !== false) {
@@ -81,6 +84,7 @@ function amai (chess, currentPlayer) { //AI落子
   }
 
   //输出得分表
+  /*
   for (var i = 0; i < 15; i++) {
     var m = [];
     for (var j = 0; j < 15; j++) {
@@ -88,16 +92,17 @@ function amai (chess, currentPlayer) { //AI落子
     }
     console.log(m);
   }
+  */
 
   playChess(tempPosition[1], tempPosition[0]);
   
-  function _AIScore (i, j, type) { //判断得分
+  function _AIScore (i, j, type, AIchess) { //判断得分
     chess[i][j] = type;
 
     if (judgeContinuity(type, i, j, 5) !== false) { //落子即胜利，即连5
-      AIchess.we[i][j] += 100000;
+      AIchess[i][j] += 100000;
     } else if (judgeContinuity(type, i, j, 4) !== false) { //即连4
-      AIchess.we[i][j] += 10000;
+      AIchess[i][j] += 10000;
     }
 
     var length = 4;

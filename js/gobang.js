@@ -336,7 +336,7 @@ function amai () { //AI落子
       if (data.chess[i][j] !== false) {
         continue;
       }
-      _AIScore(i, j, data.currentPlayer);
+      //_AIScore(i, j, data.currentPlayer);
     }
   }
 
@@ -352,24 +352,23 @@ function amai () { //AI落子
   }
   */
 
-  var tempPosition, scoreMax = 0, direction = 0, limit = 1;
-  outer:for (var i = 7, j = 7;;) { //初始化tempPosition位置
-    for (m = 0; m < 2; m++) {
+  var tempPosition, scoreMax = 0;
+  var i = 7, j = 7, direction = 0, limit = 1;
+  outer:while (true) {
+    var len = limit, flag = true;
+    for (p = 0; p < len; p++) {
       if (data.chess[i][j] === false) {
         tempPosition = [i, j];
         break outer;
       }
-      for (k = 0; j < limit; k++) {
-        switch (direction) {
-          case 0: i--; break; //当前上
-          case 1: j++; break; //当前右
-          case 2: i++; break; //当前下
-          case 3: j--; break; //当前左
-        }
+      switch (direction) {
+        case 0: i--; break;
+        case 1: j++; if (flag) {limit++; flag = false}; break;
+        case 2: i++; break;
+        case 3: j--; if (flag) {limit++; flag = false}; break;
       }
-      direction = (direction + 1) % 4;
     }
-    limit++;
+    direction = (direction + 1) % 4;
   }
 
   for (var i = 0; i < 15; i++) {
