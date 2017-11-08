@@ -21,7 +21,7 @@ function amai (chess, currentPlayer) { //AI落子
       if (chess[i][j] !== false) {
         continue;
       }
-      //_AIScore(i, j, currentPlayer, AIchess.we);
+      _AIScore(i, j, currentPlayer, AIchess.we);
       _AIScore(i, j, (currentPlayer + 1) % 2, AIchess.other);
     }
   }
@@ -146,7 +146,8 @@ function amai (chess, currentPlayer) { //AI落子
     //正斜
     switch (judgeInclinedContinuity(type, i, j).position) {
       case 5: AIchess[i][j] += 100000; break;
-      case 4: judgeInclinedContinuity4(type, judgePortraitContinuity(type, i, j).startX, judgePortraitContinuity(type, i, j).startY); break;
+      case 4: judgeInclinedContinuity4(type, judgeInclinedContinuity(type, i, j).startX, judgeInclinedContinuity(type, i, j).startY);
+              break;
       case 3: AIchess[i][j] += 1000; break;
       case 2: AIchess[i][j] += 100; break;
     }
@@ -154,7 +155,8 @@ function amai (chess, currentPlayer) { //AI落子
     //反斜
     switch (judgeAntiInclinedContinuity(type, i, j).position) {
       case 5: AIchess[i][j] += 100000; break;
-      case 4: judgeAntiInclinedContinuity4(type, i, j); break;
+      case 4: judgeAntiInclinedContinuity4(type, judgeAntiInclinedContinuity(type, i, j).startX, judgeAntiInclinedContinuity(type, i, j).startY);
+              break;
       case 3: AIchess[i][j] += 1000; break;
       case 2: AIchess[i][j] += 100; break;
     }
@@ -227,8 +229,12 @@ function amai (chess, currentPlayer) { //AI落子
             break;
           }
         }
-        startX = j + 1 - continuity;
+        startX = j - 1 + continuity;
         startY = i + 1 - continuity;
+      }
+      if(row===7&&col===10){
+        console.log(row,col);
+        console.log(startX,startY);
       }
       return {'position': Math.min(5, continuity), 'startX': startX, 'startY': startY};
     }
@@ -289,8 +295,56 @@ function amai (chess, currentPlayer) { //AI落子
       }
     }
 
-    function judgeInclinedContinuity4 (type ,startX, startY) {
+    function judgeInclinedContinuity4 (type ,startX, startY) { //正斜连4判断
+      var rTpoint = { //右上角点
+        x: startY - 1,
+        y: startX + 1
+      }
+      var lBpoint = { //左下角点
+        x: startY + 4,
+        y: startX - 4
+      }
+      if (lBpoint.x <= 14 && lBpoint.y >= 0 && rTpoint.x >= 0 && rTpoint.y <= 14) {
+        if (chess[rTpoint.x][rTpoint.y] === false && chess[lBpoint.x][lBpoint.y] === false) {
+          chessType.alive4++;
+        } else if (chess[rTpoint.x][rTpoint.y] !== false && chess[lBpoint.x][lBpoint.y] !== false) {
+          //nothing
+        } else {
+          chessType.die4++;
+        }
+      } else if ((rTpoint.x < 0 && lBpoint.y >= 0 || rTpoint.y > 14 && lBpoint.x >= 14 )
+        && chess[lBpoint.x][lBpoint.y] === false) {
+        chessType.die4++;
+      } else if ((lBpoint.x > 14 && rTpoint.y <= 14 || lBpoint.y < 0 && rTpoint.x <= 0 )
+        && chess[rTpoint.x][rTpoint.y] === false) {
+        chessType.die4++;
+      }
+    }
 
+    function judgeAntiInclinedContinuity4 (type ,startX, startY) { //反斜连4判断
+      var lTpoint = { //左上角点
+        x: startY - 1,
+        y: startX - 1
+      }
+      var rBpoint = { //右下角点
+        x: startY + 4,
+        y: startX + 4
+      }
+      if (lTpoint.x >= 0 && rBpoint.x <= 14  && lTpoint.y >= 0 && rBpoint.y <= 14) {
+        if (chess[lTpoint.x][lTpoint.y] === false && chess[rBpoint.x][rBpoint.y] === false) {
+          chessType.alive4++;
+        } else if (chess[lTpoint.x][lTpoint.y] !== false && chess[rBpoint.x][rBpoint.y] !== false) {
+          //nothing
+        } else {
+          chessType.die4++;
+        }
+      } else if ((lTpoint.y < 0 && rBpoint.x <= 14 || lTpoint.x < 0 && rBpoint.y <= 14 )
+        && chess[rBpoint.x][rBpoint.y] === false) {
+        chessType.die4++;
+      } else if ((lTpoint.x >= 0 && rBpoint.y > 14 || lTpoint.y >= 0 && rBpoint.x > 14 )
+        && chess[lTpoint.x][lTpoint.y] === false) {
+        chessType.die4++;
+      }
     }
 
     function sumChessScore (i, j) {
