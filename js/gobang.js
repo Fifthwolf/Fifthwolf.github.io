@@ -121,7 +121,8 @@ function playing (e) { //游戏开始后在棋盘落子
     var clickX = _clickPosition(e).clickX;
     var clickY = _clickPosition(e).clickY;
     if (playChess(clickX, clickY) && data.amai === true) {
-      amai(data.chess, data.currentPlayer);
+      var position = amai(data.chess, data.currentPlayer);
+      playChess(position.x, position.y);
     } 
   }
 
@@ -138,7 +139,6 @@ function playing (e) { //游戏开始后在棋盘落子
     }
 
     function _getMousePos (e) {
-      var e = event || window.event;
       var x = e.clientX - chessBoard.getBoundingClientRect().left;
       var y = e.clientY - chessBoard.getBoundingClientRect().top;
       return {'x': x, 'y': y};

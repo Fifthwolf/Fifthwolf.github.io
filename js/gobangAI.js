@@ -1,8 +1,13 @@
 /*
-chess: array 棋盘2维数组数据
-currentPlayer: int 当前落子
-*/
-function amai (chess, currentPlayer) { //AI落子
+ 五子棋人工智障AI
+ *
+ @chess {Array(15)(15)} 传入棋盘二维数组数据
+ *
+ @currentPlayer {Number} 传入当前落子player
+ *
+ @return {Object(2)} 计算得出的最佳落子点
+ */
+function amai (chess, currentPlayer) {
   var AIchess = {
     we: [],
     other: []
@@ -11,7 +16,7 @@ function amai (chess, currentPlayer) { //AI落子
   AIchess.we = new Array(15);
   AIchess.other = new Array(15);
 
-  /* 逐格打分 */
+  // 逐格打分
   for (var i = 0; i < 15; i++) {
     AIchess.we[i] = new Array(15);
     AIchess.other[i] = new Array(15);
@@ -25,7 +30,6 @@ function amai (chess, currentPlayer) { //AI落子
       _AIScore(i, j, (currentPlayer + 1) % 2, AIchess.other);
     }
   }
-  /* 逐格打分 */
 
   var tempPosition, i = 7, j = 7, direction = 0, limit = 1; //初始化tempPosition位置
   outer:while (true) {
@@ -68,14 +72,12 @@ function amai (chess, currentPlayer) { //AI落子
   }
 
   if (weScoreMax >= otherScoreMax) {
-    console.log('attack');
     if (wePosition.length === 1) {
       tempPosition = wePosition[0];
     } else {
       tempPosition = _maxPosition(wePosition, AIchess.other, wePosition[0]);
     }
   } else {
-    console.log('defense');
     if (otherPosition.length === 1) {
       tempPosition = otherPosition[0];
     } else {  
@@ -84,24 +86,6 @@ function amai (chess, currentPlayer) { //AI落子
     }
   }
 
-  /*
-  for (var i = 0; i < 15; i++) {
-    var m = [];
-    for (var j = 0; j < 15; j++) {
-      m.push(AIchess.we[i][j]);
-    }
-    console.log(m);
-  }
-  */
-  for (var i = 0; i < 15; i++) {
-    var m = [];
-    for (var j = 0; j < 15; j++) {
-      m.push(AIchess.other[i][j]);
-    }
-    console.log(m);
-  }
-  
- 
   function _maxPosition (currentPosition, compareChess, tempPosition) {
     var position = tempPosition, maxScore = 0;
     for (var i = 0; i < currentPosition.length; i++) {
@@ -112,8 +96,8 @@ function amai (chess, currentPlayer) { //AI落子
     }
     return position;
   }
-  
-  playChess(tempPosition[1], tempPosition[0]);
+
+  return {'x': tempPosition[1], 'y': tempPosition[0]};
 
   function _AIScore (i, j, type, AIchess) { //判断得分
     chess[i][j] = type;
@@ -126,41 +110,41 @@ function amai (chess, currentPlayer) { //AI落子
       die2: 0,
       alive2: 0
     }
-   
+
     //横向
     switch (judgeTransverseContinuity(type, i, j).position) {
-      case 5: AIchess[i][j] += 100000; break;
+      case 5: AIchess[i][j] += 100000; chess[i][j] = false; return; break;
       case 4: judgeTransverseContinuity4(type, i, judgeTransverseContinuity(type, i, j).startX); break;
       case 3: judgeTransverseContinuity3(type, i, judgeTransverseContinuity(type, i, j).startX); break;
-      case 2: AIchess[i][j] += 100; break;
+      case 2: AIchess[i][j] += 10; break;
     }
 
     //纵向
     switch (judgePortraitContinuity(type, i, j).position) {
-      case 5: AIchess[i][j] += 100000; break;
+      case 5: AIchess[i][j] += 100000; chess[i][j] = false; return; break;
       case 4: judgePortraitContinuity4(type, j, judgePortraitContinuity(type, i, j).startY); break;
       case 3: judgePortraitContinuity3(type, j, judgePortraitContinuity(type, i, j).startY); break;
-      case 2: AIchess[i][j] += 100; break;
+      case 2: AIchess[i][j] += 10; break;
     }
 
     //正斜
     switch (judgeInclinedContinuity(type, i, j).position) {
-      case 5: AIchess[i][j] += 100000; break;
+      case 5: AIchess[i][j] += 100000; chess[i][j] = false; return; break;
       case 4: judgeInclinedContinuity4(type, judgeInclinedContinuity(type, i, j).startX, judgeInclinedContinuity(type, i, j).startY);
               break;
       case 3: judgeInclinedContinuity3(type, judgeInclinedContinuity(type, i, j).startX, judgeInclinedContinuity(type, i, j).startY);
               break;
-      case 2: AIchess[i][j] += 100; break;
+      case 2: AIchess[i][j] += 10; break;
     }
 
     //反斜
     switch (judgeAntiInclinedContinuity(type, i, j).position) {
-      case 5: AIchess[i][j] += 100000; break;
+      case 5: AIchess[i][j] += 100000; chess[i][j] = false; return; break;
       case 4: judgeAntiInclinedContinuity4(type, judgeAntiInclinedContinuity(type, i, j).startX, judgeAntiInclinedContinuity(type, i, j).startY);
               break;
       case 3: judgeAntiInclinedContinuity3(type, judgeAntiInclinedContinuity(type, i, j).startX, judgeAntiInclinedContinuity(type, i, j).startY);
               break;
-      case 2: AIchess[i][j] += 100; break;
+      case 2: AIchess[i][j] += 10; break;
     }
 
     sumChessScore(i, j);
@@ -481,7 +465,7 @@ function amai (chess, currentPlayer) { //AI落子
         AIchess[i][j] += 1000;
       }
       if (chessType.die4 >= 1) {
-        AIchess[i][j] += 500;
+        AIchess[i][j] += 100;
       }
       if (chessType.alive3 >= 1) {
         AIchess[i][j] += 100;
