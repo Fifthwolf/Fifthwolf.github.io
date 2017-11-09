@@ -120,7 +120,7 @@ function playing (e) { //游戏开始后在棋盘落子
   if (_clickPosition(e) !== false) {
     var clickX = _clickPosition(e).clickX;
     var clickY = _clickPosition(e).clickY;
-    if (playChess(clickX, clickY) && data.amai === true) {
+    if ( /*playChess(clickX, clickY) &&*/ data.amai === true) {
       var position = amai(data.chess, data.currentPlayer);
       playChess(position.x, position.y);
     } 

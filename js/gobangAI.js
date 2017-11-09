@@ -82,7 +82,6 @@ function amai (chess, currentPlayer) {
       tempPosition = otherPosition[0];
     } else {  
       tempPosition = _maxPosition(otherPosition, AIchess.we, otherPosition[0]);
-
     }
   }
 
@@ -296,10 +295,10 @@ function amai (chess, currentPlayer) {
         } else {
           chessType.die4++;
         }
-      } else if ((rTpoint.x < 0 && lBpoint.y >= 0 || rTpoint.y > 14 && lBpoint.x >= 14 )
+      } else if ((rTpoint.x < 0 && lBpoint.y >= 0 || rTpoint.y > 14 && lBpoint.x <= 14 )
         && chess[lBpoint.x][lBpoint.y] === false) {
         chessType.die4++;
-      } else if ((lBpoint.x > 14 && rTpoint.y <= 14 || lBpoint.y < 0 && rTpoint.x <= 0 )
+      } else if ((lBpoint.x > 14 && rTpoint.y <= 14 || lBpoint.y < 0 && rTpoint.x >= 0 )
         && chess[rTpoint.x][rTpoint.y] === false) {
         chessType.die4++;
       }
@@ -584,7 +583,7 @@ function amai (chess, currentPlayer) {
       if (startY + 3 > 14 || startX + 3 > 14
         || chess[startY + 3][startX + 3] === falseType) {
         simulationChess[6] = falseType;
-      } else if (chess[startY + 4][startX + 4] === type) {
+      } else if (chess[startY + 3][startX + 3] === type) {
         simulationChess[6] = type;
       }
       if (startY + 4 > 14 || startX + 4 > 14
