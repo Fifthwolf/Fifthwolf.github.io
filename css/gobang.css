@@ -15,7 +15,7 @@
     background-color: rgba(17, 34, 51, 0.5); }
     #main .right .content .showView .radio {
       position: relative;
-      margin: 20px 0 0 10px;
+      margin: 10px 0 10px 10px;
       width: 140px;
       height: 35px; }
       #main .right .content .showView .radio input {
@@ -29,6 +29,22 @@
         margin-left: 35px;
         font-size: 20px;
         line-height: 35px; }
+    #main .right .content .showView .radioPVE {
+      position: relative;
+      margin-left: 20px;
+      width: 105px;
+      height: 35px; }
+      #main .right .content .showView .radioPVE input {
+        position: absolute;
+        margin: 5px;
+        width: 20px;
+        height: 20px;
+        line-height: 20px; }
+      #main .right .content .showView .radioPVE span {
+        position: absolute;
+        margin-left: 31px;
+        font-size: 16px;
+        line-height: 29px; }
     #main .right .content .showView .button {
       text-align: center;
       margin: 20px auto;

@@ -3,6 +3,8 @@
 var content = document.getElementsByClassName('content')[0];
 var chessBoard = document.getElementById('chessBoard');
 var PVE = document.getElementById('PVE');
+var weUpperHand = document.getElementById('weUpperHand');
+var aiUpperHand = document.getElementById('aiUpperHand');
 var PVP = document.getElementById('PVP');
 var startButton = document.getElementById('startButton');
 var historyDiv = document.getElementById('showHistory');
@@ -23,9 +25,18 @@ var data = {
   currentPlayer: 0, // 默认黑子先手，0为当前黑执子，1为当前白执子
   currentStep: 0,
   amai: false,
+  weUpperHand: true
 }
 
 addEvent(startButton, 'click', startGame);
+addEvent(PVE, 'click', function () {
+  weUpperHand.removeAttribute('disabled');
+  aiUpperHand.removeAttribute('disabled');
+});
+addEvent(PVP, 'click', function () {
+  weUpperHand.setAttribute('disabled', true);
+  aiUpperHand.setAttribute('disabled', true);
+});
 
 function startGame () {
   createFrame();
@@ -36,6 +47,10 @@ function startGame () {
     playerWin(data.currentPlayer, false);
   });
   addEvent(historyDiv, 'click', showHistory);
+  if (data.amai === true && data.weUpperHand === false) {
+    var position = amai(data.chess, data.currentPlayer);
+    playChess(position.x, position.y);
+  }
 }
 
 function resetData () { //data.chess数据重置
@@ -50,7 +65,10 @@ function resetData () { //data.chess数据重置
   data.currentPlayer = 0;
   data.currentStep = 0;
   PVE.checked ? data.amai = true : data.amai = false;
+  weUpperHand.checked ? data.weUpperHand = true : data.weUpperHand = false;
   PVE.setAttribute('disabled', true);
+  weUpperHand.setAttribute('disabled', true);
+  aiUpperHand.setAttribute('disabled', true);
   PVP.setAttribute('disabled', true);
   inGameDiv.style.display = 'block';
   startButton.style.display = 'none';
@@ -120,10 +138,11 @@ function playing (e) { //游戏开始后在棋盘落子
   if (_clickPosition(e) !== false) {
     var clickX = _clickPosition(e).clickX;
     var clickY = _clickPosition(e).clickY;
-    if ( /*playChess(clickX, clickY) &&*/ data.amai === true) {
+    var position = amai(data.chess, data.currentPlayer);
+    if ( playChess(clickX, clickY) && data.amai === true) {
       var position = amai(data.chess, data.currentPlayer);
       playChess(position.x, position.y);
-    } 
+    }
   }
 
   function _clickPosition (e) {
@@ -158,6 +177,10 @@ function playChess (clickX, clickY) {
     data.currentPlayer = (data.currentPlayer + 1) % 2;
     data.currentStep++;
     data.currentStep >= 2 ? falseMove.removeClass('disabled') : falseMove.addClass('disabled');
+    if (data.currentStep === 225) {
+      playerWin(data.currentPlayer, true);
+      return false;
+    }
     currentColor.innerHTML = data.currentPlayer === 0 ? '黑' : '白';
     return true;
   }
@@ -297,15 +320,21 @@ function playerWin (player, type) {
   startButton.style.display = 'block';
   historyDiv.style.display = 'block';
   PVE.removeAttribute('disabled');
+  weUpperHand.removeAttribute('disabled');
+  aiUpperHand.removeAttribute('disabled');
   PVP.removeAttribute('disabled');
   _drawWinText(player, type);
 
   function _drawWinText (player, type) {
     var text;
-    if (type) {
-      text = player ? '白方胜利' : '黑方胜利';
+    if (data.currentStep === 225) {
+      text = '和局';
     } else {
-      text = player ? '白方认输' : '黑方认输';
+      if (type) {
+        text = player ? '白方胜利' : '黑方胜利';
+      } else {
+        text = player ? '白方认输' : '黑方认输';
+      }
     }
     var cxt = chessBoard.getContext('2d');
     cxt.beginPath();
