@@ -112,6 +112,7 @@ function amai (chess, currentPlayer) {
 
     var listPosition3 = [0, 1, 5, 6],
         listPosition2 = [0, 1, 2, 5, 6, 7];
+        listPosition1 = [0, 1, 2, 3, 5, 6, 7, 8];
 
     //横向
     switch (judgeTransverseContinuity(type, i, j).position) {
@@ -119,6 +120,7 @@ function amai (chess, currentPlayer) {
       case 4: judgeTransverseContinuity4(type, i, judgeTransverseContinuity(type, i, j).startX); break;
       case 3: judgeTransverseContinuity3(type, i, judgeTransverseContinuity(type, i, j).startX); break;
       case 2: judgeTransverseContinuity2(type, i, judgeTransverseContinuity(type, i, j).startX); break;
+      case 2: judgeTransverseContinuity1(type, i, judgeTransverseContinuity(type, i, j).startX); break;
     }
 
     //纵向
@@ -127,6 +129,7 @@ function amai (chess, currentPlayer) {
       case 4: judgePortraitContinuity4(type, j, judgePortraitContinuity(type, i, j).startY); break;
       case 3: judgePortraitContinuity3(type, j, judgePortraitContinuity(type, i, j).startY); break;
       case 2: judgePortraitContinuity2(type, j, judgePortraitContinuity(type, i, j).startY); break;
+      case 1: judgePortraitContinuity1(type, j, judgePortraitContinuity(type, i, j).startY); break;
     }
 
     //正斜
@@ -138,6 +141,8 @@ function amai (chess, currentPlayer) {
               break;
       case 2: judgeInclinedContinuity2(type, judgeInclinedContinuity(type, i, j).startX, judgeInclinedContinuity(type, i, j).startY);
               break;
+      case 1: judgeInclinedContinuity1(type, judgeInclinedContinuity(type, i, j).startX, judgeInclinedContinuity(type, i, j).startY);
+              break;
     }
 
     //反斜
@@ -148,6 +153,8 @@ function amai (chess, currentPlayer) {
       case 3: judgeAntiInclinedContinuity3(type, judgeAntiInclinedContinuity(type, i, j).startX, judgeAntiInclinedContinuity(type, i, j).startY);
               break;
       case 2: judgeAntiInclinedContinuity2(type, judgeAntiInclinedContinuity(type, i, j).startX, judgeAntiInclinedContinuity(type, i, j).startY);
+              break;
+      case 1: judgeAntiInclinedContinuity1(type, judgeAntiInclinedContinuity(type, i, j).startX, judgeAntiInclinedContinuity(type, i, j).startY);
               break;
     }
 
@@ -413,6 +420,46 @@ function amai (chess, currentPlayer) {
       scoreContinuity2(simulationChess, type, falseType);
     }
 
+    function judgeTransverseContinuity1 (type, row, startX) { //横向单1判断
+      var falseType = (type + 1) % 2;
+      var simulationChess = [false, false, false, false, type, false, false, false, false];
+      for (var i = 0, len = listPosition1.length; i < len; i++) {
+        var index = listPosition1[i];
+        simulationChess[index] = simTransverseChess(type, row, startX, index - 4);
+      }
+      scoreContinuity1(simulationChess, type, falseType);
+    }
+
+    function judgePortraitContinuity1 (type, col, startY) { //纵向单1判断
+      var falseType = (type + 1) % 2;
+      var simulationChess = [false, false, false, false, type, false, false, false, false];
+      for (var i = 0, len = listPosition1.length; i < len; i++) {
+        var index = listPosition1[i];
+        simulationChess[index] = simPortraitChess(type, col, startY, index - 4);
+      }
+      scoreContinuity1(simulationChess, type, falseType);
+    }
+
+    function judgeInclinedContinuity1 (type ,startX, startY) { //正斜单1判断
+      var falseType = (type + 1) % 2;
+      var simulationChess = [false, false, false, false, type, false, false, false, false];
+      for (var i = 0, len = listPosition1.length; i < len; i++) {
+        var index = listPosition1[i];
+        simulationChess[index] = simInclinedChess(type, startX, startY, index - 4);
+      }
+      scoreContinuity1(simulationChess, type, falseType);
+    }
+
+    function judgeAntiInclinedContinuity1 (type ,startX, startY) { //反斜单1判断
+      var falseType = (type + 1) % 2;
+      var simulationChess = [false, false, false, false, type, false, false, false, false];
+      for (var i = 0, len = listPosition1.length; i < len; i++) {
+        var index = listPosition1[i];
+        simulationChess[index] = simAntiInclinedChess(type, startX, startY, index - 4);
+      }
+      scoreContinuity1(simulationChess, type, falseType);
+    }
+
     function simTransverseChess (type, row, startX, position) { //横向模型类型
       var falseType = (type + 1) % 2;
       if (position < 0) {
@@ -563,6 +610,73 @@ function amai (chess, currentPlayer) {
             chessType.die3++;
           }
         }
+      }
+    }
+
+    function scoreContinuity1 (simulationChess, type, falseType) { //单1得分
+      if (simulationChess[3] === false && simulationChess[2] === type
+        && simulationChess[1] === type && simulationChess[0] === type) {
+        chessType.die4++;
+      }
+      if (simulationChess[5] === false && simulationChess[6] === type
+        && simulationChess[7] === type && simulationChess[8] === type) {
+        chessType.die4++;
+      }
+      if (simulationChess[3] === false && simulationChess[2] === type
+        && simulationChess[1] === type && simulationChess[0] === false
+        && simulationChess[5] === false) {
+        chessType.alive3++;
+      }
+      if (simulationChess[5] === false && simulationChess[6] === type
+        && simulationChess[7] === type && simulationChess[8] === false
+        && simulationChess[3] === false) {
+        chessType.alive3++;
+      }
+      if (simulationChess[3] === false && simulationChess[2] === type
+        && simulationChess[1] === type && simulationChess[0] === falseType
+        && simulationChess[5] === false) {
+          chessType.die3++;
+      }
+      if (simulationChess[5] === false && simulationChess[6] === type
+        && simulationChess[7] === type && simulationChess[8] === falseType
+        && simulationChess[3] === false) {
+        chessType.die3++;
+      }
+      if (simulationChess[3] === false && simulationChess[2] === false
+        && simulationChess[1] === type && simulationChess[0] === type) {
+        chessType.die3++;
+      }
+      if (simulationChess[5] === false && simulationChess[6] === false
+        && simulationChess[7] === type && simulationChess[8] === type) {
+        chessType.die3++;
+      }
+      if (simulationChess[3] === false && simulationChess[2] === type
+        && simulationChess[1] === false && simulationChess[0] === type) {
+        chessType.die3++;
+      }
+      if (simulationChess[5] === false && simulationChess[6] === type
+        && simulationChess[7] === false && simulationChess[8] === type) {
+        chessType.die3++;
+      }
+      if (simulationChess[3] === false && simulationChess[2] === type
+        && simulationChess[1] === false && simulationChess[0] === false
+        && simulationChess[5] === false) {
+        chessType.alive2++;
+      }
+      if (simulationChess[5] === false && simulationChess[6] === type
+        && simulationChess[7] === false && simulationChess[8] === false
+        && simulationChess[3] === false) {
+        chessType.alive2++;
+      }
+      if (simulationChess[3] === false && simulationChess[2] === false
+      && simulationChess[1] === type && simulationChess[0] === false
+      && simulationChess[5] === false) {
+        chessType.alive2++;
+      }
+      if (simulationChess[5] === false && simulationChess[6] === false
+        && simulationChess[7] === type && simulationChess[8] === false
+        && simulationChess[3] === false) {
+        chessType.alive2++;
       }
     }
 
