@@ -110,6 +110,9 @@ function amai (chess, currentPlayer) {
       alive2: 0
     }
 
+    var listPosition3 = [0, 1, 5, 6],
+        listPosition2 = [0, 1, 2, 5, 6, 7];
+
     //横向
     switch (judgeTransverseContinuity(type, i, j).position) {
       case 5: AIchess[i][j] += 100000; chess[i][j] = false; return; break;
@@ -333,21 +336,9 @@ function amai (chess, currentPlayer) {
     function judgeTransverseContinuity3 (type, row, startX) { //横向连3判断
       var falseType = (type + 1) % 2;
       var simulationChess = [false, false, type, type, type, false, false];
-      if (startX - 2 < 0 || chess[row][startX - 2] === falseType) {
-        simulationChess[0] = falseType;
-      } else if (chess[row][startX - 2] === type) {
-        simulationChess[0] = type;
-      }
-      if (startX - 1 < 0 || chess[row][startX - 1] !== false) {
-        simulationChess[1] = falseType;
-      }
-      if (startX + 3 > 14 || chess[row][startX + 3] !== false) {
-        simulationChess[5] = falseType;
-      }
-      if (startX + 4 > 14 || chess[row][startX + 4] === falseType) {
-        simulationChess[6] = falseType;
-      } else if (chess[row][startX + 4] === type) {
-        simulationChess[6] = type;
+      for (var i = 0, len = listPosition3.length; i < len; i++) {
+        var index = listPosition3[i];
+        simulationChess[index] = simTransverseChess(type, row, startX, index - 2);
       }
       scoreContinuity3(simulationChess, type, falseType);
     }
@@ -355,21 +346,9 @@ function amai (chess, currentPlayer) {
     function judgePortraitContinuity3 (type, col, startY) { //纵向连3判断
       var falseType = (type + 1) % 2;
       var simulationChess = [false, false, type, type, type, false, false];
-      if (startY - 2 < 0 || chess[startY - 2][col] === falseType) {  
-        simulationChess[0] = falseType;
-      } else if (chess[startY - 2][col] === type) {
-        simulationChess[0] = type;
-      }
-      if (startY - 1 < 0 || chess[startY - 1][col] !== false) {
-        simulationChess[1] = falseType;
-      }
-      if (startY + 3 > 14 || chess[startY + 3][col] !== false) {
-        simulationChess[5] = falseType;
-      }
-      if (startY + 4 > 14 || chess[startY + 4][col] === falseType) {
-        simulationChess[6] = falseType;
-      } else if (chess[startY + 4][col] === type) {
-        simulationChess[6] = type;
+      for (var i = 0, len = listPosition3.length; i < len; i++) {
+        var index = listPosition3[i];
+        simulationChess[index] = simPortraitChess(type, col, startY, index - 2);
       }
       scoreContinuity3(simulationChess, type, falseType);
     }
@@ -377,25 +356,9 @@ function amai (chess, currentPlayer) {
     function judgeInclinedContinuity3 (type ,startX, startY) { //正斜连3判断
       var falseType = (type + 1) % 2;
       var simulationChess = [false, false, type, type, type, false, false];
-      if (startY - 2 < 0 || startX + 2 > 14
-        || chess[startY - 2][startX + 2] === falseType) {  
-        simulationChess[0] = falseType;
-      } else if (chess[startY - 2][startX + 2] === type) {
-        simulationChess[0] = type;
-      }
-      if (startY - 1 < 0 || startX + 1 > 14
-        || chess[startY - 1][startX + 1] !== false) {
-        simulationChess[1] = falseType;
-      }
-      if (startY + 3 > 14 || startX - 3 < 0
-        || chess[startY + 3][startX - 3] !== false) {
-        simulationChess[5] = falseType;
-      }
-      if (startY + 4 > 14 || startX - 4 < 0
-        || chess[startY + 4][startX - 4] === falseType) {
-        simulationChess[6] = falseType;
-      } else if (chess[startY + 4][startX - 4] === type) {
-        simulationChess[6] = type;
+      for (var i = 0, len = listPosition3.length; i < len; i++) {
+        var index = listPosition3[i];
+        simulationChess[index] = simInclinedChess(type, startX, startY, index - 2);
       }
       scoreContinuity3(simulationChess, type, falseType);
     }
@@ -403,27 +366,127 @@ function amai (chess, currentPlayer) {
     function judgeAntiInclinedContinuity3 (type ,startX, startY) { //反斜连3判断
       var falseType = (type + 1) % 2;
       var simulationChess = [false, false, type, type, type, false, false];
-      if (startY - 2 < 0 || startX - 2 < 0
-        || chess[startY - 2][startX - 2] === falseType) {  
-        simulationChess[0] = falseType;
-      } else if (chess[startY - 2][startX - 2] === type) {
-        simulationChess[0] = type;
-      }
-      if (startY - 1 < 0 || startX - 1 < 0
-        || chess[startY - 1][startX - 1] !== false) {
-        simulationChess[1] = falseType;
-      }
-      if (startY + 3 > 14 || startX + 3 > 14
-        || chess[startY + 3][startX + 3] !== false) {
-        simulationChess[5] = falseType;
-      }
-      if (startY + 4 > 14 || startX + 4 > 14
-        || chess[startY + 4][startX + 4] === falseType) {
-        simulationChess[6] = falseType;
-      } else if (chess[startY + 4][startX + 4] === type) {
-        simulationChess[6] = type;
+      for (var i = 0, len = listPosition3.length; i < len; i++) {
+        var index = listPosition3[i];
+        simulationChess[index] = simAntiInclinedChess(type, startX, startY, index - 2);
       }
       scoreContinuity3(simulationChess, type, falseType);
+    }
+
+    function judgeTransverseContinuity2 (type, row, startX) { //横向连2判断
+      var falseType = (type + 1) % 2;
+      var simulationChess = [false, false, false, type, type, false, false, false];
+      for (var i = 0, len = listPosition2.length; i < len; i++) {
+        var index = listPosition2[i];
+        simulationChess[index] = simTransverseChess(type, row, startX, index - 3);
+      }
+      scoreContinuity2(simulationChess, type, falseType);
+    }
+
+    function judgePortraitContinuity2 (type, col, startY) { //纵向连2判断
+      var falseType = (type + 1) % 2;
+      var simulationChess = [false, false, false, type, type, false, false, false];
+      for (var i = 0, len = listPosition2.length; i < len; i++) {
+        var index = listPosition2[i];
+        simulationChess[index] = simPortraitChess(type, col, startY, index - 3);
+      }
+      scoreContinuity2(simulationChess, type, falseType);
+    }
+
+    function judgeInclinedContinuity2 (type ,startX, startY) { //正斜连2判断
+      var falseType = (type + 1) % 2;
+      var simulationChess = [false, false, false, type, type, false, false, false];
+      for (var i = 0, len = listPosition2.length; i < len; i++) {
+        var index = listPosition2[i];
+        simulationChess[index] = simInclinedChess(type, startX, startY, index - 3);
+      }
+      scoreContinuity2(simulationChess, type, falseType);
+    }
+
+    function judgeAntiInclinedContinuity2 (type ,startX, startY) { //反斜连2判断
+      var falseType = (type + 1) % 2;
+      var simulationChess = [false, false, false, type, type, false, false, false];
+      for (var i = 0, len = listPosition2.length; i < len; i++) {
+        var index = listPosition2[i];
+        simulationChess[index] = simAntiInclinedChess(type, startX, startY, index - 3);
+      }
+      scoreContinuity2(simulationChess, type, falseType);
+    }
+
+    function simTransverseChess (type, row, startX, position) { //横向模型类型
+      var falseType = (type + 1) % 2;
+      if (position < 0) {
+        if (startX + position < 0 || chess[row][startX + position] === falseType) {
+          return falseType;
+        }
+      } else {
+        if (startX + position > 14 || chess[row][startX + position] === falseType) {
+          return falseType;
+        }
+      }
+      if (chess[row][startX + position] === type) {
+        return type;
+      } else {
+        return false;
+      }
+    }
+
+    function simPortraitChess (type, col, startY, position) { //纵向模型类型
+      var falseType = (type + 1) % 2;
+      if (position < 0) {
+        if (startY + position < 0 || chess[startY + position][col] === falseType) {
+          return falseType;
+        }
+      } else {
+        if (startY + position > 14 || chess[startY + position][col] === falseType) {
+          return falseType;
+        }
+      }
+      if (chess[startY + position][col] === type) {
+        return type;
+      } else {
+        return false;
+      }
+    }
+
+    function simInclinedChess (type ,startX, startY, position) { //正斜模型类型
+      var falseType = (type + 1) % 2;
+      if (position < 0) {
+        if (startY + position < 0 || startX - position > 14
+          || chess[startY + position][startX - position] === falseType) {  
+          return falseType;
+        }
+      } else {
+        if (startY + position > 14 || startX - position < 0
+          || chess[startY + position][startX - position] === falseType) {
+          return falseType;
+        }
+      }
+      if (chess[startY + position][startX - position] === type) {
+        return type;
+      } else {
+        return false;
+      }
+    }
+
+    function simAntiInclinedChess (type ,startX, startY, position) { //反斜模型类型
+      var falseType = (type + 1) % 2;
+      if (position < 0) {
+        if (startY + position < 0 || startX + position < 0
+          || chess[startY + position][startX + position] === falseType) {  
+          return falseType;
+        }
+      } else {
+        if (startY + position > 14 || startX + position > 14
+          || chess[startY + position][startX + position] === falseType) {
+          return falseType;
+        }
+      }
+      if (chess[startY + position][startX + position] === type) {
+        return type;
+      } else {
+        return false;
+      }
     }
 
     function scoreContinuity3 (simulationChess, type, falseType) { //连3得分
@@ -453,146 +516,6 @@ function amai (chess, currentPlayer) {
           }
         }
       }
-    }
-
-    function judgeTransverseContinuity2 (type, row, startX) { //横向连2判断
-      var falseType = (type + 1) % 2;
-      var simulationChess = [false, false, false, type, type, false, false, false];
-      if (startX - 3 < 0 || chess[row][startX - 3] === falseType) {
-        simulationChess[0] = falseType;
-      } else if (chess[row][startX - 3] === type) {
-        simulationChess[0] = type;
-      }
-      if (startX - 2 < 0 || chess[row][startX - 2] === falseType) {
-        simulationChess[1] = falseType;
-      } else if (chess[row][startX - 2] === type) {
-        simulationChess[1] = type;
-      }
-      if (startX - 1 < 0 || chess[row][startX - 1] !== false) {
-        simulationChess[2] = falseType;
-      }
-      if (startX + 2 > 14 || chess[row][startX + 2] !== false) {
-        simulationChess[5] = falseType;
-      }
-      if (startX + 3 > 14 || chess[row][startX + 3] === falseType) {
-        simulationChess[6] = falseType;
-      } else if (chess[row][startX + 3] === type) {
-        simulationChess[6] = type;
-      }
-      if (startX + 4 > 14 || chess[row][startX + 4] === falseType) {
-        simulationChess[7] = falseType;
-      } else if (chess[row][startX + 4] === type) {
-        simulationChess[7] = type;
-      }
-      scoreContinuity2(simulationChess, type, falseType);
-    }
-
-    function judgePortraitContinuity2 (type, col, startY) { //纵向连2判断
-      var falseType = (type + 1) % 2;
-      var simulationChess = [false, false, false, type, type, false, false, false];
-      if (startY - 3 < 0 || chess[startY - 3][col] === falseType) {  
-        simulationChess[0] = falseType;
-      } else if (chess[startY - 3][col] === type) {
-        simulationChess[0] = type;
-      }
-      if (startY - 2 < 0 || chess[startY - 2][col] === falseType) {  
-        simulationChess[1] = falseType;
-      } else if (chess[startY - 2][col] === type) {
-        simulationChess[1] = type;
-      }
-      if (startY - 1 < 0 || chess[startY - 1][col] !== false) {
-        simulationChess[2] = falseType;
-      }
-      if (startY + 2 > 14 || chess[startY + 2][col] !== false) {
-        simulationChess[5] = falseType;
-      }
-      if (startY + 3 > 14 || chess[startY + 3][col] === falseType) {
-        simulationChess[6] = falseType;
-      } else if (chess[startY + 3][col] === type) {
-        simulationChess[6] = type;
-      }
-      if (startY + 4 > 14 || chess[startY + 4][col] === falseType) {
-        simulationChess[7] = falseType;
-      } else if (chess[startY + 4][col] === type) {
-        simulationChess[7] = type;
-      }
-      scoreContinuity2(simulationChess, type, falseType);
-    }
-
-    function judgeInclinedContinuity2 (type ,startX, startY) { //正斜连2判断
-      var falseType = (type + 1) % 2;
-      var simulationChess = [false, false, false, type, type, false, false, false];
-      if (startY - 3 < 0 || startX + 3 > 14
-        || chess[startY - 3][startX + 3] === falseType) {  
-        simulationChess[0] = falseType;
-      } else if (chess[startY - 3][startX + 3] === type) {
-        simulationChess[0] = type;
-      }
-      if (startY - 2 < 0 || startX + 2 > 14
-        || chess[startY - 2][startX + 2] === falseType) {  
-        simulationChess[1] = falseType;
-      } else if (chess[startY - 2][startX + 2] === type) {
-        simulationChess[1] = type;
-      }
-      if (startY - 1 < 0 || startX + 1 > 14
-        || chess[startY - 1][startX + 1] !== false) {
-        simulationChess[2] = falseType;
-      }
-      if (startY + 2 > 14 || startX - 2 < 0
-        || chess[startY + 2][startX - 2] !== false) {
-        simulationChess[5] = falseType;
-      }
-      if (startY + 3 > 14 || startX - 3 < 0
-        || chess[startY + 3][startX - 3] === falseType) {
-        simulationChess[6] = falseType;
-      } else if (chess[startY + 3][startX - 3] === type) {
-        simulationChess[6] = type;
-      }
-      if (startY + 4 > 14 || startX - 4 < 0
-        || chess[startY + 4][startX - 4] === falseType) {
-        simulationChess[7] = falseType;
-      } else if (chess[startY + 4][startX - 4] === type) {
-        simulationChess[7] = type;
-      }
-      scoreContinuity2(simulationChess, type, falseType);
-    }
-
-    function judgeAntiInclinedContinuity2 (type ,startX, startY) { //反斜连2判断
-      var falseType = (type + 1) % 2;
-      var simulationChess = [false, false, false, type, type, false, false, false];
-      if (startY - 3 < 0 || startX - 3 < 0
-        || chess[startY - 3][startX - 3] === falseType) {  
-        simulationChess[0] = falseType;
-      } else if (chess[startY - 3][startX - 3] === type) {
-        simulationChess[0] = type;
-      }
-      if (startY - 2 < 0 || startX - 2 < 0
-        || chess[startY - 2][startX - 2] === falseType) {  
-        simulationChess[1] = falseType;
-      } else if (chess[startY - 2][startX - 2] === type) {
-        simulationChess[1] = type;
-      }
-      if (startY - 1 < 0 || startX - 1 < 0
-        || chess[startY - 1][startX - 1] !== false) {
-        simulationChess[2] = falseType;
-      }
-      if (startY + 2 > 14 || startX + 2 > 14
-        || chess[startY + 2][startX + 2] !== false) {
-        simulationChess[5] = falseType;
-      }
-      if (startY + 3 > 14 || startX + 3 > 14
-        || chess[startY + 3][startX + 3] === falseType) {
-        simulationChess[6] = falseType;
-      } else if (chess[startY + 3][startX + 3] === type) {
-        simulationChess[6] = type;
-      }
-      if (startY + 4 > 14 || startX + 4 > 14
-        || chess[startY + 4][startX + 4] === falseType) {
-        simulationChess[7] = falseType;
-      } else if (chess[startY + 4][startX + 4] === type) {
-        simulationChess[7] = type;
-      }
-      scoreContinuity2(simulationChess, type, falseType);
     }
 
     function scoreContinuity2 (simulationChess, type, falseType) { //连2得分
@@ -644,10 +567,10 @@ function amai (chess, currentPlayer) {
     }
 
     function sumChessScore (i, j) {
-      if (chessType.alive4 >= 1 || chessType.die4 >= 2 || chessType.alive3 >= 2) {
+      if (chessType.alive4 >= 1 || chessType.die4 >= 2 || chessType.die4 >= 1 && chessType.alive3 >= 1) {
         AIchess[i][j] += 10000;
       }
-      if (chessType.die4 >= 1 && chessType.alive3 >= 1) {
+      if (chessType.alive3 >= 2) {
         AIchess[i][j] += 5000;
       }
       if (chessType.die3 >= 1 && chessType.alive3 >= 1) {

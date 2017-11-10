@@ -62,6 +62,7 @@ function resetData () { //data.chess数据重置
       data.chess[i][j] = false; //false无子，0黑子，1白子
     }
   }
+  data.chessStep = [];
   data.currentPlayer = 0;
   data.currentStep = 0;
   PVE.checked ? data.amai = true : data.amai = false;
