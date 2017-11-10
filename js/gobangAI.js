@@ -691,7 +691,7 @@ function amai (chess, currentPlayer) {
         AIchess[i][j] += 1000;
       }
       if (chessType.die4 >= 1) {
-        AIchess[i][j] += 100;
+        AIchess[i][j] += 500;
       }
       if (chessType.alive3 >= 1) {
         AIchess[i][j] += 100;
