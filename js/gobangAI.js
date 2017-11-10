@@ -26,8 +26,8 @@ function amai (chess, currentPlayer) {
       if (chess[i][j] !== false) {
         continue;
       }
-      _AIScore(i, j, currentPlayer, AIchess.we);
-      _AIScore(i, j, (currentPlayer + 1) % 2, AIchess.other);
+      _AIScore(i, j, currentPlayer, AIchess.we, true);
+      _AIScore(i, j, (currentPlayer + 1) % 2, AIchess.other, false);
     }
   }
 
@@ -71,6 +71,15 @@ function amai (chess, currentPlayer) {
     }
   }
 
+  for (var i = 0; i < 15; i++) {
+    var m = [];
+    for (var j = 0; j < 15; j++) {
+      m.push(AIchess.other[i][j]);
+    }
+    console.log(m);
+  }
+
+
   if (weScoreMax >= otherScoreMax) {
     if (wePosition.length === 1) {
       tempPosition = wePosition[0];
@@ -98,7 +107,7 @@ function amai (chess, currentPlayer) {
 
   return {'x': tempPosition[1], 'y': tempPosition[0]};
 
-  function _AIScore (i, j, type, AIchess) { //判断得分
+  function _AIScore (i, j, type, AIchess, attack) { //判断得分
     chess[i][j] = type;
 
     var chessType = {
@@ -158,7 +167,7 @@ function amai (chess, currentPlayer) {
               break;
     }
 
-    sumChessScore(i, j);
+    sumChessScore(i, j, attack);
 
     chess[i][j] = false;
 
@@ -658,6 +667,7 @@ function amai (chess, currentPlayer) {
         && simulationChess[7] === false && simulationChess[8] === type) {
         chessType.die3++;
       }
+      /*
       if (simulationChess[3] === false && simulationChess[2] === type
         && simulationChess[1] === false && simulationChess[0] === false
         && simulationChess[5] === false) {
@@ -678,14 +688,27 @@ function amai (chess, currentPlayer) {
         && simulationChess[3] === false) {
         chessType.alive2++;
       }
+      */
     }
 
-    function sumChessScore (i, j) {
-      if (chessType.alive4 >= 1 || chessType.die4 >= 2 || chessType.die4 >= 1 && chessType.alive3 >= 1) {
-        AIchess[i][j] += 10000;
-      }
-      if (chessType.alive3 >= 2) {
-        AIchess[i][j] += 5000;
+    function sumChessScore (i, j, attack) {
+      if (attack) {
+        if (chessType.alive4 >= 1 || chessType.die4 >= 2 || chessType.die4 >= 1 && chessType.alive3 >= 1) {
+          AIchess[i][j] += 10000;
+        }
+        if (chessType.alive3 >= 2) {
+          AIchess[i][j] += 5000;
+        }
+      } else {
+        if (chessType.alive4 >= 1) {
+          AIchess[i][j] += 20000;
+        }
+        if (chessType.die4 >= 2 || chessType.die4 >= 1 && chessType.alive3 >= 1) {
+          AIchess[i][j] += 10000;
+        }
+        if (chessType.alive3 >= 2) {
+          AIchess[i][j] += 5000;
+        }
       }
       if (chessType.die3 >= 1 && chessType.alive3 >= 1) {
         AIchess[i][j] += 1000;
