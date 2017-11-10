@@ -139,7 +139,6 @@ function playing (e) { //游戏开始后在棋盘落子
   if (_clickPosition(e) !== false) {
     var clickX = _clickPosition(e).clickX;
     var clickY = _clickPosition(e).clickY;
-    var position = amai(data.chess, data.currentPlayer);
     if ( playChess(clickX, clickY) && data.amai === true) {
       var position = amai(data.chess, data.currentPlayer);
       playChess(position.x, position.y);
@@ -310,7 +309,6 @@ function judgeContinuity (type, row, col, continuityChess) { //判断连续
       return type;
     }
   }
-
   return false;
 }
 
