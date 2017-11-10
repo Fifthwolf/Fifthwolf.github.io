@@ -48,15 +48,22 @@ function amai (chess, currentPlayer) {
     }
     direction = (direction + 1) % 4;
   }
-  /*
+  
+  for (var i = 0; i < 15; i++) {
+    var m = [];
+    for (var j = 0; j < 15; j++) {
+      m.push(AIchess.we[i][j]);
+    }
+    console.log(m);
+  }
+
   for (var i = 0; i < 15; i++) {
     var m = [];
     for (var j = 0; j < 15; j++) {
       m.push(AIchess.other[i][j]);
     }
     console.log(m);
-  }*/
-  console.log(1);
+  }
 
   var wePosition = [tempPosition], otherPosition = [tempPosition],
       weScoreMax = 0, otherScoreMax = 0;
@@ -667,7 +674,6 @@ function amai (chess, currentPlayer) {
         && simulationChess[7] === false && simulationChess[8] === type) {
         chessType.die3++;
       }
-      /*
       if (simulationChess[3] === false && simulationChess[2] === type
         && simulationChess[1] === false && simulationChess[0] === false
         && simulationChess[5] === false) {
@@ -688,7 +694,6 @@ function amai (chess, currentPlayer) {
         && simulationChess[3] === false) {
         chessType.alive2++;
       }
-      */
     }
 
     function sumChessScore (i, j, attack) {
@@ -710,17 +715,19 @@ function amai (chess, currentPlayer) {
       if (chessType.alive3 >= 1) {
         AIchess[i][j] += 100;
       }
-      if (chessType.alive2 >= 2) {
-        AIchess[i][j] += 50;
-      }
-      if (chessType.alive2 >= 1) {
-        AIchess[i][j] += 10;
-      }
-      if (chessType.die3 >= 1) {
-        AIchess[i][j] += 5;
-      }
-      if (chessType.die2 >= 1) {
-        AIchess[i][j] += 2;
+      if (attack) {
+        if (chessType.alive2 >= 2) {
+          AIchess[i][j] += 50;
+        }
+        if (chessType.alive2 >= 1) {
+          AIchess[i][j] += 10;
+        }
+        if (chessType.die3 >= 1) {
+          AIchess[i][j] += 5;
+        }
+        if (chessType.die2 >= 1) {
+          AIchess[i][j] += 2;
+        }
       }
     }
   }
