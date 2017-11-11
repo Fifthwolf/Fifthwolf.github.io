@@ -123,7 +123,9 @@ function amai (chess, currentPlayer) {
       die3: 0,
       alive3: 0,
       die2: 0,
-      alive2: 0
+      alive2: 0,
+      nearTransverse: 0,
+      nearOblique: 0
     }
 
     var listPosition3 = [0, 1, 5, 6],
@@ -173,6 +175,8 @@ function amai (chess, currentPlayer) {
       case 1: judgeAntiInclinedContinuity1(type, judgeAntiInclinedContinuity(type, i, j).startX, judgeAntiInclinedContinuity(type, i, j).startY);
               break;
     }
+
+    nearby(type, i, j);
 
     sumChessScore(i, j, attack);
 
@@ -696,6 +700,24 @@ function amai (chess, currentPlayer) {
       }
     }
 
+    function nearby (type, row, col) {
+      var falseType = (type + 1) % 2;
+      var positionTransverse = [[row - 1, col], [row, col - 1], [row, col + 1], [row + 1, col]];
+          positionOblique = [[row - 1, col - 1], [row - 1, col + 1], [row + 1, col - 1], [row + 1, col + 1]];
+      for (var i = 0, len = positionTransverse.length; i < len; i++) {
+        try{
+          if (chess[positionTransverse[i][0]][positionTransverse[i][1]] === type) {
+            chessType.nearTransverse++;
+          }
+          if (chess[positionOblique[i][0]][positionOblique[i][1]] === type) {
+            chessType.nearOblique++;
+          }
+        } catch (e) {
+          //nothing
+        }
+      }
+    }
+
     function sumChessScore (i, j, attack) {
       if (chessType.alive4 >= 1) {
         AIchess[i][j] += 20000;
@@ -715,19 +737,23 @@ function amai (chess, currentPlayer) {
       if (chessType.alive3 >= 1) {
         AIchess[i][j] += 100;
       }
-      if (attack) {
-        if (chessType.alive2 >= 2) {
-          AIchess[i][j] += 50;
-        }
-        if (chessType.alive2 >= 1) {
-          AIchess[i][j] += 10;
-        }
-        if (chessType.die3 >= 1) {
-          AIchess[i][j] += 5;
-        }
-        if (chessType.die2 >= 1) {
-          AIchess[i][j] += 2;
-        }
+      if (chessType.alive2 >= 2) {
+        AIchess[i][j] += 50;
+      }
+      if (chessType.alive2 >= 1) {
+        AIchess[i][j] += 10;
+      }
+      if (chessType.die3 >= 1) {
+        AIchess[i][j] += 5;
+      }
+      if (chessType.die2 >= 1) {
+        AIchess[i][j] += 2;
+      }
+      if (chessType.nearTransverse >= 1) {
+        AIchess[i][j] += 1;
+      }
+      if (chessType.nearOblique >= 1) {
+        AIchess[i][j] += 0.5;
       }
     }
   }
