@@ -1,5 +1,3 @@
-
-
 var content = document.getElementsByClassName('content')[0];
 var chessBoard = document.getElementById('chessBoard');
 var PVE = document.getElementById('PVE');
@@ -167,9 +165,16 @@ function playing (e) { //游戏开始后在棋盘落子
 
 function playChess (clickX, clickY) {
   if (data.chess[clickY][clickX] === false) {
+    createFrame();
+    var x, y;
+    for (var i = 0, len = data.chessStep.length; i < len; i++) {
+      x = data.chessStep[i][0];
+      y = data.chessStep[i][1];
+      drawChess(y, x, data.chess[x][y], false);
+    }
     data.chess[clickY][clickX] = data.currentPlayer;
     data.chessStep[data.currentStep] = [clickY, clickX];
-    drawChess(clickX, clickY, data.currentPlayer);
+    drawChess(clickX, clickY, data.currentPlayer, true);
     if (judgeContinuity(data.currentPlayer, clickY, clickX, 5) !== false) {
       playerWin(data.currentPlayer, true);
       return false;
@@ -203,6 +208,9 @@ function revoke () {
       }
     }
   }
+  if (data.currentStep > 0) {
+    drawSign (data.chessStep[data.currentStep - 1][1], data.chessStep[data.currentStep - 1][0]);
+  }
   data.currentStep >= 2 ? falseMove.removeClass('disabled') : falseMove.addClass('disabled');
 
   function _resetChess (i, j) {
@@ -210,6 +218,8 @@ function revoke () {
     data.currentStep--;
     data.chessStep.length = data.currentStep;
   }
+
+  drawSign()
 }
 
 function showHistory () {
@@ -219,7 +229,7 @@ function showHistory () {
   for (var i = 0, len = data.chessStep.length; i < len; i++) {
     x = data.chessStep[i][0];
     y = data.chessStep[i][1];
-    drawChess(y, x, data.chess[x][y]);
+    drawChess(y, x, data.chess[x][y], false);
     _drawNumber(y, x, data.chess[x][y], i);
   }
 
@@ -236,7 +246,7 @@ function showHistory () {
   }
 }
 
-function drawChess (clickX, clickY, type) {
+function drawChess (clickX, clickY, type, sign) {
   var x = (clickX + 1) * 35;
   var y = (clickY + 1) * 35;
   var chessRadius = 14;
@@ -259,6 +269,35 @@ function drawChess (clickX, clickY, type) {
     cxt.arc(x + 7, y - 4, chessRadius / 5, 0, 2 * Math.PI);
     cxt.fill();
   }
+  if (sign) {
+    drawSign(clickX ,clickY);
+  }
+}
+
+function drawSign (clickX, clickY) {
+  var x = (clickX + 1) * 35;
+  var y = (clickY + 1) * 35;
+  var cxt = chessBoard.getContext('2d');
+  cxt.beginPath();
+  cxt.strokeStyle = "red";
+  cxt.lineCap = "square";
+  cxt.lineWidth = 4;
+  cxt.moveTo(x - 16, y - 12);
+  cxt.lineTo(x - 16, y - 16);
+  cxt.lineTo(x - 12, y - 16);
+
+  cxt.moveTo(x + 12, y - 16);
+  cxt.lineTo(x + 16, y - 16);
+  cxt.lineTo(x + 16, y - 12);
+
+  cxt.moveTo(x - 16, y + 12);
+  cxt.lineTo(x - 16, y + 16);
+  cxt.lineTo(x - 12, y + 16);
+
+  cxt.moveTo(x + 16, y + 12);
+  cxt.lineTo(x + 16, y + 16);
+  cxt.lineTo(x + 12, y + 16);
+  cxt.stroke();
 }
 
 function judgeContinuity (type, row, col, continuityChess) { //判断连续
