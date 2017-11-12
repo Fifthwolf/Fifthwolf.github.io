@@ -735,7 +735,11 @@ function amai (chess, currentPlayer) {
         AIchess[i][j] += 500;
       }
       if (chessType.alive3 >= 1) {
-        AIchess[i][j] += 100;
+        if (attack) {
+          AIchess[i][j] += 500;
+        } else {
+          AIchess[i][j] += 100;
+        }
       }
       if (chessType.alive2 >= 2) {
         AIchess[i][j] += 50;
