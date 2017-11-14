@@ -72,16 +72,16 @@ function amai (chess, currentPlayer) {
       if (chess[i][j] !== false) {
         continue;
       }
-      if (AIchess.we[i][j] > weScoreMax) {
-        weScoreMax = AIchess.we[i][j];
+      if (parseInt(AIchess.we[i][j]) > weScoreMax) {
+        weScoreMax = parseInt(AIchess.we[i][j]);
         wePosition = [[i, j]];
-      } else if (AIchess.we[i][j] === weScoreMax) {
+      } else if (parseInt(AIchess.we[i][j]) === weScoreMax) {
         wePosition.push([i, j]);
       }
-      if (AIchess.other[i][j] > otherScoreMax) {
-        otherScoreMax = AIchess.other[i][j];
+      if (parseInt(AIchess.other[i][j]) > otherScoreMax) {
+        otherScoreMax = parseInt(AIchess.other[i][j]);
         otherPosition = [[i, j]];
-      } else if (AIchess.other[i][j] === otherScoreMax) {
+      } else if (parseInt(AIchess.other[i][j]) === otherScoreMax) {
         otherPosition.push([i, j]);
       }
     }
