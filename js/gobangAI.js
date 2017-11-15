@@ -754,11 +754,12 @@ function amai (chess, currentPlayer) {
         AIchess[i][j] += 2;
       }
       if (chessType.nearTransverse >= 1) {
-        AIchess[i][j] += 1 - Math.abs(j - 7) / 14 - Math.abs(i - 7) / 14;
+        AIchess[i][j] += 1.5;
       }
       if (chessType.nearOblique >= 1) {
-        AIchess[i][j] += 0.5 - Math.abs(j - 7) / 28 - Math.abs(i - 7) / 28;
+        AIchess[i][j] += 1;
       }
+      AIchess[i][j] += 1 - Math.abs(j - 7) / 14 - Math.abs(i - 7) / 14;
     }
   }
 }
