@@ -58,6 +58,8 @@
       background-color: rgba(51, 68, 85, 0.85);
       box-shadow: 2px 2px 2px #000;
       cursor: pointer; }
+    #main .right .content .showView #startButton {
+      margin: 40px auto 20px; }
     #main .right .content .showView #showHistory {
       display: none; }
     #main .right .content .showView .inGame {
