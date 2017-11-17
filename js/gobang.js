@@ -25,7 +25,7 @@ var data = {
   currentStep: 0,
   amai: false,
   weUpperHand: true,
-  handCut: true
+  handCut: false
 }
 
 addEvent(startButton, 'click', startGame);
@@ -67,10 +67,12 @@ function resetData () { //data.chess数据重置
   data.currentStep = 0;
   PVE.checked ? data.amai = true : data.amai = false;
   weUpperHand.checked ? data.weUpperHand = true : data.weUpperHand = false;
+  handCut.checked ? data.handCut = true : data.handCut = false;
   PVE.setAttribute('disabled', true);
   weUpperHand.setAttribute('disabled', true);
   aiUpperHand.setAttribute('disabled', true);
   PVP.setAttribute('disabled', true);
+  handCut.setAttribute('disabled', true);
   inGameDiv.style.display = 'block';
   startButton.style.display = 'none';
   historyDiv.style.display = 'none';
@@ -139,7 +141,9 @@ function playing (e) { //游戏开始后在棋盘落子
   if (_clickPosition(e) !== false) {
     var clickX = _clickPosition(e).clickX;
     var clickY = _clickPosition(e).clickY;
-    if ( playChess(clickX, clickY) && data.amai === true) {
+    console.log(judgeHandCut(data.chess, clickY, clickX, 0));
+    judgeHandCut(data.chess, clickY, clickX, 0);
+    if (playChess(clickX, clickY) && data.amai === true) {
       var position = amai(data.chess, data.currentPlayer);
       playChess(position.x, position.y);
     }
@@ -363,6 +367,7 @@ function playerWin (player, type) {
   weUpperHand.removeAttribute('disabled');
   aiUpperHand.removeAttribute('disabled');
   PVP.removeAttribute('disabled');
+  handCut.removeAttribute('disabled');
   _drawWinText(player, type);
 
   function _drawWinText (player, type) {
@@ -388,13 +393,13 @@ function playerWin (player, type) {
   }
 }
 
-function handCut (type, row, col) {
+function judgeHandCut (chess, i, j, type) {
   var chessType = {
     alive3: 0,
     alive4: 0,
     long: 0
   }
-  data.chess[row][col] = type;
+  chess[i][j] = type;
 
   var listPosition3 = [0, 1, 5, 6],
       listPosition2 = [0, 1, 2, 5, 6, 7];
@@ -449,10 +454,14 @@ function handCut (type, row, col) {
   }
 
   chess[i][j] = false;
-
-  sumchessType();
+  if (sumChessType()) {
+    return true;
+  } else {
+    return false;
+  }
 
   function judgeTransverseContinuity (type, row, col) { //判断横向连续
+
     var length = 4, start;
         limitLeft = Math.max(0, col - length),
         limitRight = Math.min(14, col + length);
@@ -750,6 +759,82 @@ function handCut (type, row, col) {
     scoreContinuity1(simulationChess, type, falseType);
   }
 
+  function simTransverseChess (type, row, startX, position) { //横向模型类型
+    var falseType = (type + 1) % 2;
+    if (position < 0) {
+      if (startX + position < 0 || chess[row][startX + position] === falseType) {
+        return falseType;
+      }
+    } else {
+      if (startX + position > 14 || chess[row][startX + position] === falseType) {
+        return falseType;
+      }
+    }
+    if (chess[row][startX + position] === type) {
+      return type;
+    } else {
+      return false;
+    }
+  }
+
+  function simPortraitChess (type, col, startY, position) { //纵向模型类型
+    var falseType = (type + 1) % 2;
+    if (position < 0) {
+      if (startY + position < 0 || chess[startY + position][col] === falseType) {
+        return falseType;
+      }
+    } else {
+      if (startY + position > 14 || chess[startY + position][col] === falseType) {
+        return falseType;
+      }
+    }
+    if (chess[startY + position][col] === type) {
+      return type;
+    } else {
+      return false;
+    }
+  }
+
+  function simInclinedChess (type ,startX, startY, position) { //正斜模型类型
+    var falseType = (type + 1) % 2;
+    if (position < 0) {
+      if (startY + position < 0 || startX - position > 14
+        || chess[startY + position][startX - position] === falseType) {  
+        return falseType;
+      }
+    } else {
+      if (startY + position > 14 || startX - position < 0
+        || chess[startY + position][startX - position] === falseType) {
+        return falseType;
+      }
+    }
+    if (chess[startY + position][startX - position] === type) {
+      return type;
+    } else {
+      return false;
+    }
+  }
+
+  function simAntiInclinedChess (type ,startX, startY, position) { //反斜模型类型
+    var falseType = (type + 1) % 2;
+    if (position < 0) {
+      if (startY + position < 0 || startX + position < 0
+        || chess[startY + position][startX + position] === falseType) {  
+        return falseType;
+      }
+    } else {
+      if (startY + position > 14 || startX + position > 14
+        || chess[startY + position][startX + position] === falseType) {
+        return falseType;
+      }
+    }
+    if (chess[startY + position][startX + position] === type) {
+      return type;
+    } else {
+      return false;
+    }
+  }
+
   function scoreContinuity3 (simulationChess, type, falseType) { //连3得分
     if (simulationChess[1] === false && simulationChess[5] === false) {
       chessType.alive3++;
@@ -786,7 +871,7 @@ function handCut (type, row, col) {
     }
   }
 
-  function sumchessType () {
+  function sumChessType () {
     if (chessType.alive4 + chessType.alive3 >= 2) {
       return false;
     }
@@ -796,4 +881,3 @@ function handCut (type, row, col) {
     return true;
   }
 }
-
