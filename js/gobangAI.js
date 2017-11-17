@@ -138,7 +138,7 @@ function amai (chess, currentPlayer) {
       case 4: judgeTransverseContinuity4(type, i, judgeTransverseContinuity(type, i, j).startX); break;
       case 3: judgeTransverseContinuity3(type, i, judgeTransverseContinuity(type, i, j).startX); break;
       case 2: judgeTransverseContinuity2(type, i, judgeTransverseContinuity(type, i, j).startX); break;
-      case 2: judgeTransverseContinuity1(type, i, judgeTransverseContinuity(type, i, j).startX); break;
+      case 1: judgeTransverseContinuity1(type, i, judgeTransverseContinuity(type, i, j).startX); break;
     }
 
     //纵向
