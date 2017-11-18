@@ -1,11 +1,11 @@
 /*
  五子棋人工智障AI
  *
- @chess {Array(15)(15)} 传入棋盘二维数组数据
+ * @chess {Array(15)(15)} 传入棋盘二维数组数据
  *
- @currentPlayer {Number} 传入当前落子player
+ * @currentPlayer {Number} 传入当前落子player
  *
- @return {Object(2)} 计算得出的最佳落子点
+ * @return {Object(2)} 计算得出的最佳落子点
  */
 function amai (chess, currentPlayer) {
   var AIchess = {
@@ -130,53 +130,49 @@ function amai (chess, currentPlayer) {
       nearOblique: 0
     }
 
-    var listPosition4 = [0, 5],
-        listPosition3 = [0, 1, 5, 6],
-        listPosition2 = [0, 1, 2, 5, 6, 7];
-        listPosition1 = [0, 1, 2, 3, 5, 6, 7, 8];
     var falseType = (type + 1) % 2;
     
     //横向
     switch (judgeTransverseContinuity(chess, type, i, j).position) {
       case 5: AIchess[i][j] += 100000; chess[i][j] = false; return; break;
-      case 4: scoreContinuity4(judgeContinuity4(chess, type, i, 0, judgeTransverseContinuity(chess, type, i, j).startX, 0, 1), type, falseType); break;
-      case 3: scoreContinuity3(judgeTransverseContinuity3(chess, type, i, judgeTransverseContinuity(chess, type, i, j).startX), type, falseType); break;
-      case 2: scoreContinuity2(judgeTransverseContinuity2(chess, type, i, judgeTransverseContinuity(chess, type, i, j).startX), type, falseType); break;
-      case 1: scoreContinuity1(judgeTransverseContinuity1(chess, type, i, judgeTransverseContinuity(chess, type, i, j).startX), type, falseType); break;
+      case 4: scoreContinuity4(judgeContinuityModel(chess, type, i, 0, judgeTransverseContinuity(chess, type, i, j).startX, 0, 4, 1), type, falseType); break;
+      case 3: scoreContinuity3(judgeContinuityModel(chess, type, i, 0, judgeTransverseContinuity(chess, type, i, j).startX, 0, 3, 1), type, falseType); break;
+      case 2: scoreContinuity2(judgeContinuityModel(chess, type, i, 0, judgeTransverseContinuity(chess, type, i, j).startX, 0, 2, 1), type, falseType); break;
+      case 1: scoreContinuity1(judgeContinuityModel(chess, type, i, 0, judgeTransverseContinuity(chess, type, i, j).startX, 0, 1, 1), type, falseType); break;
     }
 
     //纵向
     switch (judgePortraitContinuity(chess, type, i, j).position) {
       case 5: AIchess[i][j] += 100000; chess[i][j] = false; return; break;
-      case 4: scoreContinuity4(judgeContinuity4(chess, type, 0, j, 0, judgePortraitContinuity(chess, type, i, j).startY, 2), type, falseType); break;
-      case 3: scoreContinuity3(judgePortraitContinuity3(chess, type, j, judgePortraitContinuity(chess, type, i, j).startY), type, falseType); break;
-      case 2: scoreContinuity2(judgePortraitContinuity2(chess, type, j, judgePortraitContinuity(chess, type, i, j).startY), type, falseType); break;
-      case 1: scoreContinuity1(judgePortraitContinuity1(chess, type, j, judgePortraitContinuity(chess, type, i, j).startY), type, falseType); break;
+      case 4: scoreContinuity4(judgeContinuityModel(chess, type, 0, j, 0, judgePortraitContinuity(chess, type, i, j).startY, 4, 2), type, falseType); break;
+      case 3: scoreContinuity3(judgeContinuityModel(chess, type, 0, j, 0, judgePortraitContinuity(chess, type, i, j).startY, 3, 2), type, falseType); break;
+      case 2: scoreContinuity2(judgeContinuityModel(chess, type, 0, j, 0, judgePortraitContinuity(chess, type, i, j).startY, 2, 2), type, falseType); break;
+      case 1: scoreContinuity1(judgeContinuityModel(chess, type, 0, j, 0, judgePortraitContinuity(chess, type, i, j).startY, 1, 2), type, falseType); break;
     }
 
     //正斜
     switch (judgeInclinedContinuity(chess, type, i, j).position) {
       case 5: AIchess[i][j] += 100000; chess[i][j] = false; return; break;
-      case 4: scoreContinuity4(judgeContinuity4(chess, type, 0, 0, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY, 3), type, falseType);
+      case 4: scoreContinuity4(judgeContinuityModel(chess, type, 0, 0, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY, 4, 3), type, falseType);
               break;
-      case 3: scoreContinuity3(judgeInclinedContinuity3(chess, type, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY), type, falseType);
+      case 3: scoreContinuity3(judgeContinuityModel(chess, type, 0, 0, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY, 3, 3), type, falseType);
               break;
-      case 2: scoreContinuity2(judgeInclinedContinuity2(chess, type, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY), type, falseType);
+      case 2: scoreContinuity2(judgeContinuityModel(chess, type, 0, 0, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY, 2, 3), type, falseType);
               break;
-      case 1: scoreContinuity1(judgeInclinedContinuity1(chess, type, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY), type, falseType);
+      case 1: scoreContinuity1(judgeContinuityModel(chess, type, 0, 0, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY, 1, 3), type, falseType);
               break;
     }
 
     //反斜
     switch (judgeAntiInclinedContinuity(chess, type, i, j).position) {
       case 5: AIchess[i][j] += 100000; chess[i][j] = false; return; break;
-      case 4: scoreContinuity4(judgeContinuity4(chess, type, 0, 0, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY, 4), type, falseType);
+      case 4: scoreContinuity4(judgeContinuityModel(chess, type, 0, 0, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY, 4, 4), type, falseType);
               break;
-      case 3: scoreContinuity3(judgeAntiInclinedContinuity3(chess, type, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY), type, falseType);
+      case 3: scoreContinuity3(judgeContinuityModel(chess, type, 0, 0, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY, 3, 4), type, falseType);
               break;
-      case 2: scoreContinuity2(judgeAntiInclinedContinuity2(chess, type, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY), type, falseType);
+      case 2: scoreContinuity2(judgeContinuityModel(chess, type, 0, 0, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY, 2, 4), type, falseType);
               break;
-      case 1: scoreContinuity1(judgeAntiInclinedContinuity1(chess, type, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY), type, falseType);
+      case 1: scoreContinuity1(judgeContinuityModel(chess, type, 0, 0, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY, 1, 4), type, falseType);
               break;
     }
 
