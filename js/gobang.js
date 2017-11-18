@@ -434,7 +434,7 @@ function judgeHandCut (chess, i, j, type) {
   //横向
   switch (judgeTransverseContinuity(chess, type, i, j).position) {
     case 5: chess[i][j] = false; return false; break;
-    case 4: scoreContinuity4(judgeTransverseContinuity4(chess, type, i, judgeTransverseContinuity(chess, type, i, j).startX), type, falseType); break;
+    case 4: scoreContinuity4(judgeContinuity4(chess, type, i, 0, judgeTransverseContinuity(chess, type, i, j).startX, 0, 1), type, falseType); break;
     case 3: scoreContinuity3(judgeTransverseContinuity3(chess, type, i, judgeTransverseContinuity(chess, type, i, j).startX), type, falseType); break;
     case 2: scoreContinuity2(judgeTransverseContinuity2(chess, type, i, judgeTransverseContinuity(chess, type, i, j).startX), type, falseType); break;
     case 1: scoreContinuity1(judgeTransverseContinuity1(chess, type, i, judgeTransverseContinuity(chess, type, i, j).startX), type, falseType); break;
@@ -444,7 +444,7 @@ function judgeHandCut (chess, i, j, type) {
   //纵向
   switch (judgePortraitContinuity(chess, type, i, j).position) {
     case 5: chess[i][j] = false; return false; break;
-    case 4: scoreContinuity4(judgePortraitContinuity4(chess, type, j, judgePortraitContinuity(chess, type, i, j).startY), type, falseType); break;
+    case 4: scoreContinuity4(judgeContinuity4(chess, type, 0, j, 0, judgePortraitContinuity(chess, type, i, j).startY, 2), type, falseType); break;
     case 3: scoreContinuity3(judgePortraitContinuity3(chess, type, j, judgePortraitContinuity(chess, type, i, j).startY), type, falseType); break;
     case 2: scoreContinuity2(judgePortraitContinuity2(chess, type, j, judgePortraitContinuity(chess, type, i, j).startY), type, falseType); break;
     case 1: scoreContinuity1(judgePortraitContinuity1(chess, type, j, judgePortraitContinuity(chess, type, i, j).startY), type, falseType); break;
@@ -454,7 +454,7 @@ function judgeHandCut (chess, i, j, type) {
   //正斜
   switch (judgeInclinedContinuity(chess, type, i, j).position) {
     case 5: chess[i][j] = false; return false; break;
-    case 4: scoreContinuity4(judgeInclinedContinuity4(chess, type, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY), type, falseType);
+    case 4: scoreContinuity4(judgeContinuity4(chess, type, 0, 0, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY, 3), type, falseType);
             break;
     case 3: scoreContinuity3(judgeInclinedContinuity3(chess, type, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY), type, falseType);
             break;
@@ -468,7 +468,7 @@ function judgeHandCut (chess, i, j, type) {
   //反斜
   switch (judgeAntiInclinedContinuity(chess, type, i, j).position) {
     case 5: chess[i][j] = false; return false; break;
-    case 4: scoreContinuity4(judgeAntiInclinedContinuity4(chess, type, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY), type, falseType);
+    case 4: scoreContinuity4(judgeContinuity4(chess, type, 0, 0, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY, 4), type, falseType);
             break;
     case 3: scoreContinuity3(judgeAntiInclinedContinuity3(chess, type, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY), type, falseType);
             break;

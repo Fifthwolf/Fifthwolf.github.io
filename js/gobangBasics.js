@@ -97,42 +97,17 @@ function judgeAntiInclinedContinuity (chess, type, row, col) { //判断反斜连
   return {'position': continuity, 'startX': startX, 'startY': startY};
 }
 
-function judgeTransverseContinuity4 (chess, type, row, startX) { //横向连4判断
+function judgeContinuity4 (chess, type, row, col, startX, startY, direction) { //连4判断
   var falseType = (type + 1) % 2;
   var simulationChess = [false, type, type, type, type, false];
   for (var i = 0, len = listPosition4.length; i < len; i++) {
     var index = listPosition4[i];
-    simulationChess[index] = simTransverseChess(chess, type, row, startX, index - 1);
-  }
-  return simulationChess;
-}
-
-function judgePortraitContinuity4 (chess, type, col, startY) { //纵向连4判断
-  var falseType = (type + 1) % 2;
-  var simulationChess = [false, type, type, type, type, false];
-  for (var i = 0, len = listPosition4.length; i < len; i++) {
-    var index = listPosition4[i];
-    simulationChess[index] = simPortraitChess(chess, type, col, startY, index - 1);
-  }
-  return simulationChess;
-}
-
-function judgeInclinedContinuity4 (chess, type ,startX, startY) { //正斜连4判断
-  var falseType = (type + 1) % 2;
-  var simulationChess = [false, type, type, type, type, false];
-  for (var i = 0, len = listPosition4.length; i < len; i++) {
-    var index = listPosition4[i];
-    simulationChess[index] = simInclinedChess(chess, type, startX, startY, index - 1);
-  }
-  return simulationChess;
-}
-
-function judgeAntiInclinedContinuity4 (chess, type ,startX, startY) { //反斜连4判断
-  var falseType = (type + 1) % 2;
-  var simulationChess = [false, type, type, type, type, false];
-  for (var i = 0, len = listPosition4.length; i < len; i++) {
-    var index = listPosition4[i];
-    simulationChess[index] = simAntiInclinedChess(chess, type, startX, startY, index - 1);
+    switch (direction) {
+      case 1: simulationChess[index] = simTransverseChess(chess, type, row, startX, index - 1); break;
+      case 2: simulationChess[index] = simPortraitChess(chess, type, col, startY, index - 1); break;
+      case 3: simulationChess[index] = simInclinedChess(chess, type, startX, startY, index - 1); break;
+      case 4: simulationChess[index] = simAntiInclinedChess(chess, type, startX, startY, index - 1); break;
+    }
   }
   return simulationChess;
 }
