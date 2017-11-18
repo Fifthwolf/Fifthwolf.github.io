@@ -1,3 +1,8 @@
+var listPosition4 = [0, 5],
+    listPosition3 = [0, 1, 5, 6],
+    listPosition2 = [0, 1, 2, 5, 6, 7];
+    listPosition1 = [0, 1, 2, 3, 5, 6, 7, 8];
+
 function judgeTransverseContinuity (chess, type, row, col) { //判断横向连续
   var length = 4, start;
   limitLeft = Math.max(0, col - length),
@@ -90,4 +95,240 @@ function judgeAntiInclinedContinuity (chess, type, row, col) { //判断反斜连
     startY = i + 1 - continuity;
   }
   return {'position': continuity, 'startX': startX, 'startY': startY};
+}
+
+function judgeTransverseContinuity4 (chess, type, row, startX) { //横向连4判断
+  var falseType = (type + 1) % 2;
+  var simulationChess = [false, type, type, type, type, false];
+  for (var i = 0, len = listPosition4.length; i < len; i++) {
+    var index = listPosition4[i];
+    simulationChess[index] = simTransverseChess(chess, type, row, startX, index - 1);
+  }
+  return simulationChess;
+}
+
+function judgePortraitContinuity4 (chess, type, col, startY) { //纵向连4判断
+  var falseType = (type + 1) % 2;
+  var simulationChess = [false, type, type, type, type, false];
+  for (var i = 0, len = listPosition4.length; i < len; i++) {
+    var index = listPosition4[i];
+    simulationChess[index] = simPortraitChess(chess, type, col, startY, index - 1);
+  }
+  return simulationChess;
+}
+
+function judgeInclinedContinuity4 (chess, type ,startX, startY) { //正斜连4判断
+  var falseType = (type + 1) % 2;
+  var simulationChess = [false, type, type, type, type, false];
+  for (var i = 0, len = listPosition4.length; i < len; i++) {
+    var index = listPosition4[i];
+    simulationChess[index] = simInclinedChess(chess, type, startX, startY, index - 1);
+  }
+  return simulationChess;
+}
+
+function judgeAntiInclinedContinuity4 (chess, type ,startX, startY) { //反斜连4判断
+  var falseType = (type + 1) % 2;
+  var simulationChess = [false, type, type, type, type, false];
+  for (var i = 0, len = listPosition4.length; i < len; i++) {
+    var index = listPosition4[i];
+    simulationChess[index] = simAntiInclinedChess(chess, type, startX, startY, index - 1);
+  }
+  return simulationChess;
+}
+
+function judgeTransverseContinuity3 (chess, type, row, startX) { //横向连3判断
+  var falseType = (type + 1) % 2;
+  var simulationChess = [false, false, type, type, type, false, false];
+  for (var i = 0, len = listPosition3.length; i < len; i++) {
+    var index = listPosition3[i];
+    simulationChess[index] = simTransverseChess(chess, type, row, startX, index - 2);
+  }
+  return simulationChess;
+}
+
+function judgePortraitContinuity3 (chess, type, col, startY) { //纵向连3判断
+  var falseType = (type + 1) % 2;
+  var simulationChess = [false, false, type, type, type, false, false];
+  for (var i = 0, len = listPosition3.length; i < len; i++) {
+    var index = listPosition3[i];
+    simulationChess[index] = simPortraitChess(chess, type, col, startY, index - 2);
+  }
+  return simulationChess;
+}
+
+function judgeInclinedContinuity3 (chess, type ,startX, startY) { //正斜连3判断
+  var falseType = (type + 1) % 2;
+  var simulationChess = [false, false, type, type, type, false, false];
+  for (var i = 0, len = listPosition3.length; i < len; i++) {
+    var index = listPosition3[i];
+    simulationChess[index] = simInclinedChess(chess, type, startX, startY, index - 2);
+  }
+  return simulationChess;
+}
+
+function judgeAntiInclinedContinuity3 (chess, type ,startX, startY) { //反斜连3判断
+  var falseType = (type + 1) % 2;
+  var simulationChess = [false, false, type, type, type, false, false];
+  for (var i = 0, len = listPosition3.length; i < len; i++) {
+    var index = listPosition3[i];
+    simulationChess[index] = simAntiInclinedChess(chess, type, startX, startY, index - 2);
+  }
+  return simulationChess;
+}
+
+function judgeTransverseContinuity2 (chess, type, row, startX) { //横向连2判断
+  var falseType = (type + 1) % 2;
+  var simulationChess = [false, false, false, type, type, false, false, false];
+  for (var i = 0, len = listPosition2.length; i < len; i++) {
+    var index = listPosition2[i];
+    simulationChess[index] = simTransverseChess(chess, type, row, startX, index - 3);
+  }
+  return simulationChess;
+}
+
+function judgePortraitContinuity2 (chess, type, col, startY) { //纵向连2判断
+  var falseType = (type + 1) % 2;
+  var simulationChess = [false, false, false, type, type, false, false, false];
+  for (var i = 0, len = listPosition2.length; i < len; i++) {
+    var index = listPosition2[i];
+    simulationChess[index] = simPortraitChess(chess, type, col, startY, index - 3);
+  }
+  return simulationChess;
+}
+
+function judgeInclinedContinuity2 (chess, type ,startX, startY) { //正斜连2判断
+  var falseType = (type + 1) % 2;
+  var simulationChess = [false, false, false, type, type, false, false, false];
+  for (var i = 0, len = listPosition2.length; i < len; i++) {
+    var index = listPosition2[i];
+    simulationChess[index] = simInclinedChess(chess, type, startX, startY, index - 3);
+  }
+  return simulationChess;
+}
+
+function judgeAntiInclinedContinuity2 (chess, type ,startX, startY) { //反斜连2判断
+  var falseType = (type + 1) % 2;
+  var simulationChess = [false, false, false, type, type, false, false, false];
+  for (var i = 0, len = listPosition2.length; i < len; i++) {
+    var index = listPosition2[i];
+    simulationChess[index] = simAntiInclinedChess(chess, type, startX, startY, index - 3);
+  }
+  return simulationChess;
+}
+
+function judgeTransverseContinuity1 (chess, type, row, startX) { //横向单1判断
+  var falseType = (type + 1) % 2;
+  var simulationChess = [false, false, false, false, type, false, false, false, false];
+  for (var i = 0, len = listPosition1.length; i < len; i++) {
+    var index = listPosition1[i];
+    simulationChess[index] = simTransverseChess(chess, type, row, startX, index - 4);
+  }
+  return simulationChess;
+}
+
+function judgePortraitContinuity1 (chess, type, col, startY) { //纵向单1判断
+  var falseType = (type + 1) % 2;
+  var simulationChess = [false, false, false, false, type, false, false, false, false];
+  for (var i = 0, len = listPosition1.length; i < len; i++) {
+    var index = listPosition1[i];
+    simulationChess[index] = simPortraitChess(chess, type, col, startY, index - 4);
+  }
+  return simulationChess;
+}
+
+function judgeInclinedContinuity1 (chess, type ,startX, startY) { //正斜单1判断
+  var falseType = (type + 1) % 2;
+  var simulationChess = [false, false, false, false, type, false, false, false, false];
+  for (var i = 0, len = listPosition1.length; i < len; i++) {
+    var index = listPosition1[i];
+    simulationChess[index] = simInclinedChess(chess, type, startX, startY, index - 4);
+  }
+  return simulationChess;
+}
+
+function judgeAntiInclinedContinuity1 (chess, type ,startX, startY) { //反斜单1判断
+  var falseType = (type + 1) % 2;
+  var simulationChess = [false, false, false, false, type, false, false, false, false];
+  for (var i = 0, len = listPosition1.length; i < len; i++) {
+    var index = listPosition1[i];
+    simulationChess[index] = simAntiInclinedChess(chess, type, startX, startY, index - 4);
+  }
+  return simulationChess;
+}
+
+function simTransverseChess (chess, type, row, startX, position) { //横向模型类型
+  var falseType = (type + 1) % 2;
+  if (position < 0) {
+    if (startX + position < 0 || chess[row][startX + position] === falseType) {
+      return falseType;
+    }
+  } else {
+    if (startX + position > 14 || chess[row][startX + position] === falseType) {
+      return falseType;
+    }
+  }
+  if (chess[row][startX + position] === type) {
+    return type;
+  } else {
+    return false;
+  }
+}
+
+function simPortraitChess (chess, type, col, startY, position) { //纵向模型类型
+  var falseType = (type + 1) % 2;
+  if (position < 0) {
+    if (startY + position < 0 || chess[startY + position][col] === falseType) {
+      return falseType;
+    }
+  } else {
+    if (startY + position > 14 || chess[startY + position][col] === falseType) {
+      return falseType;
+    }
+  }
+  if (chess[startY + position][col] === type) {
+    return type;
+  } else {
+    return false;
+  }
+}
+
+function simInclinedChess (chess, type ,startX, startY, position) { //正斜模型类型
+  var falseType = (type + 1) % 2;
+  if (position < 0) {
+    if (startY + position < 0 || startX - position > 14
+      || chess[startY + position][startX - position] === falseType) {  
+      return falseType;
+    }
+  } else {
+    if (startY + position > 14 || startX - position < 0
+      || chess[startY + position][startX - position] === falseType) {
+      return falseType;
+    }
+  }
+  if (chess[startY + position][startX - position] === type) {
+    return type;
+  } else {
+    return false;
+  }
+}
+
+function simAntiInclinedChess (chess, type ,startX, startY, position) { //反斜模型类型
+  var falseType = (type + 1) % 2;
+  if (position < 0) {
+    if (startY + position < 0 || startX + position < 0
+      || chess[startY + position][startX + position] === falseType) {  
+      return falseType;
+    }
+  } else {
+    if (startY + position > 14 || startX + position > 14
+      || chess[startY + position][startX + position] === falseType) {
+      return falseType;
+    }
+  }
+  if (chess[startY + position][startX + position] === type) {
+    return type;
+  } else {
+    return false;
+  }
 }
