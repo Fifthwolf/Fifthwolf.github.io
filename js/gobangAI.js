@@ -49,6 +49,7 @@ function amai (chess, currentPlayer) {
     direction = (direction + 1) % 4;
   }
   
+  /*
   for (var i = 0; i < 15; i++) {
     var m = [];
     for (var j = 0; j < 15; j++) {
@@ -64,6 +65,7 @@ function amai (chess, currentPlayer) {
     }
     console.log(m);
   }
+  */
 
   var wePosition = [tempPosition], otherPosition = [tempPosition],
       weScoreMax = 0, otherScoreMax = 0;
@@ -133,46 +135,46 @@ function amai (chess, currentPlayer) {
         listPosition1 = [0, 1, 2, 3, 5, 6, 7, 8];
 
     //横向
-    switch (judgeTransverseContinuity(type, i, j).position) {
+    switch (judgeTransverseContinuity(chess, type, i, j).position) {
       case 5: AIchess[i][j] += 100000; chess[i][j] = false; return; break;
-      case 4: judgeTransverseContinuity4(type, i, judgeTransverseContinuity(type, i, j).startX); break;
-      case 3: judgeTransverseContinuity3(type, i, judgeTransverseContinuity(type, i, j).startX); break;
-      case 2: judgeTransverseContinuity2(type, i, judgeTransverseContinuity(type, i, j).startX); break;
-      case 1: judgeTransverseContinuity1(type, i, judgeTransverseContinuity(type, i, j).startX); break;
+      case 4: judgeTransverseContinuity4(type, i, judgeTransverseContinuity(chess, type, i, j).startX); break;
+      case 3: judgeTransverseContinuity3(type, i, judgeTransverseContinuity(chess, type, i, j).startX); break;
+      case 2: judgeTransverseContinuity2(type, i, judgeTransverseContinuity(chess, type, i, j).startX); break;
+      case 1: judgeTransverseContinuity1(type, i, judgeTransverseContinuity(chess, type, i, j).startX); break;
     }
 
     //纵向
-    switch (judgePortraitContinuity(type, i, j).position) {
+    switch (judgePortraitContinuity(chess, type, i, j).position) {
       case 5: AIchess[i][j] += 100000; chess[i][j] = false; return; break;
-      case 4: judgePortraitContinuity4(type, j, judgePortraitContinuity(type, i, j).startY); break;
-      case 3: judgePortraitContinuity3(type, j, judgePortraitContinuity(type, i, j).startY); break;
-      case 2: judgePortraitContinuity2(type, j, judgePortraitContinuity(type, i, j).startY); break;
-      case 1: judgePortraitContinuity1(type, j, judgePortraitContinuity(type, i, j).startY); break;
+      case 4: judgePortraitContinuity4(type, j, judgePortraitContinuity(chess, type, i, j).startY); break;
+      case 3: judgePortraitContinuity3(type, j, judgePortraitContinuity(chess, type, i, j).startY); break;
+      case 2: judgePortraitContinuity2(type, j, judgePortraitContinuity(chess, type, i, j).startY); break;
+      case 1: judgePortraitContinuity1(type, j, judgePortraitContinuity(chess, type, i, j).startY); break;
     }
 
     //正斜
-    switch (judgeInclinedContinuity(type, i, j).position) {
+    switch (judgeInclinedContinuity(chess, type, i, j).position) {
       case 5: AIchess[i][j] += 100000; chess[i][j] = false; return; break;
-      case 4: judgeInclinedContinuity4(type, judgeInclinedContinuity(type, i, j).startX, judgeInclinedContinuity(type, i, j).startY);
+      case 4: judgeInclinedContinuity4(type, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY);
               break;
-      case 3: judgeInclinedContinuity3(type, judgeInclinedContinuity(type, i, j).startX, judgeInclinedContinuity(type, i, j).startY);
+      case 3: judgeInclinedContinuity3(type, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY);
               break;
-      case 2: judgeInclinedContinuity2(type, judgeInclinedContinuity(type, i, j).startX, judgeInclinedContinuity(type, i, j).startY);
+      case 2: judgeInclinedContinuity2(type, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY);
               break;
-      case 1: judgeInclinedContinuity1(type, judgeInclinedContinuity(type, i, j).startX, judgeInclinedContinuity(type, i, j).startY);
+      case 1: judgeInclinedContinuity1(type, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY);
               break;
     }
 
     //反斜
-    switch (judgeAntiInclinedContinuity(type, i, j).position) {
+    switch (judgeAntiInclinedContinuity(chess, type, i, j).position) {
       case 5: AIchess[i][j] += 100000; chess[i][j] = false; return; break;
-      case 4: judgeAntiInclinedContinuity4(type, judgeAntiInclinedContinuity(type, i, j).startX, judgeAntiInclinedContinuity(type, i, j).startY);
+      case 4: judgeAntiInclinedContinuity4(type, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY);
               break;
-      case 3: judgeAntiInclinedContinuity3(type, judgeAntiInclinedContinuity(type, i, j).startX, judgeAntiInclinedContinuity(type, i, j).startY);
+      case 3: judgeAntiInclinedContinuity3(type, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY);
               break;
-      case 2: judgeAntiInclinedContinuity2(type, judgeAntiInclinedContinuity(type, i, j).startX, judgeAntiInclinedContinuity(type, i, j).startY);
+      case 2: judgeAntiInclinedContinuity2(type, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY);
               break;
-      case 1: judgeAntiInclinedContinuity1(type, judgeAntiInclinedContinuity(type, i, j).startX, judgeAntiInclinedContinuity(type, i, j).startY);
+      case 1: judgeAntiInclinedContinuity1(type, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY);
               break;
     }
 
@@ -181,100 +183,6 @@ function amai (chess, currentPlayer) {
     sumChessScore(i, j, attack);
 
     chess[i][j] = false;
-
-    function judgeTransverseContinuity (type, row, col) { //判断横向连续
-      var length = 4, start;
-      limitLeft = Math.max(0, col - length),
-      limitRight = Math.min(14, col + length);
-      var continuity = 0, flag = true;
-      for (var j = limitLeft; j <= limitRight; j++) {
-        if (j === col) {
-          flag = false;
-        }
-        if (chess[row][j] === type) {
-          continuity++;
-        } else {
-          if (flag) {
-            continuity = 0;
-          } else {
-            break;
-          }
-        }
-        startX = j + 1 - continuity;
-      }
-      return {'position': Math.min(5, continuity), 'startX': startX};
-    }
-
-    function judgePortraitContinuity (type, row, col) { //判断纵向连续
-      var length = 4,
-      limitTop = Math.max(0, row - length),
-      limitBottom = Math.min(14, row + length);
-      var continuity = 0, flag = true;
-      for (var i = limitTop; i <= limitBottom; i++) {
-        if (i === row) {
-          flag = false;
-        }
-        if (chess[i][col] === type) {
-          continuity++;
-        } else {
-          if (flag) {
-            continuity = 0;
-          } else {
-            break;
-          }
-        }
-        startY = i + 1 - continuity;
-      }
-      return {'position': Math.min(5, continuity), 'startY': startY};
-    }
-
-    function judgeInclinedContinuity (type, row, col) { //判断正斜连续
-      var continuity = 0, flag = true;
-      for (var i = row - 4, j = col + 4, len = 0; len < 9; i++, j--, len++) {
-        if (i < 0 || j < 0 || i > 14 || j > 14) {
-          continue;
-        }
-        if (i === row && j === col) {
-          flag = false;
-        }
-        if (chess[i][j] === type) {
-          continuity++;
-        } else {
-          if (flag) {
-            continuity = 0;
-          } else {
-            break;
-          }
-        }
-        startX = j - 1 + continuity;
-        startY = i + 1 - continuity;
-      }
-      return {'position': Math.min(5, continuity), 'startX': startX, 'startY': startY};
-    }
-
-    function judgeAntiInclinedContinuity (type, row, col) { //判断反斜连续
-      var continuity = 0, flag = true;
-      for (var i = row - 4, j = col - 4, len = 0; len < 9; i++, j++, len++) {
-        if (i < 0 || j < 0 || i > 14 || j > 14) {
-          continue;
-        }
-        if (i === row && j === col) {
-          flag = false;
-        }
-        if (chess[i][j] === type) {
-          continuity++;
-        } else {
-          if (flag) {
-            continuity = 0;
-          } else {
-            break;
-          }
-        }
-        startX = j + 1 - continuity;
-        startY = i + 1 - continuity;
-      }
-      return {'position': Math.min(5, continuity), 'startX': startX, 'startY': startY};
-    }
 
     function judgeTransverseContinuity4 (type, row, startX) { //横向连4判断
       if (startX - 1 >= 0 && startX + 4 <= 14) {
