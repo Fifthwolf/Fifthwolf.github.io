@@ -5,6 +5,7 @@ var weUpperHand = document.getElementById('weUpperHand');
 var aiUpperHand = document.getElementById('aiUpperHand');
 var PVP = document.getElementById('PVP');
 var handCut = document.getElementById('handCut');
+var handCutText = handCut.parentNode.getElementsByTagName('span')[0];
 var startButton = document.getElementById('startButton');
 var historyDiv = document.getElementById('showHistory');
 var inGameDiv = document.getElementById('inGame');
@@ -141,8 +142,12 @@ function playing (e) { //游戏开始后在棋盘落子
   if (_clickPosition(e) !== false) {
     var clickX = _clickPosition(e).clickX;
     var clickY = _clickPosition(e).clickY;
-    console.log(judgeHandCut(data.chess, clickY, clickX, 0));
-    judgeHandCut(data.chess, clickY, clickX, 0);
+    if (data.handCut === true && data.currentPlayer === 0) {
+      if (judgeHandCut(data.chess, clickY, clickX, 0)) {
+        handCutPrompt();
+        return;
+      }
+    }
     if (playChess(clickX, clickY) && data.amai === true) {
       var position = amai(data.chess, data.currentPlayer);
       playChess(position.x, position.y);
@@ -390,6 +395,25 @@ function playerWin (player, type) {
     cxt.textAlign = 'center';
     cxt.textBaseline = 'middle';
     cxt.fillText(text, 280, 280);
+  }
+}
+
+function handCutPrompt () {
+  var flag = 3;
+  _colorChange(flag);
+
+  function _colorChange (flag) {
+    if (flag % 2 === 1) {
+      handCutText.style.color = 'red';
+    } else {
+      handCutText.style.color = 'black';
+    }
+    if (flag > 0) {
+      flag--;
+      setTimeout(function () {
+        _colorChange(flag);
+      }, 200);
+    }
   }
 }
 
@@ -873,11 +897,11 @@ function judgeHandCut (chess, i, j, type) {
 
   function sumChessType () {
     if (chessType.alive4 + chessType.alive3 >= 2) {
-      return false;
+      return true;
     }
     if (chessType.long >= 1) {
-      return false;
+      return true;
     }
-    return true;
+    return false;
   }
 }
