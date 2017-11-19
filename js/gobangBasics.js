@@ -212,3 +212,127 @@ function simAntiInclinedChess (chess, type ,startX, startY, position) { //反斜
     return false;
   }
 }
+
+
+function judgeForbiddenMoves (chess, i, j, type) {
+  var chessType = {
+    alive3: 0,
+    alive4: 0,
+    long: 0
+  }
+  chess[i][j] = type;
+
+  var falseType = (type + 1) % 2;
+
+  //横向
+  switch (judgeTransverseContinuity(chess, type, i, j).position) {
+    case 5: chess[i][j] = false; return false; break;
+    case 4: scoreContinuity4(judgeContinuityModel(chess, type, i, 0, judgeTransverseContinuity(chess, type, i, j).startX, 0, 4, 1), type, falseType); break;
+    case 3: scoreContinuity3(judgeContinuityModel(chess, type, i, 0, judgeTransverseContinuity(chess, type, i, j).startX, 0, 3, 1), type, falseType); break;
+    case 2: scoreContinuity2(judgeContinuityModel(chess, type, i, 0, judgeTransverseContinuity(chess, type, i, j).startX, 0, 2, 1), type, falseType); break;
+    case 1: scoreContinuity1(judgeContinuityModel(chess, type, i, 0, judgeTransverseContinuity(chess, type, i, j).startX, 0, 1, 1), type, falseType); break;
+    default: chessType.long++;
+  }
+
+  //纵向
+  switch (judgePortraitContinuity(chess, type, i, j).position) {
+    case 5: chess[i][j] = false; return false; break;
+    case 4: scoreContinuity4(judgeContinuityModel(chess, type, 0, j, 0, judgePortraitContinuity(chess, type, i, j).startY, 4, 2), type, falseType); break;
+    case 3: scoreContinuity3(judgeContinuityModel(chess, type, 0, j, 0, judgePortraitContinuity(chess, type, i, j).startY, 3, 2), type, falseType); break;
+    case 2: scoreContinuity2(judgeContinuityModel(chess, type, 0, j, 0, judgePortraitContinuity(chess, type, i, j).startY, 2, 2), type, falseType); break;
+    case 1: scoreContinuity1(judgeContinuityModel(chess, type, 0, j, 0, judgePortraitContinuity(chess, type, i, j).startY, 1, 2), type, falseType); break;
+    default: chessType.long++;
+  }
+
+  //正斜
+  switch (judgeInclinedContinuity(chess, type, i, j).position) {
+    case 5: chess[i][j] = false; return false; break;
+    case 4: scoreContinuity4(judgeContinuityModel(chess, type, 0, 0, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY, 4, 3), type, falseType);
+            break;
+    case 3: scoreContinuity3(judgeContinuityModel(chess, type, 0, 0, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY, 3, 3), type, falseType);
+            break;
+    case 2: scoreContinuity2(judgeContinuityModel(chess, type, 0, 0, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY, 2, 3), type, falseType);
+            break;
+    case 1: scoreContinuity1(judgeContinuityModel(chess, type, 0, 0, judgeInclinedContinuity(chess, type, i, j).startX, judgeInclinedContinuity(chess, type, i, j).startY, 1, 3), type, falseType);
+            break;
+    default: chessType.long++;
+  }
+
+  //反斜
+  switch (judgeAntiInclinedContinuity(chess, type, i, j).position) {
+    case 5: chess[i][j] = false; return false; break;
+    case 4: scoreContinuity4(judgeContinuityModel(chess, type, 0, 0, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY, 4, 4), type, falseType);
+            break;
+    case 3: scoreContinuity3(judgeContinuityModel(chess, type, 0, 0, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY, 3, 4), type, falseType);
+            break;
+    case 2: scoreContinuity2(judgeContinuityModel(chess, type, 0, 0, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY, 2, 4), type, falseType);
+            break;
+    case 1: scoreContinuity1(judgeContinuityModel(chess, type, 0, 0, judgeAntiInclinedContinuity(chess, type, i, j).startX, judgeAntiInclinedContinuity(chess, type, i, j).startY, 1, 4), type, falseType);
+            break;
+    default: chessType.long++;
+  }
+
+  chess[i][j] = false;
+
+  if (sumChessType()) {
+    return true;
+  } else {
+    return false;
+  }
+
+  function scoreContinuity4 (simulationChess, type, falseType) { //连4得分
+    if (simulationChess[0] === false && simulationChess[5] === false) {
+      chessType.alive4++
+    } else if (simulationChess[0] === falseType && simulationChess[5] === falseType) {
+      //nothing
+    } else if (simulationChess[0] === false || simulationChess[5] === false) {
+      chessType.alive4++;
+    }
+  }
+
+  function scoreContinuity3 (simulationChess, type, falseType) { //连3得分
+    if (simulationChess[1] === false && simulationChess[5] === false) {
+      chessType.alive3++;
+    }
+    if (simulationChess[0] === type && simulationChess[1] === false
+      && simulationChess[5] === false && simulationChess[6] === type) {
+      chessType.alive4 += 2;
+    }
+  }
+
+  function scoreContinuity2 (simulationChess, type, falseType) { //连2得分
+    if (simulationChess[2] === false && simulationChess[5] === false) {
+      if (simulationChess[6] === type && simulationChess[7] === type
+        && simulationChess[1] === type && simulationChess[0] === type) {
+        chessType.alive4 += 2;
+      }
+      if (simulationChess[6] === type && simulationChess[7] === false
+        || simulationChess[1] === type && simulationChess[0] === false) {
+        chessType.alive3++;
+      }
+    }
+  }
+
+  function scoreContinuity1 (simulationChess, type, falseType) { //单1得分
+    if (simulationChess[6] === type && simulationChess[7] === type) {
+      if (simulationChess[3] === false || simulationChess[8] === false) {
+        chessType.alive4++;
+      }
+    }
+    if (simulationChess[1] === type && simulationChess[2] === type) {
+      if (simulationChess[0] === false || simulationChess[5] === false) {
+        chessType.alive4++;
+      }
+    }
+  }
+
+  function sumChessType () {
+    if (chessType.alive4 + chessType.alive3 >= 2) {
+      return true;
+    }
+    if (chessType.long >= 1) {
+      return true;
+    }
+    return false;
+  }
+}
