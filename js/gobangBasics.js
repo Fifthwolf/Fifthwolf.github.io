@@ -314,12 +314,12 @@ function judgeForbiddenMoves (chess, i, j, type) {
   }
 
   function scoreContinuity1 (simulationChess, type, falseType) { //单1得分
-    if (simulationChess[6] === type && simulationChess[7] === type) {
+    if (simulationChess[6] === type && simulationChess[7] === type && simulationChess[5] === false) {
       if (simulationChess[3] === false || simulationChess[8] === false) {
         chessType.alive4++;
       }
     }
-    if (simulationChess[1] === type && simulationChess[2] === type) {
+    if (simulationChess[1] === type && simulationChess[2] === type && simulationChess[3] === false) {
       if (simulationChess[0] === false || simulationChess[5] === false) {
         chessType.alive4++;
       }
