@@ -7,7 +7,7 @@
  *
  * @return {Object(2)} 计算得出的最佳落子点
  */
-function amai (chess, currentPlayer) {
+function amai (chess, currentPlayer, forbiddenMoves) {
   var AIchess = {
     we: [],
     other: []
@@ -49,7 +49,7 @@ function amai (chess, currentPlayer) {
     direction = (direction + 1) % 4;
   }
   
-  /*
+  
   for (var i = 0; i < 15; i++) {
     var m = [];
     for (var j = 0; j < 15; j++) {
@@ -65,7 +65,7 @@ function amai (chess, currentPlayer) {
     }
     console.log(m);
   }
-  */
+  
 
   var wePosition = [tempPosition], otherPosition = [tempPosition],
       weScoreMax = 0, otherScoreMax = 0;
@@ -396,6 +396,9 @@ function amai (chess, currentPlayer) {
         AIchess[i][j] += 1;
       }
       AIchess[i][j] += 1 - Math.abs(j - 7) / 14 - Math.abs(i - 7) / 14;
+      if (forbiddenMoves && currentPlayer === 0 && judgeForbiddenMoves (chess, i, j, 0)) {
+        AIchess[i][j] = -1;
+      }
     }
   }
 }

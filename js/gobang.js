@@ -4,8 +4,8 @@ var PVE = document.getElementById('PVE');
 var weUpperHand = document.getElementById('weUpperHand');
 var aiUpperHand = document.getElementById('aiUpperHand');
 var PVP = document.getElementById('PVP');
-var handCut = document.getElementById('handCut');
-var handCutText = handCut.parentNode.getElementsByTagName('span')[0];
+var forbiddenMoves = document.getElementById('forbiddenMoves');
+var forbiddenMovesText = forbiddenMoves.parentNode.getElementsByTagName('span')[0];
 var startButton = document.getElementById('startButton');
 var historyDiv = document.getElementById('showHistory');
 var inGameDiv = document.getElementById('inGame');
@@ -26,7 +26,7 @@ var data = {
   currentStep: 0,
   amai: false,
   weUpperHand: true,
-  handCut: false
+  forbiddenMoves: false
 }
 
 addEvent(startButton, 'click', startGame);
@@ -49,6 +49,7 @@ function startGame () {
   });
   addEvent(historyDiv, 'click', showHistory);
   if (data.amai === true && data.weUpperHand === false) {
+    console.log(data.forbiddenMoves);
     var position = amai(data.chess, data.currentPlayer);
     playChess(position.x, position.y);
   }
@@ -68,12 +69,12 @@ function resetData () { //data.chess数据重置
   data.currentStep = 0;
   PVE.checked ? data.amai = true : data.amai = false;
   weUpperHand.checked ? data.weUpperHand = true : data.weUpperHand = false;
-  handCut.checked ? data.handCut = true : data.handCut = false;
+  forbiddenMoves.checked ? data.forbiddenMoves = true : data.forbiddenMoves = false;
   PVE.setAttribute('disabled', true);
   weUpperHand.setAttribute('disabled', true);
   aiUpperHand.setAttribute('disabled', true);
   PVP.setAttribute('disabled', true);
-  handCut.setAttribute('disabled', true);
+  forbiddenMoves.setAttribute('disabled', true);
   inGameDiv.style.display = 'block';
   startButton.style.display = 'none';
   historyDiv.style.display = 'none';
@@ -143,7 +144,7 @@ function playing (e) { //游戏开始后在棋盘落子
     var clickX = _clickPosition(e).clickX;
     var clickY = _clickPosition(e).clickY;
     if (playChess(clickX, clickY) && data.amai === true) {
-      var position = amai(data.chess, data.currentPlayer);
+      var position = amai(data.chess, data.currentPlayer, data.forbiddenMoves);
       playChess(position.x, position.y);
     }
   }
@@ -170,7 +171,7 @@ function playing (e) { //游戏开始后在棋盘落子
 
 function playChess (clickX, clickY) {
   if (data.chess[clickY][clickX] === false) {
-    if (data.handCut === true && data.currentPlayer === 0) {
+    if (data.forbiddenMoves === true && data.currentPlayer === 0) {
       if (judgeForbiddenMoves(data.chess, clickY, clickX, 0)) {
         forbiddenMovesPrompt();
         return;
@@ -372,7 +373,7 @@ function playerWin (player, type) {
   weUpperHand.removeAttribute('disabled');
   aiUpperHand.removeAttribute('disabled');
   PVP.removeAttribute('disabled');
-  handCut.removeAttribute('disabled');
+  forbiddenMoves.removeAttribute('disabled');
   _drawWinText(player, type);
 
   function _drawWinText (player, type) {
@@ -404,9 +405,9 @@ function forbiddenMovesPrompt () {
 
   function _colorChange (flag) {
     if (flag % 2 === 1) {
-      handCutText.style.color = 'red';
+      forbiddenMovesText.style.color = 'red';
     } else {
-      handCutText.style.color = 'black';
+      forbiddenMovesText.style.color = 'black';
     }
     if (flag > 0) {
       flag--;
