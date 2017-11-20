@@ -119,8 +119,7 @@ Object.prototype.addClass = function (cls) {
 Object.prototype.removeClass = function (cls) {
   if (this.hasClass(cls)) {
     var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
-    this.className = this.className.replace(reg, ' ');
-    this.className = this.className.replace(/\s+/, ' ');
+    this.className = this.className.replace(reg, ' ').replace(/\s+/, ' ');
   }
 }
 
