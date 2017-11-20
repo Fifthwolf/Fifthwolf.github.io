@@ -57,9 +57,9 @@
       background-color: rgba(51, 68, 85, 0.85);
       box-shadow: 2px 2px 2px #000;
       cursor: pointer; }
-    #main .right .content .showView #startButton {
+    #main .right .content .showView .startButton {
       margin: 40px auto 20px; }
-    #main .right .content .showView #showHistory {
+    #main .right .content .showView .showHistory {
       display: none; }
     #main .right .content .showView .inGame {
       display: none;
@@ -123,9 +123,9 @@
           text-shadow: 2px 2px 2px #000;
           line-height: 90px;
           border-radius: 30px; }
-        #main .right .content .showView #startButton {
+        #main .right .content .showView .startButton {
           margin-top: 55px;
-          margin-right: 100px; }
+          margin-right: 90px; }
         #main .right .content .showView .inGame {
           float: right;
           margin-top: 15px;
@@ -144,6 +144,14 @@
             height: 75px;
             font-size: 30px;
             line-height: 75px;
-            border-radius: 30px; } }
+            border-radius: 30px; }
+        #main .right .content .showView .mobileStyle {
+          float: left;
+          margin: 60px 10px 0 25px;
+          width: 130px;
+          height: 80px;
+          font-size: 26px;
+          line-height: 80px;
+          border-radius: 30px; } }
 
 /*# sourceMappingURL=gobang.css.map */

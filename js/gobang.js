@@ -249,12 +249,13 @@ function showHistory () {
   }
 
   function _drawNumber (clickX, clickY, type, number) {
-    var x = (clickX + 1) * 35;
-    var y = (clickY + 1) * 35;
+    var x = (clickX + 1) * data.chessLength;
+    var y = (clickY + 1) * data.chessLength;
     var cxt = chessBoard.getContext('2d');
+    var fontSize = data.chessLength / 2.5;
     cxt.beginPath();
     type === 0 ? cxt.fillStyle = '#fff' : cxt.fillStyle = '#000';
-    cxt.font = 'bold 14px Microsoft YaHei';
+    cxt.font = 'bold ' + fontSize + 'px Microsoft YaHei';
     cxt.textAlign = 'center';
     cxt.textBaseline = 'middle';
     cxt.fillText(number + 1, x, y);
@@ -373,6 +374,8 @@ function playerWin (player, type) {
   startButton.innerHTML = '再来一局';
   startButton.style.display = 'block';
   historyDiv.style.display = 'block';
+  startButton.addClass('mobileStyle');
+  historyDiv.addClass('mobileStyle');
   PVE.removeAttribute('disabled');
   weUpperHand.removeAttribute('disabled');
   aiUpperHand.removeAttribute('disabled');
@@ -392,14 +395,15 @@ function playerWin (player, type) {
       }
     }
     var cxt = chessBoard.getContext('2d');
+    var fontSize = data.chessLength * 2.5;
     cxt.beginPath();
     cxt.fillStyle = 'rgba(85, 102, 119, 0.75)';
-    cxt.fillRect(15, 15, 530, 530);
+    cxt.fillRect(data.chessLength - 20, data.chessLength - 20, data.chessLength * 14 + 20 * 2, data.chessLength * 14 + 20 * 2);
     cxt.fillStyle = '#fff';
-    cxt.font = 'bold 80px Microsoft YaHei';
+    cxt.font = 'bold ' + fontSize + 'px Microsoft YaHei';
     cxt.textAlign = 'center';
     cxt.textBaseline = 'middle';
-    cxt.fillText(text, 280, 280);
+    cxt.fillText(text, data.chessLength * 8, data.chessLength * 8);
   }
 }
 

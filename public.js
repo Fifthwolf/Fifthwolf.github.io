@@ -65,8 +65,8 @@ function useElementToAppropriate (element, parent) {
 }
 
 function publicUseMainAppropriate (element) {
-  var height = document.documentElement.clientHeight||document.body.clientHeight;
-  var width = document.documentElement.clientWidth||document.body.clientWidth;
+  var height = document.documentElement.clientHeight || document.body.clientHeight;
+  var width = document.documentElement.clientWidth || document.body.clientWidth;
   element.style.height = height - 40 + 'px';
   element.style.width = width - 40 + 'px';
   element.style.top = '20px';
@@ -74,7 +74,7 @@ function publicUseMainAppropriate (element) {
 }
 
 function judgeWidth() {
-  var screenWidth = document.documentElement.clientWidth||document.body.clientWidth;
+  var screenWidth = document.documentElement.clientWidth || document.body.clientWidth;
   return (screenWidth >= 1000);
 }
 
