@@ -13,13 +13,8 @@ var currentColor = inGameDiv.getElementsByTagName('span')[0];
 var falseMove = inGameDiv.getElementsByClassName('falseMove')[0];
 var surrender = inGameDiv.getElementsByClassName('surrender')[0];
 
-
-window.onload = function () {
-  delayedLoadingPublicPictures ('../');
-  createFrame();
-}
-
 var data = {
+  chessLength: 35,
   chess: [],
   chessStep: [],
   currentPlayer: 0, // 默认黑子先手，0为当前黑执子，1为当前白执子
@@ -27,6 +22,14 @@ var data = {
   amai: false,
   weUpperHand: true,
   forbiddenMoves: false
+}
+
+window.onload = function () {
+  delayedLoadingPublicPictures ('../');
+  if (!judgeWidth()) {
+    data.chessLength = 50;
+  }
+  createFrame(data.chessLength);
 }
 
 addEvent(startButton, 'click', startGame);
@@ -40,7 +43,7 @@ addEvent(PVP, 'click', function () {
 });
 
 function startGame () {
-  createFrame();
+  createFrame(data.chessLength);
   resetData();
   addEvent(chessBoard, 'click', playing);
   addEvent(falseMove, 'click', revoke);
@@ -82,11 +85,11 @@ function resetData () { //data.chess数据重置
   falseMove.addClass('disabled');
 }
 
-function createFrame () { //创建canvas chessBoard棋盘
-  chessBoard.width = 560;
-  chessBoard.height = 560;
+function createFrame (length) { //创建canvas chessBoard棋盘
+  chessBoard.width = length * 16;
+  chessBoard.height = length * 16;
   var context = chessBoard.getContext('2d');
-  _drawBoard(context, 560, 560);
+  _drawBoard(context, length * 16, length * 16);
   _shadowReset(context);
   _drawLine(context);
   _drawPoint(context);
@@ -101,7 +104,7 @@ function createFrame () { //创建canvas chessBoard棋盘
     cxt.shadowOffsetX = 5;
     cxt.shadowOffsetY = 5;
     cxt.shadowBlur = 5;
-    cxt.fillRect(35 - 20, 35 - 20, 35 * 14 + 20 * 2, 35 * 14 + 20 * 2);
+    cxt.fillRect(length - 20, length - 20, length * 14 + 20 * 2, length * 14 + 20 * 2);
   }
 
   function _drawLine (cxt) {
@@ -110,14 +113,14 @@ function createFrame () { //创建canvas chessBoard棋盘
     cxt.lineWidth = 2;
     for (var i = 1; i <= 15; i++) {
       cxt.beginPath();
-      cxt.moveTo(35, i * 35);
-      cxt.lineTo(35 * 15, i * 35);
+      cxt.moveTo(length, i * length);
+      cxt.lineTo(length * 15, i * length);
       cxt.stroke();
     }
     for (var i = 1; i <= 15; i++) {
       cxt.beginPath();
-      cxt.moveTo(i * 35, 35);
-      cxt.lineTo(i * 35, 35 * 15);
+      cxt.moveTo(i * length, length);
+      cxt.lineTo(i * length, length * 15);
       cxt.stroke();
     }
   }
@@ -126,7 +129,7 @@ function createFrame () { //创建canvas chessBoard棋盘
     var pointPosition = [[4, 4], [4, 12], [8, 8], [12, 4], [12, 12]];
     for (var i = 0, len = pointPosition.length; i < len; i++) {
       cxt.beginPath();
-      cxt.arc(pointPosition[i][0] * 35, pointPosition[i][1] * 35, 5, 0, 2 * Math.PI);
+      cxt.arc(pointPosition[i][0] * length, pointPosition[i][1] * length, 5, 0, 2 * Math.PI);
       cxt.fill();
     }
   }
@@ -150,12 +153,12 @@ function playing (e) { //游戏开始后在棋盘落子
   }
 
   function _clickPosition (e) {
-    var clickX = parseInt((_getMousePos(e).x + 17.5) / 35 - 1);
-    var clickY = parseInt((_getMousePos(e).y + 17.5) / 35 - 1);
-    var x = _getMousePos(e).x - (clickX + 1) * 35;
-    var y = _getMousePos(e).y - (clickY + 1) * 35;
+    var clickX = parseInt((_getMousePos(e).x + data.chessLength / 2) / data.chessLength - 1);
+    var clickY = parseInt((_getMousePos(e).y + data.chessLength / 2) / data.chessLength - 1);
+    var x = _getMousePos(e).x - (clickX + 1) * data.chessLength;
+    var y = _getMousePos(e).y - (clickY + 1) * data.chessLength;
     var deviation = x * x + y * y;
-    if (deviation < 196) {
+    if (deviation < Math.pow((parseInt(data.chessLength / 2) - 3), 2)) {
       return {clickX, clickY};
     } else {
       return false;
@@ -177,7 +180,7 @@ function playChess (clickX, clickY) {
         return;
       }
     }
-    createFrame();
+    createFrame(data.chessLength);
     var x, y;
     for (var i = 0, len = data.chessStep.length; i < len; i++) {
       x = data.chessStep[i][0];
@@ -212,7 +215,7 @@ function revoke () {
   while(len--) {
     _resetChess(data.chessStep[data.currentStep - 1][0], data.chessStep[data.currentStep - 1][1]);
   }
-  createFrame();
+  createFrame(data.chessLength);
   for (var i = 0; i < 15; i++) {
     for (var j = 0; j < 15; j++) {
       if (data.chess[i][j] !== false) {
@@ -236,7 +239,7 @@ function revoke () {
 
 function showHistory () {
   removeEvent(historyDiv, 'click', showHistory);
-  createFrame();
+  createFrame(data.chessLength);
   var x, y;
   for (var i = 0, len = data.chessStep.length; i < len; i++) {
     x = data.chessStep[i][0];
@@ -259,9 +262,9 @@ function showHistory () {
 }
 
 function drawChess (clickX, clickY, type, sign) {
-  var x = (clickX + 1) * 35;
-  var y = (clickY + 1) * 35;
-  var chessRadius = 14;
+  var x = (clickX + 1) * data.chessLength;
+  var y = (clickY + 1) * data.chessLength;
+  var chessRadius = data.chessLength / 2.5;
   var cxt = chessBoard.getContext('2d');
   cxt.beginPath();
   var chessColor = cxt.createRadialGradient(x - chessRadius / 2, y + chessRadius / 2, chessRadius, x + chessRadius / 2, y - chessRadius / 2, chessRadius);
@@ -278,7 +281,7 @@ function drawChess (clickX, clickY, type, sign) {
   if (type === 0) {
     cxt.beginPath();
     cxt.fillStyle = 'rgba(255, 255, 255, 0.8)';
-    cxt.arc(x + 7, y - 4, chessRadius / 5, 0, 2 * Math.PI);
+    cxt.arc(x + data.chessLength / 5, y - data.chessLength / 8.75, chessRadius / 5, 0, 2 * Math.PI);
     cxt.fill();
   }
   if (sign) {
@@ -287,32 +290,33 @@ function drawChess (clickX, clickY, type, sign) {
 }
 
 function drawSign (clickX, clickY) {
-  var x = (clickX + 1) * 35;
-  var y = (clickY + 1) * 35;
+  var x = (clickX + 1) * data.chessLength;
+  var y = (clickY + 1) * data.chessLength;
+  var baseLength = data.chessLength / 8.75
   var cxt = chessBoard.getContext('2d');
   cxt.beginPath();
   cxt.strokeStyle = "red";
   cxt.lineCap = "square";
   cxt.lineWidth = 4;
-  cxt.moveTo(x - 16, y - 12);
-  cxt.lineTo(x - 16, y - 16);
-  cxt.lineTo(x - 12, y - 16);
+  cxt.moveTo(x - baseLength * 4, y - baseLength * 3);
+  cxt.lineTo(x - baseLength * 4, y - baseLength * 4);
+  cxt.lineTo(x - baseLength * 3, y - baseLength * 4);
 
-  cxt.moveTo(x + 12, y - 16);
-  cxt.lineTo(x + 16, y - 16);
-  cxt.lineTo(x + 16, y - 12);
+  cxt.moveTo(x + baseLength * 3, y - baseLength * 4);
+  cxt.lineTo(x + baseLength * 4, y - baseLength * 4);
+  cxt.lineTo(x + baseLength * 4, y - baseLength * 3);
 
-  cxt.moveTo(x - 16, y + 12);
-  cxt.lineTo(x - 16, y + 16);
-  cxt.lineTo(x - 12, y + 16);
+  cxt.moveTo(x - baseLength * 4, y + baseLength * 3);
+  cxt.lineTo(x - baseLength * 4, y + baseLength * 4);
+  cxt.lineTo(x - baseLength * 3, y + baseLength * 4);
 
-  cxt.moveTo(x + 16, y + 12);
-  cxt.lineTo(x + 16, y + 16);
-  cxt.lineTo(x + 12, y + 16);
+  cxt.moveTo(x + baseLength * 4, y + baseLength * 3);
+  cxt.lineTo(x + baseLength * 4, y + baseLength * 4);
+  cxt.lineTo(x + baseLength * 3, y + baseLength * 4);
   cxt.stroke();
 }
 
-function judgeContinuity (type, row, col, continuityChess) { //判断连续
+function judgeContinuity (type, row, col, continuityChess) { //最长判断连续
   var length = 4;
   var limitLeft = Math.max(0, col - length),
       limitRight = Math.min(14, col + length);

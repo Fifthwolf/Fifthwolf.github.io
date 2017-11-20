@@ -1,9 +1,11 @@
 /*
  五子棋人工智障AI
  *
- * @chess {Array(15)(15)} 传入棋盘二维数组数据
+ * @chess {Array(15)(15)} 棋盘二维数组数据
  *
- * @currentPlayer {Number} 传入当前落子player
+ * @currentPlayer {Number} 当前落子player
+ *
+ * @forbiddenMoves {Boolean} 是否先手禁手
  *
  * @return {Object(2)} 计算得出的最佳落子点
  */
