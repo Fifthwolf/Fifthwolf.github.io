@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Fly Bird</title>
+  <title>FlyBird</title>
   <link rel="stylesheet" type="text/css" href="../public.css" />
   <link rel="stylesheet" type="text/css" href="../publicDemo.css" />
   <link rel="stylesheet" type="text/css" href="../css/flyBird.css" />
@@ -16,7 +16,7 @@
         <div class="image"></div>
       </div>
       <ul class="own">
-        <li class="choose"><a href="#">Fly Bird</a></li>
+        <li class="choose"><a href="#">FlyBird</a></li>
         <li><a href="gobang.html">五子棋</a></li>
         <li><a href="tetris.html">俄罗斯方块</a></li>
         <li><a href="canvasClock.html">canvas钟表</a></li>
@@ -40,7 +40,11 @@
       <div class="quit"><a href="../"><i class="fa fa-arrow-left"></i></a></div>
       <div class="desc">说明：小游戏，操作很简单，只需要控制小鸟，点击屏幕，使其跨过障碍物，飞得越远分数越高，加油吧。</div>
       <div class="content">
-        <canvas id="canvas"></canvas>
+        <canvas id="canvasBackground"></canvas>
+        <canvas id="canvasObstacle"></canvas>
+        <canvas id="canvasBird"></canvas>
+        <canvas id="canvasButton"></canvas>
+        <canvas id="canvasMask"></canvas>
       </div>
     </div>
   </div>

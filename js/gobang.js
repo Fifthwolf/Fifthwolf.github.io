@@ -52,7 +52,6 @@ function startGame () {
   });
   addEvent(historyDiv, 'click', showHistory);
   if (data.amai === true && data.weUpperHand === false) {
-    console.log(data.forbiddenMoves);
     var position = amai(data.chess, data.currentPlayer);
     playChess(position.x, position.y);
   }

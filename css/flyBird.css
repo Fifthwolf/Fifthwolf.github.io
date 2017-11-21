@@ -1,7 +1,22 @@
 #main .right .content {
+  position: relative;
   text-align: center; }
-  #main .right .content #canvas {
+  #main .right .content canvas {
+    position: absolute;
+    left: 50%;
+    margin-left: -200px;
     width: 400px;
     height: 600px; }
+  #main .right .content #canvasBackground {
+    z-index: 1; }
+  #main .right .content #canvasObstacle {
+    z-index: 2; }
+  #main .right .content #canvasBird {
+    z-index: 3; }
+  #main .right .content #canvasButton {
+    z-index: 4; }
+  #main .right .content #canvasMask {
+    z-index: 5;
+    pointer-events: none; }
 
 /*# sourceMappingURL=flyBird.css.map */
