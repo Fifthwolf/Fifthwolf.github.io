@@ -51,7 +51,7 @@ function amai (chess, currentPlayer, forbiddenMoves) {
     direction = (direction + 1) % 4;
   }
   
-  
+  /*
   for (var i = 0; i < 15; i++) {
     var m = [];
     for (var j = 0; j < 15; j++) {
@@ -67,7 +67,7 @@ function amai (chess, currentPlayer, forbiddenMoves) {
     }
     console.log(m);
   }
-  
+  */
 
   var wePosition = [tempPosition], otherPosition = [tempPosition],
       weScoreMax = 0, otherScoreMax = 0;
