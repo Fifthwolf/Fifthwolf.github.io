@@ -31,11 +31,15 @@ var data = {
   background: 0, //0白天，1黑夜
   birdColor: 0, //0黄色，1蓝色，2红色
   birdAttitude: 0, //姿态，0～2
+  lastTop: 315,
+  rotateAngle: 0,
   speedX: 10,
   speedY: 0,
   gravity: 0,
-  birdLeft: 105,
-  birdTop: 300,
+  birdLeft: 120,
+  birdTop: 315,
+  obstacle: [],
+  obstacleAdopt: 0,
   score: 0
 };
 
@@ -86,9 +90,9 @@ function startGame () {
     drawMask(false);
     createGetReady();
     TIME.dataUpdate = setInterval(function () {
-      createBird();
       data.speedY = data.speedY + data.gravity;
       data.birdTop = data.birdTop + data.speedY;
+      createBird();
     }, data.refreshRate);
   }, 400);
 }
@@ -126,15 +130,51 @@ function createFrame () {
 
 function gamePlaying () {
   if (data.start === false) {
-    data.gravity = 0.6;
+    data.gravity = 0.4;
+    createObstacle();
   }
   data.start = true;
   var contextCanvasButton = canvasButton.getContext('2d');
   contextCanvasButton.clearRect(0, 0, canvasButton.width, canvasButton.height);
-  data.speedY = -10;
+  data.speedY = -8;
 }
 
-function createObstacle () {}
+function createObstacle () {
+  var adopt = 140;
+  var obstacleWidth = 72;
+  var transverseSpacing = 225;
+
+  TIME.showObstacle = setInterval(function () {
+    data.obstacleAdopt = data.obstacleAdopt + 1;
+    for (var i = 0, len = data.obstacle.length; i < len; i++) {
+      data.obstacle[i][0] -= 2;
+    }
+    if (data.obstacleAdopt > 112) {
+      data.obstacleAdopt = 0;
+      var obstacleTop = parseInt(Math.random() * 260) + 100,
+      obstacleBottom = obstacleTop + adopt;
+      data.obstacle.push([400, obstacleTop, obstacleBottom]);
+      if (data.obstacle[0][0] < -72) {
+        data.obstacle.shift();
+      }
+    }
+    _drawObstacle();
+  }, data.refreshRate);
+
+  function _drawObstacle () {
+    var cxt = canvasObstacle.getContext('2d');
+    var obstacleData = [ //52, 320
+      [112, 646],
+      [168, 646]
+    ]
+    cxt.clearRect(0, 0, canvasObstacle.width, canvasObstacle.height);
+    for (var i = 0, len = data.obstacle.length; i < len; i++) {
+      cxt.drawImage(data.image, 112, 646, 52, 320, data.obstacle[i][0], data.obstacle[i][1] - 445, 72, 445); //上层柱子
+      cxt.drawImage(data.image, 168, 646, 52, 320, data.obstacle[i][0], data.obstacle[i][2], 72, 445); //下层柱子
+    }
+    cxt.clearRect(0, canvasObstacle.height - 31, canvasObstacle.width, 31);
+  }
+}
 
 function createButton () {
   var cxt = canvasButton.getContext('2d');
@@ -169,7 +209,21 @@ function createBird () {
     ]
   ];
   cxt.clearRect(0, 0, canvasBird.width, canvasBird.height);
-  cxt.drawImage(data.image, birdPosition[data.birdColor][data.birdAttitude][0], birdPosition[data.birdColor][data.birdAttitude][1], 34, 24, data.birdLeft, data.birdTop, 47, 33);
+  cxt.drawImage(data.image, birdPosition[data.birdColor][data.birdAttitude][0], birdPosition[data.birdColor][data.birdAttitude][1], 34, 24, data.birdLeft - 24, data.birdTop - 17, 48, 34);
+  rotateBird(cxt, -data.rotateAngle, false);
+  rotateBird(cxt, Math.atan(data.speedY / 10), true);
+}
+
+function rotateBird (cxt, angle, reduction) {
+  var top = data.lastTop;
+  if (reduction) {
+    data.rotateAngle = angle;
+    data.lastTop = data.birdTop;
+    top = data.birdTop;
+  }
+  cxt.translate(data.birdLeft, top);
+  cxt.rotate(angle);
+  cxt.translate(-data.birdLeft, -top);
 }
 
 function createScore (score) {
