@@ -15,7 +15,6 @@ window.onload = function () {
     data.image = image;
     resetCanvas();
     createFrame();
-    createObstacle();
     createButton();
     drawMask(false);
     addEvent(canvasButton, 'mousemove', cursorMoveEvent);
@@ -31,18 +30,18 @@ var data = {
   refreshRate: 20, //刷新频率
   background: 0, //0白天，1黑夜
   birdColor: 0, //0黄色，1蓝色，2红色
+  birdAttitude: 0, //姿态，0～2
   speedX: 10,
   speedY: 0,
-  gravity: 10,
-  birdLeft: 115,
-  birdHeight: 315,
+  gravity: 0,
+  birdLeft: 105,
+  birdTop: 300,
   score: 0
 };
 
 function cursorClickEvent (e) {
   var e = e || window.e;
   if (cursorInStart(e)) {
-    data.start = true;
     removeEvent(canvasButton, 'mousemove', cursorMoveEvent);
     canvasButton.style.cursor = 'default';
     startGame();
@@ -74,12 +73,23 @@ function cursorInStart (e) {
 }
 
 function startGame () {
+  removeEvent(canvasButton, 'click', cursorClickEvent);
   var contextCanvasButton = canvasButton.getContext('2d');
+  data.birdColor = parseInt(Math.random() * 300) % 3;
+  TIME.birdAttitude = setInterval(function () {
+    data.birdAttitude = (data.birdAttitude + 1) % 3;
+  }, data.refreshRate * 10);
   drawMask(true);
   setTimeout(function () {
+    addEvent(canvasButton, 'click', gamePlaying);
     contextCanvasButton.clearRect(0, 0, canvasButton.width, canvasButton.height);
     drawMask(false);
     createGetReady();
+    TIME.dataUpdate = setInterval(function () {
+      createBird();
+      data.speedY = data.speedY + data.gravity;
+      data.birdTop = data.birdTop + data.speedY;
+    }, data.refreshRate);
   }, 400);
 }
 
@@ -114,6 +124,16 @@ function createFrame () {
   }
 }
 
+function gamePlaying () {
+  if (data.start === false) {
+    data.gravity = 0.6;
+  }
+  data.start = true;
+  var contextCanvasButton = canvasButton.getContext('2d');
+  contextCanvasButton.clearRect(0, 0, canvasButton.width, canvasButton.height);
+  data.speedY = -10;
+}
+
 function createObstacle () {}
 
 function createButton () {
@@ -127,6 +147,29 @@ function createGetReady () {
   cxt.drawImage(data.image, 590, 118, 184, 50, 75, 190, 256, 69);
   cxt.drawImage(data.image, 584, 182, 114, 98, 120, 295, 158, 136);
   createScore(0);
+}
+
+function createBird () {
+  var cxt = canvasBird.getContext('2d');
+  var birdPosition = [ //34, 24
+    [
+      [6, 982],
+      [62, 982],
+      [118, 982]
+    ],
+    [
+      [174, 982],
+      [230, 658],
+      [230, 710]
+    ],
+    [
+      [230, 762],
+      [230, 814],
+      [230, 866]
+    ]
+  ];
+  cxt.clearRect(0, 0, canvasBird.width, canvasBird.height);
+  cxt.drawImage(data.image, birdPosition[data.birdColor][data.birdAttitude][0], birdPosition[data.birdColor][data.birdAttitude][1], 34, 24, data.birdLeft, data.birdTop, 47, 33);
 }
 
 function createScore (score) {
