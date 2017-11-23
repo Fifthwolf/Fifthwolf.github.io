@@ -374,12 +374,13 @@ return False;
 */
 
 function collisionJudge () {
+  var birdWidth = 48, birdHeight = 34;
   if (data.birdTop > 554) {
     return false;
   }
   for (var i = 0; i < data.obstacle.length; i++) {
-    if (data.obstacle[i][0] < 135 && data.obstacle[i][0] > 33) {
-      if (data.birdTop < data.obstacle[i][1] || data.birdTop > data.obstacle[i][1] + 140) {
+    if (data.obstacle[i][0] < 120 + birdWidth / 2 && data.obstacle[i][0] > 48 - birdWidth / 2) {
+      if (data.birdTop < data.obstacle[i][1] + birdHeight / 2 || data.birdTop > data.obstacle[i][1] + 140 - birdHeight / 2) {
         return false;
       }
     }
