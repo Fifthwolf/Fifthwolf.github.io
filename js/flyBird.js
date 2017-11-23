@@ -86,6 +86,7 @@ function startGame () {
   drawMask(true);
   setTimeout(function () {
     addEvent(canvasButton, 'click', gamePlaying);
+    addEvent(document, 'keydown', gamePlayingSpace);
     drawMask(false);
     createGetReady();
     TIME.dataUpdate = setInterval(function () {
@@ -127,6 +128,13 @@ function createFrame () {
   }
 }
 
+function gamePlayingSpace (e) {
+  var e = e || window.e;
+  if (e && e.keyCode == 32) {
+    gamePlaying();
+  }
+}
+
 function gamePlaying () {
   if (data.start === false) {
     data.gravity = 0.4;
@@ -162,9 +170,10 @@ function createObstacle () {
       if (data.obstacle[0][0] < 0) {
           scoreFlag = true;
         }
-      if (scoreFlag === true && data.obstacle[i][0] < 120 && data.obstacle[i][0] > 0) {
+      if (scoreFlag === true && data.obstacle[i][0] < 84 && data.obstacle[i][0] > 0) {
         scoreFlag = false;
         data.score++;
+        createScore(data.score);
       }
     }
     _drawObstacle();
@@ -365,7 +374,6 @@ return False;
 */
 
 function collisionJudge () {
-  /*
   if (data.birdTop > 554) {
     return false;
   }
@@ -375,13 +383,14 @@ function collisionJudge () {
         return false;
       }
     }
-  }*/
+  }
   return true;
 }
 
 function gameover () {
   data.speedY = 0;
   removeEvent(canvasButton, 'click', gamePlaying);
+  removeEvent(document, 'keydown', gamePlayingSpace);
   clearInterval(TIME.showObstacle);
   clearInterval(TIME.dataUpdate);
   clearTimeout(TIME.bottomStripe);
