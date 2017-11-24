@@ -315,64 +315,6 @@ function resetCanvas () {
   canvasMask.height = 600;
 }
 
-/*
-function collisionJudge() {
-  var BirdLeft=120, High=568, BirdTop;
-  var Radius=15,TubeWidth=72,TubeGap=140,GapWidth=224,Score=0;//半径15，管宽72，上下间宽140，左右间距224，分数为0
-  var data.obstacle[0][0]=1000;
-  var data.obstacle[0][1]=random()*(High-TubeGap),
-  data.obstacle[1][1]=Math.random() * (High-TubeGap);
-  var Top=BirdTop+Radius,Bottom=BirdTop-Radius;//加入顶和底两个辅助变量
-
-
-  while (1) {
-    while (data.obstacle[0][0] > BirdLeft + Radius)//安全且不通过第一个管道
-    { ;
-  data.obstacle[0][0]--;//暂时留空语句，以后加功能
-  }
-
-  while(data.obstacle[0][0]>BirdLeft-TubeWidth/2)//通过第一个管道的前半段
-  { if(Check(Top)&&Check(Bottom)) //四连判定：顶和底是否均处于安全区  
-    {
-      data.obstacle[0][0]--;
-      continue;
-    }
-  else    {cout<<score;//这里插入一个结束输出score的函数
-  return False;}//有一次不满足，就直接退出了，其实可以直接返回score的
-  }
-  
-  score++；//此时通过管道中心点，分数+1
-  
-  while(data.obstacle[0][0]>BirdLeft-Radius-TubeWidth)//通过第一个管道的后半段
-  { if(Check(Top)&&Check(Bottom)) //四连判定：顶和底是否均处于安全区  
-    {
-      data.obstacle[0][0]--;
-      continue;
-    }
-  else    {cout<<score;//这里插入一个结束输出score的函数
-  return False;}//有一次不满足，就直接退出了，其实可以直接返回score的
-  }
-  while(data.obstacle[0][0]>0)//在第一个管道消失前，鸟在安全区内
-    { ;
-  data.obstacle[0][0]--;//暂时留空语句，以后加功能
-  }
-  //第一个管道消失的过程中鸟一直在安全区，所以当obstacle变成0时可以直接赋值为224加上72
-  //反正直到它减小到120+15时才开始碰到下一个管道
-  data.obstacle[0][0]=GapWidth+TubeWidth;
-  data.obstacle[0][1]=data.obstacle[1][1];//把之前11里的的随机数赋给01
-  data.obstacle[1][1]=random()*(High-TubeGap);//再写一个随机高度进去
-  //然后while(1)无限循环去吧
-  } 
-}
-
-Bool Check(int x)
-{if((x>High-TubeGap-data.obstacle[0][0])&&(x<High-obstacle[0][0])//以左下为坐标系原点，x处于顶底之间的安全区
-return True；
- else   
-return False;
-}
-*/
-
 function collisionJudge () {
   var birdWidth = 48, birdHeight = 34;
   if (data.birdTop > 554) {
