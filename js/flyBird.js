@@ -316,7 +316,7 @@ function resetCanvas () {
 }
 
 function collisionJudge () {
-  var birdWidth = 48, birdHeight = 34;
+  var birdWidth = 46, birdHeight = 32;
   if (data.birdTop > 554) {
     return false;
   }
