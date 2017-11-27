@@ -345,8 +345,123 @@ function gameover () {
         createBird();
         if (data.birdTop > 554) {
           clearInterval(TIME.dataUpdate);
+          restart();
         }
       }, data.refreshRate);
     }, data.refreshRate * 10);
+  } else {
+    restart();
+  }
+}
+
+function restart () {
+  var score = data.score;
+      bestScore = getCookie('bestScore');
+  if (bestScore <= data.score) {
+    setCookie ('bestScore', data.score, 60 * 24 * 365);
+    bestScore = data.score;
+  }
+  createRestart(data.score, bestScore);
+}
+
+function createRestart (score, bestScore) {
+  setTimeout(function () {
+    createGameover();
+  }, data.refreshRate * 20);
+  setTimeout(function () {
+    createScoreboard(score, bestScore);
+  }, data.refreshRate * 40);
+}
+
+function createGameover () {
+  var cxt = canvasButton.getContext('2d');
+  cxt.clearRect(0, 0, canvasButton.width, canvasButton.height);
+  var gameoverTop = 138;
+  setTimeout(function () {
+    _drawGameover1();
+  }, data.refreshRate);
+
+  function _drawGameover1 () {
+    gameoverTop--;
+    cxt.clearRect(0, 0, canvasButton.width, canvasButton.height);
+    cxt.drawImage(data.image, 790, 118, 192, 42, 67, gameoverTop, 266, 58);
+    setTimeout(function () {
+      if (gameoverTop < 130) {
+        _drawGameover2();
+      } else {
+        _drawGameover1();
+      }
+    }, data.refreshRate);
+  }
+
+  function _drawGameover2 () {
+    gameoverTop++;
+    cxt.clearRect(0, 0, canvasButton.width, canvasButton.height);
+    cxt.drawImage(data.image, 790, 118, 192, 42, 67, gameoverTop, 266, 58);
+    setTimeout(function () {
+      if (gameoverTop < 138) {
+        _drawGameover2();
+      }
+    }, data.refreshRate);
+  }
+}
+
+function createScoreboard(score, bestScore) {
+  var cxt = canvasButton.getContext('2d');
+  cxt.clearRect(0, 0, canvasButton.width, canvasButton.height);
+  var scoreboardTop = 600;
+  _drawScoreboard(score, bestScore);
+
+  function _drawScoreboard (score, bestScore) {
+    scoreboardTop -= 20;
+    cxt.clearRect(0, 0, canvasButton.width, canvasButton.height);
+    cxt.drawImage(data.image, 790, 118, 192, 42, 67, 138, 266, 58);
+    cxt.drawImage(data.image, 6, 518, 226, 114, 43, scoreboardTop, 314, 158);
+    setTimeout(function () {
+      if (scoreboardTop > 206) {
+        _drawScoreboard(score, bestScore);
+        _drawScore (score, scoreboardTop, false);
+        _drawScore (bestScore, scoreboardTop, true);
+      }
+    }, data.refreshRate);
+  }
+
+  function _drawScore (score, scoreboardTop, isBest) {
+    var scoreData = [ //14, 20
+      [274, 612], //0
+      [274, 954], //1
+      [274, 978], //2
+      [262, 1002], //3
+      [1004, 0], //4
+      [1004, 24], //5
+      [1010, 52], //6
+      [1010, 84], //7
+      [586, 484], //8
+      [622, 412]  //9
+    ];
+
+    var single, ten, hundreds, socreTop;
+
+    if (isBest) {
+      socreTop = 104 + scoreboardTop;
+    } else {
+      socreTop = 48 + scoreboardTop;
+    }
+    
+    if (score < 10) {
+      cxt.drawImage(data.image, scoreData[score][0], scoreData[score][1], 14, 20, 300, socreTop, 20, 28);
+    } else if (score < 100) {
+      single = score % 10;
+      ten = parseInt(score / 10);
+      cxt.drawImage(data.image, scoreData[single][0], scoreData[single][1], 14, 20, 300, socreTop, 20, 28);
+      cxt.drawImage(data.image, scoreData[ten][0], scoreData[ten][1], 14, 20, 276, socreTop, 20, 28);
+    } else {
+      single = score % 10;
+      ten = parseInt((score / 10) % 10);
+      hundreds = parseInt(score / 100);
+      cxt.drawImage(data.image, scoreData[single][0], scoreData[single][1], 14, 20, 300, socreTop, 20, 28);
+      cxt.drawImage(data.image, scoreData[ten][0], scoreData[ten][1], 14, 20, 276, socreTop, 20, 28);
+      cxt.drawImage(data.image, scoreData[hundreds][0], scoreData[hundreds][1], 14, 20, 252, socreTop, 20, 28);
+    }
   }
 }
