@@ -43,7 +43,23 @@ var data = {
   score: 0
 };
 
+function resetData () {
+  data.start = false;
+  data.speedX = 10;
+  data.speedY = 0;
+  data.gravity = 0;
+  data.birdLeft = 120;
+  data.birdTop = 315;
+  data.obstacle = [];
+  data.obstacleAdopt = 56;
+  data.score = 0;
+}
+
 function cursorClickEvent (e) {
+  resetData();
+  if (data.fail === true) {
+    createFrame();
+  }
   var e = e || window.e;
   if (cursorInStart(e)) {
     removeEvent(canvasButton, 'mousemove', cursorMoveEvent);
@@ -99,10 +115,20 @@ function startGame () {
 
 function createFrame () {
   var cxt = canvasBackground.getContext('2d');
-  data.background = parseInt(Math.random() * 1000) % 2;
 
-  drawBackground(cxt);
-  drawBottomStripe(0);
+  if (data.fail === true) {
+    setTimeout(function () {
+      var obstacle = canvasObstacle.getContext('2d');
+      obstacle.clearRect(0, 0, canvasObstacle.width, canvasObstacle.height);
+      data.background = parseInt(Math.random() * 1000) % 2;
+      drawBackground(cxt);
+      drawBottomStripe(0);
+    }, data.refreshRate * 20);
+  } else {
+    data.background = parseInt(Math.random() * 1000) % 2;
+    drawBackground(cxt);
+    drawBottomStripe(0);
+  }
 
   function drawBackground (cxt) {
     var _drawBackground;
@@ -118,14 +144,15 @@ function createFrame () {
     }
     _drawBackground();
   }
+}
 
-  function drawBottomStripe (deviation) {
-    cxt.drawImage(data.image, 584 + deviation, 0, 336, 22, 0, 569, 465, 31);
-    TIME.bottomStripe = setTimeout(function () {
-      deviation = (deviation + 1.5) % 24;
-      drawBottomStripe(deviation);
-    }, data.refreshRate);
-  }
+function drawBottomStripe (deviation) {
+  var cxt = canvasBackground.getContext('2d');
+  cxt.drawImage(data.image, 584 + deviation, 0, 336, 22, 0, 569, 465, 31);
+  TIME.bottomStripe = setTimeout(function () {
+    deviation = (deviation + 1.5) % 24;
+    drawBottomStripe(deviation);
+  }, data.refreshRate);
 }
 
 function gamePlayingSpace (e) {
@@ -316,7 +343,7 @@ function resetCanvas () {
 }
 
 function collisionJudge () {
-  var birdWidth = 46, birdHeight = 32;
+  var birdWidth = 40, birdHeight = 32;
   if (data.birdTop > 554) {
     return false;
   }
@@ -331,6 +358,7 @@ function collisionJudge () {
 }
 
 function gameover () {
+  data.fail = true;
   data.speedY = 0;
   removeEvent(canvasButton, 'click', gamePlaying);
   removeEvent(document, 'keydown', gamePlayingSpace);
@@ -376,7 +404,7 @@ function createRestart (score, bestScore) {
 function createGameover () {
   var cxt = canvasButton.getContext('2d');
   cxt.clearRect(0, 0, canvasButton.width, canvasButton.height);
-  var gameoverTop = 138;
+  var gameoverTop = 100;
   setTimeout(function () {
     _drawGameover1();
   }, data.refreshRate);
@@ -386,7 +414,7 @@ function createGameover () {
     cxt.clearRect(0, 0, canvasButton.width, canvasButton.height);
     cxt.drawImage(data.image, 790, 118, 192, 42, 67, gameoverTop, 266, 58);
     setTimeout(function () {
-      if (gameoverTop < 130) {
+      if (gameoverTop < 92) {
         _drawGameover2();
       } else {
         _drawGameover1();
@@ -399,14 +427,14 @@ function createGameover () {
     cxt.clearRect(0, 0, canvasButton.width, canvasButton.height);
     cxt.drawImage(data.image, 790, 118, 192, 42, 67, gameoverTop, 266, 58);
     setTimeout(function () {
-      if (gameoverTop < 138) {
+      if (gameoverTop < 100) {
         _drawGameover2();
       }
     }, data.refreshRate);
   }
 }
 
-function createScoreboard(score, bestScore) {
+function createScoreboard (score, bestScore) {
   var cxt = canvasButton.getContext('2d');
   cxt.clearRect(0, 0, canvasButton.width, canvasButton.height);
   var scoreboardTop = 600;
@@ -415,13 +443,19 @@ function createScoreboard(score, bestScore) {
   function _drawScoreboard (score, bestScore) {
     scoreboardTop -= 20;
     cxt.clearRect(0, 0, canvasButton.width, canvasButton.height);
-    cxt.drawImage(data.image, 790, 118, 192, 42, 67, 138, 266, 58);
+    cxt.drawImage(data.image, 790, 118, 192, 42, 67, 100, 266, 58);
     cxt.drawImage(data.image, 6, 518, 226, 114, 43, scoreboardTop, 314, 158);
     setTimeout(function () {
       if (scoreboardTop > 206) {
         _drawScoreboard(score, bestScore);
         _drawScore (score, scoreboardTop, false);
         _drawScore (bestScore, scoreboardTop, true);
+      } else {
+        setTimeout(function () {
+          cxt.drawImage(data.image, 708, 236, 104, 58, 128, 400, 144, 81);
+          addEvent(canvasButton, 'mousemove', cursorMoveEvent);
+          addEvent(canvasButton, 'click', cursorClickEvent);
+        }, data.refreshRate * 10)
       }
     }, data.refreshRate);
   }
