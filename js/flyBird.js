@@ -9,14 +9,6 @@ var TIME = {};
 
 window.onload = function () {
   delayedLoadingPublicPictures ('../');
-  
-  addEvent(document, 'touchstart', function (e) {
-    e.preventDefault();
-  });
-  addEvent(document, 'touchend', function (e) {
-    e.preventDefault();
-  });
-
   var image = new Image();
   image.src = '../image/flyBirdDemo.png';
   image.onload = function () {
