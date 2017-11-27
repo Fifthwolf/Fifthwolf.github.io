@@ -158,13 +158,11 @@ function drawBottomStripe (deviation) {
 function gamePlayingSpace (e) {
   var e = e || window.e;
   if (e && e.keyCode == 32) {
-    gamePlaying(e);
+    gamePlaying();
   }
 }
 
-function gamePlaying (e) {
-  e = e || window.e;
-  e.preventDefault();
+function gamePlaying () {
   if (data.start === false) {
     data.gravity = 0.4;
     createObstacle();
