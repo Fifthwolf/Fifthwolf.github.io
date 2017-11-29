@@ -33,7 +33,6 @@ var data = {
   birdAttitude: 0, //姿态，0～2
   lastTop: 315,
   rotateAngle: 0,
-  speedX: 10,
   speedY: 0,
   gravity: 0,
   birdLeft: 120,
@@ -45,7 +44,6 @@ var data = {
 
 function resetData () {
   data.start = false;
-  data.speedX = 10;
   data.speedY = 0;
   data.gravity = 0;
   data.birdLeft = 120;
