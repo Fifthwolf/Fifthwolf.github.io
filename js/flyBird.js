@@ -381,10 +381,10 @@ function gameover () {
 }
 
 function restart () {
-  var score = data.score;
+  var score = data.score,
       bestScore = getCookie('bestScore');
   if (bestScore <= data.score) {
-    setCookie ('bestScore', data.score, 60 * 24 * 365);
+    setCookie('bestScore', data.score, 60 * 24 * 365);
     bestScore = data.score;
   }
   createRestart(data.score, bestScore);
@@ -453,7 +453,7 @@ function createScoreboard (score, bestScore) {
           cxt.drawImage(data.image, 708, 236, 104, 58, 128, 400, 144, 81);
           addEvent(canvasButton, 'mousemove', cursorMoveEvent);
           addEvent(canvasButton, 'click', cursorClickEvent);
-        }, data.refreshRate * 10)
+        }, data.refreshRate * 10);
       }
     }, data.refreshRate);
   }
