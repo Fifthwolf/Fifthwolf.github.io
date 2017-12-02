@@ -10,7 +10,7 @@ var TIME = {};
 window.onload = function () {
   delayedLoadingPublicPictures ('../');
   var image = new Image();
-  image.src = '../image/flyBirdDemo.png';
+  image.src = '../image/flappyBirdDemo.png';
   image.onload = function () {
     data.image = image;
     resetCanvas();
