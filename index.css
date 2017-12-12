@@ -347,7 +347,7 @@
       #main .right #project h4::after {
         position: absolute;
         top: 10px;
-        left: 74px;
+        left: 60px;
         width: 50px;
         height: 1px;
         background-color: #000;
@@ -387,12 +387,12 @@
       font-size: 36px;
       color: #454545; }
       #main .right #resume h4::before {
-        top: 34px;
+        top: 24px;
         left: -100px;
         width: 80px; }
       #main .right #resume h4::after {
-        top: 34px;
-        left: 230px;
+        top: 24px;
+        left: 160px;
         width: 80px; }
     #main .right #resume p, #main .right #resume p span {
       padding-right: 25px;
@@ -426,6 +426,51 @@
           #main .right #demo ul li a span h4 {
             font-size: 54px;
             line-height: 72px;
-            margin-bottom: 6px; } }
+            margin-bottom: 6px; }
+    #main .right #project h2 {
+      font-size: 48px; }
+    #main .right #project h4 {
+      margin: 40px 80px 20px;
+      font-size: 36px;
+      color: #454545; }
+      #main .right #project h4::before {
+        top: 24px;
+        left: -100px;
+        width: 80px; }
+      #main .right #project h4::after {
+        top: 24px;
+        left: 130px;
+        width: 80px; }
+    #main .right #project ul {
+      padding-top: 40px; }
+      #main .right #project ul li {
+        width: 100%;
+        height: 0;
+        padding-bottom: 87.5%;
+        margin-bottom: 40px;
+        border: 1px solid #666; }
+        #main .right #project ul li a {
+          width: 100%;
+          height: 100%;
+          flex-direction: column; }
+          #main .right #project ul li a img {
+            flex: 0 0 400px;
+            width: 90%;
+            height: 57.142857%;
+            margin-top: 3%;
+            margin-left: 5%; }
+          #main .right #project ul li a .describe {
+            flex: 1 1 auto; }
+            #main .right #project ul li a .describe h5 {
+              font-size: 44px;
+              line-height: 44px;
+              margin-bottom: 24px; }
+            #main .right #project ul li a .describe span {
+              top: 65%;
+              width: 100%;
+              left: 5%;
+              font-size: 42px;
+              line-height: 60px;
+              color: #93999f; } }
 
 /*# sourceMappingURL=index.css.map */
