@@ -13,21 +13,21 @@ var data = {
   length: 4,
   step: 0,
   score: 0,
-  moveEvent:false,
+  moveEvent: false,
   sides: 60,
   box: null
 }
 
-window.onload = function () {
-  delayedLoadingPublicPictures ('../');
+window.onload = function() {
+  delayedLoadingPublicPictures('../');
   if (!judgeWidth()) {
     data.sides = 100;
-    addEvent (moblieControl, 'touchstart', function (e) {
+    addEvent(moblieControl, 'touchstart', function(e) {
       e = e || window.event;
       if (e.target.hasClass('triangle')) {
         e.target.addClass('hover');
       }
-      setTimeout(function () {
+      setTimeout(function() {
         e.target.removeClass('hover');
       }, 200);
     });
@@ -40,20 +40,21 @@ window.onload = function () {
   starGame(data.length);
 }
 
-addEvent (changeButton, 'click', function () {
+addEvent(changeButton, 'click', function() {
   var changeLength = Number(document.getElementById('length').value);
-  if(changeLength >= 4 && changeLength <= 8 && _isInteger(changeLength)){
+  if (changeLength >= 4 && changeLength <= 8 && _isInteger(changeLength)) {
     data.length = changeLength;
     restart();
   }
-  function _isInteger (obj) {
+
+  function _isInteger(obj) {
     return typeof obj === 'number' && obj % 1 === 0;
   }
 });
 
-addEvent (restartButton, 'click', restart);
+addEvent(restartButton, 'click', restart);
 
-function restart () {
+function restart() {
   cellMask.style.display = 'none';
   data.score = 0;
   scoreSpan.innerHTML = data.score;
@@ -61,7 +62,7 @@ function restart () {
   starGame(data.length);
 }
 
-function createCell (length) {
+function createCell(length) {
   cell.innerHTML = '';
   var row = new Array(length);
   for (var i = 0; i < length; i++) {
@@ -86,7 +87,7 @@ function createCell (length) {
   cellMask.style.marginLeft = -(length * data.sides) / 2 - 5 + 'px';
 }
 
-function starGame (length) {
+function starGame(length) {
   data.box = null;
   data.box = new Array(length);
   var row = cell.getElementsByTagName('div');
@@ -95,21 +96,29 @@ function starGame (length) {
   }
   if (data.moveEvent === false) {
     if (judgeWidth()) {
-      addEvent (document, 'keydown', function (e) {
+      addEvent(document, 'keydown', function(e) {
         var keynum = window.event ? e.keyCode : e.which;
         switch (keynum) {
           //左
-          case 37: moveBox(data.box, 'left'); break;
-          //上
-          case 38: moveBox(data.box, 'top'); break;
-          //右
-          case 39: moveBox(data.box, 'right'); break;
-          //下
-          case 40: moveBox(data.box, 'bottom'); break;
+          case 37:
+            moveBox(data.box, 'left');
+            break;
+            //上
+          case 38:
+            moveBox(data.box, 'top');
+            break;
+            //右
+          case 39:
+            moveBox(data.box, 'right');
+            break;
+            //下
+          case 40:
+            moveBox(data.box, 'bottom');
+            break;
         }
       });
     } else if (!judgeWidth()) {
-      addEvent (moblieControl, 'touchstart', function (e) {
+      addEvent(moblieControl, 'touchstart', function(e) {
         e = e || window.event;
         if (e.target.hasClass('controlLeft')) {
           moveBox(data.box, 'left');
@@ -132,7 +141,7 @@ function starGame (length) {
   initializeBox(data.box, length);
 }
 
-function fail () {
+function fail() {
   cellMask.getElementsByTagName('p')[0].style.marginTop = (data.length - 3) * data.sides / 2 + 'px';
   cellMask.getElementsByTagName('p')[1].innerHTML = data.score;
   data.step = 0;
@@ -140,7 +149,7 @@ function fail () {
 }
 
 //初始化格子
-function initializeBox (box, length) {
+function initializeBox(box, length) {
   var createBox;
   // var createBox = Math.min(surplus(box, length), 2);
   var createBox = surplus(box, length);
@@ -148,12 +157,12 @@ function initializeBox (box, length) {
     fail();
     return 0;
   }
-  for (; createBox > 0; ) {
+  for (; createBox > 0;) {
     var x = parseInt(Math.random() * length);
     var y = parseInt(Math.random() * length);
     if (box[x][y].getAttribute('boxType') === '0') {
       box[x][y].innerHTML = data.value[1];
-      box[x][y].setAttribute('boxType','1');
+      box[x][y].setAttribute('boxType', '1');
       box[x][y].setAttribute('class', 'type1');
       createBox--;
     }
@@ -175,7 +184,7 @@ function initializeBox (box, length) {
   }
 }
 
-function moveBox (box, direction) {
+function moveBox(box, direction) {
   var length = data.length;
   data.step++;
   mergeBox(box, data.length, direction);
@@ -223,9 +232,9 @@ function moveBox (box, direction) {
 
   initializeBox(box, length);
 
-  function move (box, x, y, empty, boxType, direction) {
+  function move(box, x, y, empty, boxType, direction) {
     tempAttribute = boxType;
-    tempInnerHTML = box[x][y].innerHTML;   
+    tempInnerHTML = box[x][y].innerHTML;
     box[x][y].setAttribute('boxType', '0');
     box[x][y].setAttribute('class', '');
     box[x][y].innerHTML = '&nbsp;';
@@ -240,9 +249,9 @@ function moveBox (box, direction) {
     }
   }
 
-  function mergeBox (box, length, direction) {
-    var x, y; 
-    
+  function mergeBox(box, length, direction) {
+    var x, y;
+
     if (direction === 'left' || direction === 'top') {
       for (var i = 0; i < length; i++) {
         var boxPre, boxTypeTemp;
@@ -272,7 +281,7 @@ function moveBox (box, direction) {
               } else {
                 boxPre = box[x][y];
                 boxPreType = boxPre.getAttribute('boxType');
-              }  
+              }
             }
           }
         }
@@ -308,14 +317,14 @@ function moveBox (box, direction) {
               } else {
                 boxPre = box[x][y];
                 boxPreType = boxPre.getAttribute('boxType');
-              }  
+              }
             }
           }
         }
       }
     }
 
-    function mergeSuccess (box, x, y, boxPre) {
+    function mergeSuccess(box, x, y, boxPre) {
       boxPre.setAttribute('boxType', parseInt(boxType) + 1);
       boxPre.setAttribute('class', 'type' + parseInt(boxType) + 1);
       boxPre.innerHTML = data.value[parseInt(boxType) + 1];
@@ -328,13 +337,13 @@ function moveBox (box, direction) {
   }
 }
 
-function adjoinBox (box, length) {
+function adjoinBox(box, length) {
   for (var i = 0; i < length; i++) {
     for (var j = 0; j < length - 1; j++) {
-      if(box[i][j].getAttribute('boxType') === box[i][j + 1].getAttribute('boxType')) {
+      if (box[i][j].getAttribute('boxType') === box[i][j + 1].getAttribute('boxType')) {
         return false;
       }
-      if(box[j][i].getAttribute('boxType') === box[j + 1][i].getAttribute('boxType')) {
+      if (box[j][i].getAttribute('boxType') === box[j + 1][i].getAttribute('boxType')) {
         return false;
       }
     }

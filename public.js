@@ -5,21 +5,21 @@ var left = main.getElementsByClassName('left')[0];
 var right = main.getElementsByClassName('right')[0];
 var desc = right.getElementsByClassName('desc')[0];
 
-window.onresize = function () {
+window.onresize = function() {
   adjustmentWindow();
   if (judgeWidth()) {
     adjustmentLeft();
   }
 }
 
-addEvent(window, 'load' ,function () {
+addEvent(window, 'load', function() {
   adjustmentWindow();
   if (judgeWidth()) {
     adjustmentLeft();
   }
 });
 
-function delayedLoadingPublicPictures (prefix) {
+function delayedLoadingPublicPictures(prefix) {
   var body = document.getElementsByTagName('body')[0];
   if (judgeWidth()) {
     body.style.backgroundImage = 'url("' + prefix + 'image/background.jpg")';
@@ -29,7 +29,7 @@ function delayedLoadingPublicPictures (prefix) {
   left.getElementsByClassName('image')[0].style.backgroundImage = 'url("' + prefix + 'image/TX.png")';
 }
 
-function adjustmentWindow () {
+function adjustmentWindow() {
   if (judgeWidth()) {
     main.style.display = 'flex';
     publicUseMainAppropriate(main);
@@ -40,19 +40,19 @@ function adjustmentWindow () {
   }
 }
 
-function adjustmentLeft () {
+function adjustmentLeft() {
   height = left.offsetHeight - 325;
   own.style.height = height + 'px';
 }
 
-function useElementHeightSuit (element, previous, parent) {
+function useElementHeightSuit(element, previous, parent) {
   var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
   var previousHeight = previous.offsetHeight;
   //120为right的paddingTop与paddingBottom值之和
   element.style.minHeight = screenHeight - previousHeight - 120 + 'px';
 }
 
-function useElementToAppropriate (element, parent) {
+function useElementToAppropriate(element, parent) {
   var height = element.offsetHeight;
   var screenHeight;
   if (parent == document) {
@@ -64,7 +64,7 @@ function useElementToAppropriate (element, parent) {
   element.style.marginTop = Math.max(top - screenHeight / 20, 0) + 'px';
 }
 
-function publicUseMainAppropriate (element) {
+function publicUseMainAppropriate(element) {
   var height = document.documentElement.clientHeight || document.body.clientHeight;
   var width = document.documentElement.clientWidth || document.body.clientWidth;
   element.style.height = height - 40 + 'px';
@@ -88,49 +88,49 @@ function deferLoadImage() {
   document.getElementsByClassName('image')[0].style.backgroundImage = 'url("../image/TX.png")';
 }
 
-function addEvent (element, type, handler) {
+function addEvent(element, type, handler) {
   if (element.addEventListener) {
     element.addEventListener(type, handler, false);
-  } else if (element.attachEvent) {  
+  } else if (element.attachEvent) {
     element.attachEvent('on' + type, handler);
-  } else {  
+  } else {
     element['on' + type] = handler;
-  }  
+  }
 }
 
-function removeEvent (element, type, handler) {
+function removeEvent(element, type, handler) {
   if (element.removeEventListener) {
     element.removeEventListener(type, handler, false);
   } else if (element.detachEvent) {
-    element.detachEvent('on' + type, handler); 
+    element.detachEvent('on' + type, handler);
   } else {
     element['on' + type] = null;
   }
 }
 
-Object.prototype.hasClass = function (cls) {
+Object.prototype.hasClass = function(cls) {
   return this.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
 }
 
-Object.prototype.addClass = function (cls) {
+Object.prototype.addClass = function(cls) {
   if (!this.hasClass(cls)) this.className += " " + cls;
 }
 
-Object.prototype.removeClass = function (cls) {
+Object.prototype.removeClass = function(cls) {
   if (this.hasClass(cls)) {
     var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
     this.className = this.className.replace(reg, ' ').replace(/\s+/, ' ');
   }
 }
 
-function setCookie (name, value, time) {
+function setCookie(name, value, time) {
   var Minutes = time;
   var exp = new Date();
   exp.setTime(exp.getTime() + Minutes * 60 * 1000);
   document.cookie = name + "=" + decodeURI(value) + ";expires=" + exp.toGMTString();
 }
 
-function getCookie (name) {
+function getCookie(name) {
   var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
   arr = document.cookie.match(reg);
   if (arr = document.cookie.match(reg)) {

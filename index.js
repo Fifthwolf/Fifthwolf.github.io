@@ -8,15 +8,15 @@ var TEMP;
 
 useElementToAppropriate(star, document);
 
-if(getCookie('main')){
+if (getCookie('main')) {
   star.style.display = 'none';
   main.style.display = judgeWidth() ? 'flex' : 'block';
   main.style.transform = 'rotateY(0deg)';
 }
 
-window.onload = function () {
-  delayedLoadingPublicPictures ('');
-  star.getElementsByClassName('image')[0].style.backgroundImage = 'url("image/TX.png")'; 
+window.onload = function() {
+  delayedLoadingPublicPictures('');
+  star.getElementsByClassName('image')[0].style.backgroundImage = 'url("image/TX.png")';
   var img = document.getElementsByTagName('img');
   for (var i = 0, len = img.length; i < len; i++) {
     img[i].setAttribute('src', img[i].getAttribute('data-src'));
@@ -24,41 +24,41 @@ window.onload = function () {
   useDEMOUlMargin(demoUl, demoLis, 10);
 }
 
-window.onresize = function () {
+window.onresize = function() {
   adjustmentWindow();
   useDEMOUlMargin(demoUl, demoLis, 10);
   useElementToAppropriate(star, document);
 }
 
-addEvent(own, 'click', function (e) {
+addEvent(own, 'click', function(e) {
   var target = e.target || e.srcElement;
   if (judgeWidth()) {
     e = myfn(e);
   }
   for (var i = 0, length = ownLi.length; i < length; i++) {
-    try{
-      while (target.tagName.toUpperCase() != 'LI'){
+    try {
+      while (target.tagName.toUpperCase() != 'LI') {
         target = target.parentNode;
       }
-    } catch(e) {
-    }
-    if (target == ownLi[i]){
+    } catch (e) {}
+    if (target == ownLi[i]) {
       scrollAnimate(right, rightDiv[i], 150);
       break;
     }
   }
 });
 
-addEvent(eGo, 'click', function () {
+addEvent(eGo, 'click', function() {
   setCookie('main', 'flex', 10);
   var deg = 0;
   useDEMOUlMargin(demoUl, demoLis, 10);
   if (judgeWidth()) {
     main.style.display = 'flex';
   }
-  function disappear () {
+
+  function disappear() {
     deg += 5;
-    setTimeout(function(){
+    setTimeout(function() {
       star.style.transform = 'rotateY(' + deg + 'deg)';
       if (deg < 90) {
         disappear();
@@ -67,34 +67,36 @@ addEvent(eGo, 'click', function () {
         deg = 270;
         appear();
       }
-    },20);
+    }, 20);
   }
-  function appear () {
+
+  function appear() {
     deg += 5;
-    setTimeout(function(){
+    setTimeout(function() {
       main.style.transform = 'rotateY(' + deg + 'deg)';
       if (deg < 360) {
         appear();
       } else {
         main.style.transform = 'rotateY(0deg)';
       }
-    },20);
+    }, 20);
   }
   disappear();
 });
 
-function scrollAnimate (ele, target, time) {
+function scrollAnimate(ele, target, time) {
   clearTimeout(TEMP);
   TEMP = null;
   var end = target.offsetTop - 50;
   var star = right.scrollTop;
   var step = (end - star) / (time / 10);
   var tempEnd;
+
   function animate() {
-    TEMP = setTimeout(function(){
-      if(Math.abs(end - right.scrollTop) > Math.abs(step)){
+    TEMP = setTimeout(function() {
+      if (Math.abs(end - right.scrollTop) > Math.abs(step)) {
         right.scrollTop = right.scrollTop + step;
-        if(tempEnd == right.scrollTop){
+        if (tempEnd == right.scrollTop) {
           clearTimeout(TEMP);
           return;
         }
@@ -104,21 +106,21 @@ function scrollAnimate (ele, target, time) {
         right.scrollTop = end;
         clearTimeout(TEMP);
       }
-    },10);
+    }, 10);
   }
   animate();
 }
 
-function useDEMOUlMargin (parentElement, childElements, childElementMinMargin) {
+function useDEMOUlMargin(parentElement, childElements, childElementMinMargin) {
   var UlWidth = demoUl.offsetWidth;
   var LiWidth = childElements[0].offsetWidth;
   var length = Math.floor(UlWidth / (LiWidth + 20));
-  var marginRight = Math.floor((UlWidth - length  * (LiWidth + 4)) / (length * 2));
+  var marginRight = Math.floor((UlWidth - length * (LiWidth + 4)) / (length * 2));
   for (var i = 0; i < childElements.length; i++) {
     childElements[i].style.margin = '10px ' + marginRight + 'px 30px';
   }
 }
 
-function myfn (e) {
-  return window.event? window.event.returnValue = false : e.preventDefault();
+function myfn(e) {
+  return window.event ? window.event.returnValue = false : e.preventDefault();
 }
