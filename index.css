@@ -4,6 +4,7 @@
   width: 400px;
   height: 500px;
   border-radius: 20px;
+  -webkit-box-shadow: 0px 0px 6px #bbb;
   box-shadow: 0px 0px 6px #bbb; }
   @media only screen and (max-width: 1000px) {
     #star {
@@ -19,9 +20,7 @@
     height: 65%;
     border-radius: 20px 20px 0 0;
     background-color: #63b;
-    background: -webkit-linear-gradient(#123, #567);
-    background: -moz-linear-gradient(#123, #567);
-    background: -o-linear-gradient(#123, #567);
+    background: -webkit-gradient(linear, left top, left bottom, from(#123), to(#567));
     background: linear-gradient(#123, #567);
     text-align: center; }
     @media only screen and (max-width: 1000px) {
@@ -168,8 +167,6 @@
     cursor: pointer; }
     #star .go:hover {
       -webkit-transition: .4s;
-      -moz-transition: .4s;
-      -o-transition: .4s;
       transition: .4s;
       margin-left: -75px;
       margin-top: -30px;
@@ -178,8 +175,6 @@
       border-radius: 30px; }
       #star .go:hover span {
         -webkit-transition: .4s;
-        -moz-transition: .4s;
-        -o-transition: .4s;
         transition: .4s;
         font-size: 30px;
         line-height: 60px; }
@@ -241,8 +236,6 @@
 #main {
   display: none;
   -webkit-transform: rotateY(90deg);
-  -ms-transform: rotateY(90deg);
-  -o-transform: rotateY(90deg);
   transform: rotateY(90deg); }
   #main .right #resume {
     margin-bottom: 80px; }
@@ -301,7 +294,6 @@
         -webkit-text-overflow: ellipsis;
         -moz-text-overflow: ellipsis;
         -ms-text-overflow: ellipsis;
-        -o-text-overflow: ellipsis;
         text-overflow: ellipsis; }
         #main .right #demo ul li a {
           position: absolute;
@@ -359,16 +351,22 @@
       width: 100%;
       height: 160px; }
       #main .right #project ul li a {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
         width: 100%;
         height: 100%; }
         #main .right #project ul li a img {
           border-radius: 5px;
+          -webkit-box-flex: 0;
+          -ms-flex: 0 0 140px;
           flex: 0 0 140px;
           width: 140px;
           height: 140px;
           margin: 10px; }
         #main .right #project ul li a .describe {
+          -webkit-box-flex: 1;
+          -ms-flex: 1 1 auto;
           flex: 1 1 auto;
           margin: 10px; }
           #main .right #project ul li a .describe h5 {
@@ -452,14 +450,21 @@
         #main .right #project ul li a {
           width: 100%;
           height: 100%;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -ms-flex-direction: column;
           flex-direction: column; }
           #main .right #project ul li a img {
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 400px;
             flex: 0 0 400px;
             width: 90%;
             height: 57.142857%;
             margin-top: 3%;
             margin-left: 5%; }
           #main .right #project ul li a .describe {
+            -webkit-box-flex: 1;
+            -ms-flex: 1 1 auto;
             flex: 1 1 auto; }
             #main .right #project ul li a .describe h5 {
               font-size: 44px;
