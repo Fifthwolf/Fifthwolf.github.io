@@ -1,11 +1,11 @@
 @import "../mixin.scss";
 
 $redBase: #DC143C;
-$orangeBase: saturate(lighten(adjust_hue($redBase, 39), 5), 7);//#f37a16
-$yellowBase: saturate(lighten(adjust_hue($redBase, 64), 6), 13);//#fbdc14
-$greenBase: desaturate(darken(adjust_hue($redBase, 102), 2), 11);//#73c620
-$blueBase: saturate(darken(adjust_hue($redBase, 201), 2), 1);//#12b7d4
-$purpleBase: saturate(darken(adjust_hue($redBase, 296), 2), 1);//#a012d4
+$orangeBase: saturate(lighten(adjust_hue($redBase, 39), 5), 7);/*#f37a16*/
+$yellowBase: saturate(lighten(adjust_hue($redBase, 64), 6), 13);/*#fbdc14*/
+$greenBase: desaturate(darken(adjust_hue($redBase, 102), 2), 11);/*#73c620*/
+$blueBase: saturate(darken(adjust_hue($redBase, 201), 2), 1);/*#12b7d4*/
+$purpleBase: saturate(darken(adjust_hue($redBase, 296), 2), 1);/*#a012d4*/
 $blackBase: #777;
 
 @mixin swatchesDarken($color) {
