@@ -1,12 +1,12 @@
 var content = document.getElementsByClassName('content')[0];
 var canvas = document.getElementById('canvas');
 
-window.onload = function () {
-  delayedLoadingPublicPictures ('../');
+window.onload = function() {
+  delayedLoadingPublicPictures('../');
   createDial();
 }
 
-function createDial () {
+function createDial() {
   canvas.width = judgeWidth() ? 600 : content.clientWidth;
   canvas.height = canvas.width;
   radius = canvas.width / 2;
@@ -14,7 +14,7 @@ function createDial () {
   drawDial(dialContext, radius);
   var tempTime = nowTime();
   drawHand(dialContext, radius, tempTime);
-  setInterval(function () {
+  setInterval(function() {
     if (tempTime.seconds !== nowTime().seconds) {
       tempTime = nowTime();
       dialContext.clearRect(0, 0, radius, radius);
@@ -24,15 +24,19 @@ function createDial () {
   }, 100);
 }
 
-function nowTime (context, radius) {
+function nowTime(context, radius) {
   var now = new Date();
   var hours = now.getHours();
   var minutes = now.getMinutes();
   var seconds = now.getSeconds();
-  return {hours, minutes, seconds};
+  return {
+    hours,
+    minutes,
+    seconds
+  };
 }
 
-function drawHand (context, radius, time) {
+function drawHand(context, radius, time) {
   var secondHand = time.seconds;
   var minuteHand = time.minutes + time.seconds / 60;
   var hourHand = time.hours + time.minutes / 60;
@@ -45,7 +49,7 @@ function drawHand (context, radius, time) {
   context.fill();
 }
 
-function drawDetailedHand (context, radius, color, lineWidth, point, correct1, correct2, scale) {
+function drawDetailedHand(context, radius, color, lineWidth, point, correct1, correct2, scale) {
   context.beginPath();
   context.strokeStyle = color;
   context.lineWidth = lineWidth;
@@ -54,7 +58,7 @@ function drawDetailedHand (context, radius, color, lineWidth, point, correct1, c
   context.stroke();
 }
 
-function drawDial (context, radius) {
+function drawDial(context, radius) {
   context.beginPath();
   var dialColor = context.createRadialGradient(radius, radius, 0, radius, radius, radius - 30);
   dialColor.addColorStop(0, '#567');
@@ -66,7 +70,7 @@ function drawDial (context, radius) {
   drawBigPoint(context, radius);
 }
 
-function drawSmallPoint (context, radius) {
+function drawSmallPoint(context, radius) {
   for (var i = 0; i < 60; i++) {
     if (i % 5 === 0) {
       continue;
@@ -81,7 +85,7 @@ function drawSmallPoint (context, radius) {
   }
 }
 
-function drawBigPoint (context, radius) {
+function drawBigPoint(context, radius) {
   for (var i = 1; i < 13; i++) {
     context.beginPath();
     context.strokeStyle = '#fff';
@@ -89,11 +93,11 @@ function drawBigPoint (context, radius) {
     context.moveTo(position(i, 10, 6).x, position(i, 10, 6).y);
     context.lineTo(position(i, 30, 6).x, position(i, 30, 6).y);
     context.stroke();
-    drawNumber(context, i, position (i, 60, 6).x, position (i, 60, 6).y);
+    drawNumber(context, i, position(i, 60, 6).x, position(i, 60, 6).y);
   }
 }
 
-function drawNumber (context, i, positionX, positionY) {
+function drawNumber(context, i, positionX, positionY) {
   context.beginPath();
   context.fillStyle = '#fff';
   context.font = 'bold 30px Arial';
@@ -102,8 +106,11 @@ function drawNumber (context, i, positionX, positionY) {
   context.fillText(i, positionX, positionY);
 }
 
-function position (i, correct, scale) {
+function position(i, correct, scale) {
   var positionX = radius + (radius - correct) * Math.sin(Math.PI / scale * i);
   var positionY = radius - (radius - correct) * Math.cos(Math.PI / scale * i);
-  return {x: positionX, y: positionY};
+  return {
+    x: positionX,
+    y: positionY
+  };
 }
