@@ -19,7 +19,7 @@ var data = {
   h: 0,
   height: 10, //总高度
   way: 0, //0静止，1下，2上
-  open: false,  //门是否关闭状态
+  open: false, //门是否关闭状态
   upTarget: [], //上升时目标
   downTarget: [], //下降时目标
   upAndDownTarget: [], //二维数组，存储外侧按钮
@@ -27,18 +27,18 @@ var data = {
   DTED: [0, 10, 20, 30, 40, 50, 60, 70], //每层高度
 }
 
-window.onload = function () {
-  delayedLoadingPublicPictures ('../');
+window.onload = function() {
+  delayedLoadingPublicPictures('../');
   for (var i = 0; i < 8; i++) {
     data.upTarget[i] = false;
     data.downTarget[i] = false;
-    data.upAndDownTarget[i] = [false,false]; //[下降，上升]
+    data.upAndDownTarget[i] = [false, false]; //[下降，上升]
   }
   data.height = data.DTED[data.DTED.length - 1] - data.DTED[0];
   outsideUpAndDown.getElementsByClassName('down')[0].style.visibility = 'hidden';
 }
 
-addEvent (inside, 'click', function (e) {
+addEvent(inside, 'click', function(e) {
   var e = e || window.event;
   if (e.target.nodeName.toUpperCase() === 'SPAN') {
     if (data.h != data.DTED[e.target.innerHTML - 1]) {
@@ -54,7 +54,7 @@ addEvent (inside, 'click', function (e) {
   }
 });
 
-addEvent (outsideFloor, 'click', function (e) {
+addEvent(outsideFloor, 'click', function(e) {
   var e = e || window.event;
   var target = e.target;
   var span = outsideFloor.getElementsByTagName('span');
@@ -77,7 +77,7 @@ addEvent (outsideFloor, 'click', function (e) {
   }
 });
 
-addEvent (outsideUpAndDown, 'click', function (e) {
+addEvent(outsideUpAndDown, 'click', function(e) {
   var e = e || window.event;
   var target = e.target;
   if (target.nodeName.toUpperCase() === 'I') {
@@ -102,7 +102,7 @@ addEvent (outsideUpAndDown, 'click', function (e) {
   }
 });
 
-function addData (target) {
+function addData(target) {
   if (data.way === 0) {
     if (data.current < target) {
       data.way = 2;
@@ -112,18 +112,18 @@ function addData (target) {
   }
   voteTime(move);
 
-  function voteTime (method) {
+  function voteTime(method) {
     if (data.open === false) {
       method();
     } else {
-      setTimeout(function () {
+      setTimeout(function() {
         voteTime(method);
       }, 20);
     }
   }
 }
 
-function move () {
+function move() {
   clearTimeout(RUN);
   RUN = null;
   if (data.way === 2) {
@@ -144,7 +144,7 @@ function move () {
 
   if (data.way === 0) {
     if (data.current != 0) {
-      RUN = setTimeout(function () {
+      RUN = setTimeout(function() {
         clearTimeout(RUN);
         RUN = null;
         moveDown(0);
@@ -152,8 +152,8 @@ function move () {
     }
   }
 
-  function moveUp (target) {
-    RUN = setTimeout(function () {
+  function moveUp(target) {
+    RUN = setTimeout(function() {
       data.h += data.v;
       if (data.h < data.DTED[target]) {
         moveUp(target);
@@ -162,7 +162,7 @@ function move () {
       if (data.h === data.DTED[target]) {
         insideButtonSpan[insideButtonSpan.length - 3 - target].removeClass('inchoose');
         data.open = true;
-        setTimeout(function () {
+        setTimeout(function() {
           data.open = false;
         }, 2000);
         data.upTarget[target] = false;
@@ -173,28 +173,28 @@ function move () {
           data.downTarget[target] = false;
         }
         if (nextTarget(2) !== false) {
-          setTimeout(function () {
+          setTimeout(function() {
             moveUp(nextTarget(2));
           }, 2000);
         } else if (nextTargetMax(2) !== false) {
-          setTimeout(function () {
+          setTimeout(function() {
             moveUp(nextTargetMax(2));
           }, 2000);
         } else if (nextTarget(1) !== false) {
-          setTimeout(function () {
+          setTimeout(function() {
             data.way = 1;
             move();
           }, 2000);
         } else {
           data.way = 0;
-          move ();
+          move();
         }
       }
     }, 100);
   }
 
-  function moveDown (target) {
-    RUN = setTimeout(function () {
+  function moveDown(target) {
+    RUN = setTimeout(function() {
       data.h -= data.v;
       dataShowChange();
       if (data.h > data.DTED[target]) {
@@ -204,7 +204,7 @@ function move () {
       if (data.h === data.DTED[target]) {
         insideButtonSpan[insideButtonSpan.length - 3 - target].removeClass('inchoose');
         data.open = true;
-        setTimeout(function () {
+        setTimeout(function() {
           data.open = false;
         }, 2000);
         data.downTarget[target] = false;
@@ -215,37 +215,38 @@ function move () {
           data.upTarget[target] = false;
         }
         if (nextTarget(1) !== false) {
-          setTimeout(function () {
+          setTimeout(function() {
             moveDown(nextTarget(1));
           }, 2000);
         } else if (nextTargetMax(1) !== false) {
-          setTimeout(function () {
+          setTimeout(function() {
             moveDown(nextTargetMax(1));
           }, 2000);
         } else if (nextTarget(2) !== false) {
-          setTimeout(function () {
+          setTimeout(function() {
             data.way = 2;
-            move ();
+            move();
           }, 2000);
         } else {
           data.way = 0;
-          move ();
+          move();
         }
       }
     }, 100);
   }
 
-  function dataShowChange () {
+  function dataShowChange() {
     dataSpan[0].innerHTML = parseInt(data.current) + 1;
     dataSpan[1].innerHTML = data.h;
     dataSpan[2].innerHTML = openOrClose();
     currentChangedByHeight();
+
     function openOrClose() {
       return data.open ? '开' : '关';
     };
   }
 
-  function currentChangedByHeight () {
+  function currentChangedByHeight() {
     for (var i = 7; i >= 0; i--) {
       if (data.h >= data.DTED[i]) {
         data.current = i;
@@ -257,7 +258,7 @@ function move () {
   }
 }
 
-function nextTarget (way) {
+function nextTarget(way) {
   if (way === 2) {
     for (var i = data.current; i < 8; i++) {
       if (data.upTarget[i] === true) {
@@ -275,7 +276,7 @@ function nextTarget (way) {
   }
 }
 
-function nextTargetMax (way) {
+function nextTargetMax(way) {
   if (way === 2) {
     for (var i = 7; data.DTED[i] > data.DTED[data.current]; i--) {
       if (data.downTarget[i] === true) {
@@ -294,7 +295,7 @@ function nextTargetMax (way) {
 }
 
 //样式事件
-addEvent (inside, 'mouseover', function (e) {
+addEvent(inside, 'mouseover', function(e) {
   var e = e || window.event;
   var target = e.target;
   if (target.nodeName.toUpperCase() === 'SPAN') {
@@ -306,7 +307,7 @@ addEvent (inside, 'mouseover', function (e) {
 });
 
 //样式事件
-addEvent (inside, 'mouseout', function (e) {
+addEvent(inside, 'mouseout', function(e) {
   var e = e || window.event;
   var target = e.target;
   if (target.nodeName.toUpperCase() === 'SPAN') {
@@ -318,7 +319,7 @@ addEvent (inside, 'mouseout', function (e) {
 });
 
 //样式事件
-addEvent (outside, 'mouseover', function (e) {
+addEvent(outside, 'mouseover', function(e) {
   var e = e || window.event;
   var target = e.target;
   if (target.nodeName.toUpperCase() === 'SPAN') {
@@ -330,7 +331,7 @@ addEvent (outside, 'mouseover', function (e) {
 });
 
 //样式事件
-addEvent (outside, 'mouseout', function (e) {
+addEvent(outside, 'mouseout', function(e) {
   var e = e || window.event;
   var target = e.target;
   if (target.nodeName.toUpperCase() === 'SPAN') {
