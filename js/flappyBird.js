@@ -7,11 +7,11 @@ var canvasMask = document.getElementById('canvasMask');
 var zoom = 1.389;
 var TIME = {};
 
-window.onload = function () {
-  delayedLoadingPublicPictures ('../');
+window.onload = function() {
+  delayedLoadingPublicPictures('../');
   var image = new Image();
   image.src = '../image/flappyBirdDemo.png';
-  image.onload = function () {
+  image.onload = function() {
     data.image = image;
     resetCanvas();
     createFrame();
@@ -42,7 +42,7 @@ var data = {
   score: 0
 };
 
-function resetData () {
+function resetData() {
   data.start = false;
   data.speedY = 0;
   data.gravity = 0;
@@ -53,7 +53,7 @@ function resetData () {
   data.score = 0;
 }
 
-function cursorClickEvent (e) {
+function cursorClickEvent(e) {
   resetData();
   if (data.fail === true) {
     createFrame();
@@ -66,7 +66,7 @@ function cursorClickEvent (e) {
   }
 }
 
-function cursorMoveEvent (e) {
+function cursorMoveEvent(e) {
   var e = e || window.e;
   if (cursorInStart(e)) {
     canvasButton.style.cursor = 'pointer';
@@ -75,35 +75,38 @@ function cursorMoveEvent (e) {
   }
 }
 
-function cursorInStart (e) {
-  if (_getMousePos(e).x > 128 && _getMousePos(e).x < 272
-    && _getMousePos(e).y > 400 && _getMousePos(e).y < 481) {
+function cursorInStart(e) {
+  if (_getMousePos(e).x > 128 && _getMousePos(e).x < 272 &&
+    _getMousePos(e).y > 400 && _getMousePos(e).y < 481) {
     return true;
   } else {
     return false;
   }
 
-  function _getMousePos (e) {
+  function _getMousePos(e) {
     var x = e.clientX - canvasBackground.getBoundingClientRect().left;
     var y = e.clientY - canvasBackground.getBoundingClientRect().top;
-    return {'x': x, 'y': y};
+    return {
+      'x': x,
+      'y': y
+    };
   }
 }
 
-function startGame () {
+function startGame() {
   removeEvent(canvasButton, 'click', cursorClickEvent);
   var contextCanvasButton = canvasButton.getContext('2d');
   data.birdColor = parseInt(Math.random() * 300) % 3;
-  TIME.birdAttitude = setInterval(function () {
+  TIME.birdAttitude = setInterval(function() {
     data.birdAttitude = (data.birdAttitude + 1) % 3;
   }, data.refreshRate * 10);
   drawMask(true);
-  setTimeout(function () {
+  setTimeout(function() {
     addEvent(canvasButton, 'click', gamePlaying);
     addEvent(document, 'keydown', gamePlayingSpace);
     drawMask(false);
     createGetReady();
-    TIME.dataUpdate = setInterval(function () {
+    TIME.dataUpdate = setInterval(function() {
       data.speedY = data.speedY + data.gravity;
       data.birdTop = data.birdTop + data.speedY;
       createBird();
@@ -111,11 +114,11 @@ function startGame () {
   }, 400);
 }
 
-function createFrame () {
+function createFrame() {
   var cxt = canvasBackground.getContext('2d');
 
   if (data.fail === true) {
-    setTimeout(function () {
+    setTimeout(function() {
       var obstacle = canvasObstacle.getContext('2d');
       obstacle.clearRect(0, 0, canvasObstacle.width, canvasObstacle.height);
       data.background = parseInt(Math.random() * 1000) % 2;
@@ -128,15 +131,15 @@ function createFrame () {
     drawBottomStripe(0);
   }
 
-  function drawBackground (cxt) {
+  function drawBackground(cxt) {
     var _drawBackground;
     cxt.beginPath();
     if (data.background) {
-      _drawBackground = function () {
+      _drawBackground = function() {
         cxt.drawImage(data.image, 292, 0, 288, 512, 0, -55, 400, 711);
-      } 
+      }
     } else {
-      _drawBackground = function () {
+      _drawBackground = function() {
         cxt.drawImage(data.image, 0, 0, 288, 512, 0, -55, 400, 711);
       }
     }
@@ -144,23 +147,23 @@ function createFrame () {
   }
 }
 
-function drawBottomStripe (deviation) {
+function drawBottomStripe(deviation) {
   var cxt = canvasBackground.getContext('2d');
   cxt.drawImage(data.image, 584 + deviation, 0, 336, 22, 0, 569, 465, 31);
-  TIME.bottomStripe = setTimeout(function () {
+  TIME.bottomStripe = setTimeout(function() {
     deviation = (deviation + 1.5) % 24;
     drawBottomStripe(deviation);
   }, data.refreshRate);
 }
 
-function gamePlayingSpace (e) {
+function gamePlayingSpace(e) {
   var e = e || window.e;
   if (e && e.keyCode == 32) {
     gamePlaying();
   }
 }
 
-function gamePlaying () {
+function gamePlaying() {
   if (data.start === false) {
     data.gravity = 0.4;
     createObstacle();
@@ -171,13 +174,13 @@ function gamePlaying () {
   data.speedY = -8;
 }
 
-function createObstacle () {
+function createObstacle() {
   var adopt = 140;
   var obstacleWidth = 72;
   var transverseSpacing = 225;
   var scoreFlag = true;
 
-  TIME.showObstacle = setInterval(function () {
+  TIME.showObstacle = setInterval(function() {
     data.obstacleAdopt = data.obstacleAdopt + 1;
     for (var i = 0, len = data.obstacle.length; i < len; i++) {
       data.obstacle[i][0] -= 2;
@@ -185,7 +188,7 @@ function createObstacle () {
     if (data.obstacleAdopt > 112) {
       data.obstacleAdopt = 0;
       var obstacleTop = parseInt(Math.random() * 260) + 100,
-      obstacleBottom = obstacleTop + adopt;
+        obstacleBottom = obstacleTop + adopt;
       data.obstacle.push([400, obstacleTop, obstacleBottom]);
     }
     for (var i = 0; i < data.obstacle.length; i++) {
@@ -193,8 +196,8 @@ function createObstacle () {
         data.obstacle.shift();
       }
       if (data.obstacle[0][0] < 0) {
-          scoreFlag = true;
-        }
+        scoreFlag = true;
+      }
       if (scoreFlag === true && data.obstacle[i][0] < 84 && data.obstacle[i][0] > 0) {
         scoreFlag = false;
         data.score++;
@@ -207,7 +210,7 @@ function createObstacle () {
     }
   }, data.refreshRate);
 
-  function _drawObstacle () {
+  function _drawObstacle() {
     var cxt = canvasObstacle.getContext('2d');
     var obstacleData = [ //52, 320
       [112, 646],
@@ -222,20 +225,20 @@ function createObstacle () {
   }
 }
 
-function createButton () {
+function createButton() {
   var cxt = canvasButton.getContext('2d');
   cxt.drawImage(data.image, 702, 182, 178, 48, 76, 118, 247, 67);
   cxt.drawImage(data.image, 708, 236, 104, 58, 128, 400, 144, 81);
 }
 
-function createGetReady () {
+function createGetReady() {
   var cxt = canvasButton.getContext('2d');
   createScore(0);
   cxt.drawImage(data.image, 590, 118, 184, 50, 75, 190, 256, 69);
   cxt.drawImage(data.image, 584, 182, 114, 98, 120, 295, 158, 136);
 }
 
-function createBird () {
+function createBird() {
   var cxt = canvasBird.getContext('2d');
   var birdPosition = [ //34, 24
     [
@@ -260,7 +263,7 @@ function createBird () {
   rotateBird(cxt, Math.atan(data.speedY / 10), true);
 }
 
-function rotateBird (cxt, angle, reduction) {
+function rotateBird(cxt, angle, reduction) {
   var top = data.lastTop;
   if (reduction) {
     data.rotateAngle = angle;
@@ -272,7 +275,7 @@ function rotateBird (cxt, angle, reduction) {
   cxt.translate(-data.birdLeft, -top);
 }
 
-function createScore (score) {
+function createScore(score) {
   var cxt = canvasButton.getContext('2d');
   cxt.clearRect(0, 0, canvasButton.width, canvasButton.height);
   var scoreData = [
@@ -285,7 +288,7 @@ function createScore (score) {
     [584, 368], //6
     [612, 368], //7
     [640, 368], //8
-    [668, 368]  //9
+    [668, 368] //9
   ];
   var single, ten, hundreds;
   if (score < 10) {
@@ -305,7 +308,7 @@ function createScore (score) {
   }
 }
 
-function drawMask (behavior) {
+function drawMask(behavior) {
   var cxt = canvasMask.getContext('2d');
   if (behavior === true) {
     _gradientMask(0, behavior);
@@ -313,21 +316,21 @@ function drawMask (behavior) {
     _gradientMask(1, behavior);
   }
 
-  function _gradientMask (alpha, behavior) {
+  function _gradientMask(alpha, behavior) {
     cxt.beginPath();
     cxt.fillStyle = 'rgba(0, 0, 0, ' + alpha + ')';
     cxt.clearRect(0, 0, canvasMask.width, canvasMask.height);
     cxt.fillRect(0, 0, canvasMask.width, canvasMask.height);
     if (behavior === true && alpha < 1 || behavior === false && alpha > 0) {
       alpha = behavior ? alpha + data.refreshRate / 400 : alpha - data.refreshRate / 400;
-      setTimeout(function () {
+      setTimeout(function() {
         _gradientMask(alpha, behavior);
       }, data.refreshRate);
     }
   }
 }
 
-function resetCanvas () {
+function resetCanvas() {
   canvasBackground.width = 400;
   canvasBackground.height = 600;
   canvasObstacle.width = 400;
@@ -340,8 +343,9 @@ function resetCanvas () {
   canvasMask.height = 600;
 }
 
-function collisionJudge () {
-  var birdWidth = 40, birdHeight = 32;
+function collisionJudge() {
+  var birdWidth = 40,
+    birdHeight = 32;
   if (data.birdTop > 554) {
     return false;
   }
@@ -355,7 +359,7 @@ function collisionJudge () {
   return true;
 }
 
-function gameover () {
+function gameover() {
   data.fail = true;
   data.speedY = 0;
   removeEvent(canvasButton, 'click', gamePlaying);
@@ -364,8 +368,8 @@ function gameover () {
   clearInterval(TIME.dataUpdate);
   clearTimeout(TIME.bottomStripe);
   if (data.birdTop <= 554) {
-    setTimeout(function () {
-      TIME.dataUpdate = setInterval(function () {
+    setTimeout(function() {
+      TIME.dataUpdate = setInterval(function() {
         data.speedY = data.speedY + data.gravity;
         data.birdTop = data.birdTop + data.speedY;
         createBird();
@@ -380,9 +384,9 @@ function gameover () {
   }
 }
 
-function restart () {
+function restart() {
   var score = data.score,
-      bestScore = getCookie('bestScore');
+    bestScore = getCookie('bestScore');
   if (bestScore <= data.score) {
     setCookie('bestScore', data.score, 60 * 24 * 365);
     bestScore = data.score;
@@ -390,28 +394,28 @@ function restart () {
   createRestart(data.score, bestScore);
 }
 
-function createRestart (score, bestScore) {
-  setTimeout(function () {
+function createRestart(score, bestScore) {
+  setTimeout(function() {
     createGameover();
   }, data.refreshRate * 20);
-  setTimeout(function () {
+  setTimeout(function() {
     createScoreboard(score, bestScore);
   }, data.refreshRate * 40);
 }
 
-function createGameover () {
+function createGameover() {
   var cxt = canvasButton.getContext('2d');
   cxt.clearRect(0, 0, canvasButton.width, canvasButton.height);
   var gameoverTop = 100;
-  setTimeout(function () {
+  setTimeout(function() {
     _drawGameover1();
   }, data.refreshRate);
 
-  function _drawGameover1 () {
+  function _drawGameover1() {
     gameoverTop--;
     cxt.clearRect(0, 0, canvasButton.width, canvasButton.height);
     cxt.drawImage(data.image, 790, 118, 192, 42, 67, gameoverTop, 266, 58);
-    setTimeout(function () {
+    setTimeout(function() {
       if (gameoverTop < 92) {
         _drawGameover2();
       } else {
@@ -420,11 +424,11 @@ function createGameover () {
     }, data.refreshRate);
   }
 
-  function _drawGameover2 () {
+  function _drawGameover2() {
     gameoverTop++;
     cxt.clearRect(0, 0, canvasButton.width, canvasButton.height);
     cxt.drawImage(data.image, 790, 118, 192, 42, 67, gameoverTop, 266, 58);
-    setTimeout(function () {
+    setTimeout(function() {
       if (gameoverTop < 100) {
         _drawGameover2();
       }
@@ -432,24 +436,24 @@ function createGameover () {
   }
 }
 
-function createScoreboard (score, bestScore) {
+function createScoreboard(score, bestScore) {
   var cxt = canvasButton.getContext('2d');
   cxt.clearRect(0, 0, canvasButton.width, canvasButton.height);
   var scoreboardTop = 600;
   _drawScoreboard(score, bestScore);
 
-  function _drawScoreboard (score, bestScore) {
+  function _drawScoreboard(score, bestScore) {
     scoreboardTop -= 20;
     cxt.clearRect(0, 0, canvasButton.width, canvasButton.height);
     cxt.drawImage(data.image, 790, 118, 192, 42, 67, 100, 266, 58);
     cxt.drawImage(data.image, 6, 518, 226, 114, 43, scoreboardTop, 314, 158);
-    setTimeout(function () {
+    setTimeout(function() {
       if (scoreboardTop > 206) {
         _drawScoreboard(score, bestScore);
-        _drawScore (score, scoreboardTop, false);
-        _drawScore (bestScore, scoreboardTop, true);
+        _drawScore(score, scoreboardTop, false);
+        _drawScore(bestScore, scoreboardTop, true);
       } else {
-        setTimeout(function () {
+        setTimeout(function() {
           cxt.drawImage(data.image, 708, 236, 104, 58, 128, 400, 144, 81);
           addEvent(canvasButton, 'mousemove', cursorMoveEvent);
           addEvent(canvasButton, 'click', cursorClickEvent);
@@ -458,7 +462,7 @@ function createScoreboard (score, bestScore) {
     }, data.refreshRate);
   }
 
-  function _drawScore (score, scoreboardTop, isBest) {
+  function _drawScore(score, scoreboardTop, isBest) {
     var scoreData = [ //14, 20
       [274, 612], //0
       [274, 954], //1
@@ -469,7 +473,7 @@ function createScoreboard (score, bestScore) {
       [1010, 52], //6
       [1010, 84], //7
       [586, 484], //8
-      [622, 412]  //9
+      [622, 412] //9
     ];
 
     var single, ten, hundreds, socreTop;
@@ -479,7 +483,7 @@ function createScoreboard (score, bestScore) {
     } else {
       socreTop = 48 + scoreboardTop;
     }
-    
+
     if (score < 10) {
       cxt.drawImage(data.image, scoreData[score][0], scoreData[score][1], 14, 20, 300, socreTop, 20, 28);
     } else if (score < 100) {

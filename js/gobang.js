@@ -24,8 +24,8 @@ var data = {
   forbiddenMoves: false
 }
 
-window.onload = function () {
-  delayedLoadingPublicPictures ('../');
+window.onload = function() {
+  delayedLoadingPublicPictures('../');
   if (!judgeWidth()) {
     data.chessLength = 50;
   }
@@ -33,21 +33,21 @@ window.onload = function () {
 }
 
 addEvent(startButton, 'click', startGame);
-addEvent(PVE, 'click', function () {
+addEvent(PVE, 'click', function() {
   weUpperHand.removeAttribute('disabled');
   aiUpperHand.removeAttribute('disabled');
 });
-addEvent(PVP, 'click', function () {
+addEvent(PVP, 'click', function() {
   weUpperHand.setAttribute('disabled', true);
   aiUpperHand.setAttribute('disabled', true);
 });
 
-function startGame () {
+function startGame() {
   createFrame(data.chessLength);
   resetData();
   addEvent(chessBoard, 'click', playing);
   addEvent(falseMove, 'click', revoke);
-  addEvent(surrender, 'click', function () {
+  addEvent(surrender, 'click', function() {
     playerWin(data.currentPlayer, false);
   });
   addEvent(historyDiv, 'click', showHistory);
@@ -57,7 +57,7 @@ function startGame () {
   }
 }
 
-function resetData () { //data.chess数据重置
+function resetData() { //data.chess数据重置
   data.chess = [];
   data.chess = new Array(15);
   for (var i = 0; i < 15; i++) {
@@ -84,7 +84,7 @@ function resetData () { //data.chess数据重置
   falseMove.addClass('disabled');
 }
 
-function createFrame (length) { //创建canvas chessBoard棋盘
+function createFrame(length) { //创建canvas chessBoard棋盘
   chessBoard.width = length * 16;
   chessBoard.height = length * 16;
   var context = chessBoard.getContext('2d');
@@ -93,7 +93,7 @@ function createFrame (length) { //创建canvas chessBoard棋盘
   _drawLine(context);
   _drawPoint(context);
 
-  function _drawBoard (cxt, width, height) {
+  function _drawBoard(cxt, width, height) {
     cxt.beginPath();
     var bgColor = cxt.createLinearGradient(0, 0, width, height);
     bgColor.addColorStop(0, '#ffbf5f');
@@ -106,7 +106,7 @@ function createFrame (length) { //创建canvas chessBoard棋盘
     cxt.fillRect(length - 20, length - 20, length * 14 + 20 * 2, length * 14 + 20 * 2);
   }
 
-  function _drawLine (cxt) {
+  function _drawLine(cxt) {
     cxt.fillStyle = "#000";
     cxt.lineCap = 'square';
     cxt.lineWidth = 2;
@@ -124,8 +124,14 @@ function createFrame (length) { //创建canvas chessBoard棋盘
     }
   }
 
-  function _drawPoint (cxt) {
-    var pointPosition = [[4, 4], [4, 12], [8, 8], [12, 4], [12, 12]];
+  function _drawPoint(cxt) {
+    var pointPosition = [
+      [4, 4],
+      [4, 12],
+      [8, 8],
+      [12, 4],
+      [12, 12]
+    ];
     for (var i = 0, len = pointPosition.length; i < len; i++) {
       cxt.beginPath();
       cxt.arc(pointPosition[i][0] * length, pointPosition[i][1] * length, 5, 0, 2 * Math.PI);
@@ -133,14 +139,14 @@ function createFrame (length) { //创建canvas chessBoard棋盘
     }
   }
 
-  function _shadowReset (cxt) {
+  function _shadowReset(cxt) {
     cxt.shadowOffsetX = 0;
     cxt.shadowOffsetY = 0;
     cxt.shadowBlur = 0;
   }
 }
 
-function playing (e) { //游戏开始后在棋盘落子
+function playing(e) { //游戏开始后在棋盘落子
   var e = e || window.e;
   if (_clickPosition(e) !== false) {
     var clickX = _clickPosition(e).clickX;
@@ -151,27 +157,33 @@ function playing (e) { //游戏开始后在棋盘落子
     }
   }
 
-  function _clickPosition (e) {
+  function _clickPosition(e) {
     var clickX = parseInt((_getMousePos(e).x + data.chessLength / 2) / data.chessLength - 1);
     var clickY = parseInt((_getMousePos(e).y + data.chessLength / 2) / data.chessLength - 1);
     var x = _getMousePos(e).x - (clickX + 1) * data.chessLength;
     var y = _getMousePos(e).y - (clickY + 1) * data.chessLength;
     var deviation = x * x + y * y;
     if (deviation < Math.pow((parseInt(data.chessLength / 2) - 3), 2)) {
-      return {clickX, clickY};
+      return {
+        clickX,
+        clickY
+      };
     } else {
       return false;
     }
 
-    function _getMousePos (e) {
+    function _getMousePos(e) {
       var x = e.clientX - chessBoard.getBoundingClientRect().left;
       var y = e.clientY - chessBoard.getBoundingClientRect().top;
-      return {'x': x, 'y': y};
+      return {
+        'x': x,
+        'y': y
+      };
     }
   }
 }
 
-function playChess (clickX, clickY) {
+function playChess(clickX, clickY) {
   if (data.chess[clickY][clickX] === false) {
     if (data.forbiddenMoves === true && data.currentPlayer === 0) {
       if (judgeForbiddenMoves(data.chess, clickY, clickX, 0)) {
@@ -206,14 +218,14 @@ function playChess (clickX, clickY) {
   return false;
 }
 
-function revoke () {
+function revoke() {
   var len = Math.min(2, data.currentStep);
   if (len < 2) {
     return false;
   } else
-  while(len--) {
-    _resetChess(data.chessStep[data.currentStep - 1][0], data.chessStep[data.currentStep - 1][1]);
-  }
+    while (len--) {
+      _resetChess(data.chessStep[data.currentStep - 1][0], data.chessStep[data.currentStep - 1][1]);
+    }
   createFrame(data.chessLength);
   for (var i = 0; i < 15; i++) {
     for (var j = 0; j < 15; j++) {
@@ -223,11 +235,11 @@ function revoke () {
     }
   }
   if (data.currentStep > 0) {
-    drawSign (data.chessStep[data.currentStep - 1][1], data.chessStep[data.currentStep - 1][0]);
+    drawSign(data.chessStep[data.currentStep - 1][1], data.chessStep[data.currentStep - 1][0]);
   }
   data.currentStep >= 2 ? falseMove.removeClass('disabled') : falseMove.addClass('disabled');
 
-  function _resetChess (i, j) {
+  function _resetChess(i, j) {
     data.chess[i][j] = false;
     data.currentStep--;
     data.chessStep.length = data.currentStep;
@@ -236,7 +248,7 @@ function revoke () {
   drawSign()
 }
 
-function showHistory () {
+function showHistory() {
   removeEvent(historyDiv, 'click', showHistory);
   createFrame(data.chessLength);
   var x, y;
@@ -247,7 +259,7 @@ function showHistory () {
     _drawNumber(y, x, data.chess[x][y], i);
   }
 
-  function _drawNumber (clickX, clickY, type, number) {
+  function _drawNumber(clickX, clickY, type, number) {
     var x = (clickX + 1) * data.chessLength;
     var y = (clickY + 1) * data.chessLength;
     var cxt = chessBoard.getContext('2d');
@@ -261,7 +273,7 @@ function showHistory () {
   }
 }
 
-function drawChess (clickX, clickY, type, sign) {
+function drawChess(clickX, clickY, type, sign) {
   var x = (clickX + 1) * data.chessLength;
   var y = (clickY + 1) * data.chessLength;
   var chessRadius = data.chessLength / 2.5;
@@ -285,11 +297,11 @@ function drawChess (clickX, clickY, type, sign) {
     cxt.fill();
   }
   if (sign) {
-    drawSign(clickX ,clickY);
+    drawSign(clickX, clickY);
   }
 }
 
-function drawSign (clickX, clickY) {
+function drawSign(clickX, clickY) {
   var x = (clickX + 1) * data.chessLength;
   var y = (clickY + 1) * data.chessLength;
   var baseLength = data.chessLength / 8.75
@@ -316,12 +328,12 @@ function drawSign (clickX, clickY) {
   cxt.stroke();
 }
 
-function judgeContinuity (type, row, col, continuityChess) { //最长判断连续
+function judgeContinuity(type, row, col, continuityChess) { //最长判断连续
   var length = 4;
   var limitLeft = Math.max(0, col - length),
-      limitRight = Math.min(14, col + length);
-      limitTop = Math.max(0, row - length),
-      limitBottom = Math.min(14, row + length);
+    limitRight = Math.min(14, col + length);
+  limitTop = Math.max(0, row - length),
+    limitBottom = Math.min(14, row + length);
 
   // 横向判断
   var continuity = 0;
@@ -367,7 +379,7 @@ function judgeContinuity (type, row, col, continuityChess) { //最长判断连�
   return false;
 }
 
-function playerWin (player, type) {
+function playerWin(player, type) {
   removeEvent(chessBoard, 'click', playing);
   inGameDiv.style.display = 'none';
   startButton.innerHTML = '再来一局';
@@ -382,7 +394,7 @@ function playerWin (player, type) {
   forbiddenMoves.removeAttribute('disabled');
   _drawWinText(player, type);
 
-  function _drawWinText (player, type) {
+  function _drawWinText(player, type) {
     var text;
     if (data.currentStep === 225) {
       text = '和局';
@@ -406,11 +418,11 @@ function playerWin (player, type) {
   }
 }
 
-function forbiddenMovesPrompt () {
+function forbiddenMovesPrompt() {
   var flag = 3;
   _colorChange(flag);
 
-  function _colorChange (flag) {
+  function _colorChange(flag) {
     if (flag % 2 === 1) {
       forbiddenMovesText.style.color = 'red';
     } else {
@@ -418,7 +430,7 @@ function forbiddenMovesPrompt () {
     }
     if (flag > 0) {
       flag--;
-      setTimeout(function () {
+      setTimeout(function() {
         _colorChange(flag);
       }, 200);
     }
