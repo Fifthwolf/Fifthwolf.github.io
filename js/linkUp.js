@@ -11,8 +11,8 @@ var final = cellMask.getElementsByClassName('final')[0];
 var finalTime = final.getElementsByTagName('span')[0];
 var TIME;
 
-window.onload = function () {
-  delayedLoadingPublicPictures ('../');
+window.onload = function() {
+  delayedLoadingPublicPictures('../');
   createFrame();
 }
 
@@ -28,11 +28,11 @@ data = {
 }
 
 //创建DIV、SPAN 框架元素
-function createFrame () {
+function createFrame() {
   for (var i = 0; i < data.row; i++) {
     var row = new Array(data.row);
     row[i] = document.createElement('div');
-    row[i].setAttribute('row',i + 1);
+    row[i].setAttribute('row', i + 1);
     for (var j = 0; j < data.col; j++) {
       var col = new Array(data.col);
       col[j] = document.createElement('span');
@@ -77,7 +77,7 @@ addEvent(mainViewBox, 'click', function(e) {
   }
 });
 
-function start () {
+function start() {
   TIME = null;
   data.time = 0;
   data.surplus = data.row * data.col;
@@ -92,13 +92,13 @@ function start () {
   addEvent(starButton, 'click', restart);
 }
 
-function restart () {
+function restart() {
   cellMask.style.display = 'none';
   pause.style.display = 'block';
   timer();
 }
 
-function initialization () {
+function initialization() {
   data.box = null;
   data.box = new Array(data.row + 2);
   for (var i = 0, len = data.row + 2; i < len; i++) {
@@ -119,11 +119,11 @@ function initialization () {
     for (var i = 0; i < 2; i++) {
       var index = parseInt(Math.random() * spanArray.length);
       spanArray[index].removeAttribute('class');
-      spanArray[index].setAttribute('boxType',type);
+      spanArray[index].setAttribute('boxType', type);
       spanArray[index].addClass('type' + type);
       spanArray[index].innerHTML = type;
-      spanArray.splice(index,1);
-    }   
+      spanArray.splice(index, 1);
+    }
   }
 
   //将配对块模型化为data.box
@@ -133,15 +133,21 @@ function initialization () {
 }
 
 //选择两个框，进行判断
-function elimination (preElement, nowElement) {
-  var preOrdinate = {x: parseInt(preElement.parentNode.getAttribute('row')), y: parseInt(preElement.getAttribute('col'))};
-  var nowOrdinate = {x: parseInt(nowElement.parentNode.getAttribute('row')), y: parseInt(nowElement.getAttribute('col'))};
-  
+function elimination(preElement, nowElement) {
+  var preOrdinate = {
+    x: parseInt(preElement.parentNode.getAttribute('row')),
+    y: parseInt(preElement.getAttribute('col'))
+  };
+  var nowOrdinate = {
+    x: parseInt(nowElement.parentNode.getAttribute('row')),
+    y: parseInt(nowElement.getAttribute('col'))
+  };
+
   if (judgement(preOrdinate, nowOrdinate)) {
     showLineRoute();
     preElement.addClass('success');
     nowElement.addClass('success');
-    setTimeout(function () {
+    setTimeout(function() {
       eliminateBox();
       data.tempRoute = [];
     }, 200);
@@ -152,7 +158,7 @@ function elimination (preElement, nowElement) {
     }
   }
 
-  function eliminateBox () {
+  function eliminateBox() {
     preElement.setAttribute('boxType', '0');
     preElement.removeAttribute('class');
     preElement.innerHTML = '';
@@ -169,11 +175,12 @@ function elimination (preElement, nowElement) {
     }
   }
 
-  function showLineRoute () {
+  function showLineRoute() {
     var SVG_NS = 'http://www.w3.org/2000/svg';
-    var polyline = document.createElementNS(SVG_NS,'polyline');
+    var polyline = document.createElementNS(SVG_NS, 'polyline');
     pointsData();
-    function pointsData () {
+
+    function pointsData() {
       var rote = '';
       var len = data.tempRoute.length;
       while (len--) {
@@ -187,19 +194,19 @@ function elimination (preElement, nowElement) {
       }
       polyline.setAttribute('points', rote);
       SVG.appendChild(polyline);
-      setTimeout(function () {
+      setTimeout(function() {
         SVG.removeChild(polyline);
       }, 200);
     }
   }
 }
 
-function judgement (preOrdinate, nowOrdinate) {
+function judgement(preOrdinate, nowOrdinate) {
   //判断是否点击同一个框
   if (preOrdinate.x == nowOrdinate.x && preOrdinate.y == nowOrdinate.y) {
     return false;
   }
-  
+
   //判断两个框是否同一类型
   if (data.box[preOrdinate.x][preOrdinate.y] !== data.box[nowOrdinate.x][nowOrdinate.y]) {
     return false;
@@ -266,17 +273,17 @@ function judgement (preOrdinate, nowOrdinate) {
     preOrdinate = nowOrdinate;
     nowOrdinate = temp;
   }
-  
+
   //左右搜索
   for (var y = preOrdinate.y, incre = 0, plusMinus = 1; incre < data.col * 2; incre++) {
     y += incre * plusMinus;
     plusMinus = -plusMinus;
-    
+
     if (y >= 0 && y < data.col + 2) {
       temp = 0;
       retrievalY(y, preOrdinate);
       retrievalY(y, nowOrdinate);
-  
+
       if (temp > 0) {
         data.tempRoute = [];
         continue;
@@ -300,8 +307,8 @@ function judgement (preOrdinate, nowOrdinate) {
       }
     }
   }
-  
-  function retrievalY (initialValue, ordinate) {
+
+  function retrievalY(initialValue, ordinate) {
     if (initialValue < ordinate.y) {
       var tempRoute = 0;
       for (var value = initialValue; value < ordinate.y; value++) {
@@ -310,7 +317,7 @@ function judgement (preOrdinate, nowOrdinate) {
           break;
         }
         if (tempRoute == 0) {
-          data.tempRoute.push([ordinate.x,value]);
+          data.tempRoute.push([ordinate.x, value]);
           tempRoute = 1;
         }
       }
@@ -322,7 +329,7 @@ function judgement (preOrdinate, nowOrdinate) {
           break;
         }
         if (tempRoute == 0) {
-          data.tempRoute.push([ordinate.x,value]);
+          data.tempRoute.push([ordinate.x, value]);
           tempRoute = 1;
         }
       }
@@ -338,7 +345,7 @@ function judgement (preOrdinate, nowOrdinate) {
       temp = 0;
       retrievalX(x, preOrdinate);
       retrievalX(x, nowOrdinate);
-  
+
       if (temp > 0) {
         data.tempRoute = [];
         continue;
@@ -362,8 +369,8 @@ function judgement (preOrdinate, nowOrdinate) {
       }
     }
   }
-  
-  function retrievalX (initialValue, ordinate) {
+
+  function retrievalX(initialValue, ordinate) {
     if (initialValue < ordinate.x) {
       var tempRoute = 0;
       for (var value = initialValue; value < ordinate.x; value++) {
@@ -372,41 +379,41 @@ function judgement (preOrdinate, nowOrdinate) {
           break;
         }
         if (tempRoute == 0) {
-          data.tempRoute.push([value,ordinate.y]);
+          data.tempRoute.push([value, ordinate.y]);
           tempRoute = 1;
         }
       }
     } else if (initialValue > ordinate.x) {
       var tempRoute = 0;
-      for (var value = initialValue; value > ordinate.x; value--) {  
+      for (var value = initialValue; value > ordinate.x; value--) {
         if (data.box[value][ordinate.y] !== 0) {
           temp++;
           break;
         }
         if (tempRoute == 0) {
-          data.tempRoute.push([value,ordinate.y]);
+          data.tempRoute.push([value, ordinate.y]);
           tempRoute = 1;
-        }  
+        }
       }
     }
   }
 
-  function lineRoute () {
-    data.tempRoute.unshift([preOrdinate.x,preOrdinate.y]);
-    data.tempRoute.push([nowOrdinate.x,nowOrdinate.y]);
+  function lineRoute() {
+    data.tempRoute.unshift([preOrdinate.x, preOrdinate.y]);
+    data.tempRoute.push([nowOrdinate.x, nowOrdinate.y]);
   }
 
   return false;
 }
 
-function timer () {
-  TIME = setInterval(function () {
+function timer() {
+  TIME = setInterval(function() {
     data.time += 0.1;
     scoreSpan.innerHTML = data.time.toFixed(1);
   }, 100);
 }
 
-function over () {
+function over() {
   clearInterval(TIME);
   TIME = null;
   surplus.style.display = 'none';
