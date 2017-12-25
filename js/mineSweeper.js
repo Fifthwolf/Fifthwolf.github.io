@@ -6,8 +6,8 @@ var surplus = showView.getElementsByClassName('surplus')[0];
 var mainViewBox = content.getElementsByClassName('box')[0];
 var TIME;
 
-window.onload = function () {
-  delayedLoadingPublicPictures ('../');
+window.onload = function() {
+  delayedLoadingPublicPictures('../');
   createFrame();
 }
 
@@ -25,7 +25,7 @@ data = {
 
 addEvent(smile, 'click', smileClick);
 
-function smileClick (e) {
+function smileClick(e) {
   clearInterval(TIME);
   data.start = false;
   data.time = 0;
@@ -43,7 +43,7 @@ function smileClick (e) {
   createFrame();
 }
 
-mainViewBox.oncontextmenu = function (e) {
+mainViewBox.oncontextmenu = function(e) {
   return false;
 }
 
@@ -51,20 +51,23 @@ addEvent(mainViewBox, 'click', mainViewBoxClick);
 addEvent(mainViewBox, 'mousedown', mouseMiddleClick);
 addEvent(mainViewBox, 'contextmenu', setFlag);
 
-function mainViewBoxClick (e) {
+function mainViewBoxClick(e) {
   if (data.start === false) {
     data.start = true;
     createMine(e.target);
-    TIME = setInterval(function () {
+    TIME = setInterval(function() {
       timer();
     }, 1000);
   }
   mouseclick(e.target);
 }
 
-function mouseclick (ele) {
+function mouseclick(ele) {
   if (ele.nodeName.toUpperCase() === 'SPAN') {
-    let {currentRow, currentCol} = aroundData(ele); 
+    let {
+      currentRow,
+      currentCol
+    } = aroundData(ele);
     if (data.box[currentRow][currentCol].state === false && data.box[currentRow][currentCol].flag === false) {
       ele.addClass('state');
       data.box[currentRow][currentCol].state = true;
@@ -83,9 +86,16 @@ function mouseclick (ele) {
   }
 }
 
-function mouseMiddleClick (e) {
-  var ele= e.target;
-  let {currentRow, currentCol, rowStart, rowEnd, colStart, colEnd} = aroundData(ele);
+function mouseMiddleClick(e) {
+  var ele = e.target;
+  let {
+    currentRow,
+    currentCol,
+    rowStart,
+    rowEnd,
+    colStart,
+    colEnd
+  } = aroundData(ele);
   if (e.button === 1 && ele.nodeName.toUpperCase() === 'SPAN') {
     if (data.box[currentRow][currentCol].state === true) {
       var flag = 0;
@@ -106,10 +116,13 @@ function mouseMiddleClick (e) {
   }
 }
 
-function setFlag (e) {
+function setFlag(e) {
   var ele = e.target;
   if (ele.nodeName.toUpperCase() === 'SPAN') {
-    let {currentRow, currentCol} = aroundData(ele);
+    let {
+      currentRow,
+      currentCol
+    } = aroundData(ele);
     if (data.box[currentRow][currentCol].state === false) {
       switch (data.box[currentRow][currentCol].flag) {
         case false:
@@ -128,8 +141,15 @@ function setFlag (e) {
   }
 }
 
-function aroundMine (ele) {
-  let {currentRow, currentCol, rowStart, rowEnd, colStart, colEnd} = aroundData(ele);
+function aroundMine(ele) {
+  let {
+    currentRow,
+    currentCol,
+    rowStart,
+    rowEnd,
+    colStart,
+    colEnd
+  } = aroundData(ele);
   var mineNum = 0;
   for (var i = rowStart; i <= rowEnd; i++) {
     for (var j = colStart; j <= colEnd; j++) {
@@ -150,7 +170,7 @@ function aroundMine (ele) {
   }
 }
 
-function openAround (ele, rowStart, rowEnd, colStart, colEnd) {
+function openAround(ele, rowStart, rowEnd, colStart, colEnd) {
   for (var i = rowStart; i <= rowEnd; i++) {
     for (var j = colStart; j <= colEnd; j++) {
       if (ele == data.box[i][j].ele) {
@@ -160,13 +180,13 @@ function openAround (ele, rowStart, rowEnd, colStart, colEnd) {
         continue;
       }
       if (data.box[i][j].state === false) {
-        mouseclick(data.box[i][j].ele);     
+        mouseclick(data.box[i][j].ele);
       }
     }
   }
 }
 
-function createFrame () {
+function createFrame() {
   mainViewBox.innerHTML = '';
   data.surplus = data.row * data.col;
   for (var i = 0; i < data.row; i++) {
@@ -184,7 +204,7 @@ function createFrame () {
   initialization();
 }
 
-function initialization () {
+function initialization() {
   data.box = null;
   data.box = new Array(data.row);
   for (var i = 0, len = data.row; i < len; i++) {
@@ -205,8 +225,11 @@ function initialization () {
   }
 }
 
-function createMine (ele) {
-  let {currentRow, currentCol} = aroundData(ele); 
+function createMine(ele) {
+  let {
+    currentRow,
+    currentCol
+  } = aroundData(ele);
   for (var i = data.mine; i > 0; i--) {
     var index = parseInt(Math.random() * data.row * data.col);
     var row = parseInt(index / data.col);
@@ -224,22 +247,29 @@ function createMine (ele) {
   data.surplusFlag = data.mine;
 }
 
-function aroundData (ele) {
+function aroundData(ele) {
   var currentRow = parseInt(ele.parentNode.getAttribute('row'));
   var currentCol = parseInt(ele.getAttribute('col'));
   var rowStart = Math.max(0, currentRow - 1);
   var rowEnd = Math.min(data.row - 1, currentRow + 1);
   var colStart = Math.max(0, currentCol - 1);
   var colEnd = Math.min(data.col - 1, currentCol + 1);
-  return {currentRow, currentCol, rowStart, rowEnd, colStart, colEnd};
+  return {
+    currentRow,
+    currentCol,
+    rowStart,
+    rowEnd,
+    colStart,
+    colEnd
+  };
 }
 
-function timer () {
+function timer() {
   data.time++;
   timeDiv.innerHTML = PrefixInteger(data.time, 3);
 }
 
-function success () {
+function success() {
   clearInterval(TIME);
   for (var i = 0; i < data.row; i++) {
     for (var j = 0; j < data.col; j++) {
@@ -256,7 +286,7 @@ function success () {
   surplus.innerHTML = data.surplusFlag >= 0 ? PrefixInteger(data.surplusFlag, 3) : data.surplusFlag;
 }
 
-function fail () {
+function fail() {
   clearInterval(TIME);
   data.fail = true;
   for (var i = 0; i < data.row; i++) {
@@ -275,13 +305,13 @@ function fail () {
   addChildIcon(smile, 'ambulance');
 }
 
-function addChildIcon (parentNode, iconClass) {
+function addChildIcon(parentNode, iconClass) {
   var element = document.createElement('i');
   element.setAttribute('class', 'fa fa-' + iconClass);
   parentNode.appendChild(element);
 }
 
-function removeChildIcon (parentNode) {
+function removeChildIcon(parentNode) {
   var elements = parentNode.getElementsByClassName('fa');
   for (var i = elements.length - 1; i >= 0; i--) {
     parentNode.removeChild(elements[i]);
