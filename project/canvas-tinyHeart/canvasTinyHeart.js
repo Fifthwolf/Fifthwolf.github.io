@@ -27,6 +27,18 @@ window.onload = function() {
   imageLoaded();
 }
 
+function suitScreen() {
+  var width = document.documentElement.clientWidth,
+    height = document.documentElement.clientHeight;
+  if (height / width > data.system.height / data.system.width) {
+    data.system.scale = width / data.system.width - 0.1;
+  } else {
+    data.system.scale = height / data.system.height - 0.1;
+  }
+  data.system.top = (height - data.system.height) / data.system.scale / 2;
+  canvas.style.transform = 'scale(' + data.system.scale + ', ' + data.system.scale + ') translateY(' + data.system.top + 'px)';
+}
+
 function imageLoaded() {
   var image = new Image();
   image.src = 'tinyHeart.png';
