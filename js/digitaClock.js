@@ -258,7 +258,7 @@ function Ball() {
         this.ball.push({
           x: posX * 80 + parseInt(i / 10) * 10 + 24,
           y: i % 10 * 10 + 50,
-          vy: 0,
+          vy: -Math.random() * 4,
           direction: parseInt(Math.random() * 100) % 2, //0左1右
           color: 'rgb(' + parseInt(Math.random() * 255) + ',' + parseInt(Math.random() * 255) + ',' + parseInt(Math.random() * 255) + ')'
         });
@@ -277,8 +277,7 @@ function Ball() {
       var nextY = this.ball[i].y + this.ball[i].vy;
       if (nextY > 196) {
         this.ball[i].vy = -this.ball[i].vy * 0.75;
-      }
-      else{
+      } else {
         this.ball[i].y = nextY;
       }
     }
