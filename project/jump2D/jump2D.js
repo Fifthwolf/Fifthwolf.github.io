@@ -6,11 +6,11 @@ var data = {
       delta: 0
     },
     cxt: null,
+    fail: false,
     scale: 1,
     top: 0,
     width: 640,
     height: 480
-
   },
   click: {
     down: 0,
@@ -23,6 +23,7 @@ var data = {
     cloud1: null,
     cloud2: null,
     groove: null,
+    over: null,
     information: null
   },
 }
@@ -68,6 +69,7 @@ function game() {
 }
 
 function init() {
+  canvas.removeEventListener('click', init);
   var ele = data.element;
   ele.information = new Information();
   ele.information.init();
@@ -79,6 +81,8 @@ function init() {
   ele.sun = new Sun();
   ele.cloud1 = new Cloud(760, 0, 360, 100, 200, 98, 0.75);
   ele.cloud2 = new Cloud(760, 110, 500, 150, 160, 110, 0.75);
+  ele.over = null;
+  data.system.fail = false;
 }
 
 function gameloop() {
@@ -104,6 +108,9 @@ function drawImage() {
   ele.information.draw(cxt);
   ele.cloud1.draw(cxt);
   ele.cloud2.draw(cxt);
+  if (data.system.fail) {
+    ele.over.draw(cxt);
+  }
 }
 
 function drawBackground(cxt) {
@@ -158,7 +165,10 @@ function Monkey() {
     }
   };
   this.jumpFail = function() {
-    //失败界面
+    data.element.over = new Over();
+    setTimeout(function() {
+      data.element.over.init();
+    }, 400);
   }
 
   this.draw = function(cxt) {
@@ -344,6 +354,38 @@ function PowerGroove() {
     cxt.strokeStyle = '#000';
     cxt.rect(500, 20, 100, 20);
     cxt.stroke();
+    cxt.restore();
+  }
+}
+
+function Over() {
+  this.x = 0;
+  this.y = 490;
+  this.width = 400;
+  this.height = 73;
+  this.scale = 0;
+
+  this.init = function() {
+    data.system.fail = true;
+    this.scale = 0;
+  }
+  this.addScale = function() {
+    var nextScale = this.scale + data.system.time.delta * 0.002;
+    if (nextScale < 1) {
+      this.scale = nextScale;
+    } else {
+      this.scale = 1;
+      canvas.addEventListener('click', init, false);
+    }
+  }
+  this.draw = function(cxt) {
+    if (this.scale < 1) {
+      this.addScale();
+    }
+    cxt.save();
+    cxt.translate(data.system.width / 2, data.system.height / 2);
+    cxt.scale(this.scale, this.scale);
+    cxt.drawImage(data.image, this.x, this.y, this.width, this.height, -this.width / 2, -this.height / 2, this.width, this.height);
     cxt.restore();
   }
 }
