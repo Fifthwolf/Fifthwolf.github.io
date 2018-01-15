@@ -5,6 +5,7 @@ var data = {
       previous: 0,
       delta: 0
     },
+    mobile: null,
     cxt: null,
     fail: false,
     scale: 1,
@@ -29,6 +30,11 @@ var data = {
 }
 
 window.onload = function() {
+  if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    data.system.mobile = true;
+  } else {
+    data.system.mobile = false;
+  }
   suitScreen();
   imageLoaded();
 }
@@ -47,7 +53,7 @@ function suitScreen() {
 
 function imageLoaded() {
   var image = new Image();
-  image.src = 'jump2D.png';
+  image.src = 'monkeyJump.png';
   image.onload = function() {
     loading.style.display = 'none';
     _setCanvasProperty();
@@ -70,6 +76,7 @@ function game() {
 
 function init() {
   canvas.removeEventListener('click', init);
+  canvas.removeEventListener('touchend', init);
   var ele = data.element;
   ele.information = new Information();
   ele.information.init();
@@ -137,7 +144,9 @@ function Monkey() {
   }
   this.jumpStart = function(initial) {
     canvas.removeEventListener('mousedown', onMouseDown);
+    canvas.removeEventListener('touchstart', onMouseDown);
     canvas.removeEventListener('mouseup', onMouseUp);
+    canvas.removeEventListener('touchend', onMouseUp);
     initial = Math.min(initial, 16);
     this.vy = -initial;
     this.vx = initial;
@@ -161,7 +170,11 @@ function Monkey() {
       data.element.information.scoreAdd();
       allReturn();
     } else {
-      canvas.addEventListener('mousedown', onMouseDown, false);
+      if (data.system.mobile) {
+        canvas.addEventListener('touchstart', onMouseDown, false);
+      } else {
+        canvas.addEventListener('mousedown', onMouseDown, false);
+      }
     }
   };
   this.jumpFail = function() {
@@ -227,7 +240,11 @@ function Roof() {
     this.example[this.example.length - 2].center = 150;
     this.up(this.example[this.example.length - 1]);
     this.clear();
-    canvas.addEventListener('mousedown', onMouseDown, false);
+    if (data.system.mobile) {
+      canvas.addEventListener('touchstart', onMouseDown, false);
+    } else {
+      canvas.addEventListener('mousedown', onMouseDown, false);
+    }
   }
   this.up = function(example) {
     requestAnimationFrame(_up);
@@ -375,7 +392,11 @@ function Over() {
       this.scale = nextScale;
     } else {
       this.scale = 1;
-      canvas.addEventListener('click', init, false);
+      if (data.system.mobile) {
+        canvas.addEventListener('touchend', init, false);
+      } else {
+        canvas.addEventListener('click', init, false);
+      }
     }
   }
   this.draw = function(cxt) {
@@ -446,7 +467,11 @@ function allReturn() {
 }
 
 function onMouseDown() {
-  canvas.addEventListener('mouseup', onMouseUp, false);
+  if (data.system.mobile) {
+    canvas.addEventListener('touchend', onMouseUp, false);
+  } else {
+    canvas.addEventListener('mouseup', onMouseUp, false);
+  }
   data.click.down = new Date();
   data.element.groove.add();
 }
