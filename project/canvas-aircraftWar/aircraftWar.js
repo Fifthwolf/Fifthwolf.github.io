@@ -76,6 +76,7 @@ function game() {
 }
 
 function init() {
+  canvas.removeEventListener('touchend', init);
   canvas.removeEventListener('click', init);
   data.system.start = true;
   var ele = data.element;
@@ -90,8 +91,15 @@ function init() {
   ele.millenniumFalcon = new MillenniumFalcon();
   ele.millenniumFalcon.init();
   clearLimitsElement();
-  document.addEventListener('keydown', millenniumFalconMove, false);
-  document.addEventListener('keyup', millenniumFalconMoveEnd, false);
+  if (data.system.mobile) {
+    canvas.addEventListener('touchstart', millenniumFalconMoveInMobile, false);
+    canvas.addEventListener('touchmove', millenniumFalconMoveInMobile, false);
+    canvas.addEventListener('touchend', millenniumFalconMoveInMobileEnd, false);
+  } else {
+    document.addEventListener('keydown', millenniumFalconMove, false);
+    document.addEventListener('keyup', millenniumFalconMoveEnd, false);
+  }
+
 }
 
 function gameloop() {
@@ -106,7 +114,12 @@ function gameloop() {
   drawImage();
   if (data.system.start) {
     killHostileAirplane();
+    hurtMillenniumFalcon();
   }
+}
+
+function gameover() {
+  console.log('over');
 }
 
 function drawImage() {
@@ -248,6 +261,7 @@ function MillenniumFalcon() {
   this.y;
   this.width = 80;
   this.height = 80;
+  this.radius = 40;
   this.score;
   this.health;
   this.maxHealth;
@@ -256,6 +270,11 @@ function MillenniumFalcon() {
     right: false,
     down: false,
     left: false
+  }
+  this.target = {
+    on: false,
+    x: 0,
+    y: 0
   }
   this.attack = {
     on: false,
@@ -268,8 +287,13 @@ function MillenniumFalcon() {
     this.x = 200;
     this.y = 500;
     this.score = 0;
-    this.health = 10;
-    this.maxHealth = 10;
+    this.health = 20;
+    this.maxHealth = 20;
+    this.targetInMobile = {
+      on: false,
+      x: 0,
+      y: 0
+    }
     this.attack = {
       on: false,
       value: 1
@@ -304,9 +328,41 @@ function MillenniumFalcon() {
     this.x = Math.max(0, Math.min(400, this.x));
     this.y = Math.max(0, Math.min(600, this.y));
   }
+  this.moveInMobile = function(targetX, targetY) {
+    if (Math.abs(targetX - this.x) < 10 && Math.abs(targetY - this.y) < 10) {
+      return;
+    }
+
+    var delta = data.system.time.delta,
+      ratio = (targetX - this.x) / (targetY - this.y),
+      square = Math.sqrt((targetX - this.x) * (targetX - this.x) + (targetY - this.y) * (targetY - this.y)),
+      vx = (targetX - this.x) / square,
+      vy = (targetY - this.y) / square;
+
+    this.x += vx * delta * 0.5;
+    this.y += vy * delta * 0.5;
+  }
+  this.die = function() {
+    this.radius = 0;
+    this.width = 0;
+    this.height = 0;
+    this.health = 0;
+    this.direction = {
+      up: false,
+      right: false,
+      down: false,
+      left: false
+    }
+    clearInterval(this.time);
+    document.removeEventListener('keydown', millenniumFalconMove);
+    document.removeEventListener('keyup', millenniumFalconMoveEnd);
+  }
 
   this.airDraw = function(cxt) {
     this.move();
+    if (this.targetInMobile.on) {
+      this.moveInMobile(this.targetInMobile.x, this.targetInMobile.y);
+    }
     if (this.attack.on) {
       data.element.bullet.create(this.x - 15, this.y, 0, -60, this.attack.value, 2, 0);
       data.element.bullet.create(this.x + 15, this.y, 0, -60, this.attack.value, 2, 0);
@@ -325,7 +381,7 @@ function MillenniumFalcon() {
     cxt.textAlign = "right";
     cxt.fillStyle = '#0f6';
     cxt.fillText("HP", 322, 33);
-    cxt.rect(330, 15, this.health / this.maxHealth * 50, 20);
+    cxt.rect(330, 15, Math.max(0, this.health) / this.maxHealth * 50, 20);
     cxt.fill();
     cxt.beginPath();
     cxt.strokeStyle = '#000';
@@ -345,52 +401,52 @@ function HostileAirplane() {
   this.init = function() {
     var self = this;
 
-    /* 2秒后第1波敌机 */
-    setTimeout(function() {
-      for (var i = 0; i < 10; i++) {
-        var x = -i * 40,
-          y = -i * 40,
-          vx = 10,
-          vy = 5;
-        self.create(x, y, vx, vy, 20, 0, 0, 1, 100, 0);
-      }
-    }, 2000);
+    /* 1秒后第1波敌机 */
+    createAir(1000, 10, 0);
+    createAir(1000, 10, 1);
 
-    /* 4秒后第2波敌机 */
-    setTimeout(function() {
-      for (var i = 0; i < 10; i++) {
-        var y = -i * 40,
-          vy = 5;
-        self.create(0, y, 0, vy, 20, 0, 0, 1, 100, 1);
-      }
-    }, 4000);
+    /* 12秒后第2波敌机 */
+    createAir(12000, 10, 2);
+    createAir(12000, 10, 3);
 
-    /* 7秒后第2波敌机 */
-    setTimeout(function() {
-      for (var i = 0; i < 10; i++) {
-        var y = -i * 40,
-          vy = 5;
-        self.create(0, y, 0, vy, 20, 0, 0, 1, 100, 1);
-      }
-    }, 7000);
+    function createAir(time, num, type) {
+      setTimeout(function() {
+        switch (type) {
+          case 0:
+            _createY(num, 100, 1.5, 5, 0, 1, 2, 10);
+            break;
+          case 1:
+            _createY(num, 300, -1.5, 5, 0, 1, 2, 10);
+            break;
+          case 2:
+            _createSin(num, 5, 0, 1, 2, 10);
+            break;
+          case 3:
+            _createSin(num, 5, 720, 1, 2, 10);
+            break;
+        }
+      }, time);
 
-    /* 10秒后第2波敌机 */
-    setTimeout(function() {
-      for (var i = 0; i < 10; i++) {
-        var y = -i * 40,
-          vy = 5;
-        self.create(0, y, 0, vy, 20, 0, 0, 1, 100, 1);
+      function _createY(num, x, vx, vy, rotate, attack, health, score) {
+        self.create(x, -40, vx, vy, 20, rotate, attack, health, score, 0);
+        if (num > 0) {
+          num--;
+          setTimeout(function() {
+            _createY(num, x, vx, vy, rotate, attack, health, score);
+          }, 800);
+        }
       }
-    }, 10000);
 
-    /* 13秒后第2波敌机 */
-    setTimeout(function() {
-      for (var i = 0; i < 10; i++) {
-        var y = -i * 40,
-          vy = 5;
-        self.create(0, y, 0, vy, 20, 0, 0, 1, 100, 1);
+      function _createSin(num, vy, rotate, attack, health, score) {
+        self.create(0, -40, 0, vy, 20, rotate, attack, health, score, 1);
+        if (num > 0) {
+          num--;
+          setTimeout(function() {
+            _createSin(num, vy, rotate, attack, health, score);
+          }, 200);
+        }
       }
-    }, 13000);
+    }
   }
   this.create = function(x, y, vx, vy, radius, rotate, attack, health, score, type) {
     this.airplane.push({
@@ -616,6 +672,7 @@ function killHostileAirplane() {
     for (var j = air.length - 1; j >= 0; j--) {
       if (_distance(bullet[i].x, bullet[i].y, air[j].x, air[j].y, air[j].radius)) {
         air[j].health -= bullet[i].attack;
+        blast.create(bullet[i].x, bullet[i].y, 5);
         if (air[j].health <= 0) {
           falcon.score += air[j].score;
           blast.create(air[j].x, air[j].y, 25);
@@ -628,6 +685,35 @@ function killHostileAirplane() {
   }
 
   function _distance(x1, y1, x2, y2, radius) {
+    return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) < radius * radius;
+  }
+}
+
+function hurtMillenniumFalcon() {
+  var ele = data.element,
+    blast = ele.blast,
+    falcon = ele.millenniumFalcon,
+    air = ele.hostileAirplane.airplane;
+
+  for (var i = air.length - 1; i >= 0; i--) {
+    if (_distance(falcon.x, falcon.y, falcon.radius, air[i].x, air[i].y, air[i].radius)) {
+      falcon.health -= air[i].attack;
+      air[i].health -= falcon.attack.value;
+      if (air[i].health <= 0) {
+        falcon.score += air[i].score;
+        blast.create(air[i].x, air[i].y, 25);
+        air.splice(i, 1);
+      }
+      if (falcon.health <= 0) {
+        falcon.die();
+        blast.create(falcon.x, falcon.y, 50);
+        gameover();
+      }
+    }
+  }
+
+  function _distance(x1, y1, radius1, x2, y2, radius2) {
+    var radius = radius1 + radius2;
     return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) < radius * radius;
   }
 }
@@ -678,4 +764,22 @@ function millenniumFalconMoveEnd(event) {
       direction.left = false;
       break;
   }
+}
+
+function millenniumFalconMoveInMobile(e) {
+  e.preventDefault();
+  var left = canvas.getBoundingClientRect().left,
+    top = canvas.getBoundingClientRect().top,
+    cursorX = (e.touches[0].pageX - left) / data.system.scale,
+    cursorY = (e.touches[0].pageY - top) / data.system.scale;
+  var falcon = data.element.millenniumFalcon;
+  falcon.targetInMobile.on = true;
+  falcon.targetInMobile.x = parseInt(cursorX);
+  falcon.targetInMobile.y = parseInt(cursorY);
+}
+
+function millenniumFalconMoveInMobileEnd(e) {
+  e.preventDefault();
+  var falcon = data.element.millenniumFalcon;
+  falcon.targetInMobile.on = false;
 }
