@@ -80,6 +80,7 @@ function init() {
   canvas.removeEventListener('click', init);
   data.system.start = true;
   var ele = data.element;
+  ele.startText.firstGame = false;
   ele.star = new Star();
   ele.star.init();
   ele.blast = new Blast();
@@ -119,7 +120,15 @@ function gameloop() {
 }
 
 function gameover() {
-  console.log('over');
+  setTimeout(function() {
+    data.system.start = false;
+  }, 500);
+
+  if (data.system.mobile) {
+    canvas.addEventListener('touchend', init, false);
+  } else {
+    canvas.addEventListener('click', init, false);
+  }
 }
 
 function drawImage() {
@@ -142,9 +151,13 @@ function StartText() {
   this.x = 200;
   this.y = 200;
   this.textAlpha = 1;
+  this.firstGame = true;
   this.picState = 1; //0下降，1上升
   this.textState = 0; //0减弱，1增强
-  this.position = [0, 0];
+  this.position = [
+    [0, 0],
+    [0, 200]
+  ];
 
   this.textAlpahChange = function() {
     if (this.textState) {
@@ -177,7 +190,11 @@ function StartText() {
     this.startPicFloat();
     cxt.save();
     cxt.translate(this.x, this.y);
-    cxt.drawImage(data.image, this.position[0], this.position[1], 400, 200, -200, -100, 400, 200);
+    if (this.firstGame) {
+      cxt.drawImage(data.image, this.position[0][0], this.position[0][1], 400, 200, -200, -100, 400, 200);
+    } else {
+      cxt.drawImage(data.image, this.position[1][0], this.position[1][1], 400, 200, -200, -100, 400, 200);
+    }
     cxt.restore();
 
     cxt.save();
@@ -189,7 +206,11 @@ function StartText() {
     cxt.shadowOffsetX = 1;
     cxt.shadowOffsetY = 1;
     cxt.shadowBlur = 1;
-    cxt.fillText("点击以开始游戏", 200, 500);
+    if (this.firstGame) {
+      cxt.fillText("点击以开始游戏", 200, 500);
+    } else {
+      cxt.fillText("点击重新开始游戏", 200, 500);
+    }
     cxt.restore();
   }
 }
@@ -371,7 +392,7 @@ function MillenniumFalcon() {
 
     cxt.save();
     cxt.translate(this.x, this.y); //坐标原点位于飞机中心
-    cxt.drawImage(data.image, 0, 200, this.width, this.height, -this.width / 2, -this.height / 2, this.width, this.height);
+    cxt.drawImage(data.image, 0, 400, this.width, this.height, -this.width / 2, -this.height / 2, this.width, this.height);
     cxt.restore();
   }
   this.infoDraw = function(cxt) {
@@ -489,7 +510,7 @@ function HostileAirplane() {
       cxt.save();
       cxt.translate(this.airplane[i].x, this.airplane[i].y); //坐标原点位于飞机中心
       cxt.rotate(this.airplane[i].rotate * Math.PI / 180);
-      cxt.drawImage(data.image, 100, 200, 60, 60, -30, -30, 40, 40);
+      cxt.drawImage(data.image, 100, 400, 60, 60, -30, -30, 40, 40);
       cxt.restore();
     }
   }
