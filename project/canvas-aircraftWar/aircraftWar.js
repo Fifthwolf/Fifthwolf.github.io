@@ -88,9 +88,10 @@ function init() {
   ele.bullet = new Bullet();
   ele.bullet.init();
   ele.hostileAirplane = new HostileAirplane();
-  ele.hostileAirplane.init();
   ele.millenniumFalcon = new MillenniumFalcon();
   ele.millenniumFalcon.init();
+  data.passThrough = new PassThrough();
+  data.passThrough.init();
   clearLimitsElement();
   if (data.system.mobile) {
     canvas.addEventListener('touchstart', millenniumFalconMoveInMobile, false);
@@ -100,7 +101,6 @@ function init() {
     document.addEventListener('keydown', millenniumFalconMove, false);
     document.addEventListener('keyup', millenniumFalconMoveEnd, false);
   }
-
 }
 
 function gameloop() {
@@ -137,6 +137,9 @@ function drawImage() {
   drawBackground(cxt);
   if (data.system.start) {
     ele.star.draw(cxt);
+    if (ele.boss) {
+      ele.boss.draw(cxt);
+    }
     ele.bullet.draw(cxt);
     ele.hostileAirplane.draw(cxt);
     ele.millenniumFalcon.airDraw(cxt);
@@ -269,7 +272,6 @@ function Blast() {
       cxt.fillStyle = gr;
       cxt.beginPath();
       cxt.arc(0, 0, this.blast[i].maxR, 0, Math.PI * 2);
-      cxt.closePath();
       cxt.fill();
       cxt.restore();
       this.grow(this.blast[i], i);
@@ -285,6 +287,7 @@ function MillenniumFalcon() {
   this.radius = 40;
   this.score;
   this.health;
+  this.invincible;
   this.maxHealth;
   this.direction = {
     up: false,
@@ -310,6 +313,7 @@ function MillenniumFalcon() {
     this.score = 0;
     this.health = 20;
     this.maxHealth = 20;
+    this.invincible = false;
     this.targetInMobile = {
       on: false,
       x: 0,
@@ -385,8 +389,8 @@ function MillenniumFalcon() {
       this.moveInMobile(this.targetInMobile.x, this.targetInMobile.y);
     }
     if (this.attack.on) {
-      data.element.bullet.create(this.x - 15, this.y, 0, -60, this.attack.value, 2, 0);
-      data.element.bullet.create(this.x + 15, this.y, 0, -60, this.attack.value, 2, 0);
+      data.element.bullet.create(this.x - 15, this.y, 0, -60, this.attack.value, 2, 0, true);
+      data.element.bullet.create(this.x + 15, this.y, 0, -60, this.attack.value, 2, 0, true);
       this.attack.on = false;
     }
 
@@ -396,13 +400,14 @@ function MillenniumFalcon() {
     cxt.restore();
   }
   this.infoDraw = function(cxt) {
+    var healthPercentage = Math.max(0, this.health) / this.maxHealth;
     cxt.save();
     cxt.beginPath();
     cxt.font = "20px Verdana";
     cxt.textAlign = "right";
-    cxt.fillStyle = '#0f6';
+    cxt.fillStyle = 'rgb(' + Math.floor(255 - healthPercentage * 255) + ',' + Math.floor(healthPercentage * 255) + ',' + Math.floor(healthPercentage * 102) + ')';
     cxt.fillText("HP", 322, 33);
-    cxt.rect(330, 15, Math.max(0, this.health) / this.maxHealth * 50, 20);
+    cxt.rect(330, 15, healthPercentage * 50, 20);
     cxt.fill();
     cxt.beginPath();
     cxt.strokeStyle = '#000';
@@ -419,56 +424,6 @@ function MillenniumFalcon() {
 function HostileAirplane() {
   this.airplane = [];
 
-  this.init = function() {
-    var self = this;
-
-    /* 1秒后第1波敌机 */
-    createAir(1000, 10, 0);
-    createAir(1000, 10, 1);
-
-    /* 12秒后第2波敌机 */
-    createAir(12000, 10, 2);
-    createAir(12000, 10, 3);
-
-    function createAir(time, num, type) {
-      setTimeout(function() {
-        switch (type) {
-          case 0:
-            _createY(num, 100, 1.5, 5, 0, 1, 2, 10);
-            break;
-          case 1:
-            _createY(num, 300, -1.5, 5, 0, 1, 2, 10);
-            break;
-          case 2:
-            _createSin(num, 5, 0, 1, 2, 10);
-            break;
-          case 3:
-            _createSin(num, 5, 720, 1, 2, 10);
-            break;
-        }
-      }, time);
-
-      function _createY(num, x, vx, vy, rotate, attack, health, score) {
-        self.create(x, -40, vx, vy, 20, rotate, attack, health, score, 0);
-        if (num > 0) {
-          num--;
-          setTimeout(function() {
-            _createY(num, x, vx, vy, rotate, attack, health, score);
-          }, 800);
-        }
-      }
-
-      function _createSin(num, vy, rotate, attack, health, score) {
-        self.create(0, -40, 0, vy, 20, rotate, attack, health, score, 1);
-        if (num > 0) {
-          num--;
-          setTimeout(function() {
-            _createSin(num, vy, rotate, attack, health, score);
-          }, 200);
-        }
-      }
-    }
-  }
   this.create = function(x, y, vx, vy, radius, rotate, attack, health, score, type) {
     this.airplane.push({
       x: x,
@@ -516,13 +471,79 @@ function HostileAirplane() {
   }
 }
 
+function Boss(attribute) {
+  this.x = 200;
+  this.y;
+  this.type;
+  this.health;
+  this.attack;
+  this.radius;
+  this.appearState = false;
+  this.randomMove = {
+    state: true,
+    x: 0,
+    y: 0
+  };
+  this.position = [ //[400, 400]
+    [415, 0]
+  ];
+
+  this.init = function() {
+    this.type = attribute.type;
+    this.health = attribute.health;
+    this.attack = attribute.attack;
+    this.radius = attribute.radius;
+    this.y = -this.radius;
+  }
+  this.appear = function() {
+    var delta = data.system.time.delta;
+    this.y += delta * 0.05;
+    if (this.y > this.radius + 10) {
+      this.appearState = true;
+    }
+  }
+  this.randomMoveFunc = function() {
+    var delta = data.system.time.delta;
+    if (this.randomMove.state) {
+      this.randomMove.x = delta * 0.05 * _randomNum();
+      this.randomMove.y = delta * 0.05 * _randomNum();
+      this.randomMove.state = false;
+    }
+    if (this.x > 250 || this.x < 150) {
+      this.randomMove.x = -this.randomMove.x;
+    }
+    if (this.y > 250 || this.y < 150) {
+      this.randomMove.y = -this.randomMove.y;
+    }
+    this.x += this.randomMove.x;
+    this.y += this.randomMove.y;
+
+    function _randomNum() {
+      return parseInt(Math.random() * 100) % 2 == 0 ? 1 : -1;
+    }
+  }
+
+  this.draw = function(cxt) {
+    if (!this.appearState) {
+      this.appear();
+    } else {
+      this.randomMoveFunc();
+    }
+
+    cxt.save();
+    cxt.translate(this.x, this.y); //坐标原点位于飞机中心
+    cxt.drawImage(data.image, this.position[this.type][0], this.position[this.type][1], 400, 400, -this.radius, -this.radius, this.radius * 2, this.radius * 2);
+    cxt.restore();
+  }
+}
+
 function Bullet() {
   this.bullet = [];
 
   this.init = function() {
     this.bullet = [];
   }
-  this.create = function(x, y, vx, vy, attack, radius, type) {
+  this.create = function(x, y, vx, vy, attack, radius, type, own) {
     this.bullet.push({
       x: x,
       y: y,
@@ -530,7 +551,8 @@ function Bullet() {
       vy: vy,
       attack: attack,
       radius: radius,
-      type: type
+      type: type,
+      own: own
     });
   }
   this.move = function(bullet) {
@@ -549,10 +571,21 @@ function Bullet() {
       this.move(this.bullet[i]);
 
       cxt.save();
-      cxt.beginPath();
-      cxt.fillStyle = '#fff';
-      cxt.rect(this.bullet[i].x, this.bullet[i].y, 1, 4);
-      cxt.fill();
+      if (this.bullet[i].own) {
+        cxt.beginPath();
+        cxt.fillStyle = '#fff';
+        cxt.rect(this.bullet[i].x, this.bullet[i].y, 1, 4);
+        cxt.fill();
+      } else {
+        var gr = cxt.createRadialGradient(this.bullet[i].x, this.bullet[i].y, 1, this.bullet[i].x, this.bullet[i].y, 4);
+        gr.addColorStop(0, '#fff');
+        gr.addColorStop(0.7, '#f80');
+        gr.addColorStop(1, '#f00');
+        cxt.fillStyle = gr;
+        cxt.beginPath();
+        cxt.arc(this.bullet[i].x, this.bullet[i].y, 4, 0, Math.PI * 2);
+        cxt.fill();
+      }
       cxt.restore();
     }
   }
@@ -671,6 +704,84 @@ function Star() {
   }
 }
 
+function PassThrough() {
+  this.pass = [];
+
+  this.init = function() {
+    for (var i = 0; i < 6; i++) {
+      this.pass[i] = this['pass' + parseInt(i + 1)];
+    }
+    this.pass[0]();
+  }
+
+  this.pass1 = function() {
+    var ele = data.element,
+      air = ele.hostileAirplane;
+
+    /* 1秒后第1波敌机 */
+    createAir(1, 10, 0);
+    createAir(1, 10, 1);
+
+    /* 12秒后第2波敌机 */
+    createAir(12, 10, 2);
+    createAir(12, 10, 3);
+
+    /* 1秒后BOSS出现 */
+    createAir(18, 1, 4);
+
+    function createAir(time, num, type) {
+      setTimeout(function() {
+        switch (type) {
+          case 0:
+            _createY(num, 100, 1.5, 5, 0, 1, 2, 10);
+            break;
+          case 1:
+            _createY(num, 300, -1.5, 5, 0, 1, 2, 10);
+            break;
+          case 2:
+            _createSin(num, 5, 0, 1, 2, 10);
+            break;
+          case 3:
+            _createSin(num, 5, 720, 1, 2, 10);
+            break;
+          case 4:
+            data.element.boss = new Boss({
+              type: 0,
+              health: 500,
+              attack: 2,
+              radius: 150
+            });
+            data.element.boss.init();
+            break;
+        }
+      }, time * 1000);
+    }
+
+    function _createY(num, x, vx, vy, rotate, attack, health, score) {
+      air.create(x, -40, vx, vy, 20, rotate, attack, health, score, 0);
+      if (num > 0) {
+        num--;
+        setTimeout(function() {
+          _createY(num, x, vx, vy, rotate, attack, health, score);
+        }, 800);
+      }
+    }
+
+    function _createSin(num, vy, rotate, attack, health, score) {
+      air.create(0, -40, 0, vy, 20, rotate, attack, health, score, 1);
+      if (num > 0) {
+        num--;
+        setTimeout(function() {
+          _createSin(num, vy, rotate, attack, health, score);
+        }, 200);
+      }
+    }
+  }
+
+  this.pass2 = function() {}
+  this.pass3 = function() {}
+}
+
 function drawBackground(cxt) {
   var gr = cxt.createRadialGradient(data.system.width / 2, 0, 0, data.system.width / 2, 0, data.system.height * 1.2);
   gr.addColorStop(0, '#084097');
@@ -684,23 +795,37 @@ function killHostileAirplane() {
     blast = ele.blast,
     falcon = ele.millenniumFalcon,
     air = ele.hostileAirplane.airplane,
+    boss = ele.boss,
     bullet = ele.bullet.bullet;
 
   for (var i = bullet.length - 1; i >= 0; i--) {
     if (bullet[i].y < 0) {
       continue;
     }
-    for (var j = air.length - 1; j >= 0; j--) {
-      if (_distance(bullet[i].x, bullet[i].y, air[j].x, air[j].y, air[j].radius)) {
-        air[j].health -= bullet[i].attack;
+    if (bullet[i].own) {
+      if (boss && _distance(bullet[i].x, bullet[i].y, boss.x, boss.y, boss.radius)) {
+        boss.health -= bullet[i].attack;
         blast.create(bullet[i].x, bullet[i].y, 5);
-        if (air[j].health <= 0) {
-          falcon.score += air[j].score;
-          blast.create(air[j].x, air[j].y, 25);
-          air.splice(j, 1);
-        }
         bullet.splice(i, 1);
-        break;
+        console.log(boss.health);
+      } else {
+        for (var j = air.length - 1; j >= 0; j--) {
+          if (_distance(bullet[i].x, bullet[i].y, air[j].x, air[j].y, air[j].radius)) {
+            air[j].health -= bullet[i].attack;
+            blast.create(bullet[i].x, bullet[i].y, 5);
+            if (air[j].health <= 0) {
+              falcon.score += air[j].score;
+              blast.create(air[j].x, air[j].y, 25);
+              air.splice(j, 1);
+            }
+            bullet.splice(i, 1);
+            break;
+          }
+        }
+      }
+    } else {
+      if (_distance(bullet[i].x, bullet[i].y, falcon.x, falcon.y, falcon.radius)) {
+        falcon.health -= bullet[i].attack;
       }
     }
   }
@@ -714,8 +839,21 @@ function hurtMillenniumFalcon() {
   var ele = data.element,
     blast = ele.blast,
     falcon = ele.millenniumFalcon,
-    air = ele.hostileAirplane.airplane;
+    air = ele.hostileAirplane.airplane,
+    boss = ele.boss;
 
+  if (falcon.invincible) {
+    return;
+  }
+  if (boss && _distance(falcon.x, falcon.y, falcon.radius, boss.x, boss.y, boss.radius)) {
+    blast.create(falcon.x, falcon.y, 35);
+    falcon.invincible = true;
+    setTimeout(function() {
+      falcon.invincible = false;
+    }, 1000);
+    falcon.health -= boss.attack;
+    boss.health -= falcon.attack.value * 5;
+  }
   for (var i = air.length - 1; i >= 0; i--) {
     if (_distance(falcon.x, falcon.y, falcon.radius, air[i].x, air[i].y, air[i].radius)) {
       falcon.health -= air[i].attack;
@@ -725,12 +863,12 @@ function hurtMillenniumFalcon() {
         blast.create(air[i].x, air[i].y, 25);
         air.splice(i, 1);
       }
-      if (falcon.health <= 0) {
-        falcon.die();
-        blast.create(falcon.x, falcon.y, 50);
-        gameover();
-      }
     }
+  }
+  if (falcon.health <= 0) {
+    falcon.die();
+    blast.create(falcon.x, falcon.y, 50);
+    gameover();
   }
 
   function _distance(x1, y1, radius1, x2, y2, radius2) {
