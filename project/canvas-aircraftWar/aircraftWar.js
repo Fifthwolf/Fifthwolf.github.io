@@ -70,17 +70,13 @@ function game() {
   data.element.startText = new StartText();
 
   if (data.system.mobile) {
-    canvas.addEventListener('touchend', function() {
-      init(0, 0);
-    }, false);
+    canvas.addEventListener('touchend', init, false);
   } else {
-    canvas.addEventListener('click', function() {
-      init(0, 0);
-    }, false);
+    canvas.addEventListener('click', init, false);
   }
 }
 
-function init(score, passIndex) {
+function init() {
   canvas.removeEventListener('touchend', init);
   canvas.removeEventListener('click', init);
   data.system.start = true;
@@ -94,10 +90,14 @@ function init(score, passIndex) {
   ele.bullet.init();
   ele.hostileAirplane = new HostileAirplane();
   ele.boss = null;
-  ele.millenniumFalcon = new MillenniumFalcon();
-  ele.millenniumFalcon.init(score);
-  data.passThrough = new PassThrough();
-  data.passThrough.init(passIndex);
+  if (!ele.millenniumFalcon) {
+    ele.millenniumFalcon = new MillenniumFalcon();
+  }
+  ele.millenniumFalcon.init(ele.millenniumFalcon.score);
+  if (!data.passThrough) {
+    data.passThrough = new PassThrough();
+  }
+  data.passThrough.init(data.passThrough.num);
   clearLimitsElement();
   if (data.system.mobile) {
     canvas.addEventListener('touchstart', millenniumFalconMoveInMobile, false);
@@ -314,7 +314,7 @@ function MillenniumFalcon() {
   this.width = 80;
   this.height = 80;
   this.radius = 30;
-  this.score;
+  this.score = 0;
   this.health;
   this.maxHealth;
   this.invincible;
@@ -417,13 +417,9 @@ function MillenniumFalcon() {
         requestAnimationFrame(_moveUp);
       } else {
         if (data.system.mobile) {
-          canvas.addEventListener('touchend', function() {
-            init(self.score, data.passThrough.num);
-          }, false);
+          canvas.addEventListener('touchend', init, false);
         } else {
-          canvas.addEventListener('click', function() {
-            init(self.score, data.passThrough.num);
-          }, false);
+          canvas.addEventListener('click', init, false);
         }
       }
     }
@@ -865,7 +861,7 @@ function Star() {
 
 function PassThrough() {
   this.pass = [];
-  this.num;
+  this.num = 0;
 
   this.init = function(num) {
     for (var i = 0; i < 6; i++) {
@@ -908,7 +904,7 @@ function PassThrough() {
           case 4:
             data.element.boss = new Boss({
               type: 0,
-              health: 100,
+              health: 500,
               attack: {
                 on: false,
                 value: 5,
@@ -977,7 +973,7 @@ function PassThrough() {
           case 4:
             data.element.boss = new Boss({
               type: 0,
-              health: 100,
+              health: 500,
               attack: {
                 on: false,
                 value: 5,
@@ -1046,7 +1042,7 @@ function PassThrough() {
           case 4:
             data.element.boss = new Boss({
               type: 0,
-              health: 100,
+              health: 500,
               attack: {
                 on: false,
                 value: 5,
