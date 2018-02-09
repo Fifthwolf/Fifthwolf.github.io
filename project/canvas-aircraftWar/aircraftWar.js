@@ -340,6 +340,8 @@ function MillenniumFalcon() {
     var self = this;
     this.x = 200;
     this.y = 500;
+    this.width = 80;
+    this.height = 80;
     this.score = score;
     this.health = 20;
     this.maxHealth = 20;
