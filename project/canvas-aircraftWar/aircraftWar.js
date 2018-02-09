@@ -127,6 +127,7 @@ function gameloop() {
 
 function gameover() {
   setTimeout(function() {
+    data.element.millenniumFalcon = null;
     data.system.start = false;
     data.element.startText = new StartText();
     data.element.startText.init({
@@ -418,7 +419,6 @@ function MillenniumFalcon() {
       if (self.y > 0) {
         requestAnimationFrame(_moveUp);
       } else {
-        data.element.millenniumFalcon = null;
         if (data.system.mobile) {
           canvas.addEventListener('touchend', init, false);
         } else {
