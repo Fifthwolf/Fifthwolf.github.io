@@ -341,8 +341,8 @@ function MillenniumFalcon() {
     this.x = 200;
     this.y = 500;
     this.score = score;
-    this.health = 30;
-    this.maxHealth = 30;
+    this.health = 20;
+    this.maxHealth = 20;
     this.invincible = false;
     this.dieState = false;
     this.targetInMobile = {
@@ -416,6 +416,7 @@ function MillenniumFalcon() {
       if (self.y > 0) {
         requestAnimationFrame(_moveUp);
       } else {
+        data.element.millenniumFalcon = null;
         if (data.system.mobile) {
           canvas.addEventListener('touchend', init, false);
         } else {
