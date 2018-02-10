@@ -127,6 +127,7 @@ function gameloop() {
 
 function gameover() {
   setTimeout(function() {
+    data.element.millenniumFalcon = null;
     data.system.start = false;
     data.element.startText = new StartText();
     data.element.startText.init({
@@ -340,9 +341,11 @@ function MillenniumFalcon() {
     var self = this;
     this.x = 200;
     this.y = 500;
+    this.width = 80;
+    this.height = 80;
     this.score = score;
-    this.health = 30;
-    this.maxHealth = 30;
+    this.health = 20;
+    this.maxHealth = 20;
     this.invincible = false;
     this.dieState = false;
     this.targetInMobile = {
