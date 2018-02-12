@@ -873,9 +873,10 @@ function PassThrough() {
   this.num = 0;
 
   this.init = function(num) {
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 3; i++) {
       this.pass[i] = this['pass' + parseInt(i + 1)];
     }
+    this.pass[i] = this['pass1'];
     this.pass[num](this);
   }
 
@@ -893,8 +894,12 @@ function PassThrough() {
     createAir(12, 10, 2, 2);
     createAir(12, 10, 3, 3);
 
-    /* 18秒后BOSS出现 */
-    createAir(18, 1, 4, 4);
+    /* 18秒后第3波敌机 */
+    createAir(18, 10, 4, 4);
+    createAir(18, 10, 5, 5);
+
+    /* 28秒后BOSS出现 */
+    createAir(28, 1, 6, 6);
 
     function createAir(time, num, type, index) {
       data.TIME.PassThrough[index] = setTimeout(function() {
@@ -912,12 +917,18 @@ function PassThrough() {
             _createSin(num, 5, 720, 1, 2, 10);
             break;
           case 4:
+             _createY(num, 0, 6, 10, 0, 1, 3, 10);
+            break;
+          case 5:
+             _createY(num, 400, -6, 10, 0, 1, 3, 10);
+            break;
+          case 6:
             data.element.boss = new Boss({
               type: 0,
               health: 500,
               attack: {
                 on: false,
-                value: 5,
+                value: 3,
               },
               radius: 150,
               score: 100
@@ -963,8 +974,12 @@ function PassThrough() {
     createAir(12, 10, 2, 2);
     createAir(12, 10, 3, 3);
 
-    /* 18秒后BOSS出现 */
-    createAir(18, 1, 4, 4);
+    /* 18秒后第3波敌机 */
+    createAir(18, 10, 4, 4);
+    createAir(18, 10, 5, 5);
+
+    /* 28秒后BOSS出现 */
+    createAir(28, 1, 6, 6);
 
     function createAir(time, num, type, index) {
       data.TIME.PassThrough[index] = setTimeout(function() {
@@ -982,12 +997,18 @@ function PassThrough() {
             _createSin(num, 5, 720, 1, 2, 10);
             break;
           case 4:
+             _createY(num, 0, 6, 10, 0, 1, 3, 10);
+            break;
+          case 5:
+             _createY(num, 400, -6, 10, 0, 1, 3, 10);
+            break;
+          case 6:
             data.element.boss = new Boss({
               type: 0,
               health: 500,
               attack: {
                 on: false,
-                value: 5,
+                value: 3,
               },
               radius: 150,
               score: 100
@@ -1033,8 +1054,12 @@ function PassThrough() {
     createAir(12, 10, 2, 2);
     createAir(12, 10, 3, 3);
 
-    /* 18秒后BOSS出现 */
-    createAir(18, 1, 4, 4);
+    /* 18秒后第3波敌机 */
+    createAir(18, 10, 4, 4);
+    createAir(18, 10, 5, 5);
+
+    /* 28秒后BOSS出现 */
+    createAir(28, 1, 6, 6);
 
     function createAir(time, num, type, index) {
       data.TIME.PassThrough[index] = setTimeout(function() {
@@ -1052,12 +1077,18 @@ function PassThrough() {
             _createSin(num, 5, 720, 1, 2, 10);
             break;
           case 4:
+             _createY(num, 0, 6, 10, 0, 1, 3, 10);
+            break;
+          case 5:
+             _createY(num, 400, -6, 10, 0, 1, 3, 10);
+            break;
+          case 6:
             data.element.boss = new Boss({
               type: 0,
               health: 500,
               attack: {
                 on: false,
-                value: 5,
+                value: 3,
               },
               radius: 150,
               score: 100
