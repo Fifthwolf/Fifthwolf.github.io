@@ -55,6 +55,7 @@
       line-height: 52.5px;
       border-radius: 20px;
       background-color: rgba(51, 68, 85, 0.85);
+      -webkit-box-shadow: 2px 2px 2px #000;
       box-shadow: 2px 2px 2px #000;
       cursor: pointer; }
     #main .right .content .showView .startButton {
