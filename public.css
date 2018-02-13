@@ -37,7 +37,7 @@ body {
       height: 80px; }
       @media only screen and (max-width: 1000px) {
         #main .left .avatar {
-          margin: 50px auto 80px; } }
+          margin: 50px auto 40px; } }
       #main .left .avatar .image-border {
         position: absolute;
         left: 50%;
@@ -158,7 +158,7 @@ body {
           height: 150px; } }
       @media only screen and (max-width: 1000px) and (max-width: 1000px) {
         #main .left .avatar {
-          margin: 0 auto 80px; } }
+          margin: 0 auto 40px; } }
   @media only screen and (max-width: 1000px) {
           #main .left .avatar .image-border {
             position: absolute;

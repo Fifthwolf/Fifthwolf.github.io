@@ -1,4 +1,4 @@
-var star = document.getElementById('star');
+var start = document.getElementById('start');
 var eGo = document.getElementsByClassName('go')[0];
 var rightDiv = right.getElementsByTagName('div');
 var demo = document.getElementById('demo');
@@ -6,17 +6,17 @@ var demoUl = demo.getElementsByTagName('ul')[0];
 var demoLis = demoUl.getElementsByTagName('li');
 var TEMP;
 
-useElementToAppropriate(star, document);
+useElementToAppropriate(start, document);
 
 if (getCookie('main')) {
-  star.style.display = 'none';
+  start.style.display = 'none';
   main.style.display = judgeWidth() ? 'flex' : 'block';
   main.style.transform = 'rotateY(0deg)';
 }
 
 window.onload = function() {
   delayedLoadingPublicPictures('');
-  star.getElementsByClassName('image')[0].style.backgroundImage = 'url("image/TX.png")';
+  start.getElementsByClassName('image')[0].style.backgroundImage = 'url("image/TX.png")';
   var img = document.getElementsByTagName('img');
   for (var i = 0, len = img.length; i < len; i++) {
     img[i].setAttribute('src', img[i].getAttribute('data-src'));
@@ -27,7 +27,7 @@ window.onload = function() {
 window.onresize = function() {
   adjustmentWindow();
   useDEMOUlMargin(demoUl, demoLis, 10);
-  useElementToAppropriate(star, document);
+  useElementToAppropriate(start, document);
 }
 
 addEvent(own, 'click', function(e) {
@@ -59,11 +59,11 @@ addEvent(eGo, 'click', function() {
   function disappear() {
     deg += 5;
     setTimeout(function() {
-      star.style.transform = 'rotateY(' + deg + 'deg)';
+      start.style.transform = 'rotateY(' + deg + 'deg)';
       if (deg < 90) {
         disappear();
       } else {
-        star.style.display = 'none';
+        start.style.display = 'none';
         deg = 270;
         appear();
       }
@@ -88,8 +88,8 @@ function scrollAnimate(ele, target, time) {
   clearTimeout(TEMP);
   TEMP = null;
   var end = target.offsetTop - 50;
-  var star = right.scrollTop;
-  var step = (end - star) / (time / 10);
+  var start = right.scrollTop;
+  var step = (end - start) / (time / 10);
   var tempEnd;
 
   function animate() {

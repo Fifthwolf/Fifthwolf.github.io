@@ -1,20 +1,24 @@
-#star {
+#start {
   position: relative;
   margin: 135px auto 0;
   width: 400px;
   height: 500px;
   border-radius: 20px;
-  -webkit-box-shadow: 0px 0px 6px #bbb;
-  box-shadow: 0px 0px 6px #bbb; }
-  @media only screen and (max-width: 1000px) {
-    #star {
+  -webkit-box-shadow: 0 0 6px #bbb;
+  box-shadow: 0 0 6px #bbb; }
+  @media only screen and (max-width: 800px) {
+    #start {
       position: absolute;
       margin-top: 0;
       width: 100%;
       height: 100%;
       left: 0;
       top: 0; } }
-  #star .head {
+  @media only screen and (max-width: 800px) {
+    #start {
+      -webkit-box-shadow: 0 0 0 #bbb;
+      box-shadow: 0 0 0 #bbb; } }
+  #start .head {
     position: relative;
     width: 100%;
     height: 65%;
@@ -23,25 +27,25 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#123), to(#567));
     background: linear-gradient(#123, #567);
     text-align: center; }
-    @media only screen and (max-width: 1000px) {
-      #star .head {
+    @media only screen and (max-width: 800px) {
+      #start .head {
         border-radius: 40px 40px 0 0;
         height: 65%; } }
-    #star .head .content {
+    #start .head .content {
       position: absolute;
       width: 300px;
       left: 50%;
       margin-left: -150px;
       top: 60px; }
-      #star .head .content .avatar {
+      #start .head .content .avatar {
         position: relative;
         margin: 0 auto 20px;
         width: 120px;
         height: 120px; }
         @media only screen and (max-width: 1000px) {
-          #star .head .content .avatar {
-            margin: 0 auto 80px; } }
-        #star .head .content .avatar .image-border {
+          #start .head .content .avatar {
+            margin: 0 auto 40px; } }
+        #start .head .content .avatar .image-border {
           position: absolute;
           left: 50%;
           margin: -5px 0 0 -60px;
@@ -49,7 +53,7 @@
           height: 120px;
           border-radius: 50%;
           background-color: #fff; }
-        #star .head .content .avatar .image {
+        #start .head .content .avatar .image {
           position: absolute;
           left: 50%;
           margin-left: -55px;
@@ -58,60 +62,60 @@
           border-radius: 50%;
           background: #fff url("image/empty.png") 0 0 no-repeat;
           background-size: 100%; }
-      @media only screen and (max-width: 1000px) {
-        #star .head .content {
-          width: 800px;
-          left: 50%;
-          margin-left: -400px;
-          top: 320px; }
-          #star .head .content .avatar {
+      @media only screen and (max-width: 800px) {
+        #start .head .content {
+          width: 100%;
+          left: 0%;
+          margin-left: 0;
+          top: 80px; }
+          #start .head .content .avatar {
             position: relative;
             margin: 0 auto 20px;
-            width: 240px;
-            height: 240px; } }
-    @media only screen and (max-width: 1000px) and (max-width: 1000px) {
-      #star .head .content .avatar {
-        margin: 0 auto 80px; } }
-      @media only screen and (max-width: 1000px) {
-            #star .head .content .avatar .image-border {
+            width: 120px;
+            height: 120px; } }
+    @media only screen and (max-width: 800px) and (max-width: 1000px) {
+      #start .head .content .avatar {
+        margin: 0 auto 40px; } }
+      @media only screen and (max-width: 800px) {
+            #start .head .content .avatar .image-border {
               position: absolute;
               left: 50%;
-              margin: -5px 0 0 -120px;
-              width: 240px;
-              height: 240px;
+              margin: -5px 0 0 -60px;
+              width: 120px;
+              height: 120px;
               border-radius: 50%;
               background-color: #fff; }
-            #star .head .content .avatar .image {
+            #start .head .content .avatar .image {
               position: absolute;
               left: 50%;
-              margin-left: -115px;
-              width: 230px;
-              height: 230px;
+              margin-left: -55px;
+              width: 110px;
+              height: 110px;
               border-radius: 50%;
               background: #fff url("image/empty.png") 0 0 no-repeat;
               background-size: 100%; } }
-      #star .head .content span {
+      #start .head .content span {
         font-size: 26px;
         color: #fff; }
-        @media only screen and (max-width: 1000px) {
-          #star .head .content span {
-            font-size: 72px; } }
-      #star .head .content ul {
+        @media only screen and (max-width: 800px) {
+          #start .head .content span {
+            font-size: 24px; } }
+      #start .head .content ul {
         margin-top: 10px; }
-        @media only screen and (max-width: 1000px) {
-          #star .head .content ul {
-            margin-top: 30px; } }
-        #star .head .content ul li {
+        @media only screen and (max-width: 800px) {
+          #start .head .content ul {
+            margin-top: 10px; } }
+        #start .head .content ul li {
           display: inline-block;
           margin: 0 20px 0;
           cursor: pointer;
           font-size: 18px;
           color: #fff; }
-          #star .head .content ul li:after {
+          #start .head .content ul li:after {
             position: absolute;
             content: '|';
             margin-left: 20px; }
-          #star .head .content ul li:nth-child(2):hover::before {
+          #start .head .content ul li:nth-child(2):hover::before {
             position: absolute;
             border: 1px solid #ccc;
             border-radius: 10px;
@@ -121,9 +125,9 @@
             color: #000;
             padding: 3px 10px;
             margin: 26px 0 0 -34px; }
-          #star .head .content ul li:last-child::after {
+          #start .head .content ul li:last-child::after {
             content: ''; }
-          #star .head .content ul li:last-child:hover::before {
+          #start .head .content ul li:last-child:hover::before {
             position: absolute;
             z-index: 15;
             border: 1px solid #ccc;
@@ -135,22 +139,24 @@
             width: 120px;
             height: 120px;
             margin: 24px 0 0 -36px; }
-          @media only screen and (max-width: 1000px) {
-            #star .head .content ul li {
-              margin: 0 30px 0;
-              font-size: 54px; }
-              #star .head .content ul li:nth-child(2):hover::before {
+          @media only screen and (max-width: 800px) {
+            #start .head .content ul li {
+              margin: 0 10px 0;
+              font-size: 18px; }
+              #start .head .content ul li:after {
+                margin-left: 10px; }
+              #start .head .content ul li:nth-child(2):hover::before {
                 border: 2px solid #ccc;
                 border-radius: 20px;
-                margin: 80px 0 0 -90px;
+                margin: 30px 0 0 -50px;
                 padding: 0 16px; }
-              #star .head .content ul li:last-child:hover::before {
+              #start .head .content ul li:last-child:hover::before {
                 border: 2px solid #ccc;
                 border-radius: 20px;
-                width: 360px;
-                height: 360px;
-                margin: 80px 0 0 -90px; } }
-  #star .go {
+                width: 120px;
+                height: 120px;
+                margin: 30px 0 0 -30px; } }
+  #start .go {
     position: absolute;
     top: 65%;
     left: 50%;
@@ -165,7 +171,7 @@
     box-shadow: 0px 3px 3px #666;
     text-align: center;
     cursor: pointer; }
-    #star .go:hover {
+    #start .go:hover {
       -webkit-transition: .4s;
       transition: .4s;
       margin-left: -75px;
@@ -173,39 +179,39 @@
       width: 150px;
       height: 60px;
       border-radius: 30px; }
-      #star .go:hover span {
+      #start .go:hover span {
         -webkit-transition: .4s;
         transition: .4s;
         font-size: 30px;
         line-height: 60px; }
-    #star .go span {
+    #start .go span {
       top: 5px;
       color: #63b;
       font-weight: bold;
       font-size: 20px;
       line-height: 40px; }
-    @media only screen and (max-width: 1000px) {
-      #star .go {
+    @media only screen and (max-width: 800px) {
+      #start .go {
         top: 65%;
-        margin-left: -150px;
-        margin-top: -60px;
-        width: 300px;
-        height: 120px;
-        border-radius: 60px; }
-        #star .go:hover {
-          margin-left: -225px;
-          margin-top: -90px;
-          width: 450px;
-          height: 180px;
-          border-radius: 90px; }
-          #star .go:hover span {
-            font-size: 90px;
-            line-height: 180px; }
-        #star .go span {
+        margin-left: -75px;
+        margin-top: -30px;
+        width: 150px;
+        height: 60px;
+        border-radius: 30px; }
+        #start .go:hover {
+          margin-left: -75px;
+          margin-top: -30px;
+          width: 150px;
+          height: 60px;
+          border-radius: 30px; }
+          #start .go:hover span {
+            font-size: 30px;
+            line-height: 60px; }
+        #start .go span {
           color: #63b;
-          font-size: 60px;
-          line-height: 120px; } }
-  #star .foot {
+          font-size: 30px;
+          line-height: 60px; } }
+  #start .foot {
     position: relative;
     width: 100%;
     height: 35%;
@@ -213,25 +219,25 @@
     background-color: #fff;
     color: #bbb;
     text-align: center; }
-    #star .foot .title {
+    #start .foot .title {
       display: inline-block;
       margin: 40px 0 20px;
       font-size: 30px; }
-    #star .foot .content {
+    #start .foot .content {
       display: inline-block;
       margin-top: 10px;
       font-size: 18px;
       text-align: center; }
-    @media only screen and (max-width: 1000px) {
-      #star .foot {
+    @media only screen and (max-width: 800px) {
+      #start .foot {
         height: 35%;
         border-radius: 0 0 40px 40px; }
-        #star .foot .title {
-          margin: 120px 0 60px;
-          font-size: 90px; }
-        #star .foot .content {
-          margin-top: 30px;
-          font-size: 54px; } }
+        #start .foot .title {
+          margin: 40px 0 20px;
+          font-size: 30px; }
+        #start .foot .content {
+          margin-top: 10px;
+          font-size: 18px; } }
 
 #main {
   display: none;
@@ -377,9 +383,9 @@
             color: #000; }
           #main .right #project ul li a .describe span {
             color: #444; }
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 800px) {
     #main .right #resume h2 {
-      font-size: 48px; }
+      font-size: 24px; }
     #main .right #resume h4 {
       margin: 40px 80px 20px;
       font-size: 36px;
