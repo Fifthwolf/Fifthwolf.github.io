@@ -1,7 +1,7 @@
 body * {
   max-height: 999999px; }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 800px) {
   #main {
     position: relative; } }
 #main .left .avatar {
@@ -9,7 +9,7 @@ body * {
   margin: 50px auto 20px;
   width: 80px;
   height: 80px; }
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 800px) {
     #main .left .avatar {
       margin: 50px auto 40px; } }
   #main .left .avatar .image-border {
@@ -82,7 +82,7 @@ body * {
         margin: 0 auto 20px;
         width: 160px;
         height: 160px; } }
-      @media only screen and (max-width: 1000px) and (max-width: 1000px) {
+      @media only screen and (max-width: 1000px) and (max-width: 800px) {
         #main .left .avatar {
           margin: 0 auto 40px; } }
 @media only screen and (max-width: 1000px) {
@@ -114,9 +114,9 @@ body * {
           cursor: pointer;
           width: 100%;
           font-size: 24px;
-          height: 120px;
-          line-height: 120px;
-          font-size: 48px; }
+          height: 50px;
+          line-height: 50px;
+          font-size: 20px; }
           #main .left .own li a {
             display: block;
             width: 100%;
@@ -130,7 +130,7 @@ body * {
           #main .left .own li i {
             margin: 0 25px 0 40px; }
           #main .left .own li i {
-            margin: 0 50px 0 80px; }
+            margin: 0 30px 0 40px; }
         #main .left .own li {
           display: none; }
           #main .left .own li.choose {
@@ -162,9 +162,9 @@ body * {
           cursor: pointer;
           width: 100%;
           font-size: 24px;
-          height: 120px;
-          line-height: 120px;
-          font-size: 48px; }
+          height: 50px;
+          line-height: 50px;
+          font-size: 20px; }
           #main .left .link li a {
             display: block;
             width: 100%;
@@ -178,7 +178,7 @@ body * {
           #main .left .link li i {
             margin: 0 25px 0 40px; }
           #main .left .link li i {
-            margin: 0 50px 0 80px; }
+            margin: 0 30px 0 40px; }
     #main .right .quit {
       position: relative;
       margin-bottom: 160px; }

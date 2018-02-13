@@ -11,7 +11,7 @@
 body {
   background: #fff url(image/empty.png) 0 0 no-repeat;
   background-size: 100%; }
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 800px) {
     body {
       background: #fff url(image/empty.png) 0 0 no-repeat fixed;
       background-size: 100%; } }
@@ -19,8 +19,8 @@ body {
 #main {
   position: absolute;
   border-radius: 40px;
-  -webkit-box-shadow: 0px 0px 8px #666;
-  box-shadow: 0px 0px 8px #666;
+  -webkit-box-shadow: 0 0 8px #666;
+  box-shadow: 0 0 8px #666;
   min-height: 700px;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
@@ -35,7 +35,7 @@ body {
       margin: 50px auto 20px;
       width: 80px;
       height: 80px; }
-      @media only screen and (max-width: 1000px) {
+      @media only screen and (max-width: 800px) {
         #main .left .avatar {
           margin: 50px auto 40px; } }
       #main .left .avatar .image-border {
@@ -140,40 +140,40 @@ body {
       background-color: rgba(17, 34, 51, 0.75); }
       #main .right::-webkit-scrollbar-thumb:hover {
         background-color: rgba(17, 34, 51, 0.9); }
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 800px) {
     #main {
       position: absolute;
       width: 100%;
       top: 0; }
       #main .left {
         width: 100%;
-        border-radius: 40px 40px 0 0;
-        padding-top: 100px;
-        max-width: 1004px;
+        border-radius: 20px 20px 0 0;
+        padding-top: 50px;
+        max-width: 800px;
         margin-right: 0; }
         #main .left .avatar {
           position: relative;
           margin: 0 auto 20px;
-          width: 150px;
-          height: 150px; } }
-      @media only screen and (max-width: 1000px) and (max-width: 1000px) {
+          width: 60px;
+          height: 60px; } }
+      @media only screen and (max-width: 800px) and (max-width: 800px) {
         #main .left .avatar {
           margin: 0 auto 40px; } }
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 800px) {
           #main .left .avatar .image-border {
             position: absolute;
             left: 50%;
-            margin: -5px 0 0 -75px;
-            width: 150px;
-            height: 150px;
+            margin: -5px 0 0 -30px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             background-color: #fff; }
           #main .left .avatar .image {
             position: absolute;
             left: 50%;
-            margin-left: -70px;
-            width: 140px;
-            height: 140px;
+            margin-left: -25px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background: #fff url("image/empty.png") 0 0 no-repeat;
             background-size: 100%; }
@@ -188,9 +188,9 @@ body {
             cursor: pointer;
             width: 100%;
             font-size: 24px;
-            height: 120px;
-            line-height: 120px;
-            font-size: 48px; }
+            height: 50px;
+            line-height: 50px;
+            font-size: 20px; }
             #main .left .own li a {
               display: block;
               width: 100%;
@@ -204,7 +204,7 @@ body {
             #main .left .own li i {
               margin: 0 25px 0 40px; }
             #main .left .own li i {
-              margin: 0 50px 0 80px; }
+              margin: 0 30px 0 40px; }
         #main .left .link {
           margin-top: 40px;
           border-top: 5px solid #ccc;
@@ -230,9 +230,9 @@ body {
             cursor: pointer;
             width: 100%;
             font-size: 24px;
-            height: 120px;
-            line-height: 120px;
-            font-size: 48px; }
+            height: 50px;
+            line-height: 50px;
+            font-size: 20px; }
             #main .left .link li a {
               display: block;
               width: 100%;
@@ -246,9 +246,9 @@ body {
             #main .left .link li i {
               margin: 0 25px 0 40px; }
             #main .left .link li i {
-              margin: 0 50px 0 80px; }
+              margin: 0 30px 0 40px; }
       #main .right {
         border-radius: 0 0 40px 40px;
-        padding: 40px 80px 80px; } }
+        padding: 40px 20px; } }
 
 /*# sourceMappingURL=public.css.map */
