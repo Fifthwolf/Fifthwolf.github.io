@@ -179,19 +179,21 @@ body * {
             margin: 0 25px 0 40px; }
           #main .left .link li i {
             margin: 0 30px 0 40px; }
-    #main .right .quit {
-      position: relative;
-      margin-bottom: 30px; }
-      #main .right .quit a {
-        position: absolute;
-        top: -20px; }
-        #main .right .quit a i {
-          font-size: 32px; }
-    #main .right .desc {
-      margin: 30px 0;
-      padding: 20px;
-      font-size: 20px;
-      line-height: 24px;
-      border-radius: 20px; } }
+    #main .right {
+      overflow: hidden; }
+      #main .right .quit {
+        position: relative;
+        margin-bottom: 30px; }
+        #main .right .quit a {
+          position: absolute;
+          top: -20px; }
+          #main .right .quit a i {
+            font-size: 32px; }
+      #main .right .desc {
+        margin: 30px 0;
+        padding: 10px;
+        font-size: 16px;
+        line-height: 20px;
+        border-radius: 20px; } }
 
 /*# sourceMappingURL=publicDemo.css.map */

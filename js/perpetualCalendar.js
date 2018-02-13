@@ -1,7 +1,8 @@
 var content = right.getElementsByClassName("content")[0],
   year = document.getElementById("year"),
   month = document.getElementById("month"),
-  tableBody = document.getElementById("calendar-table").getElementsByTagName("tbody")[0],
+  table = document.getElementById("calendar-table"),
+  tableBody = table.getElementsByTagName("tbody")[0],
   tdDays = tableBody.getElementsByTagName("td"),
   temp = '';
 var now = new Date();
@@ -34,7 +35,7 @@ window.onload = function() {
   currentYear.setAttribute('selected', 'true');
   currentMonth.setAttribute('selected', 'true');
   if (!judgeWidth()) {
-    touch(content);
+    touch(table);
   }
 }
 
