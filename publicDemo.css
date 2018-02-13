@@ -70,36 +70,36 @@ body * {
   line-height: 36px;
   border-radius: 20px;
   background-color: rgba(85, 102, 119, 0.3); }
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 800px) {
   #main {
     height: 100%; }
     #main .left {
       border-radius: 40px 40px 0 0;
-      padding-top: 100px;
+      padding-top: 50px;
       max-width: 1004px; }
       #main .left .avatar {
         position: relative;
         margin: 0 auto 20px;
-        width: 160px;
-        height: 160px; } }
-      @media only screen and (max-width: 1000px) and (max-width: 800px) {
+        width: 80px;
+        height: 80px; } }
+      @media only screen and (max-width: 800px) and (max-width: 800px) {
         #main .left .avatar {
           margin: 0 auto 40px; } }
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 800px) {
         #main .left .avatar .image-border {
           position: absolute;
           left: 50%;
-          margin: -5px 0 0 -80px;
-          width: 160px;
-          height: 160px;
+          margin: -5px 0 0 -40px;
+          width: 80px;
+          height: 80px;
           border-radius: 50%;
           background-color: #fff; }
         #main .left .avatar .image {
           position: absolute;
           left: 50%;
-          margin-left: -75px;
-          width: 150px;
-          height: 150px;
+          margin-left: -35px;
+          width: 70px;
+          height: 70px;
           border-radius: 50%;
           background: #fff url("image/empty.png") 0 0 no-repeat;
           background-size: 100%; }
@@ -136,7 +136,7 @@ body * {
           #main .left .own li.choose {
             display: inline-block; }
           #main .left .own li.choose::after {
-            border-width: 60px; }
+            border-width: 25px; }
       #main .left .link {
         margin-top: 40px;
         border-top: 5px solid #ccc;
@@ -181,17 +181,17 @@ body * {
             margin: 0 30px 0 40px; }
     #main .right .quit {
       position: relative;
-      margin-bottom: 160px; }
+      margin-bottom: 30px; }
       #main .right .quit a {
         position: absolute;
-        top: 16px; }
+        top: -20px; }
         #main .right .quit a i {
-          font-size: 96px; }
+          font-size: 32px; }
     #main .right .desc {
       margin: 30px 0;
       padding: 20px;
-      font-size: 40px;
-      line-height: 60px;
+      font-size: 20px;
+      line-height: 24px;
       border-radius: 20px; } }
 
 /*# sourceMappingURL=publicDemo.css.map */
