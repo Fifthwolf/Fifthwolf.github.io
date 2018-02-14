@@ -43,10 +43,8 @@ $blackBase: #777;
     .content{
       position: relative;
       margin: 0 auto;
-      top: 30px;
       border: 4px solid rgba(#567, 0.8);
-      text-align:center;
-      margin:0 auto;
+      text-align: center;
       width:630px;
       height:350px;
       ul{
@@ -69,6 +67,26 @@ $blackBase: #777;
         font-size: 16px;
         padding: 2px;
         top:5px;
+      }
+      @media only screen and (max-width: 600px) {
+        width:252px;
+        height:175px;
+        @for $i from 1 through 8{
+          .swatches:nth-child(#{$i}){
+            top:($i - 1) * 25px;
+          }
+        }
+
+        li{
+          width:12px;
+          height:25px;
+        }
+
+        li:hover:after{
+          font-size: 8px;
+          padding: 1px;
+          top:3px;
+        }
       }
 
       ul.red {

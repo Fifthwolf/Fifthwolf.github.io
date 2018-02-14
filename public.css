@@ -11,7 +11,7 @@
 body {
   background: #fff url(image/empty.png) 0 0 no-repeat;
   background-size: 100%; }
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 600px) {
     body {
       background: #fff url(image/empty.png) 0 0 no-repeat fixed;
       background-size: 100%; } }
@@ -21,7 +21,6 @@ body {
   border-radius: 40px;
   -webkit-box-shadow: 0 0 8px #666;
   box-shadow: 0 0 8px #666;
-  min-height: 700px;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -ms-flex-flow: row;
@@ -140,7 +139,7 @@ body {
       background-color: rgba(17, 34, 51, 0.75); }
       #main .right::-webkit-scrollbar-thumb:hover {
         background-color: rgba(17, 34, 51, 0.9); }
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 600px) {
     #main {
       position: absolute;
       width: 100%;
@@ -156,10 +155,10 @@ body {
           margin: 0 auto 20px;
           width: 60px;
           height: 60px; } }
-      @media only screen and (max-width: 800px) and (max-width: 800px) {
+      @media only screen and (max-width: 600px) and (max-width: 800px) {
         #main .left .avatar {
           margin: 0 auto 40px; } }
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 600px) {
           #main .left .avatar .image-border {
             position: absolute;
             left: 50%;
@@ -248,7 +247,7 @@ body {
             #main .left .link li i {
               margin: 0 30px 0 40px; }
       #main .right {
-        border-radius: 0 0 40px 40px;
+        border-radius: 0 0 20px 20px;
         padding: 40px 20px; } }
 
 /*# sourceMappingURL=public.css.map */
