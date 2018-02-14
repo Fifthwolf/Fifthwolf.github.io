@@ -1,7 +1,7 @@
 body * {
   max-height: 999999px; }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
   #main {
     position: relative; } }
 #main .left .avatar {
@@ -70,7 +70,7 @@ body * {
   line-height: 36px;
   border-radius: 20px;
   background-color: rgba(85, 102, 119, 0.3); }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
   #main {
     height: 100%; }
     #main .left {
@@ -82,10 +82,10 @@ body * {
         margin: 0 auto 20px;
         width: 80px;
         height: 80px; } }
-      @media only screen and (max-width: 600px) and (max-width: 800px) {
+      @media only screen and (max-width: 800px) and (max-width: 800px) {
         #main .left .avatar {
           margin: 0 auto 40px; } }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
         #main .left .avatar .image-border {
           position: absolute;
           left: 50%;
