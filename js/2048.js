@@ -15,11 +15,15 @@ var data = {
   score: 0,
   moveEvent: false,
   sides: 60,
+  correct: 1,
   box: null
 }
 
 window.onload = function() {
   delayedLoadingPublicPictures('../');
+  if (/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+    data.correct = 0.5;
+  }
   if (!judgeWidth()) {
     data.sides = 100;
     addEvent(moblieControl, 'touchstart', function(e) {
@@ -76,15 +80,15 @@ function createCell(length) {
     }
     cell.appendChild(row[i]);
   }
-  cell.style.width = length * data.sides + 'px';
+  cell.style.width = length * data.sides * data.correct + 'px';
   if (!judgeWidth()) {
-    moblieControl.style.width = length * data.sides + 'px';
-    moblieControl.style.height = length * data.sides + 'px';
-    moblieControl.style.marginLeft = -(length * data.sides) / 2 - 5 + 'px';
+    moblieControl.style.width = length * data.sides * data.correct + 'px';
+    moblieControl.style.height = length * data.sides * data.correct+ 'px';
+    moblieControl.style.marginLeft = -(length * data.sides) / 2 * data.correct - 5 + 'px';
   }
-  cellMask.style.width = length * data.sides + 'px';
-  cellMask.style.height = length * data.sides + 'px';
-  cellMask.style.marginLeft = -(length * data.sides) / 2 - 5 + 'px';
+  cellMask.style.width = length * data.sides * data.correct + 'px';
+  cellMask.style.height = length * data.sides * data.correct + 'px';
+  cellMask.style.marginLeft = -(length * data.sides) / 2 * data.correct - 5 + 'px';
 }
 
 function starGame(length) {

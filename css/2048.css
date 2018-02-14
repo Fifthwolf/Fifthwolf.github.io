@@ -100,37 +100,37 @@
     margin-top: 10px;
     width: 60px;
     height: 30px; }
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 800px) {
   #main .right .content .score {
-    margin-bottom: 150px;
-    font-size: 40px; }
+    margin-bottom: 50px;
+    font-size: 20px; }
   #main .right .content .mainView .cell {
-    border-radius: 24px; }
+    border-radius: 12px; }
     #main .right .content .mainView .cell div span {
-      margin: 10px;
-      width: 80px;
-      height: 80px;
-      border-radius: 14px;
-      font-size: 56px;
-      line-height: 80px; }
+      margin: 5px;
+      width: 40px;
+      height: 40px;
+      border-radius: 7px;
+      font-size: 28px;
+      line-height: 40px; }
       #main .right .content .mainView .cell div span.type7 {
-        font-size: 40px; }
+        font-size: 20px; }
       #main .right .content .mainView .cell div span.type8 {
-        font-size: 40px; }
+        font-size: 20px; }
       #main .right .content .mainView .cell div span.type9 {
-        font-size: 40px; }
+        font-size: 20px; }
       #main .right .content .mainView .cell div span.type10 {
-        font-size: 32px; }
+        font-size: 16px; }
       #main .right .content .mainView .cell div span.type11 {
-        font-size: 32px; }
+        font-size: 16px; }
       #main .right .content .mainView .cell div span.type12 {
-        font-size: 32px; }
+        font-size: 16px; }
       #main .right .content .mainView .cell div span.type13 {
-        font-size: 32px; }
+        font-size: 16px; }
       #main .right .content .mainView .cell div span.type14 {
-        font-size: 20px; }
+        font-size: 10px; }
       #main .right .content .mainView .cell div span.type15 {
-        font-size: 20px; }
+        font-size: 10px; }
   #main .right .content .mainView .moblieControl {
     display: block;
     position: absolute;
@@ -143,71 +143,71 @@
       height: 0; }
     #main .right .content .mainView .moblieControl .controlLeft {
       top: 50%;
-      margin-top: -100px;
-      left: -105px;
-      border-top: 100px solid transparent;
-      border-right: 50px solid #567;
-      border-bottom: 100px solid transparent;
-      border-left: 50px solid transparent; }
+      margin-top: -50px;
+      left: -55px;
+      border-top: 50px solid transparent;
+      border-right: 25px solid #567;
+      border-bottom: 50px solid transparent;
+      border-left: 25px solid transparent; }
       #main .right .content .mainView .moblieControl .controlLeft.hover {
-        border-right: 50px solid #234; }
+        border-right: 25px solid #234; }
     #main .right .content .mainView .moblieControl .controlRight {
       top: 50%;
-      margin-top: -100px;
-      right: -105px;
-      border-top: 100px solid transparent;
-      border-left: 50px solid #567;
-      border-bottom: 100px solid transparent;
-      border-right: 50px solid transparent; }
+      margin-top: -50px;
+      right: -55px;
+      border-top: 50px solid transparent;
+      border-left: 25px solid #567;
+      border-bottom: 50px solid transparent;
+      border-right: 25px solid transparent; }
       #main .right .content .mainView .moblieControl .controlRight.hover {
-        border-left: 50px solid #234; }
+        border-left: 25px solid #234; }
     #main .right .content .mainView .moblieControl .controlTop {
-      top: -105px;
+      top: -55px;
       left: 50%;
-      margin-left: -100px;
-      border-left: 100px solid transparent;
-      border-right: 100px solid transparent;
-      border-bottom: 50px solid #567;
-      border-top: 50px solid transparent; }
+      margin-left: -50px;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-bottom: 25px solid #567;
+      border-top: 25px solid transparent; }
       #main .right .content .mainView .moblieControl .controlTop.hover {
-        border-bottom: 50px solid #234; }
+        border-bottom: 25px solid #234; }
     #main .right .content .mainView .moblieControl .controlBottom {
-      bottom: -105px;
+      bottom: -55px;
       left: 50%;
-      margin-left: -100px;
-      border-left: 100px solid transparent;
-      border-right: 100px solid transparent;
-      border-top: 50px solid #567;
-      border-bottom: 50px solid transparent; }
+      margin-left: -50px;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-top: 25px solid #567;
+      border-bottom: 25px solid transparent; }
       #main .right .content .mainView .moblieControl .controlBottom.hover {
-        border-top: 50px solid #234; }
+        border-top: 25px solid #234; }
   #main .right .content .mainView .cellMask {
-    border-radius: 24px; }
+    border-radius: 12px; }
     #main .right .content .mainView .cellMask p {
-      margin: 20px;
-      font-size: 64px; }
+      margin: 10px;
+      font-size: 32px; }
       #main .right .content .mainView .cellMask p:first-child {
-        margin-top: 80px; }
+        margin-top: 40px; }
     #main .right .content .mainView .cellMask .restart {
       margin: 0 auto;
-      width: 200px;
-      height: 80px;
-      border-radius: 40px;
-      -webkit-box-shadow: 0px 6px 10px #123;
-      box-shadow: 0px 6px 10px #123;
-      font-size: 40px;
-      line-height: 80px; }
+      width: 100px;
+      height: 40px;
+      border-radius: 20px;
+      -webkit-box-shadow: 0px 3px 5px #123;
+      box-shadow: 0px 3px 5px #123;
+      font-size: 20px;
+      line-height: 40px; }
   #main .right .content .option {
-    margin-top: 200px;
-    font-size: 46px; }
+    margin-top: 50px;
+    font-size: 18px; }
     #main .right .content .option input {
-      font-size: 46px;
-      line-height: 46px; }
+      font-size: 18px;
+      line-height: 18px; }
   #main .right .content button {
-    margin-top: 30px;
-    width: 180px;
-    height: 80px;
-    font-size: 46px;
-    line-height: 80px; } }
+    margin-top: 15px;
+    width: 90px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 20px; } }
 
 /*# sourceMappingURL=2048.css.map */
