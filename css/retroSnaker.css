@@ -100,7 +100,7 @@
       color: #fff; }
 #main .right .content #mobileControl {
   display: none; }
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 600px) {
   #main .right .content .showView {
     margin: 20px auto 20px;
     width: 248px;
@@ -112,6 +112,7 @@
       width: 48px;
       height: 24px; }
     #main .right .content .showView .pause {
+      font-size: 18px;
       width: 72px;
       height: 24px; }
   #main .right .content .mainView {
@@ -125,6 +126,7 @@
         width: 240px;
         height: 8px; }
         #main .right .content .mainView .box div span {
+          vertical-align: top;
           width: 8px;
           height: 8px; }
           #main .right .content .mainView .box div span.head1 {
@@ -148,9 +150,9 @@
       height: 160px; }
       #main .right .content .mainView .cellMask .starButton {
         margin: 64px auto 0;
-        width: 72px;
-        height: 32px;
-        line-height: 32px;
+        width: 80px;
+        height: 40px;
+        line-height: 40px;
         font-size: 16px; }
       #main .right .content .mainView .cellMask .final {
         margin-top: 8px;
@@ -168,8 +170,8 @@
     background-color: rgba(17, 34, 51, 0.5); }
     #main .right .content #mobileControl #mobileButton {
       position: absolute;
-      left: 49px;
-      top: 49px;
+      left: 24px;
+      top: 24px;
       width: 50px;
       height: 50px;
       border-radius: 50%;

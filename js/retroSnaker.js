@@ -39,52 +39,52 @@ function mobileControl() {
   var mobileControl = document.getElementById('mobileControl');
   var controlCanvas = document.getElementById('controlCanvas');
   var mobileButton = document.getElementById('mobileButton');
-  drawControl();
+  drawControl(100);
   mobileControlTouch(mobileControl);
 
-  function drawControl() {
-    controlCanvas.width = 300;
-    controlCanvas.height = 300;
+  function drawControl(length) {
+    controlCanvas.width = length;
+    controlCanvas.height = length;
     var context = controlCanvas.getContext('2d');
     context.beginPath();
-    context.arc(150, 150, 150, 0, 2 * Math.PI);
+    context.arc(length / 2, length / 2, length / 2, 0, 2 * Math.PI);
     context.clip();
     context.strokeStyle = "rgba(17, 34, 51, 0.5)";
     context.lineWidth = 5;
     _drawArc(context, 0, 0);
-    _drawArc(context, 0, 300);
-    _drawArc(context, 300, 0);
-    _drawArc(context, 300, 300);
+    _drawArc(context, 0, length);
+    _drawArc(context, length, 0);
+    _drawArc(context, length, length);
 
     function _drawArc(ctx, x, y) {
       ctx.beginPath();
-      ctx.arc(x, y, 120, 0, 2 * Math.PI);
+      ctx.arc(x, y, length / 2.5, 0, 2 * Math.PI);
       ctx.stroke();
     }
   }
 
   function mobileControlTouch(element) {
-    var buttonX, buttonY;
+    var buttonX, buttonY, length = 50;
     var elementPosition = element.getBoundingClientRect();
 
     function buttonMove(e, flag) {
       if (flag) {
         e.preventDefault();
         var touch = e.changedTouches;
-        buttonX = touch[0].clientX - elementPosition.left - 150;
-        buttonY = touch[0].clientY - elementPosition.top - 150;
+        buttonX = touch[0].clientX - elementPosition.left - length;
+        buttonY = touch[0].clientY - elementPosition.top - length;
       } else {
         buttonX = 0;
         buttonY = 0;
       }
-      if (buttonX * buttonX + buttonY * buttonY > 150 * 150) {
+      if (buttonX * buttonX + buttonY * buttonY > length * length) {
         var angle = Math.atan(buttonY / buttonX);
         if (buttonX < 0) {
-          buttonX = -Math.cos(angle) * 150;
-          buttonY = -Math.sin(angle) * 150;
+          buttonX = -Math.cos(angle) * length;
+          buttonY = -Math.sin(angle) * length;
         } else if (buttonX > 0) {
-          buttonX = Math.cos(angle) * 150;
-          buttonY = Math.sin(angle) * 150;
+          buttonX = Math.cos(angle) * length;
+          buttonY = Math.sin(angle) * length;
         } else {
           buttonX = 0;
         }
@@ -92,8 +92,8 @@ function mobileControl() {
       if (flag) {
         _cons(buttonX, buttonY);
       }
-      mobileButton.style.left = buttonX + 98 + 'px';
-      mobileButton.style.top = buttonY + 98 + 'px';
+      mobileButton.style.left = buttonX + length / 2 + 'px';
+      mobileButton.style.top = buttonY + length / 2 + 'px';
     }
 
     function _cons(buttonX, buttonY) {
