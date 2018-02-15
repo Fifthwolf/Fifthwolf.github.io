@@ -100,79 +100,80 @@
       color: #fff; }
 #main .right .content #mobileControl {
   display: none; }
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 800px) {
   #main .right .content .showView {
-    margin: 40px auto 20px;
-    width: 775px;
-    height: 75px; }
+    margin: 20px auto 20px;
+    width: 248px;
+    height: 24px; }
     #main .right .content .showView div {
-      line-height: 75px; }
+      line-height: 24px; }
     #main .right .content .showView .score, #main .right .content .showView .time {
-      width: 150px;
-      height: 75px; }
+      font-size: 24px;
+      width: 48px;
+      height: 24px; }
     #main .right .content .showView .pause {
-      width: 225px;
-      height: 75px; }
+      width: 72px;
+      height: 24px; }
   #main .right .content .mainView {
-    margin-bottom: 300px;
-    width: 750px;
-    height: 500px; }
+    margin-bottom: 130px;
+    width: 240px;
+    height: 160px; }
     #main .right .content .mainView .box {
-      width: 750px;
-      height: 500px; }
+      width: 240px;
+      height: 160px; }
       #main .right .content .mainView .box div {
-        width: 750px;
-        height: 25px; }
+        width: 240px;
+        height: 8px; }
         #main .right .content .mainView .box div span {
-          width: 25px;
-          height: 25px; }
+          width: 8px;
+          height: 8px; }
           #main .right .content .mainView .box div span.head1 {
-            border-right: 12.5px solid transparent;
-            border-bottom: 25px solid #f80;
-            border-left: 12.5px solid transparent; }
+            border-right: 4px solid transparent;
+            border-bottom: 8px solid #f80;
+            border-left: 4px solid transparent; }
           #main .right .content .mainView .box div span.head2 {
-            border-top: 12.5px solid transparent;
-            border-bottom: 12.5px solid transparent;
-            border-left: 25px solid #f80; }
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+            border-left: 8px solid #f80; }
           #main .right .content .mainView .box div span.head3 {
-            border-top: 25px solid #f80;
-            border-right: 12.5px solid transparent;
-            border-left: 12.5px solid transparent; }
+            border-top: 8px solid #f80;
+            border-right: 4px solid transparent;
+            border-left: 4px solid transparent; }
           #main .right .content .mainView .box div span.head4 {
-            border-top: 12.5px solid transparent;
-            border-right: 25px solid #f80;
-            border-bottom: 12.5px solid transparent; }
+            border-top: 4px solid transparent;
+            border-right: 8px solid #f80;
+            border-bottom: 4px solid transparent; }
     #main .right .content .mainView .cellMask {
-      width: 750px;
-      height: 500px; }
+      width: 240px;
+      height: 160px; }
       #main .right .content .mainView .cellMask .starButton {
-        margin: 200px auto 0;
-        width: 225px;
-        height: 100px;
-        line-height: 100px;
-        font-size: 48px; }
+        margin: 64px auto 0;
+        width: 72px;
+        height: 32px;
+        line-height: 32px;
+        font-size: 16px; }
       #main .right .content .mainView .cellMask .final {
-        margin-top: 25px;
-        line-height: 75px;
-        font-size: 48px; }
+        margin-top: 8px;
+        line-height: 24px;
+        font-size: 16px; }
   #main .right .content #mobileControl {
     display: block;
     position: fixed;
-    left: 40px;
+    left: 20px;
     bottom: 40px;
-    width: 300px;
-    height: 300px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
-    border: 2px solid #000;
+    border: 1px solid #000;
     background-color: rgba(17, 34, 51, 0.5); }
     #main .right .content #mobileControl #mobileButton {
       position: absolute;
-      left: 98px;
-      top: 98px;
-      width: 100px;
-      height: 100px;
+      left: 49px;
+      top: 49px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      border: 2px solid #000;
+      border: 1px solid #000;
       background-color: rgba(17, 34, 51, 0.8); } }
 
 /*# sourceMappingURL=retroSnaker.css.map */
