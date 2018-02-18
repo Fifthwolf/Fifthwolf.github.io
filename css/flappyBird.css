@@ -1,6 +1,7 @@
 #main .right .content {
   position: relative;
-  text-align: center; }
+  text-align: center;
+  height: 600px; }
   #main .right .content canvas {
     position: absolute;
     left: 50%;
@@ -18,5 +19,19 @@
   #main .right .content #canvasMask {
     z-index: 5;
     pointer-events: none; }
+  @media only screen and (max-width: 420px) {
+    #main .right .content {
+      height: 420px; }
+      #main .right .content canvas {
+        margin-left: -140px;
+        width: 280px;
+        height: 420px; } }
+  @media only screen and (max-width: 340px) {
+    #main .right .content {
+      height: 330px; }
+      #main .right .content canvas {
+        margin-left: -110px;
+        width: 220px;
+        height: 330px; } }
 
 /*# sourceMappingURL=flappyBird.css.map */
