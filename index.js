@@ -1,9 +1,9 @@
-var start = document.getElementById('start');
-var eGo = document.getElementsByClassName('go')[0];
-var rightDiv = right.getElementsByTagName('div');
-var demo = document.getElementById('demo');
-var demoUl = demo.getElementsByTagName('ul')[0];
-var demoLis = demoUl.getElementsByTagName('li');
+var start = document.getElementById('start'),
+  eGo = document.getElementsByClassName('go')[0],
+  rightDiv = right.getElementsByTagName('div'),
+  demo = document.getElementById('demo'),
+  demoUl = demo.getElementsByTagName('ul')[0],
+  demoLis = demoUl.getElementsByTagName('li');
 var TEMP;
 
 useElementToAppropriate(start, document);
