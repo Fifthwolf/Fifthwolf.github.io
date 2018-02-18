@@ -1,17 +1,17 @@
-var content = document.getElementsByClassName('content')[0];
-var chessBoard = document.getElementById('chessBoard');
-var PVE = document.getElementById('PVE');
-var weUpperHand = document.getElementById('weUpperHand');
-var aiUpperHand = document.getElementById('aiUpperHand');
-var PVP = document.getElementById('PVP');
-var forbiddenMoves = document.getElementById('forbiddenMoves');
-var forbiddenMovesText = forbiddenMoves.parentNode.getElementsByTagName('span')[0];
-var startButton = document.getElementById('startButton');
-var historyDiv = document.getElementById('showHistory');
-var inGameDiv = document.getElementById('inGame');
-var currentColor = inGameDiv.getElementsByTagName('span')[0];
-var falseMove = inGameDiv.getElementsByClassName('falseMove')[0];
-var surrender = inGameDiv.getElementsByClassName('surrender')[0];
+var content = document.getElementsByClassName('content')[0],
+  chessBoard = document.getElementById('chessBoard'),
+  PVE = document.getElementById('PVE'),
+  weUpperHand = document.getElementById('weUpperHand'),
+  aiUpperHand = document.getElementById('aiUpperHand'),
+  PVP = document.getElementById('PVP'),
+  forbiddenMoves = document.getElementById('forbiddenMoves'),
+  forbiddenMovesText = forbiddenMoves.parentNode.getElementsByTagName('span')[0],
+  startButton = document.getElementById('startButton'),
+  historyDiv = document.getElementById('showHistory'),
+  inGameDiv = document.getElementById('inGame'),
+  currentColor = inGameDiv.getElementsByTagName('span')[0],
+  falseMove = inGameDiv.getElementsByClassName('falseMove')[0],
+  surrender = inGameDiv.getElementsByClassName('surrender')[0];
 
 var data = {
   chessLength: 35,
@@ -21,13 +21,15 @@ var data = {
   currentStep: 0,
   amai: false,
   weUpperHand: true,
-  forbiddenMoves: false
+  forbiddenMoves: false,
+  mobile: false
 }
 
 window.onload = function() {
   delayedLoadingPublicPictures('../');
-  if (!judgeWidth()) {
-    data.chessLength = 50;
+  if (/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+    data.chessLength = 17;
+    data.mobile = true;
   }
   createFrame(data.chessLength);
 }
@@ -109,7 +111,7 @@ function createFrame(length) { //创建canvas chessBoard棋盘
   function _drawLine(cxt) {
     cxt.fillStyle = "#000";
     cxt.lineCap = 'square';
-    cxt.lineWidth = 2;
+    cxt.lineWidth = data.mobile ? 1 : 2;
     for (var i = 1; i <= 15; i++) {
       cxt.beginPath();
       cxt.moveTo(length, i * length);
@@ -132,9 +134,10 @@ function createFrame(length) { //创建canvas chessBoard棋盘
       [12, 4],
       [12, 12]
     ];
+    var radius = data.mobile ? 3 : 5;
     for (var i = 0, len = pointPosition.length; i < len; i++) {
       cxt.beginPath();
-      cxt.arc(pointPosition[i][0] * length, pointPosition[i][1] * length, 5, 0, 2 * Math.PI);
+      cxt.arc(pointPosition[i][0] * length, pointPosition[i][1] * length, radius, 0, 2 * Math.PI);
       cxt.fill();
     }
   }
@@ -309,7 +312,7 @@ function drawSign(clickX, clickY) {
   cxt.beginPath();
   cxt.strokeStyle = "red";
   cxt.lineCap = "square";
-  cxt.lineWidth = 4;
+  cxt.lineWidth = data.mobile ? 2 : 4;
   cxt.moveTo(x - baseLength * 4, y - baseLength * 3);
   cxt.lineTo(x - baseLength * 4, y - baseLength * 4);
   cxt.lineTo(x - baseLength * 3, y - baseLength * 4);

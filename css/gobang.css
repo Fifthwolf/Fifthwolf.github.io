@@ -78,81 +78,86 @@
         color: #ccc;
         text-shadow: 1px 1px 0px rgba(204, 204, 204, 0.5);
         background-color: rgba(160, 170, 180, 0.85); }
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 800px) {
     #main .right .content {
-      width: 800px; }
+      width: 272px; }
       #main .right .content .mainView {
-        width: 800px;
-        height: 800px;
+        width: 272px;
+        height: 272px;
         border-radius: 15px 15px 0 0; }
       #main .right .content .showView {
-        width: 800px;
-        height: 200px;
+        width: 272px;
+        height: 102px;
         border-radius: 0 0 15px 15px; }
         #main .right .content .showView .radioFrame {
           position: relative;
           float: left;
-          margin-left: 25px;
+          margin-left: 12px;
           margin-top: 10px;
-          width: 200px; }
+          width: 68px; }
           #main .right .content .showView .radioFrame .radio input {
-            margin-bottom: 15px;
-            width: 40px;
-            height: 40px; }
+            margin-bottom: 0;
+            width: 12px;
+            height: 12px;
+            vertical-align: middle; }
           #main .right .content .showView .radioFrame .radio span {
             margin-left: 5px;
-            font-size: 36px;
-            line-height: 50px; }
+            font-size: 12px;
+            vertical-align: middle;
+            line-height: 17px; }
+          #main .right .content .showView .radioFrame .radio:last-child {
+            margin-top: 10px; }
           #main .right .content .showView .radioFrame .radioPVE {
-            margin-top: 10px;
-            margin-left: 10px;
-            width: 150px;
-            height: 50px; }
+            margin-top: 5px;
+            margin-left: 5px;
+            width: 68px;
+            height: 17px; }
             #main .right .content .showView .radioFrame .radioPVE input {
-              width: 35px;
-              height: 35px;
-              line-height: 35px; }
+              margin: 0;
+              width: 8px;
+              height: 8px; }
             #main .right .content .showView .radioFrame .radioPVE span {
-              font-size: 24px;
-              line-height: 44px; }
+              font-size: 10px;
+              margin-left: 5px;
+              line-height: 11px;
+              vertical-align: middle; }
         #main .right .content .showView .button {
           text-align: center;
           float: right;
-          width: 175px;
-          height: 90px;
-          font-size: 36px;
+          width: 59.5px;
+          height: 30.6px;
+          font-size: 11px;
           text-shadow: 2px 2px 2px #000;
-          line-height: 90px;
-          border-radius: 30px; }
+          line-height: 30.6px;
+          border-radius: 15.3px; }
         #main .right .content .showView .startButton {
-          margin-top: 55px;
-          margin-right: 90px; }
+          margin-top: 18.7px;
+          margin-right: 30.6px; }
         #main .right .content .showView .inGame {
           float: right;
           margin-top: 15px;
-          margin-right: 20px;
-          width: 300px;
+          margin-right: 10px;
+          width: 85px;
           border: 2px solid #ccc;
           border-radius: 10px; }
           #main .right .content .showView .inGame .showInfo {
-            margin-top: 10px;
-            font-size: 28px;
-            color: #fff; }
+            margin-top: 6px;
+            font-size: 12px; }
           #main .right .content .showView .inGame .button {
             float: right;
-            margin: 20px 17.5px;
-            width: 115px;
-            height: 75px;
-            font-size: 30px;
-            line-height: 75px;
-            border-radius: 30px; }
+            margin: 10px 3.4px 5px;
+            width: 34px;
+            height: 25.5px;
+            font-size: 10px;
+            line-height: 25.5px;
+            border-radius: 12.75px; }
         #main .right .content .showView .mobileStyle {
           float: left;
-          margin: 60px 10px 0 25px;
-          width: 130px;
-          height: 80px;
-          font-size: 26px;
-          line-height: 80px;
-          border-radius: 30px; } }
+          margin: 17px 3.4px 0 8.5px;
+          width: 42.5px;
+          height: 27.2px;
+          font-size: 9px;
+          line-height: 27.2px;
+          border-radius: 13.6px; } }
 
 /*# sourceMappingURL=gobang.css.map */
