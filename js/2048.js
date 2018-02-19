@@ -1,11 +1,11 @@
-﻿var content = document.getElementsByClassName('content')[0];
-var score = content.getElementsByClassName('score')[0];
-var scoreSpan = score.getElementsByTagName('span')[0];
-var cell = content.getElementsByClassName('cell')[0];
-var moblieControl = content.getElementsByClassName('moblieControl')[0];
-var cellMask = content.getElementsByClassName('cellMask')[0];
-var restartButton = cellMask.getElementsByClassName('restart')[0];
-var changeButton = document.getElementById('change');
+﻿var content = document.getElementsByClassName('content')[0],
+  score = content.getElementsByClassName('score')[0],
+  scoreSpan = score.getElementsByTagName('span')[0],
+  cell = content.getElementsByClassName('cell')[0],
+  moblieControl = content.getElementsByClassName('moblieControl')[0],
+  cellMask = content.getElementsByClassName('cellMask')[0],
+  restartButton = cellMask.getElementsByClassName('restart')[0],
+  changeButton = document.getElementById('change');
 
 var data = {
   start: true,
@@ -83,7 +83,7 @@ function createCell(length) {
   cell.style.width = length * data.sides * data.correct + 'px';
   if (!judgeWidth()) {
     moblieControl.style.width = length * data.sides * data.correct + 'px';
-    moblieControl.style.height = length * data.sides * data.correct+ 'px';
+    moblieControl.style.height = length * data.sides * data.correct + 'px';
     moblieControl.style.marginLeft = -(length * data.sides) / 2 * data.correct - 5 + 'px';
   }
   cellMask.style.width = length * data.sides * data.correct + 'px';

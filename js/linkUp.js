@@ -1,14 +1,14 @@
-﻿var content = document.getElementsByClassName('content')[0];
-var scoreSpan = content.getElementsByClassName('score')[0].getElementsByTagName('span')[0];
-var surplus = content.getElementsByClassName('surplus')[0];
-var surplusSpan = surplus.getElementsByTagName('span')[0];
-var pause = content.getElementsByClassName('pause')[0];
-var mainViewBox = content.getElementsByClassName('box')[0];
-var SVG = document.getElementById('lineRoute');
-var cellMask = content.getElementsByClassName('cellMask')[0];
-var starButton = cellMask.getElementsByClassName('starButton')[0];
-var final = cellMask.getElementsByClassName('final')[0];
-var finalTime = final.getElementsByTagName('span')[0];
+﻿var content = document.getElementsByClassName('content')[0],
+  scoreSpan = content.getElementsByClassName('score')[0].getElementsByTagName('span')[0],
+  surplus = content.getElementsByClassName('surplus')[0],
+  surplusSpan = surplus.getElementsByTagName('span')[0],
+  pause = content.getElementsByClassName('pause')[0],
+  mainViewBox = content.getElementsByClassName('box')[0],
+  SVG = document.getElementById('lineRoute'),
+  cellMask = content.getElementsByClassName('cellMask')[0],
+  starButton = cellMask.getElementsByClassName('starButton')[0],
+  final = cellMask.getElementsByClassName('final')[0],
+  finalTime = final.getElementsByTagName('span')[0];
 var TIME;
 
 window.onload = function() {

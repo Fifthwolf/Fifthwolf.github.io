@@ -1,11 +1,11 @@
-var content = document.getElementsByClassName('content')[0];
-var quit = document.getElementsByClassName('quit')[0];
-var button_generate = document.getElementById("generate");
-var button_reset = document.getElementById("reset");
-var input_basic = document.getElementById("basic");
-var input_special = document.getElementById("special");
-var input_max = document.getElementById("max");
-var list = document.getElementsByClassName("list")[0];
+var content = document.getElementsByClassName('content')[0],
+  quit = document.getElementsByClassName('quit')[0],
+  button_generate = document.getElementById("generate"),
+  button_reset = document.getElementById("reset"),
+  input_basic = document.getElementById("basic"),
+  input_special = document.getElementById("special"),
+  input_max = document.getElementById("max"),
+  list = document.getElementsByClassName("list")[0];
 
 window.onload = function() {
   delayedLoadingPublicPictures('../');

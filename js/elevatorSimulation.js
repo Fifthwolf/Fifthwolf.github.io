@@ -1,15 +1,14 @@
-var content = document.getElementsByClassName('content')[0];
-var control = content.getElementsByClassName('control')[0];
-var inside = control.getElementsByClassName('inside')[0];
-var insideButtonSpan = inside.getElementsByClassName('button')[0].getElementsByTagName('span');
-var outside = control.getElementsByClassName('outside')[0];
-var dataShow = control.getElementsByClassName('dataShow')[0];
-var dataSpan = dataShow.getElementsByTagName('span');
-var outsideFloor = outside.getElementsByClassName('floor')[0];
-var outsideUpAndDown = outside.getElementsByClassName('upAndDown')[0];
-
-var elevator = document.getElementById('elevator');
-var rect = elevator.getElementsByTagName('rect')[0];
+var content = document.getElementsByClassName('content')[0],
+  control = content.getElementsByClassName('control')[0],
+  inside = control.getElementsByClassName('inside')[0],
+  insideButtonSpan = inside.getElementsByClassName('button')[0].getElementsByTagName('span'),
+  outside = control.getElementsByClassName('outside')[0],
+  dataShow = control.getElementsByClassName('dataShow')[0],
+  dataSpan = dataShow.getElementsByTagName('span'),
+  outsideFloor = outside.getElementsByClassName('floor')[0],
+  outsideUpAndDown = outside.getElementsByClassName('upAndDown')[0],
+  elevator = document.getElementById('elevator'),
+  rect = elevator.getElementsByTagName('rect')[0];
 
 var RUN = null;
 

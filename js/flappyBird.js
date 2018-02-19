@@ -1,10 +1,9 @@
-var content = document.getElementsByClassName('content')[0];
-var canvasBackground = document.getElementById('canvasBackground');
-var canvasObstacle = document.getElementById('canvasObstacle');
-var canvasBird = document.getElementById('canvasBird');
-var canvasButton = document.getElementById('canvasButton');
-var canvasMask = document.getElementById('canvasMask');
-var zoom = 1.389;
+var content = document.getElementsByClassName('content')[0],
+  canvasBackground = document.getElementById('canvasBackground'),
+  canvasObstacle = document.getElementById('canvasObstacle'),
+  canvasBird = document.getElementById('canvasBird'),
+  canvasButton = document.getElementById('canvasButton'),
+  canvasMask = document.getElementById('canvasMask');
 var TIME = {};
 
 window.onload = function() {

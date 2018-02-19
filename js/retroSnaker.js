@@ -6,8 +6,7 @@
   cellMask = content.getElementsByClassName('cellMask')[0],
   starButton = cellMask.getElementsByClassName('starButton')[0],
   final = cellMask.getElementsByClassName('final')[0];
-var TIME;
-var GAMERUN;
+var TIME, GAMERUN;
 
 window.onload = function() {
   delayedLoadingPublicPictures('../');
