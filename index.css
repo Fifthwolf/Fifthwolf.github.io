@@ -345,7 +345,7 @@
       #main .right #project h4::after {
         position: absolute;
         top: 10px;
-        left: 60px;
+        left: 114px;
         width: 50px;
         height: 1px;
         background-color: #000;
@@ -456,12 +456,12 @@
           font-size: 20px;
           color: #454545; }
           #main .right #project h4::before {
-            top: 12px;
+            top: 14px;
             left: -30px;
             width: 20px; }
           #main .right #project h4::after {
-            top: 12px;
-            left: 74px;
+            top: 14px;
+            left: 144px;
             width: 20px; }
         #main .right #project ul {
           padding-top: 20px; }
