@@ -1,5 +1,5 @@
 var content = document.getElementsByClassName('content')[0],
-  canvas = document.getElementById('canvas'),
+  canvas = document.getElementById('canvas');
 
 window.onload = function() {
   delayedLoadingPublicPictures('../');
