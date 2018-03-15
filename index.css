@@ -311,6 +311,7 @@
         height: 210px;
         border: 1px solid #ccc;
         border-radius: 4px;
+        background-color: rgba(255, 255, 255, 0.2);
         box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.5);
         overflow: hidden;
         -webkit-text-overflow: ellipsis;
@@ -328,24 +329,29 @@
             width: 220px;
             height: 120px;
             border-radius: 4px; }
+          #main .right #demo ul li a h4 {
+            position: absolute;
+            top: 140px;
+            left: 10px;
+            font-size: 18px;
+            margin-bottom: 6px;
+            color: #000; }
           #main .right #demo ul li a span {
             position: absolute;
             display: -webkit-box;
             display: -moz-box;
-            top: 140px;
+            top: 165px;
             left: 10px;
-            width: 210px;
+            width: 220px;
+            height: 40px;
             font-size: 14px;
             line-height: 20px;
             color: #93999f;
             overflow: hidden;
+            -webkit-box-orient: vertical;
             text-overflow: ellipsis;
             word-break: break-all;
             -webkit-line-clamp: 2; }
-            #main .right #demo ul li a span h4 {
-              font-size: 18px;
-              margin-bottom: 6px;
-              color: #000; }
   #main .right #project {
     margin-bottom: 80px; }
     #main .right #project h2 {
