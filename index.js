@@ -11,7 +11,8 @@ useElementToAppropriate(start, document);
 if (getCookie('main')) {
   start.style.display = 'none';
   main.style.display = judgeWidth() ? 'flex' : 'block';
-  main.style.transform = 'rotateY(0deg)';
+  adjustmentWindow();
+  main.addClass('rotate-show-once');
 }
 
 window.onload = function() {
@@ -50,38 +51,9 @@ addEvent(own, 'click', function(e) {
 
 addEvent(eGo, 'click', function() {
   setCookie('main', 'flex', 10);
-  var deg = 0;
   useDEMOUlMargin(demoUl, demoLis, 10);
-  if (judgeWidth()) {
-    main.style.display = 'flex';
-  }
-
-  function disappear() {
-    deg += 5;
-    setTimeout(function() {
-      start.style.transform = 'rotateY(' + deg + 'deg)';
-      if (deg < 90) {
-        disappear();
-      } else {
-        start.style.display = 'none';
-        deg = 270;
-        appear();
-      }
-    }, 20);
-  }
-
-  function appear() {
-    deg += 5;
-    setTimeout(function() {
-      main.style.transform = 'rotateY(' + deg + 'deg)';
-      if (deg < 360) {
-        appear();
-      } else {
-        main.style.transform = 'rotateY(0deg)';
-      }
-    }, 20);
-  }
-  disappear();
+  start.addClass('rotate-none');
+  main.addClass('rotate-show');
 });
 
 function scrollAnimate(ele, target, time) {

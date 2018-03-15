@@ -19,12 +19,30 @@ body {
 #main {
   position: absolute;
   border-radius: 40px;
-  -webkit-box-shadow: 0 0 8px #666;
   box-shadow: 0 0 8px #666;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-flow: row;
   flex-flow: row; }
+  #main.rotate-show {
+    -webkit-animation: rotate-show .5s .5s linear;
+    animation: rotate-show .5s .5s linear;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards; }
+  #main.rotate-show-once {
+    transform: rotateY(0); }
+@-webkit-keyframes rotate-show {
+  from {
+    -webkit-transform: rotateY(270deg);
+    transform: rotateY(270deg); }
+  to {
+    -webkit-transform: rotateY(360deg);
+    transform: rotateY(360deg); } }
+@keyframes rotate-show {
+  from {
+    -webkit-transform: rotateY(270deg);
+    transform: rotateY(270deg); }
+  to {
+    display: flex;
+    -webkit-transform: rotateY(360deg);
+    transform: rotateY(360deg); } }
   #main .left {
     width: 300px;
     border-radius: 40px 0 0 40px;
@@ -123,8 +141,6 @@ body {
         #main .left .link li i {
           margin: 0 25px 0 40px; }
   #main .right {
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
     flex: 1;
     border-radius: 0 40px 40px 0;
     background-color: rgba(243, 245, 247, 0.6);
