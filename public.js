@@ -48,7 +48,7 @@ function adjustmentLeft() {
 function useElementHeightSuit(element, previous, parent) {
   var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
   var previousHeight = previous.offsetHeight;
-  //120为right的paddingTop与paddingBottom值之和
+  // 120为right的paddingTop与paddingBottom值之和
   element.style.minHeight = screenHeight - previousHeight - 120 + 'px';
 }
 
