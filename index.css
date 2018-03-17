@@ -174,348 +174,356 @@
                 width: 120px;
                 height: 120px;
                 margin: 30px 0 0 -30px; } }
-  #start .go {
-    position: absolute;
-    top: 65%;
-    left: 50%;
-    z-index: 10;
-    margin-left: -50px;
-    margin-top: -20px;
-    width: 100px;
-    height: 40px;
-    border-radius: 20px;
-    background-color: #fff;
-    box-shadow: 0px 3px 3px #666;
-    text-align: center;
-    cursor: pointer; }
-    #start .go:hover {
+
+.go {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  z-index: 10;
+  margin-left: -50px;
+  margin-top: -20px;
+  width: 100px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0px 3px 3px #666;
+  text-align: center;
+  cursor: pointer; }
+  .go:hover {
+    transition: .4s;
+    margin-left: -75px;
+    margin-top: -30px;
+    width: 150px;
+    height: 60px;
+    border-radius: 30px; }
+    .go:hover span {
       transition: .4s;
+      font-size: 30px;
+      line-height: 60px; }
+  .go span {
+    top: 5px;
+    color: #63b;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 40px; }
+  @media only screen and (max-width: 800px) {
+    .go {
+      top: 65%;
       margin-left: -75px;
       margin-top: -30px;
       width: 150px;
       height: 60px;
       border-radius: 30px; }
-      #start .go:hover span {
-        transition: .4s;
-        font-size: 30px;
-        line-height: 60px; }
-    #start .go span {
-      top: 5px;
-      color: #63b;
-      font-weight: bold;
-      font-size: 20px;
-      line-height: 40px; }
-    @media only screen and (max-width: 800px) {
-      #start .go {
-        top: 65%;
+      .go:hover {
         margin-left: -75px;
         margin-top: -30px;
         width: 150px;
         height: 60px;
         border-radius: 30px; }
-        #start .go:hover {
-          margin-left: -75px;
-          margin-top: -30px;
-          width: 150px;
-          height: 60px;
-          border-radius: 30px; }
-          #start .go:hover span {
-            font-size: 30px;
-            line-height: 60px; }
-        #start .go span {
-          color: #63b;
+        .go:hover span {
           font-size: 30px;
-          line-height: 60px; } }
-  #start .foot {
-    position: relative;
-    width: 100%;
-    height: 35%;
-    border-radius: 0 0 20px 20px;
-    background-color: #fff;
-    color: #bbb;
+          line-height: 60px; }
+      .go span {
+        color: #63b;
+        font-size: 30px;
+        line-height: 60px; } }
+
+.foot {
+  position: relative;
+  width: 100%;
+  height: 35%;
+  border-radius: 0 0 20px 20px;
+  background-color: #fff;
+  color: #bbb;
+  text-align: center; }
+  .foot .title {
+    display: inline-block;
+    margin: 40px 0 20px;
+    font-size: 30px; }
+  .foot .content {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 18px;
     text-align: center; }
-    #start .foot .title {
+  @media only screen and (max-width: 800px) {
+    .foot {
+      height: 35%;
+      border-radius: 0 0 40px 40px; }
+      .foot .title {
+        margin: 40px 0 20px;
+        font-size: 30px; }
+      .foot .content {
+        margin-top: 10px;
+        font-size: 18px; } }
+
+#resume {
+  margin-bottom: 80px; }
+  #resume h2 {
+    font-size: 32px;
+    color: #414141; }
+  #resume h4 {
+    position: relative;
+    margin: 40px 60px 10px;
+    color: #454545; }
+    #resume h4::before {
+      position: absolute;
+      top: 10px;
+      left: -60px;
+      width: 50px;
+      height: 1px;
+      background-color: #000;
+      content: ''; }
+    #resume h4::after {
+      position: absolute;
+      top: 10px;
+      left: 74px;
+      width: 50px;
+      height: 1px;
+      background-color: #000;
+      content: ''; }
+  #resume p {
+    margin-bottom: 10px; }
+    #resume p, #resume p span {
+      padding-right: 25px;
+      line-height: 24px;
+      color: #656464; }
+    #resume p span {
+      display: inline-block; }
+  #resume span {
+    display: inline-block;
+    padding-right: 50px;
+    line-height: 24px;
+    color: #656464; }
+
+#demo {
+  margin-bottom: 80px; }
+  #demo h2 {
+    font-size: 32px;
+    color: #414141; }
+  #demo ul {
+    margin: 40px 0 10px; }
+    #demo ul li {
+      position: relative;
       display: inline-block;
-      margin: 40px 0 20px;
-      font-size: 30px; }
-    #start .foot .content {
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 18px;
-      text-align: center; }
-    @media only screen and (max-width: 800px) {
-      #start .foot {
-        height: 35%;
-        border-radius: 0 0 40px 40px; }
-        #start .foot .title {
-          margin: 40px 0 20px;
-          font-size: 30px; }
-        #start .foot .content {
-          margin-top: 10px;
-          font-size: 18px; } }
+      margin: 10px 10px 30px;
+      width: 240px;
+      height: 210px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      -webkit-text-overflow: ellipsis;
+      -moz-text-overflow: ellipsis;
+      -ms-text-overflow: ellipsis;
+      text-overflow: ellipsis; }
+      #demo ul li a {
+        position: absolute;
+        width: 100%;
+        height: 100%; }
+        #demo ul li a img {
+          position: absolute;
+          left: 10px;
+          top: 10px;
+          width: 220px;
+          height: 120px;
+          border-radius: 4px; }
+        #demo ul li a h4 {
+          position: absolute;
+          top: 140px;
+          left: 10px;
+          font-size: 18px;
+          margin-bottom: 6px;
+          color: #000; }
+        #demo ul li a span {
+          position: absolute;
+          display: -webkit-box;
+          display: -moz-box;
+          top: 165px;
+          left: 10px;
+          width: 220px;
+          height: 40px;
+          font-size: 14px;
+          line-height: 20px;
+          color: #93999f;
+          overflow: hidden;
+          -webkit-box-orient: vertical;
+          text-overflow: ellipsis;
+          word-break: break-all;
+          -webkit-line-clamp: 2; }
+
+#project {
+  margin-bottom: 80px; }
+  #project h2 {
+    font-size: 32px;
+    color: #414141; }
+  #project h4 {
+    position: relative;
+    margin: 40px 60px 10px;
+    color: #454545; }
+    #project h4::before {
+      position: absolute;
+      top: 10px;
+      left: -60px;
+      width: 50px;
+      height: 1px;
+      background-color: #000;
+      content: ''; }
+    #project h4::after {
+      position: absolute;
+      top: 10px;
+      left: 114px;
+      width: 50px;
+      height: 1px;
+      background-color: #000;
+      content: ''; }
+  #project ul li {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 160px; }
+    #project ul li a {
+      display: flex;
+      width: 100%;
+      height: 100%; }
+      #project ul li a img {
+        border-radius: 5px;
+        flex: 0 0 140px;
+        width: 140px;
+        height: 140px;
+        margin: 10px; }
+      #project ul li a .describe {
+        flex: 1 1 auto;
+        margin: 10px; }
+        #project ul li a .describe h5 {
+          height: 32px;
+          font-size: 16px;
+          line-height: 24px;
+          text-align: center;
+          color: #000; }
+        #project ul li a .describe span {
+          color: #444; }
 
 #main {
   display: none;
   -webkit-transform: rotateY(90deg);
   transform: rotateY(90deg); }
-  #main .right #resume {
-    margin-bottom: 80px; }
-    #main .right #resume h2 {
-      font-size: 32px;
-      color: #414141; }
-    #main .right #resume h4 {
-      position: relative;
-      margin: 40px 60px 10px;
-      color: #454545; }
-      #main .right #resume h4::before {
-        position: absolute;
-        top: 10px;
-        left: -60px;
-        width: 50px;
-        height: 1px;
-        background-color: #000;
-        content: ''; }
-      #main .right #resume h4::after {
-        position: absolute;
-        top: 10px;
-        left: 74px;
-        width: 50px;
-        height: 1px;
-        background-color: #000;
-        content: ''; }
-    #main .right #resume p {
-      margin-bottom: 10px; }
-      #main .right #resume p, #main .right #resume p span {
-        padding-right: 25px;
-        line-height: 24px;
-        color: #656464; }
-      #main .right #resume p span {
-        display: inline-block; }
-    #main .right #resume span {
-      display: inline-block;
-      padding-right: 50px;
-      line-height: 24px;
-      color: #656464; }
-  #main .right #demo {
-    margin-bottom: 80px; }
-    #main .right #demo h2 {
-      font-size: 32px;
-      color: #414141; }
-    #main .right #demo ul {
-      margin: 40px 0 10px; }
-      #main .right #demo ul li {
-        position: relative;
-        display: inline-block;
-        margin: 10px 10px 30px;
-        width: 240px;
-        height: 210px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        background-color: rgba(255, 255, 255, 0.2);
-        box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.5);
-        overflow: hidden;
-        -webkit-text-overflow: ellipsis;
-        -moz-text-overflow: ellipsis;
-        -ms-text-overflow: ellipsis;
-        text-overflow: ellipsis; }
-        #main .right #demo ul li a {
-          position: absolute;
-          width: 100%;
-          height: 100%; }
-          #main .right #demo ul li a img {
-            position: absolute;
-            left: 10px;
-            top: 10px;
-            width: 220px;
-            height: 120px;
-            border-radius: 4px; }
-          #main .right #demo ul li a h4 {
-            position: absolute;
-            top: 140px;
-            left: 10px;
-            font-size: 18px;
-            margin-bottom: 6px;
-            color: #000; }
-          #main .right #demo ul li a span {
-            position: absolute;
-            display: -webkit-box;
-            display: -moz-box;
-            top: 165px;
-            left: 10px;
-            width: 220px;
-            height: 40px;
-            font-size: 14px;
-            line-height: 20px;
-            color: #93999f;
-            overflow: hidden;
-            -webkit-box-orient: vertical;
-            text-overflow: ellipsis;
-            word-break: break-all;
-            -webkit-line-clamp: 2; }
-  #main .right #project {
-    margin-bottom: 80px; }
-    #main .right #project h2 {
-      font-size: 32px;
-      color: #414141; }
-    #main .right #project h4 {
-      position: relative;
-      margin: 40px 60px 10px;
-      color: #454545; }
-      #main .right #project h4::before {
-        position: absolute;
-        top: 10px;
-        left: -60px;
-        width: 50px;
-        height: 1px;
-        background-color: #000;
-        content: ''; }
-      #main .right #project h4::after {
-        position: absolute;
-        top: 10px;
-        left: 114px;
-        width: 50px;
-        height: 1px;
-        background-color: #000;
-        content: ''; }
-    #main .right #project ul li {
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      width: 100%;
-      height: 160px; }
-      #main .right #project ul li a {
-        display: flex;
-        width: 100%;
-        height: 100%; }
-        #main .right #project ul li a img {
-          border-radius: 5px;
-          flex: 0 0 140px;
-          width: 140px;
-          height: 140px;
-          margin: 10px; }
-        #main .right #project ul li a .describe {
-          flex: 1 1 auto;
-          margin: 10px; }
-          #main .right #project ul li a .describe h5 {
-            height: 32px;
-            font-size: 16px;
-            line-height: 24px;
-            text-align: center;
-            color: #000; }
-          #main .right #project ul li a .describe span {
-            color: #444; }
   @media only screen and (max-width: 800px) {
     #main .right {
       overflow: hidden; }
-      #main .right #resume {
-        margin-bottom: 40px; }
-        #main .right #resume h2 {
-          font-size: 28px; }
-        #main .right #resume h4 {
-          margin: 20px 40px 10px 30px;
-          font-size: 20px;
-          color: #454545; }
-          #main .right #resume h4::before {
-            top: 12px;
-            left: -30px;
-            width: 20px; }
-          #main .right #resume h4::after {
-            top: 12px;
-            left: 80px;
-            width: 20px; }
-        #main .right #resume p {
-          margin-bottom: 0; }
-          #main .right #resume p, #main .right #resume p span {
-            padding-right: 25px;
-            line-height: 30px;
-            font-size: 16px; }
-        #main .right #resume span {
-          padding: 0 18px 0 0;
-          line-height: 20px;
-          font-size: 16px; }
-      #main .right #demo {
-        margin-bottom: 40px; }
-        #main .right #demo h2 {
-          font-size: 28px;
-          color: #414141; }
-        #main .right #demo ul {
-          margin: 0 10px 10px; }
-          #main .right #demo ul li {
-            margin: 10px 0 30px;
-            width: 100%;
-            height: 0;
-            overflow: hidden;
-            padding-bottom: 89%;
-            border: 1px solid #666; }
-            #main .right #demo ul li a {
-              width: 100%;
-              height: 100%; }
-              #main .right #demo ul li a img {
-                width: 90%;
-                height: 57.142857%;
-                top: 5%;
-                left: 5%; }
-              #main .right #demo ul li a span {
-                top: 65%;
-                width: 90%;
-                left: 5%;
-                font-size: 18px;
-                line-height: 22px;
-                color: #93999f;
-                overflow: hidden;
-                text-overflow: ellipsis; }
-                #main .right #demo ul li a span h4 {
-                  font-size: 22px;
-                  line-height: 24px;
-                  margin-bottom: 6px; }
-      #main .right #project {
+    #main #resume {
+      margin-bottom: 40px; }
+      #main #resume h2 {
+        font-size: 28px; }
+      #main #resume h4 {
+        margin: 20px 40px 10px 30px;
+        font-size: 20px;
+        color: #454545; }
+        #main #resume h4::before {
+          top: 12px;
+          left: -30px;
+          width: 20px; }
+        #main #resume h4::after {
+          top: 12px;
+          left: 80px;
+          width: 20px; }
+      #main #resume p {
         margin-bottom: 0; }
-        #main .right #project h2 {
-          font-size: 28px; }
-        #main .right #project h4 {
-          margin: 20px 40px 10px 30px;
-          font-size: 20px;
-          color: #454545; }
-          #main .right #project h4::before {
-            top: 14px;
-            left: -30px;
-            width: 20px; }
-          #main .right #project h4::after {
-            top: 14px;
-            left: 144px;
-            width: 20px; }
-        #main .right #project ul {
-          padding-top: 20px; }
-          #main .right #project ul li {
+        #main #resume p, #main #resume p span {
+          padding-right: 25px;
+          line-height: 30px;
+          font-size: 16px; }
+      #main #resume span {
+        padding: 0 18px 0 0;
+        line-height: 20px;
+        font-size: 16px; }
+    #main #demo {
+      margin-bottom: 40px; }
+      #main #demo h2 {
+        font-size: 28px;
+        color: #414141; }
+      #main #demo ul {
+        margin: 0 10px 10px; }
+        #main #demo ul li {
+          margin: 10px 0 30px;
+          width: 100%;
+          height: 0;
+          overflow: hidden;
+          padding-bottom: 89%;
+          border: 1px solid #666; }
+          #main #demo ul li a {
+            position: absolute;
+            width: 100%;
+            height: 100%; }
+            #main #demo ul li a img {
+              width: 90%;
+              height: 57.142857%;
+              top: 5%;
+              left: 5%; }
+            #main #demo ul li a h4 {
+              top: 150px;
+              font-size: 22px;
+              line-height: 24px;
+              margin-bottom: 6px; }
+            #main #demo ul li a span {
+              top: 179px;
+              width: 90%;
+              left: 5%;
+              font-size: 18px;
+              height: 56px;
+              line-height: 24px;
+              color: #93999f;
+              overflow: hidden;
+              text-overflow: ellipsis; }
+    #main #project {
+      margin-bottom: 0; }
+      #main #project h2 {
+        font-size: 28px; }
+      #main #project h4 {
+        margin: 20px 40px 10px 30px;
+        font-size: 20px;
+        color: #454545; }
+        #main #project h4::before {
+          top: 14px;
+          left: -30px;
+          width: 20px; }
+        #main #project h4::after {
+          top: 14px;
+          left: 144px;
+          width: 20px; }
+      #main #project ul {
+        padding-top: 20px; }
+        #main #project ul li {
+          position: relative;
+          width: 100%;
+          height: 0;
+          padding-bottom: 90%;
+          margin-bottom: 40px;
+          border: 1px solid #666;
+          overflow: hidden; }
+          #main #project ul li a {
             position: relative;
             width: 100%;
-            height: 0;
-            padding-bottom: 90%;
-            margin-bottom: 40px;
-            border: 1px solid #666;
-            overflow: hidden; }
-            #main .right #project ul li a {
-              position: relative;
-              width: 100%;
-              height: 100%;
-              flex-direction: column; }
-              #main .right #project ul li a img {
-                flex: 0 0 120px;
-                width: 90%;
-                margin-top: 3%;
-                margin-left: 5%; }
-              #main .right #project ul li a .describe {
-                flex: 1 1 auto; }
-                #main .right #project ul li a .describe h5 {
-                  font-size: 22px;
-                  line-height: 24px;
-                  margin-bottom: 0px; }
-                #main .right #project ul li a .describe span {
-                  top: 65%;
-                  width: 100%;
-                  left: 5%;
-                  font-size: 20px;
-                  line-height: 24px;
-                  color: #93999f; } }
+            height: 100%;
+            flex-direction: column; }
+            #main #project ul li a img {
+              flex: 0 0 120px;
+              width: 90%;
+              margin-top: 3%;
+              margin-left: 5%; }
+            #main #project ul li a .describe {
+              flex: 1 1 auto; }
+              #main #project ul li a .describe h5 {
+                font-size: 22px;
+                line-height: 24px;
+                margin-bottom: 0px; }
+              #main #project ul li a .describe span {
+                top: 65%;
+                width: 100%;
+                left: 5%;
+                font-size: 20px;
+                line-height: 24px;
+                color: #93999f; } }
 
 /*# sourceMappingURL=index.css.map */
