@@ -1,9 +1,9 @@
-var main = document.getElementById('main');
-var own = main.getElementsByClassName('own')[0];
-var ownLi = own.getElementsByTagName('li');
-var left = main.getElementsByClassName('left')[0];
-var right = main.getElementsByClassName('right')[0];
-var desc = right.getElementsByClassName('desc')[0];
+var main = $('#main'),
+  own = $('#main .own')[0],
+  ownLi = $('#main .own li'),
+  left = $('#main .left')[0],
+  right = $('#main .right')[0],
+  desc = $('#main .own .desc')[0];
 
 window.onresize = function() {
   adjustmentWindow();
@@ -138,4 +138,23 @@ function getCookie(name) {
   } else {
     return null;
   }
+}
+
+function $(tag) {
+  var tags = tag.split(' '),
+    parent = document,
+    ele;
+  for (var i = 0, len = tags.length; i < len; i++) {
+    if (/^#[\w-_]+/.test(tags[i])) {
+      ele = parent.getElementById(tags[i].slice(1));
+      continue;
+    } else if (/^\.[\w-_]+/.test(tags[i])) {
+      ele = parent.getElementsByClassName(tags[i].slice(1));
+      continue;
+    } else {
+      ele = parent.getElementsByTagName(tags[i]);
+    }
+    parent = ele;
+  }
+  return ele;
 }
