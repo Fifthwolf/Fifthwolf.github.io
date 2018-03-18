@@ -1,9 +1,8 @@
 var main = $('#main'),
-  own = $('#main .own')[0],
-  ownLi = $('#main .own li'),
-  left = $('#main .left')[0],
-  right = $('#main .right')[0],
-  desc = $('#main .own .desc')[0];
+  own = $('#main .own.0'),
+  ownLi = $('#main .own.0 li.0'),
+  left = $('#main .left.0'),
+  right = $('#main .right.0');
 
 window.onresize = function() {
   adjustmentWindow();
@@ -147,12 +146,18 @@ function $(tag) {
   for (var i = 0, len = tags.length; i < len; i++) {
     if (/^#[\w-_]+/.test(tags[i])) {
       ele = parent.getElementById(tags[i].slice(1));
-      continue;
     } else if (/^\.[\w-_]+/.test(tags[i])) {
-      ele = parent.getElementsByClassName(tags[i].slice(1));
-      continue;
+      if (tags[i].match(/^\.([\w-_]+)\.(\d+)/)) {
+        ele = parent.getElementsByClassName(RegExp.$1)[RegExp.$2];
+      } else {
+        ele = parent.getElementsByClassName(tags[i].slice(1));
+      }
     } else {
-      ele = parent.getElementsByTagName(tags[i]);
+      if (tags[i].match(/^([\w-_]+)\.(\d+)/)) {
+        ele = parent.getElementsByTagName(RegExp.$1)[RegExp.$2];
+      } else {
+        ele = parent.getElementsByTagName(tags[i]);
+      }
     }
     parent = ele;
   }

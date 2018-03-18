@@ -1,9 +1,9 @@
-var start = document.getElementById('start'),
-  eGo = document.getElementsByClassName('go')[0],
+var start = $('#start'),
+  eGo = $('.go.0'),
   rightDiv = right.getElementsByTagName('div'),
-  demo = document.getElementById('demo'),
-  demoUl = demo.getElementsByTagName('ul')[0],
-  demoLis = demoUl.getElementsByTagName('li');
+  demo = $('#demo'),
+  demoUl = $('#demo ul.0'),
+  demoLis = $('#demo ul.0 li');
 var TEMP;
 
 useElementToAppropriate(start, document);
