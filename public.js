@@ -1,8 +1,27 @@
+HTMLDivElement.prototype['$'] = function(tag) {
+  return $(tag, this);
+}
+
+Object.prototype.hasClass = function(cls) {
+  return this.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+}
+
+Object.prototype.addClass = function(cls) {
+  if (!this.hasClass(cls)) this.className += " " + cls;
+}
+
+Object.prototype.removeClass = function(cls) {
+  if (this.hasClass(cls)) {
+    var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+    this.className = this.className.replace(reg, ' ').replace(/\s+/, ' ');
+  }
+}
+
 var main = $('#main'),
-  own = $('#main .own.0'),
-  ownLi = $('#main .own.0 li.0'),
-  left = $('#main .left.0'),
-  right = $('#main .right.0');
+  own = main.$('.own.0'),
+  ownLi = main.$('li.0'),
+  left = main.$('.left.0'),
+  right = main.$('.right.0');
 
 window.onresize = function() {
   adjustmentWindow();
@@ -107,21 +126,6 @@ function removeEvent(element, type, handler) {
   }
 }
 
-Object.prototype.hasClass = function(cls) {
-  return this.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
-}
-
-Object.prototype.addClass = function(cls) {
-  if (!this.hasClass(cls)) this.className += " " + cls;
-}
-
-Object.prototype.removeClass = function(cls) {
-  if (this.hasClass(cls)) {
-    var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
-    this.className = this.className.replace(reg, ' ').replace(/\s+/, ' ');
-  }
-}
-
 function setCookie(name, value, time) {
   var Minutes = time;
   var exp = new Date();
@@ -139,9 +143,9 @@ function getCookie(name) {
   }
 }
 
-function $(tag) {
+function $(tag, parent) {
   var tags = tag.split(' '),
-    parent = document,
+    parent = parent || document,
     ele;
   for (var i = 0, len = tags.length; i < len; i++) {
     if (/^#[\w-_]+/.test(tags[i])) {
