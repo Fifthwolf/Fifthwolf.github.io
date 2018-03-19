@@ -1,4 +1,4 @@
-HTMLDivElement.prototype['$'] = function(tag) {
+HTMLElement.prototype['$'] = function(tag) {
   return $(tag, this);
 }
 

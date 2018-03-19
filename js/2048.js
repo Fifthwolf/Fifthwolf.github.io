@@ -1,11 +1,12 @@
-﻿var content = document.getElementsByClassName('content')[0],
-  score = content.getElementsByClassName('score')[0],
-  scoreSpan = score.getElementsByTagName('span')[0],
-  cell = content.getElementsByClassName('cell')[0],
-  moblieControl = content.getElementsByClassName('moblieControl')[0],
-  cellMask = content.getElementsByClassName('cellMask')[0],
-  restartButton = cellMask.getElementsByClassName('restart')[0],
-  changeButton = document.getElementById('change');
+﻿var content = $('.content.0'),
+  score = content.$('.score.0'),
+  scoreSpan = score.$('span.0'),
+  cell = content.$('.cell.0'),
+  moblieControl = content.$('.moblieControl.0'),
+  cellMask = content.$('.cellMask.0'),
+  restartButton = cellMask.$('.restart.0'),
+  changeButton = $('#change');
+
 
 var data = {
   start: true,

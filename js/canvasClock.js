@@ -1,5 +1,5 @@
-var content = document.getElementsByClassName('content')[0],
-  canvas = document.getElementById('canvas');
+var content = $('.content.0'),
+  canvas = $('#canvas');
 
 window.onload = function() {
   delayedLoadingPublicPictures('../');
