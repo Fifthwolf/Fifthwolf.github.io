@@ -1,4 +1,4 @@
-HTMLElement.prototype['$'] = function(tag) {
+Element.prototype['$'] = function(tag) {
   return $(tag, this);
 }
 
@@ -19,7 +19,7 @@ Object.prototype.removeClass = function(cls) {
 
 var main = $('#main'),
   own = main.$('.own.0'),
-  ownLi = main.$('li.0'),
+  ownLi = own.$('li'),
   left = main.$('.left.0'),
   right = main.$('.right.0');
 
