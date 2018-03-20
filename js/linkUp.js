@@ -1,14 +1,14 @@
-﻿var content = document.getElementsByClassName('content')[0],
-  scoreSpan = content.getElementsByClassName('score')[0].getElementsByTagName('span')[0],
-  surplus = content.getElementsByClassName('surplus')[0],
-  surplusSpan = surplus.getElementsByTagName('span')[0],
-  pause = content.getElementsByClassName('pause')[0],
-  mainViewBox = content.getElementsByClassName('box')[0],
-  SVG = document.getElementById('lineRoute'),
-  cellMask = content.getElementsByClassName('cellMask')[0],
-  starButton = cellMask.getElementsByClassName('starButton')[0],
-  final = cellMask.getElementsByClassName('final')[0],
-  finalTime = final.getElementsByTagName('span')[0];
+﻿var content = $('.content.0'),
+  scoreSpan = content.$('.score.0 span.0'),
+  surplus = content.$('.surplus.0'),
+  surplusSpan = surplus.$('span.0'),
+  pause = content.$('.pause.0'),
+  mainViewBox = content.$('.box.0'),
+  SVG = $('#lineRoute'),
+  cellMask = content.$('.cellMask.0'),
+  starButton = cellMask.$('.starButton.0'),
+  final = cellMask.$('.final.0'),
+  finalTime = final.$('span.0');
 var TIME;
 
 window.onload = function() {
