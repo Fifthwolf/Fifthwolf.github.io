@@ -1,14 +1,14 @@
-var content = document.getElementsByClassName('content')[0],
-  control = content.getElementsByClassName('control')[0],
-  inside = control.getElementsByClassName('inside')[0],
-  insideButtonSpan = inside.getElementsByClassName('button')[0].getElementsByTagName('span'),
-  outside = control.getElementsByClassName('outside')[0],
-  dataShow = control.getElementsByClassName('dataShow')[0],
-  dataSpan = dataShow.getElementsByTagName('span'),
-  outsideFloor = outside.getElementsByClassName('floor')[0],
-  outsideUpAndDown = outside.getElementsByClassName('upAndDown')[0],
-  elevator = document.getElementById('elevator'),
-  rect = elevator.getElementsByTagName('rect')[0];
+var content = $('.content.0'),
+  control = content.$('.control.0'),
+  inside = control.$('.inside.0'),
+  insideButtonSpan = inside.$('.button.0 span'),
+  outside = control.$('.outside.0'),
+  dataShow = control.$('.dataShow.0'),
+  dataSpan = dataShow.$('span'),
+  outsideFloor = outside.$('.floor.0'),
+  outsideUpAndDown = outside.$('.upAndDown.0'),
+  elevator = $('#elevator'),
+  rect = elevator.$('rect.0');
 
 var RUN = null;
 

@@ -1,4 +1,5 @@
-var canvas = document.getElementById('canvas');
+var canvas = $('#canvas');
+
 var element = {
   ctx: null,
   ball: null,

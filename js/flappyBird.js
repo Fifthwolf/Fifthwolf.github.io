@@ -1,9 +1,9 @@
-var content = document.getElementsByClassName('content')[0],
-  canvasBackground = document.getElementById('canvasBackground'),
-  canvasObstacle = document.getElementById('canvasObstacle'),
-  canvasBird = document.getElementById('canvasBird'),
-  canvasButton = document.getElementById('canvasButton'),
-  canvasMask = document.getElementById('canvasMask');
+var content = $('.content.0'),
+  canvasBackground = $('#canvasBackground'),
+  canvasObstacle = $('#canvasObstacle'),
+  canvasBird = $('#canvasBird'),
+  canvasButton = $('#canvasButton'),
+  canvasMask = $('#canvasMask');
 var TIME = {};
 
 window.onload = function() {
