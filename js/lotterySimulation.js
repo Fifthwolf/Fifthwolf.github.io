@@ -1,11 +1,11 @@
-var content = document.getElementsByClassName('content')[0],
-  quit = document.getElementsByClassName('quit')[0],
-  button_generate = document.getElementById("generate"),
-  button_reset = document.getElementById("reset"),
-  input_basic = document.getElementById("basic"),
-  input_special = document.getElementById("special"),
-  input_max = document.getElementById("max"),
-  list = document.getElementsByClassName("list")[0];
+var content = $('.content.0'),
+  quit = $('.quit.0'),
+  button_generate = $('#generate'),
+  button_reset = $('#reset'),
+  input_basic = $('#basic'),
+  input_special = $('#special'),
+  input_max = $('#max'),
+  list = $('.list.0');
 
 window.onload = function() {
   delayedLoadingPublicPictures('../');
