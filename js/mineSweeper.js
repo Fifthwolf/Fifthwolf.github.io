@@ -1,9 +1,9 @@
-var content = document.getElementsByClassName('content')[0],
-  showView = content.getElementsByClassName('showView')[0],
-  timeDiv = showView.getElementsByClassName('time')[0],
-  smile = showView.getElementsByClassName('smile')[0],
-  surplus = showView.getElementsByClassName('surplus')[0],
-  mainViewBox = content.getElementsByClassName('box')[0];
+var content = $('.content.0'),
+  showView = content.$('.showView.0'),
+  timeDiv = showView.$('.time.0'),
+  smile = showView.$('.smile.0'),
+  surplus = showView.$('.surplus.0'),
+  mainViewBox = content.$('.box.0');
 var TIME;
 
 window.onload = function() {
