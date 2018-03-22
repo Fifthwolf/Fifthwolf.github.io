@@ -1,11 +1,11 @@
-﻿var content = document.getElementsByClassName('content')[0],
-  scoreBox = content.getElementsByClassName('score')[0],
-  pauseButton = content.getElementsByClassName('pause')[0],
-  timeBox = content.getElementsByClassName('time')[0],
-  mainViewBox = content.getElementsByClassName('box')[0],
-  cellMask = content.getElementsByClassName('cellMask')[0],
-  starButton = cellMask.getElementsByClassName('starButton')[0],
-  final = cellMask.getElementsByClassName('final')[0];
+﻿var content = right.$('.content.0'),
+  scoreBox = content.$('.score.0'),
+  pauseButton = content.$('.pause.0'),
+  timeBox = content.$('.time.0'),
+  mainViewBox = content.$('.box.0'),
+  cellMask = content.$('.cellMask.0'),
+  starButton = cellMask.$('.starButton.0'),
+  final = cellMask.$('.final.0');
 var TIME, GAMERUN;
 
 window.onload = function() {
