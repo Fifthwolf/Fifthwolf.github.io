@@ -1,8 +1,8 @@
-var content = right.getElementsByClassName("content")[0],
-  boxDiv = content.getElementsByClassName("box")[0],
-  mainDiv = boxDiv.getElementsByClassName("control")[0],
-  img2 = boxDiv.getElementsByClassName("img2")[0],
-  buttonDiv = mainDiv.getElementsByTagName("div");
+var content = right.$('.content.0'),
+  boxDiv = content.$('.box.0'),
+  mainDiv = boxDiv.$('.control.0'),
+  img2 = boxDiv.$('.img2.0'),
+  buttonDiv = mainDiv.$('div');
 
 //阻止拖动时浏览器其他事件
 document.onselectstart = new Function('event.returnValue=false;');
