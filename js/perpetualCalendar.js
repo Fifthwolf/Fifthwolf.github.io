@@ -1,9 +1,9 @@
-var content = right.getElementsByClassName("content")[0],
-  year = document.getElementById("year"),
-  month = document.getElementById("month"),
-  table = document.getElementById("calendar-table"),
-  tableBody = table.getElementsByTagName("tbody")[0],
-  tdDays = tableBody.getElementsByTagName("td"),
+var content = right.$('.content.0'),
+  year = $('#year'),
+  month = $('#month'),
+  table = $('#calendar-table'),
+  tableBody = table.$('tbody.0'),
+  tdDays = tableBody.$('td'),
   temp = '';
 var now = new Date();
 
