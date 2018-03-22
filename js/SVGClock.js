@@ -1,11 +1,11 @@
-var clock = document.getElementById("clock"),
-  content = document.getElementsByClassName('content')[0],
-  dial = clock.getElementsByClassName("dial")[0];
+var clock = $('#clock'),
+  content = $('.content.0'),
+  dial = clock.$('.dial.0');
 
-var hour = clock.getElementById("hour"),
-  min = clock.getElementById("min"),
-  sec = clock.getElementById("sec"),
-  msec = clock.getElementById("msec");
+var hour = $('#hour'),
+  min = $('#min'),
+  sec = $('#sec'),
+  msec = $('#msec');
 
 
 window.onload = function() {
