@@ -1,13 +1,13 @@
-var content = document.getElementsByClassName('content')[0],
-  mainBox = document.getElementById('mainBox'),
-  cellMask = document.getElementById('cellMask'),
-  maskScore = document.getElementById('maskScore'),
-  showView = content.getElementsByClassName('showView')[0],
-  nextBox = showView.getElementsByClassName('nextBox')[0],
-  levelBox = document.getElementById('level'),
-  lineBox = document.getElementById('line'),
-  scoreBox = document.getElementById('score'),
-  starButton = document.getElementById('start');
+var content = $('.content.0'),
+  mainBox = $('#mainBox'),
+  cellMask = $('#cellMask'),
+  maskScore = $('#maskScore'),
+  showView = content.$('.showView.0'),
+  nextBox = showView.$('.nextBox.0'),
+  levelBox = $('#level'),
+  lineBox = $('#line'),
+  scoreBox = $('#score'),
+  starButton = $('#start');
 var TIME;
 var mobileControlTIME = {};
 
