@@ -1,147 +1,163 @@
-#main .right .content {
+.content {
   text-align: center; }
-  #main .right .content .score {
-    margin-bottom: 10px;
-    font-size: 20px; }
-  #main .right .content .mainView {
-    position: relative; }
-    #main .right .content .mainView .cell {
-      margin: 0 auto;
-      padding: 5px;
-      min-height: 200px;
-      border-radius: 12px;
-      background-color: #baaea0; }
-      #main .right .content .mainView .cell div {
-        font-size: 0;
-        margin: 0; }
-        #main .right .content .mainView .cell div span {
-          display: inline-block;
-          margin: 5px;
-          width: 50px;
-          height: 50px;
-          border-radius: 8px;
-          font-size: 28px;
-          line-height: 50px;
-          vertical-align: top;
-          color: #fff;
-          background-color: #ccc0b2; }
-          #main .right .content .mainView .cell div span.type1 {
-            background-color: #e9e4c4; }
-          #main .right .content .mainView .cell div span.type2 {
-            background-color: #f0b66c; }
-          #main .right .content .mainView .cell div span.type3 {
-            background-color: #f6954e; }
-          #main .right .content .mainView .cell div span.type4 {
-            background-color: #f77d4c; }
-          #main .right .content .mainView .cell div span.type5 {
-            background-color: #f85303; }
-          #main .right .content .mainView .cell div span.type6 {
-            background-color: #e9dd63; }
-          #main .right .content .mainView .cell div span.type7 {
-            background-color: #e9dc4f; }
-          #main .right .content .mainView .cell div span.type8 {
-            background-color: #e6da36; }
-          #main .right .content .mainView .cell div span.type9 {
-            background-color: #f0e10d; }
-          #main .right .content .mainView .cell div span.type10 {
-            font-size: 18px;
-            background-color: #b4ee03; }
-          #main .right .content .mainView .cell div span.type11 {
-            font-size: 18px;
-            background-color: #93ee03; }
-          #main .right .content .mainView .cell div span.type12 {
-            font-size: 18px;
-            background-color: #5bee03; }
-          #main .right .content .mainView .cell div span.type13 {
-            font-size: 18px;
-            background-color: #08ee03; }
-          #main .right .content .mainView .cell div span.type14 {
-            font-size: 14px;
-            background-color: #025d00; }
-          #main .right .content .mainView .cell div span.type15 {
-            font-size: 14px;
-            background-color: #031374; }
-    #main .right .content .mainView .moblieControl {
-      display: none; }
-    #main .right .content .mainView .cellMask {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 50%;
-      padding: 5px;
-      border-radius: 12px;
-      background-color: rgba(17, 34, 51, 0.5); }
-      #main .right .content .mainView .cellMask p {
-        margin: 10px;
-        color: #fff;
-        font-size: 32px; }
-        #main .right .content .mainView .cellMask p:first-child {
-          margin-top: 40px; }
-      #main .right .content .mainView .cellMask .restart {
-        margin: 0 auto;
-        width: 100px;
-        height: 40px;
-        background-color: #f6954e;
-        border-radius: 20px;
-        -webkit-box-shadow: 0px 3px 5px #123;
-        box-shadow: 0px 3px 5px #123;
-        color: #fff;
-        font-size: 20px;
-        line-height: 40px;
-        font-weight: bold;
-        cursor: pointer; }
-  #main .right .content .option {
-    margin-top: 16px;
-    font-size: 16px; }
-    #main .right .content .option input {
-      font-size: 16px;
-      line-height: 16px; }
-  #main .right .content button {
+  .content button {
     margin-top: 10px;
     width: 60px;
     height: 30px; }
+
+.option {
+  margin-top: 16px;
+  font-size: 16px; }
+  .option input {
+    font-size: 16px;
+    line-height: 16px; }
+
+.score {
+  margin-bottom: 10px;
+  font-size: 20px; }
+
+.mainView {
+  position: relative; }
+
+.cell {
+  margin: 0 auto;
+  padding: 5px;
+  min-height: 200px;
+  border-radius: 12px;
+  background-color: #baaea0; }
+  .cell div {
+    font-size: 0;
+    margin: 0; }
+    .cell div span {
+      display: inline-block;
+      margin: 5px;
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      font-size: 28px;
+      line-height: 50px;
+      vertical-align: top;
+      color: #fff;
+      background-color: #ccc0b2; }
+      .cell div span.type1 {
+        background-color: #e9e4c4; }
+      .cell div span.type2 {
+        background-color: #f0b66c; }
+      .cell div span.type3 {
+        background-color: #f6954e; }
+      .cell div span.type4 {
+        background-color: #f77d4c; }
+      .cell div span.type5 {
+        background-color: #f85303; }
+      .cell div span.type6 {
+        background-color: #e9dd63; }
+      .cell div span.type7 {
+        background-color: #e9dc4f; }
+      .cell div span.type8 {
+        background-color: #e6da36; }
+      .cell div span.type9 {
+        background-color: #f0e10d; }
+      .cell div span.type10 {
+        font-size: 18px;
+        background-color: #b4ee03; }
+      .cell div span.type11 {
+        font-size: 18px;
+        background-color: #93ee03; }
+      .cell div span.type12 {
+        font-size: 18px;
+        background-color: #5bee03; }
+      .cell div span.type13 {
+        font-size: 18px;
+        background-color: #08ee03; }
+      .cell div span.type14 {
+        font-size: 14px;
+        background-color: #025d00; }
+      .cell div span.type15 {
+        font-size: 14px;
+        background-color: #031374; }
+
+.moblieControl {
+  display: none; }
+
+.cellMask {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  padding: 5px;
+  border-radius: 12px;
+  background-color: rgba(17, 34, 51, 0.5); }
+  .cellMask p {
+    margin: 10px;
+    color: #fff;
+    font-size: 32px; }
+    .cellMask p:first-child {
+      margin-top: 40px; }
+  .cellMask .restart {
+    margin: 0 auto;
+    width: 100px;
+    height: 40px;
+    background-color: #f6954e;
+    border-radius: 20px;
+    -webkit-box-shadow: 0px 3px 5px #123;
+    box-shadow: 0px 3px 5px #123;
+    color: #fff;
+    font-size: 20px;
+    line-height: 40px;
+    font-weight: bold;
+    cursor: pointer; }
+
 @media only screen and (max-width: 800px) {
-  #main .right .content .score {
+  .content button {
+    margin-top: 15px;
+    width: 90px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 20px; }
+
+  .score {
     margin-bottom: 50px;
     font-size: 20px; }
-  #main .right .content .mainView .cell {
+
+  .cell {
     border-radius: 12px; }
-    #main .right .content .mainView .cell div span {
+    .cell div span {
       margin: 5px;
       width: 40px;
       height: 40px;
       border-radius: 7px;
       font-size: 28px;
       line-height: 40px; }
-      #main .right .content .mainView .cell div span.type7 {
+      .cell div span.type7 {
         font-size: 20px; }
-      #main .right .content .mainView .cell div span.type8 {
+      .cell div span.type8 {
         font-size: 20px; }
-      #main .right .content .mainView .cell div span.type9 {
+      .cell div span.type9 {
         font-size: 20px; }
-      #main .right .content .mainView .cell div span.type10 {
+      .cell div span.type10 {
         font-size: 16px; }
-      #main .right .content .mainView .cell div span.type11 {
+      .cell div span.type11 {
         font-size: 16px; }
-      #main .right .content .mainView .cell div span.type12 {
+      .cell div span.type12 {
         font-size: 16px; }
-      #main .right .content .mainView .cell div span.type13 {
+      .cell div span.type13 {
         font-size: 16px; }
-      #main .right .content .mainView .cell div span.type14 {
+      .cell div span.type14 {
         font-size: 10px; }
-      #main .right .content .mainView .cell div span.type15 {
+      .cell div span.type15 {
         font-size: 10px; }
-  #main .right .content .mainView .moblieControl {
+
+  .moblieControl {
     display: block;
     position: absolute;
     top: 0;
     left: 50%;
     padding: 5px; }
-    #main .right .content .mainView .moblieControl .triangle {
+    .moblieControl .triangle {
       position: absolute;
       width: 0;
       height: 0; }
-    #main .right .content .mainView .moblieControl .controlLeft {
+    .moblieControl .controlLeft {
       top: 50%;
       margin-top: -50px;
       left: -55px;
@@ -149,9 +165,9 @@
       border-right: 25px solid #567;
       border-bottom: 50px solid transparent;
       border-left: 25px solid transparent; }
-      #main .right .content .mainView .moblieControl .controlLeft.hover {
+      .moblieControl .controlLeft.hover {
         border-right: 25px solid #234; }
-    #main .right .content .mainView .moblieControl .controlRight {
+    .moblieControl .controlRight {
       top: 50%;
       margin-top: -50px;
       right: -55px;
@@ -159,9 +175,9 @@
       border-left: 25px solid #567;
       border-bottom: 50px solid transparent;
       border-right: 25px solid transparent; }
-      #main .right .content .mainView .moblieControl .controlRight.hover {
+      .moblieControl .controlRight.hover {
         border-left: 25px solid #234; }
-    #main .right .content .mainView .moblieControl .controlTop {
+    .moblieControl .controlTop {
       top: -55px;
       left: 50%;
       margin-left: -50px;
@@ -169,9 +185,9 @@
       border-right: 50px solid transparent;
       border-bottom: 25px solid #567;
       border-top: 25px solid transparent; }
-      #main .right .content .mainView .moblieControl .controlTop.hover {
+      .moblieControl .controlTop.hover {
         border-bottom: 25px solid #234; }
-    #main .right .content .mainView .moblieControl .controlBottom {
+    .moblieControl .controlBottom {
       bottom: -55px;
       left: 50%;
       margin-left: -50px;
@@ -179,16 +195,17 @@
       border-right: 50px solid transparent;
       border-top: 25px solid #567;
       border-bottom: 25px solid transparent; }
-      #main .right .content .mainView .moblieControl .controlBottom.hover {
+      .moblieControl .controlBottom.hover {
         border-top: 25px solid #234; }
-  #main .right .content .mainView .cellMask {
+
+  .cellMask {
     border-radius: 12px; }
-    #main .right .content .mainView .cellMask p {
+    .cellMask p {
       margin: 10px;
       font-size: 32px; }
-      #main .right .content .mainView .cellMask p:first-child {
+      .cellMask p:first-child {
         margin-top: 40px; }
-    #main .right .content .mainView .cellMask .restart {
+    .cellMask .restart {
       margin: 0 auto;
       width: 100px;
       height: 40px;
@@ -197,17 +214,12 @@
       box-shadow: 0px 3px 5px #123;
       font-size: 20px;
       line-height: 40px; }
-  #main .right .content .option {
+
+  .option {
     margin-top: 50px;
     font-size: 18px; }
-    #main .right .content .option input {
+    .option input {
       font-size: 18px;
-      line-height: 18px; }
-  #main .right .content button {
-    margin-top: 15px;
-    width: 90px;
-    height: 40px;
-    font-size: 20px;
-    line-height: 20px; } }
+      line-height: 18px; } }
 
 /*# sourceMappingURL=2048.css.map */
