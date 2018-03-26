@@ -34,6 +34,7 @@ addEvent(window, 'load', function() {
   adjustmentWindow();
   if (judgeWidth()) {
     adjustmentLeft();
+    adjustmentWindow();
   }
 });
 
