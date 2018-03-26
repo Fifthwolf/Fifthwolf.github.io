@@ -38,112 +38,109 @@ $blackBase: #777;
   }
 }
 
-#main{
-  .right{
-    .content{
-      position: relative;
-      margin: 0 auto;
-      border: 4px solid rgba(#567, 0.8);
-      text-align: center;
-      width:630px;
-      height:350px;
-      ul{
-        position:absolute;
-      }
-      @for $i from 1 through 8{
-        .swatches:nth-child(#{$i}){
-          top:($i - 1) * 50px;
-        }
-      }
 
-      li{
-        display:inline-block;
-        width:30px;
-        height:50px;
-      }
+.content{
+  position: relative;
+  margin: 0 auto;
+  border: 4px solid rgba(#567, 0.8);
+  text-align: center;
+  width:630px;
+  height:350px;
+  ul{
+    position:absolute;
+  }
+  @for $i from 1 through 8{
+    .swatches:nth-child(#{$i}){
+      top:($i - 1) * 50px;
+    }
+  }
 
-      li:hover:after{
-        position:absolute;
-        font-size: 16px;
-        padding: 2px;
-        top:5px;
-      }
-      @media only screen and (max-width: 600px) {
-        width:252px;
-        height:175px;
-        @for $i from 1 through 8{
-          .swatches:nth-child(#{$i}){
-            top:($i - 1) * 25px;
-          }
-        }
+  li{
+    display:inline-block;
+    width:30px;
+    height:50px;
+  }
 
-        li{
-          width:12px;
-          height:25px;
-        }
-
-        li:hover:after{
-          font-size: 8px;
-          padding: 1px;
-          top:3px;
-        }
+  li:hover:after{
+    position:absolute;
+    font-size: 16px;
+    padding: 2px;
+    top:5px;
+  }
+  @media only screen and (max-width: 600px) {
+    width:252px;
+    height:175px;
+    @for $i from 1 through 8{
+      .swatches:nth-child(#{$i}){
+        top:($i - 1) * 25px;
       }
+    }
 
-      ul.red {
-        @include swatchesLighten($redBase);
-        @include swatchesDarken($redBase);
-        li:nth-child(11) {
-          background-color: $redBase;
-        }
-      }
+    li{
+      width:12px;
+      height:25px;
+    }
 
-      ul.orange {
-        @include swatchesLighten($orangeBase);
-        @include swatchesDarken($orangeBase);
-        li:nth-child(11) {
-          background-color: $orangeBase;
-        }
-      }
+    li:hover:after{
+      font-size: 8px;
+      padding: 1px;
+      top:3px;
+    }
+  }
 
-      ul.yellow {
-        @include swatchesLighten($yellowBase);
-        @include swatchesDarken($yellowBase);
-        li:nth-child(11) {
-          background-color: $yellowBase;
-        }
-      }
+  ul.red {
+    @include swatchesLighten($redBase);
+    @include swatchesDarken($redBase);
+    li:nth-child(11) {
+      background-color: $redBase;
+    }
+  }
 
-      ul.green {
-        @include swatchesLighten($greenBase);
-        @include swatchesDarken($greenBase);
-        li:nth-child(11) {
-          background-color: $greenBase;
-        }
-      }
+  ul.orange {
+    @include swatchesLighten($orangeBase);
+    @include swatchesDarken($orangeBase);
+    li:nth-child(11) {
+      background-color: $orangeBase;
+    }
+  }
 
-      ul.blue {
-        @include swatchesLighten($blueBase);
-        @include swatchesDarken($blueBase);
-        li:nth-child(11) {
-          background-color: $blueBase;
-        }
-      }
+  ul.yellow {
+    @include swatchesLighten($yellowBase);
+    @include swatchesDarken($yellowBase);
+    li:nth-child(11) {
+      background-color: $yellowBase;
+    }
+  }
 
-      ul.purple {
-        @include swatchesLighten($purpleBase);
-        @include swatchesDarken($purpleBase);
-        li:nth-child(11) {
-          background-color: $purpleBase;
-        }
-      }
+  ul.green {
+    @include swatchesLighten($greenBase);
+    @include swatchesDarken($greenBase);
+    li:nth-child(11) {
+      background-color: $greenBase;
+    }
+  }
 
-      ul.gray {
-        @include swatchesLighten($blackBase);
-        @include swatchesDarken($blackBase);
-        li:nth-child(11) {
-          background-color: $blackBase;
-        }
-      }
+  ul.blue {
+    @include swatchesLighten($blueBase);
+    @include swatchesDarken($blueBase);
+    li:nth-child(11) {
+      background-color: $blueBase;
+    }
+  }
+
+  ul.purple {
+    @include swatchesLighten($purpleBase);
+    @include swatchesDarken($purpleBase);
+    li:nth-child(11) {
+      background-color: $purpleBase;
+    }
+  }
+
+  ul.gray {
+    @include swatchesLighten($blackBase);
+    @include swatchesDarken($blackBase);
+    li:nth-child(11) {
+      background-color: $blackBase;
     }
   }
 }
