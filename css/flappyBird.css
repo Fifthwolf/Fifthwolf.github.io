@@ -1,37 +1,42 @@
-#main .right .content {
+.content {
   position: relative;
   text-align: center;
   height: 600px; }
-  #main .right .content canvas {
+  .content canvas {
     position: absolute;
     left: 50%;
     margin-left: -200px;
     width: 400px;
     height: 600px; }
-  #main .right .content #canvasBackground {
-    z-index: 1; }
-  #main .right .content #canvasObstacle {
-    z-index: 2; }
-  #main .right .content #canvasBird {
-    z-index: 3; }
-  #main .right .content #canvasButton {
-    z-index: 4; }
-  #main .right .content #canvasMask {
-    z-index: 5;
-    pointer-events: none; }
   @media only screen and (max-width: 420px) {
-    #main .right .content {
+    .content {
       height: 420px; }
-      #main .right .content canvas {
+      .content canvas {
         margin-left: -140px;
         width: 280px;
         height: 420px; } }
   @media only screen and (max-width: 340px) {
-    #main .right .content {
+    .content {
       height: 330px; }
-      #main .right .content canvas {
+      .content canvas {
         margin-left: -110px;
         width: 220px;
         height: 330px; } }
+
+#canvasBackground {
+  z-index: 1; }
+
+#canvasObstacle {
+  z-index: 2; }
+
+#canvasBird {
+  z-index: 3; }
+
+#canvasButton {
+  z-index: 4; }
+
+#canvasMask {
+  z-index: 5;
+  pointer-events: none; }
 
 /*# sourceMappingURL=flappyBird.css.map */
