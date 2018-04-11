@@ -7,7 +7,7 @@ Object.prototype.hasClass = function(cls) {
 }
 
 Object.prototype.addClass = function(cls) {
-  if (!this.hasClass(cls)) this.className += " " + cls;
+  if (!this.hasClass(cls)) this.className = this.className.trim() + " " + cls;
 }
 
 Object.prototype.removeClass = function(cls) {
