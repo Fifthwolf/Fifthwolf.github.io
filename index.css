@@ -302,55 +302,54 @@
     color: #414141; }
   #demo ul {
     margin: 40px 0 10px; }
-    #demo ul li {
-      position: relative;
-      display: inline-block;
-      margin: 10px 10px 30px;
-      width: 240px;
-      height: 210px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      background-color: rgba(255, 255, 255, 0.2);
-      box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.5);
-      overflow: hidden;
-      -webkit-text-overflow: ellipsis;
-      -moz-text-overflow: ellipsis;
-      -ms-text-overflow: ellipsis;
-      text-overflow: ellipsis; }
-      #demo ul li a {
-        position: absolute;
-        width: 100%;
-        height: 100%; }
-        #demo ul li a img {
-          position: absolute;
-          left: 10px;
-          top: 10px;
-          width: 220px;
-          height: 120px;
-          border-radius: 4px; }
-        #demo ul li a h4 {
-          position: absolute;
-          top: 140px;
-          left: 10px;
-          font-size: 18px;
-          margin-bottom: 6px;
-          color: #000; }
-        #demo ul li a span {
-          position: absolute;
-          display: -webkit-box;
-          display: -moz-box;
-          top: 165px;
-          left: 10px;
-          width: 220px;
-          height: 40px;
-          font-size: 14px;
-          line-height: 20px;
-          color: #93999f;
-          overflow: hidden;
-          -webkit-box-orient: vertical;
-          text-overflow: ellipsis;
-          word-break: break-all;
-          -webkit-line-clamp: 2; }
+
+.demo-item {
+  position: relative;
+  display: inline-block;
+  margin: 10px 10px 30px;
+  width: 240px;
+  height: 210px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  -webkit-text-overflow: ellipsis;
+  -moz-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis; }
+  .demo-item a, .demo-item img, .demo-item h4, .demo-item span {
+    position: absolute; }
+  .demo-item a {
+    width: 100%;
+    height: 100%; }
+  .demo-item img {
+    left: 10px;
+    top: 10px;
+    width: 220px;
+    height: 120px;
+    border-radius: 4px; }
+  .demo-item h4 {
+    top: 140px;
+    left: 10px;
+    font-size: 18px;
+    margin-bottom: 6px;
+    color: #000; }
+  .demo-item span {
+    display: -webkit-box;
+    display: -moz-box;
+    top: 165px;
+    left: 10px;
+    width: 220px;
+    height: 40px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #93999f;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-line-clamp: 2; }
 
 #project {
   margin-bottom: 80px; }
@@ -377,33 +376,34 @@
       height: 1px;
       background-color: #000;
       content: ''; }
-  #project ul li {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    margin-bottom: 10px;
+
+.project-item {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  height: 160px; }
+  .project-item a {
+    display: flex;
     width: 100%;
-    height: 160px; }
-    #project ul li a {
-      display: flex;
-      width: 100%;
-      height: 100%; }
-      #project ul li a img {
-        border-radius: 5px;
-        flex: 0 0 140px;
-        width: 140px;
-        height: 140px;
-        margin: 10px; }
-      #project ul li a .describe {
-        flex: 1 1 auto;
-        margin: 10px; }
-        #project ul li a .describe h5 {
-          height: 32px;
-          font-size: 16px;
-          line-height: 24px;
-          text-align: center;
-          color: #000; }
-        #project ul li a .describe span {
-          color: #444; }
+    height: 100%; }
+    .project-item a img {
+      border-radius: 5px;
+      flex: 0 0 140px;
+      width: 140px;
+      height: 140px;
+      margin: 10px; }
+    .project-item a .describe {
+      flex: 1 1 auto;
+      margin: 10px; }
+      .project-item a .describe h5 {
+        height: 32px;
+        font-size: 16px;
+        line-height: 24px;
+        text-align: center;
+        color: #000; }
+      .project-item a .describe span {
+        color: #444; }
 
 #main {
   display: none;
@@ -445,37 +445,33 @@
         color: #414141; }
       #main #demo ul {
         margin: 0 10px 10px; }
-        #main #demo ul li {
-          margin: 10px 0 30px;
-          width: 100%;
-          height: 0;
-          overflow: hidden;
-          padding-bottom: 89%;
-          border: 1px solid #666; }
-          #main #demo ul li a {
-            position: absolute;
-            width: 100%;
-            height: 100%; }
-            #main #demo ul li a img {
-              width: 90%;
-              height: 57.142857%;
-              top: 5%;
-              left: 5%; }
-            #main #demo ul li a h4 {
-              top: 150px;
-              font-size: 22px;
-              line-height: 24px;
-              margin-bottom: 6px; }
-            #main #demo ul li a span {
-              top: 179px;
-              width: 90%;
-              left: 5%;
-              font-size: 18px;
-              height: 56px;
-              line-height: 24px;
-              color: #93999f;
-              overflow: hidden;
-              text-overflow: ellipsis; }
+    #main .demo-item {
+      margin: 10px 0 30px;
+      width: 100%;
+      height: 0;
+      overflow: hidden;
+      padding-bottom: 89%;
+      border: 1px solid #666; }
+      #main .demo-item img {
+        width: 90%;
+        height: 57.142857%;
+        top: 5%;
+        left: 5%; }
+      #main .demo-item h4 {
+        top: 64%;
+        font-size: 22px;
+        line-height: 24px;
+        margin-bottom: 6px; }
+      #main .demo-item span {
+        top: 74%;
+        width: 90%;
+        left: 5%;
+        font-size: 18px;
+        height: 26%;
+        line-height: 24px;
+        color: #93999f;
+        overflow: hidden;
+        text-overflow: ellipsis; }
     #main #project {
       margin-bottom: 0; }
       #main #project h2 {
@@ -494,36 +490,36 @@
           width: 20px; }
       #main #project ul {
         padding-top: 20px; }
-        #main #project ul li {
-          position: relative;
-          width: 100%;
-          height: 0;
-          padding-bottom: 90%;
-          margin-bottom: 40px;
-          border: 1px solid #666;
-          overflow: hidden; }
-          #main #project ul li a {
-            position: relative;
+    #main .project-item {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 90%;
+      margin-bottom: 40px;
+      border: 1px solid #666;
+      overflow: hidden; }
+      #main .project-item a {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        flex-direction: column; }
+        #main .project-item a img {
+          flex: 0 0 120px;
+          width: 90%;
+          margin-top: 3%;
+          margin-left: 5%; }
+        #main .project-item a .describe {
+          flex: 1 1 auto; }
+          #main .project-item a .describe h5 {
+            font-size: 22px;
+            line-height: 24px;
+            margin-bottom: 0px; }
+          #main .project-item a .describe span {
+            top: 65%;
             width: 100%;
-            height: 100%;
-            flex-direction: column; }
-            #main #project ul li a img {
-              flex: 0 0 120px;
-              width: 90%;
-              margin-top: 3%;
-              margin-left: 5%; }
-            #main #project ul li a .describe {
-              flex: 1 1 auto; }
-              #main #project ul li a .describe h5 {
-                font-size: 22px;
-                line-height: 24px;
-                margin-bottom: 0px; }
-              #main #project ul li a .describe span {
-                top: 65%;
-                width: 100%;
-                left: 5%;
-                font-size: 20px;
-                line-height: 24px;
-                color: #93999f; } }
+            left: 5%;
+            font-size: 20px;
+            line-height: 24px;
+            color: #93999f; } }
 
 /*# sourceMappingURL=index.css.map */
