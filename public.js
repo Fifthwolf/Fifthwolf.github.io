@@ -98,13 +98,9 @@ function judgeWidth() {
 }
 
 function deferLoadImage() {
-  var body = document.getElementsByTagName('body')[0];
-  if (judgeWidth()) {
-    body.style.backgroundImage = 'url("../image/background.jpg")';
-  } else {
-    body.style.backgroundImage = 'url("../image/background-mobile.jpg")';
-  }
-  document.getElementsByClassName('image')[0].style.backgroundImage = 'url("../image/TX.png")';
+  var body = $('body.0');
+  body.style.backgroundImage = 'url("../image/background' + judgeWidth() ? '' : '-mobile' + '.jpg")';
+  $('image.0').style.backgroundImage = 'url("../image/TX.png")';
 }
 
 function addEvent(element, type, handler) {
