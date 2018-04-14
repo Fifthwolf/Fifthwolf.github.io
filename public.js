@@ -73,12 +73,7 @@ function useElementHeightSuit(element, previous, parent) {
 
 function useElementToAppropriate(element, parent) {
   var height = element.offsetHeight;
-  var screenHeight;
-  if (parent == document) {
-    screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
-  } else {
-    screenHeight = parent.offsetHeight;
-  }
+  var screenHeight = parent.clientHeight;
   var top = (screenHeight - height) / 2;
   element.style.marginTop = Math.max(top - screenHeight / 20, 0) + 'px';
 }
