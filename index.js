@@ -17,8 +17,9 @@ if (getCookie('main')) {
 
 window.onload = function() {
   delayedLoadingPublicPictures('');
-  start.getElementsByClassName('image')[0].style.backgroundImage = 'url("image/TX.png")';
-  var img = document.getElementsByTagName('img');
+  start.$('.image.0').style.backgroundImage = 'url("image/TX.png")';
+  var img = $('img');
+
   for (var i = 0, len = img.length; i < len; i++) {
     img[i].setAttribute('src', img[i].getAttribute('data-src'));
   }
@@ -59,10 +60,10 @@ addEvent(eGo, 'click', function() {
 function scrollAnimate(ele, target, time) {
   clearTimeout(TEMP);
   TEMP = null;
-  var end = target.offsetTop - 50;
-  var start = right.scrollTop;
-  var step = (end - start) / (time / 10);
-  var tempEnd;
+  var end = target.offsetTop - 50,
+    start = right.scrollTop,
+    step = (end - start) / (time / 10),
+    tempEnd;
 
   function animate() {
     TEMP = setTimeout(function() {
@@ -84,10 +85,10 @@ function scrollAnimate(ele, target, time) {
 }
 
 function useDEMOUlMargin(parentElement, childElements, childElementMinMargin) {
-  var UlWidth = demoUl.offsetWidth;
-  var LiWidth = childElements[0].offsetWidth;
-  var length = Math.floor(UlWidth / (LiWidth + 20));
-  var marginRight = Math.floor((UlWidth - length * (LiWidth + 4)) / (length * 2));
+  var UlWidth = demoUl.offsetWidth,
+    LiWidth = childElements[0].offsetWidth,
+    length = Math.floor(UlWidth / (LiWidth + 20)),
+    marginRight = Math.floor((UlWidth - length * (LiWidth + 4)) / (length * 2));
   for (var i = 0; i < childElements.length; i++) {
     childElements[i].style.margin = '10px ' + marginRight + 'px 30px';
   }

@@ -11,6 +11,15 @@ const classExtend = {
   }
 }
 
+const eventExtend = {
+  addEvent: function(type, handler) {
+    return addEvent(this, type, handler);
+  },
+  removeEvent: function(type, handler) {
+    return removeEvent(this, type, handler);
+  }
+}
+
 const $Extend = {
   $: function(tag) {
     return $(tag, this);
@@ -18,6 +27,7 @@ const $Extend = {
 }
 
 addAttributeToObject(classExtend, Object.prototype);
+addAttributeToObject(eventExtend, Object.prototype);
 addAttributeToObject($Extend, Element.prototype);
 
 var main = $('#main'),
@@ -26,12 +36,12 @@ var main = $('#main'),
   left = main.$('.left.0'),
   right = main.$('.right.0');
 
-window.onresize = function() {
+addEvent(window, 'resize', function() {
   adjustmentWindow();
   if (judgeWidth()) {
     adjustmentLeft();
   }
-}
+});
 
 addEvent(window, 'load', function() {
   adjustmentWindow();
