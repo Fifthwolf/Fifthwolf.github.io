@@ -1,21 +1,24 @@
-Element.prototype['$'] = function(tag) {
-  return $(tag, this);
-}
-
-Object.prototype.hasClass = function(cls) {
-  return this.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
-}
-
-Object.prototype.addClass = function(cls) {
-  if (!this.hasClass(cls)) this.className = this.className.trim() + " " + cls;
-}
-
-Object.prototype.removeClass = function(cls) {
-  if (this.hasClass(cls)) {
+const classExtend = {
+  hasClass: function(cls) {
+    return this.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+  },
+  addClass: function(cls) {
+    if (!this.hasClass(cls)) this.className = this.className.trim() + " " + cls;
+  },
+  removeClass: function(cls) {
     var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
     this.className = this.className.replace(reg, ' ').replace(/\s+/, ' ');
   }
 }
+
+const $Extend = {
+  $: function(tag) {
+    return $(tag, this);
+  }
+}
+
+addAttributeToObject(classExtend, Object.prototype);
+addAttributeToObject($Extend, Element.prototype);
 
 var main = $('#main'),
   own = main.$('.own.0'),
@@ -37,6 +40,20 @@ addEvent(window, 'load', function() {
     adjustmentWindow();
   }
 });
+
+function addAttributeToObject(source, origin) {
+  var sourceType = (typeof source).toLowerCase();
+  switch (sourceType) {
+    case 'function':
+      origin[source.name] = source;
+      break;
+    case 'object':
+      for (var i in source) {
+        origin[i] = source[i];
+      }
+      break;
+  }
+}
 
 function delayedLoadingPublicPictures(prefix) {
   var body = document.getElementsByTagName('body')[0];
