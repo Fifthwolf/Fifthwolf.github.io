@@ -56,10 +56,8 @@ function addAttributeToObject(source, origin) {
 }
 
 function delayedLoadingPublicPictures(prefix) {
-  var body = $('body.0'),
-    isMobile = judgeWidth() ? '' : '-mobile';
-
-  body.style.backgroundImage = 'url("' + prefix + 'image/background' + isMobile + '.jpg")';
+  var isMobile = judgeWidth() ? '' : '-mobile';
+  $('body.0').style.backgroundImage = 'url("' + prefix + 'image/background' + isMobile + '.jpg")';
   left.$('.image.0').style.backgroundImage = 'url("' + prefix + 'image/TX.png")';
 }
 
@@ -79,22 +77,22 @@ function adjustmentLeft() {
 }
 
 function useElementHeightSuit(element, previous, parent) {
-  var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
-  var previousHeight = previous.offsetHeight;
+  var screenHeight = document.documentElement.clientHeight || document.body.clientHeight,
+    previousHeight = previous.offsetHeight;
   // 120为right的paddingTop与paddingBottom值之和
   element.style.minHeight = screenHeight - previousHeight - 120 + 'px';
 }
 
 function useElementToAppropriate(element, parent) {
-  var height = element.offsetHeight;
-  var screenHeight = parent.clientHeight;
-  var top = (screenHeight - height) / 2;
+  var height = element.offsetHeight,
+    screenHeight = parent.clientHeight,
+    top = (screenHeight - height) / 2;
   element.style.marginTop = Math.max(top - screenHeight / 20, 0) + 'px';
 }
 
 function publicUseMainAppropriate(element) {
-  var height = document.documentElement.clientHeight || document.body.clientHeight;
-  var width = document.documentElement.clientWidth || document.body.clientWidth;
+  var height = document.documentElement.clientHeight || document.body.clientHeight,
+    width = document.documentElement.clientWidth || document.body.clientWidth;
   element.style.height = height - 40 + 'px';
   element.style.width = width - 40 + 'px';
   element.style.top = '20px';
@@ -127,8 +125,8 @@ function removeEvent(element, type, handler) {
 }
 
 function setCookie(name, value, time) {
-  var Minutes = time;
-  var exp = new Date();
+  var Minutes = time,
+    exp = new Date();
   exp.setTime(exp.getTime() + Minutes * 60 * 1000);
   document.cookie = name + "=" + decodeURI(value) + ";expires=" + exp.toGMTString();
 }
