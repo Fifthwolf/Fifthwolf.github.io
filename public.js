@@ -56,21 +56,18 @@ function addAttributeToObject(source, origin) {
 }
 
 function delayedLoadingPublicPictures(prefix) {
-  var body = document.getElementsByTagName('body')[0];
-  if (judgeWidth()) {
-    body.style.backgroundImage = 'url("' + prefix + 'image/background.jpg")';
-  } else {
-    body.style.backgroundImage = 'url("' + prefix + 'image/background-mobile.jpg")';
-  }
-  left.getElementsByClassName('image')[0].style.backgroundImage = 'url("' + prefix + 'image/TX.png")';
+  var body = $('body.0'),
+    isMobile = judgeWidth() ? '' : '-mobile';
+
+  body.style.backgroundImage = 'url("' + prefix + 'image/background' + isMobile + '.jpg")';
+  left.$('.image.0').style.backgroundImage = 'url("' + prefix + 'image/TX.png")';
 }
 
 function adjustmentWindow() {
   if (judgeWidth()) {
     main.style.display = 'flex';
     publicUseMainAppropriate(main);
-  }
-  if (!judgeWidth()) {
+  } else {
     main.style.display = 'block';
     useElementHeightSuit(right, left, main);
   }
@@ -107,12 +104,6 @@ function publicUseMainAppropriate(element) {
 function judgeWidth() {
   var screenWidth = document.documentElement.clientWidth || document.body.clientWidth;
   return (screenWidth >= 1000);
-}
-
-function deferLoadImage() {
-  var body = $('body.0');
-  body.style.backgroundImage = 'url("../image/background' + judgeWidth() ? '' : '-mobile' + '.jpg")';
-  $('image.0').style.backgroundImage = 'url("../image/TX.png")';
 }
 
 function addEvent(element, type, handler) {
