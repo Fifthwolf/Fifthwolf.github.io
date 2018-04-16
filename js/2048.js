@@ -17,6 +17,7 @@ var data = {
   moveEvent: false,
   sides: 60,
   correct: 1,
+  isMobile: false,
   box: null
 }
 
@@ -24,8 +25,9 @@ window.onload = function() {
   delayedLoadingPublicPictures('../');
   if (/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
     data.correct = 0.5;
+    data.isMobile = true;
   }
-  if (!judgeWidth()) {
+  if (data.isMobile) {
     data.sides = 100;
     addEvent(moblieControl, 'touchstart', function(e) {
       e = e || window.event;
@@ -46,7 +48,7 @@ window.onload = function() {
 }
 
 addEvent(changeButton, 'click', function() {
-  var changeLength = Number(document.getElementById('length').value);
+  var changeLength = Number($('#length').value);
   if (changeLength >= 4 && changeLength <= 8 && _isInteger(changeLength)) {
     data.length = changeLength;
     restart();
@@ -82,7 +84,7 @@ function createCell(length) {
     cell.appendChild(row[i]);
   }
   cell.style.width = length * data.sides * data.correct + 'px';
-  if (!judgeWidth()) {
+  if (data.isMobile) {
     moblieControl.style.width = length * data.sides * data.correct + 'px';
     moblieControl.style.height = length * data.sides * data.correct + 'px';
     moblieControl.style.marginLeft = -(length * data.sides) / 2 * data.correct - 5 + 'px';
@@ -95,12 +97,12 @@ function createCell(length) {
 function starGame(length) {
   data.box = null;
   data.box = new Array(length);
-  var row = cell.getElementsByTagName('div');
+  var row = cell.$('div');
   for (var i = 0; i < length; i++) {
-    data.box[i] = row[i].getElementsByTagName('span');
+    data.box[i] = row[i].$('span');
   }
   if (data.moveEvent === false) {
-    if (judgeWidth()) {
+    if (!data.isMobile) {
       addEvent(document, 'keydown', function(e) {
         var keynum = window.event ? e.keyCode : e.which;
         switch (keynum) {
@@ -122,7 +124,7 @@ function starGame(length) {
             break;
         }
       });
-    } else if (!judgeWidth()) {
+    } else if (data.isMobile) {
       addEvent(moblieControl, 'touchstart', function(e) {
         e = e || window.event;
         if (e.target.hasClass('controlLeft')) {
@@ -147,22 +149,20 @@ function starGame(length) {
 }
 
 function fail() {
-  cellMask.getElementsByTagName('p')[0].style.marginTop = (data.length - 3) * data.sides / 2 + 'px';
-  cellMask.getElementsByTagName('p')[1].innerHTML = data.score;
+  cellMask.$('p.0').style.marginTop = (data.length - 3) * data.sides / 2 + 'px';
+  cellMask.$('p.1').innerHTML = data.score;
   data.step = 0;
   cellMask.style.display = 'block';
 }
 
 //初始化格子
 function initializeBox(box, length) {
-  var createBox;
-  // var createBox = Math.min(surplus(box, length), 2);
   var createBox = surplus(box, length);
   if (createBox === 0 && adjoinBox(box, length)) {
     fail();
     return 0;
   }
-  for (; createBox > 0;) {
+  while (createBox > 0) {
     var x = parseInt(Math.random() * length);
     var y = parseInt(Math.random() * length);
     if (box[x][y].getAttribute('boxType') === '0') {
