@@ -146,6 +146,11 @@
         font-size: 10px; }
       .cell div span.type15 {
         font-size: 10px; }
+    .cell.long div span {
+      margin: 3.75px;
+      width: 30px;
+      height: 30px;
+      line-height: 30px; }
 
   .moblieControl {
     display: block;
