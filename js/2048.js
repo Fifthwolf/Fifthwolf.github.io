@@ -49,8 +49,11 @@ window.onload = function() {
 
 addEvent(changeButton, 'click', function() {
   var changeLength = Number($('#length').value);
-  if (changeLength >= 4 && changeLength <= 8 && _isInteger(changeLength)) {
+  if (changeLength >= 4 && changeLength <= 7 && _isInteger(changeLength)) {
     data.length = changeLength;
+    if (data.isMobile) {
+      data.sides = data.length >= 6 ? 75 : 100;
+    }
     restart();
   }
 
@@ -71,6 +74,13 @@ function restart() {
 
 function createCell(length) {
   cell.innerHTML = '';
+  if (data.isMobile) {
+    if (data.length >= 6) {
+      cell.addClass('long');
+    } else {
+      cell.removeClass('long');
+    }
+  }
   var row = new Array(length);
   for (var i = 0; i < length; i++) {
     row[i] = document.createElement('div');
@@ -88,6 +98,9 @@ function createCell(length) {
     moblieControl.style.width = length * data.sides * data.correct + 'px';
     moblieControl.style.height = length * data.sides * data.correct + 'px';
     moblieControl.style.marginLeft = -(length * data.sides) / 2 * data.correct - 5 + 'px';
+    if(data.length>=6){
+      moblieControl.style.top = '2px';
+    }
   }
   cellMask.style.width = length * data.sides * data.correct + 'px';
   cellMask.style.height = length * data.sides * data.correct + 'px';
