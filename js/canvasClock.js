@@ -40,22 +40,22 @@ function drawHand(ctx, radius, time) {
   var secondHand = time.seconds;
   var minuteHand = time.minutes + time.seconds / 60;
   var hourHand = time.hours + time.minutes / 60;
-  drawDetailedHand(ctx, radius, '#bbb', 8, hourHand, radius + 35, 100, 6);
-  drawDetailedHand(ctx, radius, '#ccc', 5, minuteHand, radius + 35, 50, 30);
-  drawDetailedHand(ctx, radius, '#ddd', 2, secondHand, radius + 50, 30, 30);
+  _drawDetailedHand(ctx, radius, '#bbb', 8, hourHand, radius + 35, 100, 6);
+  _drawDetailedHand(ctx, radius, '#ccc', 5, minuteHand, radius + 35, 50, 30);
+  _drawDetailedHand(ctx, radius, '#ddd', 2, secondHand, radius + 50, 30, 30);
   ctx.beginPath();
   ctx.fillStyle = '#123';
   ctx.arc(radius, radius, 4, 0, 2 * Math.PI);
   ctx.fill();
-}
 
-function drawDetailedHand(ctx, radius, color, lineWidth, point, correct1, correct2, scale) {
-  ctx.beginPath();
-  ctx.strokeStyle = color;
-  ctx.lineWidth = lineWidth;
-  ctx.moveTo(position(point, correct1, scale).x, position(point, correct1, scale).y);
-  ctx.lineTo(position(point, correct2, scale).x, position(point, correct2, scale).y);
-  ctx.stroke();
+  function _drawDetailedHand(ctx, radius, color, lineWidth, point, correct1, correct2, scale) {
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lineWidth;
+    ctx.moveTo(position(point, correct1, scale).x, position(point, correct1, scale).y);
+    ctx.lineTo(position(point, correct2, scale).x, position(point, correct2, scale).y);
+    ctx.stroke();
+  }
 }
 
 function drawDial(ctx, radius) {
