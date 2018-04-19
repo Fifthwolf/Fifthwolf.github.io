@@ -34,7 +34,7 @@ window.onload = function() {
     data.upAndDownTarget[i] = [false, false]; //[下降，上升]
   }
   data.height = data.DTED[data.DTED.length - 1] - data.DTED[0];
-  outsideUpAndDown.getElementsByClassName('down')[0].style.visibility = 'hidden';
+  outsideUpAndDown.$('.down.0').style.visibility = 'hidden';
 }
 
 addEvent(inside, 'click', function(e) {
@@ -56,7 +56,7 @@ addEvent(inside, 'click', function(e) {
 addEvent(outsideFloor, 'click', function(e) {
   var e = e || window.event;
   var target = e.target;
-  var span = outsideFloor.getElementsByTagName('span');
+  var span = outsideFloor.$('span');
   if (target.nodeName.toUpperCase() === 'SPAN') {
     for (var i = 0; i < 8; i++) {
       span[i].removeClass('choose');
@@ -64,16 +64,8 @@ addEvent(outsideFloor, 'click', function(e) {
     target.addClass('choose');
     data.upAndDownTEMP = parseInt(target.innerHTML) - 1;
   }
-  if (span[7].hasClass('choose')) {
-    outsideUpAndDown.getElementsByClassName('down')[0].style.visibility = 'hidden';
-  } else {
-    outsideUpAndDown.getElementsByClassName('down')[0].style.visibility = 'visible';
-  }
-  if (span[0].hasClass('choose')) {
-    outsideUpAndDown.getElementsByClassName('up')[0].style.visibility = 'hidden';
-  } else {
-    outsideUpAndDown.getElementsByClassName('up')[0].style.visibility = 'visible';
-  }
+  outsideUpAndDown.$('.down.0').style.visibility = span[span.length - 1].hasClass('choose') ? 'hidden' : 'visible';
+  outsideUpAndDown.$('.up.0').style.visibility = span[0].hasClass('choose') ? 'hidden' : 'visible';
 });
 
 addEvent(outsideUpAndDown, 'click', function(e) {
