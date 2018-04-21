@@ -38,6 +38,7 @@
 
 .mainView {
   position: relative;
+  margin: 0 auto;
   width: 722px; }
   .mainView .box {
     position: relative;
@@ -135,7 +136,6 @@
 
 @media only screen and (max-width: 800px) {
   .mainView {
-    margin: 0 auto;
     width: 582px; }
     .mainView .box {
       width: 560px;
@@ -150,11 +150,7 @@
           border-radius: 4px;
           line-height: 60px;
           font-size: 20px; }
-    .mainView #lineRoute {
-      width: 580px;
-      height: 500px; }
     .mainView .cellMask {
-      margin-left: 0;
       width: 580px;
       height: 500px; }
       .mainView .cellMask .starButton {
@@ -170,6 +166,10 @@
         margin-top: 20px;
         font-size: 36px;
         line-height: 60px; }
+
+  #lineRoute {
+    width: 580px;
+    height: 500px; }
 
   .showView {
     margin: 20px auto 20px;
@@ -195,7 +195,6 @@
       line-height: 60px; } }
 @media only screen and (max-width: 440px) {
   .mainView {
-    margin: 0 auto;
     width: 274px; }
     .mainView .box {
       width: 252px;
@@ -210,9 +209,6 @@
           border-radius: 2px;
           line-height: 23px;
           font-size: 10px; }
-    .mainView #lineRoute {
-      width: 272px;
-      height: 204px; }
     .mainView .cellMask {
       width: 272px;
       height: 204px; }
@@ -227,6 +223,10 @@
         margin-top: 10px;
         font-size: 18px;
         line-height: 30px; }
+
+  #lineRoute {
+    width: 272px;
+    height: 204px; }
 
   .showView {
     margin: 20px auto 20px;
