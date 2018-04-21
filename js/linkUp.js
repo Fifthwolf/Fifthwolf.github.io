@@ -107,7 +107,7 @@ function initialization() {
       data.box[i][j] = 0;
     }
   }
-  var spanElements = mainViewBox.getElementsByTagName('span');
+  var spanElements = mainViewBox.$('span');
   var spanArray = new Array();
   for (var i = 0, len = spanElements.length; i < len; i++) {
     spanArray[i] = spanElements[i];
