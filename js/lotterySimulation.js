@@ -12,9 +12,9 @@ window.onload = function() {
 }
 
 button_generate.onclick = function() {
-  var basic = Number(removeSpace(input_basic.value));
-  var special = Number(removeSpace(input_special.value));
-  var max = Number(removeSpace(input_max.value));
+  var basic = Number(removeSpace(input_basic.value)),
+    special = Number(removeSpace(input_special.value)),
+    max = Number(removeSpace(input_max.value));
   if (judgedNumber(basic, special, max)) {
     input_basic.value = basic;
     input_special.value = special;
@@ -56,8 +56,8 @@ function judgedNumber(basic, special, max) {
 }
 
 function generate(basic, special, max) {
-  var total = basic + special;
-  var lottery = new Array(total);
+  var total = basic + special,
+    lottery = new Array(total);
   for (var i = 0; i < total; i++) {
     lottery[i] = Math.floor(Math.random() * max + 1);
     if (i > 0) {
@@ -110,8 +110,8 @@ function addNumber(lottery, special) {
     div.appendChild(temp[i]);
   }
 
-  var numDivs = document.getElementsByClassName('num');
-  var numSpans = numDivs[numDivs.length - 1].getElementsByTagName('span');
+  var numDivs = $('.num'),
+    numSpans = numDivs[numDivs.length - 1].$('span');
   showNumber(numSpans);
 }
 
