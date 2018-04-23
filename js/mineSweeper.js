@@ -173,10 +173,7 @@ function aroundMine(ele) {
 function openAround(ele, rowStart, rowEnd, colStart, colEnd) {
   for (var i = rowStart; i <= rowEnd; i++) {
     for (var j = colStart; j <= colEnd; j++) {
-      if (ele == data.box[i][j].ele) {
-        continue;
-      }
-      if (data.box[i][j].flag === true) {
+      if (ele == data.box[i][j].ele || data.box[i][j].flag === true) {
         continue;
       }
       if (data.box[i][j].state === false) {
@@ -216,7 +213,7 @@ function initialization() {
       data.box[i][j].flag = false;
     }
   }
-  var spanElements = mainViewBox.getElementsByTagName('span');
+  var spanElements = mainViewBox.$('span');
   var spanArray = new Array();
   for (var i = 0, len = spanElements.length; i < len; i++) {
     data.box[parseInt(i / data.col)][parseInt(i % data.col)].state = false; //是否已点开
@@ -234,11 +231,7 @@ function createMine(ele) {
     var index = parseInt(Math.random() * data.row * data.col);
     var row = parseInt(index / data.col);
     var col = parseInt(index % data.col);
-    if (data.box[row][col].mine === true) {
-      i++;
-      continue;
-    }
-    if (row === currentRow && col === currentCol) {
+    if (data.box[row][col].mine === true || (row === currentRow && col === currentCol)) {
       i++;
       continue;
     }
@@ -274,7 +267,7 @@ function success() {
   for (var i = 0; i < data.row; i++) {
     for (var j = 0; j < data.col; j++) {
       if (data.box[i][j].mine === true &&
-        data.box[i][j].ele.getElementsByTagName('*').length === 0) {
+        data.box[i][j].ele.$('*').length === 0) {
         data.box[i][j].flag = true;
         addChildIcon(data.box[i][j].ele, 'flag');
       }
@@ -300,7 +293,7 @@ function fail() {
     }
   }
   removeEvent(mainViewBox, 'click', mainViewBoxClick);
-  smile.removeChild(smile.getElementsByTagName('span')[0]);
+  smile.removeChild(smile.$('span')[0]);
   removeChildIcon(smile);
   addChildIcon(smile, 'ambulance');
 }
@@ -312,7 +305,7 @@ function addChildIcon(parentNode, iconClass) {
 }
 
 function removeChildIcon(parentNode) {
-  var elements = parentNode.getElementsByClassName('fa');
+  var elements = parentNode.$('.fa');
   for (var i = elements.length - 1; i >= 0; i--) {
     parentNode.removeChild(elements[i]);
   }
