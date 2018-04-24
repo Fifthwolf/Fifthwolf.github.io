@@ -5,7 +5,7 @@ var content = right.$('.content.0'),
   tableBody = table.$('tbody.0'),
   tdDays = tableBody.$('td'),
   temp = '';
-var data = {
+const DATA = {
   MINYEAR: 2000,
   MAXYEAR: 2049
 }
@@ -52,7 +52,7 @@ addEvent(tableBody, 'mouseout', function(e) {
 });
 
 function init() {
-  for (var i = data.MINYEAR; i <= data.MAXYEAR; i++) {
+  for (var i = DATA.MINYEAR; i <= DATA.MAXYEAR; i++) {
     temp += '<option value="' + i + '">' + i + '</option>'
   }
   year.innerHTML = temp;
@@ -91,18 +91,18 @@ function changeTime(change) {
   if (change == 1) {
     monthValue--;
     if (monthValue < 1) {
-      yearValue = Math.max((Number(yearValue) - 1), data.MINYEAR);
+      yearValue = Math.max((Number(yearValue) - 1), DATA.MINYEAR);
       monthValue = 12;
-      if (yearValue == data.MINYEAR) {
+      if (yearValue == DATA.MINYEAR) {
         monthValue = 1;
       }
     }
   } else if (change == 2) {
     monthValue++;
     if (monthValue > 12) {
-      yearValue = Math.min((Number(yearValue) + 1), data.MAXYEAR);
+      yearValue = Math.min((Number(yearValue) + 1), DATA.MAXYEAR);
       monthValue = 1;
-      if (yearValue == data.MAXYEAR) {
+      if (yearValue == DATA.MAXYEAR) {
         monthValue = 12;
       }
     }
