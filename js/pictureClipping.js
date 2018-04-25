@@ -9,23 +9,23 @@ document.onselectstart = new Function('event.returnValue=false;');
 
 window.onload = function() {
   delayedLoadingPublicPictures('../');
-  var show = $('#show');
-  var showPic = document.createElement('img');
+  var show = $('#show'),
+    showPic = document.createElement('img');
   showPic.src = img2.src;
-  showPic.id = "showPi";
+  showPic.id = 'showPi';
   show.appendChild(showPic);
   for (var i = 0; i < buttonDiv.length; i++) {
     buttonDiv[i].index = i;
     buttonDiv[i].onmousedown = function(e) {
       e.stopPropagation();
-      var mainRight = getPosition(mainDiv).left + mainDiv.offsetWidth;
-      var mainBottom = getPosition(mainDiv).top + mainDiv.offsetHeight;
+      var mainRight = getPosition(mainDiv).left + mainDiv.offsetWidth,
+        mainBottom = getPosition(mainDiv).top + mainDiv.offsetHeight;
       move(this.index, mainRight, mainBottom, 40, img2);
     }
   }
   mainDiv.onmousedown = function(e) {
-    var disX = e.clientX - getPosition(mainDiv).left;
-    var disY = e.clientY - getPosition(mainDiv).top;
+    var disX = e.clientX - getPosition(mainDiv).left,
+      disY = e.clientY - getPosition(mainDiv).top;
     move(8, disX, disY, 40, img2);
   }
   preview({
@@ -86,8 +86,8 @@ function leftMove(e, limitX, minLength) {
     width = mainDiv.offsetWidth - 2,
     mainX = getPosition(mainDiv).left,
     addWidth = mainX - x;
-  mainDiv.style.width = (width + addWidth) + "px";
-  mainDiv.style.left = mainDiv.offsetLeft - mainX + x + "px";
+  mainDiv.style.width = (width + addWidth) + 'px';
+  mainDiv.style.left = mainDiv.offsetLeft - mainX + x + 'px';
 }
 
 //右边拖动
@@ -96,7 +96,7 @@ function rightMove(e, minLength) {
     width = mainDiv.offsetWidth - 2,
     mainX = getPosition(mainDiv).left,
     addWidth = x - width - mainX;
-  mainDiv.style.width = (width + addWidth) + "px";
+  mainDiv.style.width = (width + addWidth) + 'px';
 }
 
 //上边拖动
@@ -105,8 +105,8 @@ function upMove(e, limitY, minLength) {
     height = mainDiv.offsetHeight - 2,
     mainY = getPosition(mainDiv).top,
     addHeight = mainY - y;
-  mainDiv.style.height = (height + addHeight) + "px";
-  mainDiv.style.top = mainDiv.offsetTop - mainY + y + "px";
+  mainDiv.style.height = (height + addHeight) + 'px';
+  mainDiv.style.top = mainDiv.offsetTop - mainY + y + 'px';
 }
 
 //下边拖动
@@ -115,7 +115,7 @@ function downMove(e, minLength) {
     height = mainDiv.offsetHeight - 2,
     mainY = getPosition(mainDiv).top,
     addHeight = y - height - mainY;
-  mainDiv.style.height = (height + addHeight) + "px";
+  mainDiv.style.height = (height + addHeight) + 'px';
 }
 
 //移动
@@ -128,8 +128,7 @@ function allMove(e, disX, disY, element) {
 
 //移动限制范围
 function moveLimit(n, min, max) {
-  n = Math.max(Math.min(max, n), min);
-  return n;
+  return Math.max(Math.min(max, n), min);
 }
 
 //获取元素的绝对位置
@@ -150,11 +149,11 @@ function getPosition(node) {
 
 //设置选择区域可见
 function setChoice(element) {
-  var top = mainDiv.offsetTop - element.offsetTop;
-  var right = mainDiv.offsetLeft + mainDiv.offsetWidth - element.offsetLeft;
-  var bottom = mainDiv.offsetTop + mainDiv.offsetHeight - element.offsetTop;
-  var left = mainDiv.offsetLeft - element.offsetLeft;
-  img2.style.clip = "rect(" + top + "px," + right + "px," + bottom + "px," + left + "px)";
+  var top = mainDiv.offsetTop - element.offsetTop,
+   right = mainDiv.offsetLeft + mainDiv.offsetWidth - element.offsetLeft,
+   bottom = mainDiv.offsetTop + mainDiv.offsetHeight - element.offsetTop,
+   left = mainDiv.offsetLeft - element.offsetLeft;
+  img2.style.clip = 'rect(' + top + 'px,' + right + 'px,' + bottom + 'px,' + left + 'px)';
   preview({
     "top": top,
     "right": right,
@@ -166,8 +165,8 @@ function setChoice(element) {
 
 //预览图
 function preview(view) {
-  var previewImg = $("#showPi");
-  previewImg.style.top = -view.top + "px";
-  previewImg.style.left = -view.left + "px";
-  previewImg.style.clip = "rect(" + view.top + "px," + view.right + "px," + view.bottom + "px," + view.left + "px)";
+  var previewImg = $('#showPi');
+  previewImg.style.top = -view.top + 'px';
+  previewImg.style.left = -view.left + 'px';
+  previewImg.style.clip = 'rect(' + view.top + 'px,' + view.right + 'px,' + view.bottom + 'px,' + view.left + 'px)';
 }
