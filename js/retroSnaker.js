@@ -35,13 +35,13 @@ addEvent(document, 'keydown', keydownChange);
 addEvent(pauseButton, 'click', pauseGame);
 
 function mobileControl() {
-  var mobileControl = document.getElementById('mobileControl');
-  var controlCanvas = document.getElementById('controlCanvas');
-  var mobileButton = document.getElementById('mobileButton');
-  drawControl(100);
-  mobileControlTouch(mobileControl);
+  var mobileControl = $('#mobileControl'),
+    controlCanvas = $('#controlCanvas'),
+    mobileButton = $('#mobileButton');
+  _drawControl(100);
+  _mobileControlTouch(mobileControl);
 
-  function drawControl(length) {
+  function _drawControl(length) {
     controlCanvas.width = length;
     controlCanvas.height = length;
     var context = controlCanvas.getContext('2d');
@@ -62,11 +62,11 @@ function mobileControl() {
     }
   }
 
-  function mobileControlTouch(element) {
+  function _mobileControlTouch(element) {
     var buttonX, buttonY, length = 50;
     var elementPosition = element.getBoundingClientRect();
 
-    function buttonMove(e, flag) {
+    function __buttonMove(e, flag) {
       if (flag) {
         e.preventDefault();
         var touch = e.changedTouches;
@@ -89,41 +89,43 @@ function mobileControl() {
         }
       }
       if (flag) {
-        _cons(buttonX, buttonY);
+        __cons(buttonX, buttonY);
       }
       mobileButton.style.left = buttonX + length / 2 + 'px';
       mobileButton.style.top = buttonY + length / 2 + 'px';
-    }
 
-    function _cons(buttonX, buttonY) {
-      if (buttonX * buttonX + buttonY * buttonY > 50 * 50) {
-        if (Math.abs(buttonX) > Math.abs(buttonY)) {
-          if (buttonX > 0) {
-            changeDirection(2);
+      function __cons(buttonX, buttonY) {
+        if (buttonX * buttonX + buttonY * buttonY > 50 * 50) {
+          if (Math.abs(buttonX) > Math.abs(buttonY)) {
+            if (buttonX > 0) {
+              changeDirection(2);
+            } else {
+              changeDirection(4);
+            }
           } else {
-            changeDirection(4);
-          }
-        } else {
-          if (buttonY > 0) {
-            changeDirection(3);
-          } else {
-            changeDirection(1);
+            if (buttonY > 0) {
+              changeDirection(3);
+            } else {
+              changeDirection(1);
+            }
           }
         }
       }
     }
 
+
+
     addEvent(element, 'touchstart', function(e) {
-      buttonMove(e, true);
+      __buttonMove(e, true);
     });
 
     addEvent(element, 'touchmove', function(e) {
-      buttonMove(e, true);
+      __buttonMove(e, true);
     });
 
     addEvent(element, 'touchend', function(e) {
       var touch = e.changedTouches;
-      buttonMove(e, false);
+      __buttonMove(e, false);
     });
   }
 }
@@ -304,7 +306,7 @@ function gameFail() {
   clearInterval(TIME);
   cellMask.style.display = 'block';
   starButton.innerHTML = '重新开始';
-  var finalSpan = final.getElementsByTagName('span')[0];
+  var finalSpan = final.$('span.0');
   final.style.display = 'inline-block';
   finalSpan.innerHTML = parseInt(data.time / 10);
   pauseButton.style.display = 'none';
