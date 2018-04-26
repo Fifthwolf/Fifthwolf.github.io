@@ -66,6 +66,19 @@ function mobileControl() {
     var buttonX, buttonY, length = 50;
     var elementPosition = element.getBoundingClientRect();
 
+    addEvent(element, 'touchstart', function(e) {
+      __buttonMove(e, true);
+    });
+
+    addEvent(element, 'touchmove', function(e) {
+      __buttonMove(e, true);
+    });
+
+    addEvent(element, 'touchend', function(e) {
+      var touch = e.changedTouches;
+      __buttonMove(e, false);
+    });
+
     function __buttonMove(e, flag) {
       if (flag) {
         e.preventDefault();
@@ -97,36 +110,13 @@ function mobileControl() {
       function __cons(buttonX, buttonY) {
         if (buttonX * buttonX + buttonY * buttonY > 50 * 50) {
           if (Math.abs(buttonX) > Math.abs(buttonY)) {
-            if (buttonX > 0) {
-              changeDirection(2);
-            } else {
-              changeDirection(4);
-            }
+            changeDirection(buttonX > 0 ? 2 : 4);
           } else {
-            if (buttonY > 0) {
-              changeDirection(3);
-            } else {
-              changeDirection(1);
-            }
+            changeDirection(buttonY > 0 ? 3 : 1);
           }
         }
       }
     }
-
-
-
-    addEvent(element, 'touchstart', function(e) {
-      __buttonMove(e, true);
-    });
-
-    addEvent(element, 'touchmove', function(e) {
-      __buttonMove(e, true);
-    });
-
-    addEvent(element, 'touchend', function(e) {
-      var touch = e.changedTouches;
-      __buttonMove(e, false);
-    });
   }
 }
 
