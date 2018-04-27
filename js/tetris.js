@@ -193,7 +193,7 @@ function keydownEvent(e) {
 }
 
 function mobileControl() {
-  var mobileControlDiv = document.getElementById('mobileControl');
+  var mobileControlDiv = $('#mobileControl');
   addEvent(mobileControlDiv, 'touchstart', function(e) {
     e.preventDefault();
     var ele = e.target;
@@ -471,7 +471,7 @@ function boxLimit() {
 }
 
 function changeSpanColor(ele, transferData, col) {
-  for (var i = 0, len = ele.getElementsByTagName('span').length; i < len; i++) {
+  for (var i = 0, len = ele.$('span').length; i < len; i++) {
     var currentBox = transferData[parseInt(i / col)][parseInt(i % col)];
     if (currentBox.type === 0) {
       currentBox.ele.className = '';
@@ -534,9 +534,9 @@ function judgeLineFull() {
         if (!flag) {
           _refreshAllBox();
           _upLevel();
-          levelBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.level, 2);
-          lineBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.line, 3);
-          scoreBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.score, 5);
+          levelBox.$('span.0').innerHTML = PrefixInteger(data.level, 2);
+          lineBox.$('span.0').innerHTML = PrefixInteger(data.line, 3);
+          scoreBox.$('span.0').innerHTML = PrefixInteger(data.score, 5);
         }
       }
     }
@@ -606,28 +606,28 @@ function initialization() {
   data.box = new Array(data.row);
   data.nextBox = new Array(2);
   data.clearAnimation = new Array(4);
-  for (var i = 0, currentDivs = mainBox.getElementsByTagName('div'), ilen = currentDivs.length; i < ilen; i++) {
+  for (var i = 0, currentDivs = mainBox.$('div'), ilen = currentDivs.length; i < ilen; i++) {
     data.box[i] = new Array(data.col);
     var currentDiv = currentDivs[i];
-    for (var j = 0, currentSpans = currentDiv.getElementsByTagName('span'), jlen = currentSpans.length; j < jlen; j++) {
+    for (var j = 0, currentSpans = currentDiv.$('span'), jlen = currentSpans.length; j < jlen; j++) {
       data.box[i][j] = {};
       data.box[i][j].ele = currentSpans[j];
       data.box[i][j].type = false;
       // 格子类型 false:空 0:buttom 1:S 2:Z 3:L 4:J 5:I 6:O 7:T
     }
   }
-  for (var i = 0, currentDivs = nextBox.getElementsByTagName('div'), ilen = currentDivs.length; i < ilen; i++) {
+  for (var i = 0, currentDivs = nextBox.$('div'), ilen = currentDivs.length; i < ilen; i++) {
     data.nextBox[i] = new Array(2);
     var currentDiv = currentDivs[i];
-    for (var j = 0, currentSpans = currentDiv.getElementsByTagName('span'), jlen = currentSpans.length; j < jlen; j++) {
+    for (var j = 0, currentSpans = currentDiv.$('span'), jlen = currentSpans.length; j < jlen; j++) {
       data.nextBox[i][j] = {};
       data.nextBox[i][j].ele = currentSpans[j];
       data.nextBox[i][j].type = false;
     }
   }
-  levelBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.level, 2);
-  lineBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.line, 2);
-  scoreBox.getElementsByTagName('span')[0].innerHTML = PrefixInteger(data.score, 5);
+  levelBox.$('span.0').innerHTML = PrefixInteger(data.level, 2);
+  lineBox.$('span.0').innerHTML = PrefixInteger(data.line, 2);
+  scoreBox.$('span.0').innerHTML = PrefixInteger(data.score, 5);
 }
 
 function createFrame() {
