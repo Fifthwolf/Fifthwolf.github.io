@@ -132,6 +132,16 @@ const BOX_TYPE = [
   ]
 ];
 
+const BOX_SHIFT = [
+  [3, 0, 1, 2],
+  [3, 0, 1, 2],
+  [3, 0, 0, 4],
+  [3, 0, 0, 4],
+  [4, 0, 1, 2],
+  [2, 1, 0, 1],
+  [3, 0, 1, 4]
+]; //length, shiftX, shiftY, rotateType
+
 var data = {
   row: 20,
   col: 10,
@@ -151,15 +161,6 @@ var data = {
   nextBox: []
 };
 
-data.boxShift = [
-  [3, 0, 1, 2],
-  [3, 0, 1, 2],
-  [3, 0, 0, 4],
-  [3, 0, 0, 4],
-  [4, 0, 1, 2],
-  [2, 1, 0, 1],
-  [3, 0, 1, 4]
-]; //length, shiftX, shiftY, rotateType
 
 addEvent(starButton, 'click', startGame);
 addEvent(document, 'keydown', keydownEvent);
@@ -253,9 +254,9 @@ function createDropBox() {
     data.currentBoxType = parseInt(Math.random() * BOX_TYPE.length * 100) % BOX_TYPE.length;
   }
   data.nextBoxType = parseInt(Math.random() * BOX_TYPE.length * 100) % BOX_TYPE.length;
-  var length = data.boxShift[data.currentBoxType][0],
-    shiftX = data.boxShift[data.currentBoxType][1],
-    shiftY = data.boxShift[data.currentBoxType][2];
+  var length = BOX_SHIFT[data.currentBoxType][0],
+    shiftX = BOX_SHIFT[data.currentBoxType][1],
+    shiftY = BOX_SHIFT[data.currentBoxType][2];
   data.currentBoxBase = [0 - shiftY, 3 + shiftX];
   data.currentBoxRotate = 0;
   outer: for (var i = 0 + shiftY, len = length; i < len; i++) {
@@ -269,8 +270,8 @@ function createDropBox() {
       }
     }
   }
-  var nextShiftX = data.boxShift[data.nextBoxType][1],
-    nextShiftY = data.boxShift[data.nextBoxType][2];
+  var nextShiftX = BOX_SHIFT[data.nextBoxType][1],
+    nextShiftY = BOX_SHIFT[data.nextBoxType][2];
   for (var i = 0; i < 2; i++) {
     for (var j = 0; j < 4; j++) {
       if (BOX_TYPE[data.nextBoxType][0][i + nextShiftY][j - nextShiftX] === 1) {
@@ -391,8 +392,8 @@ function changeRotate() {
     right = boxLimit().right,
     top = boxLimit().top,
     bottom = boxLimit().bottom;
-  var baseLimit = data.boxShift[data.currentBoxType][0];
-  var tempBoxRotate = (data.currentBoxRotate + 1) % data.boxShift[data.currentBoxType][3];
+  var baseLimit = BOX_SHIFT[data.currentBoxType][0];
+  var tempBoxRotate = (data.currentBoxRotate + 1) % BOX_SHIFT[data.currentBoxType][3];
   outer: for (var i = 0; i < baseLimit; i++) {
     for (var j = 0; j < baseLimit; j++) {
       if (BOX_TYPE[data.currentBoxType][tempBoxRotate][i][j] === 1) {
@@ -456,11 +457,11 @@ function boxLimit() {
   limitY.sort(function(a, b) {
     return a - b;
   });
-  var top = limitY[0];
-  var bottom = limitY[limitY.length - 1];
-  var left = limitX[0];
-  var right = limitX[limitX.length - 1];
-  var length = Math.max((bottom - top), (right - left)) + 1;
+  var top = limitY[0],
+    bottom = limitY[limitY.length - 1],
+    left = limitX[0],
+    right = limitX[limitX.length - 1],
+    length = Math.max((bottom - top), (right - left)) + 1;
   return {
     top,
     bottom,
@@ -473,16 +474,13 @@ function boxLimit() {
 function changeSpanColor(ele, transferData, col) {
   for (var i = 0, len = ele.$('span').length; i < len; i++) {
     var currentBox = transferData[parseInt(i / col)][parseInt(i % col)];
+    currentBox.ele.className = '';
     if (currentBox.type === 0) {
-      currentBox.ele.className = '';
       currentBox.ele.addClass('typed');
       currentBox.ele.addClass('level' + data.level);
     } else if (currentBox.type >= 1 && currentBox.type <= 7) {
-      currentBox.ele.className = '';
       currentBox.ele.addClass('typed');
       currentBox.ele.addClass('type' + currentBox.type);
-    } else {
-      currentBox.ele.className = '';
     }
   }
 }
