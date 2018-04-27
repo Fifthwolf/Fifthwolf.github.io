@@ -19,26 +19,7 @@ window.onload = function() {
   }
 }
 
-var data = {
-  row: 20,
-  col: 10,
-  start: false,
-  pause: false,
-  currentBoxType: 0,
-  currentBoxRotate: 0,
-  currentBoxBase: [0, 0],
-  nextBoxType: false,
-  timeInterval: 1000,
-  level: 0,
-  line: 0,
-  score: 0,
-  scoreValue: [100, 200, 400, 800],
-  clearAnimation: [],
-  box: [],
-  nextBox: []
-}
-
-data.boxType = [
+const BOX_TYPE = [
   [
     [
       [0, 0, 0],
@@ -151,6 +132,25 @@ data.boxType = [
   ]
 ];
 
+var data = {
+  row: 20,
+  col: 10,
+  start: false,
+  pause: false,
+  currentBoxType: 0,
+  currentBoxRotate: 0,
+  currentBoxBase: [0, 0],
+  nextBoxType: false,
+  timeInterval: 1000,
+  level: 0,
+  line: 0,
+  score: 0,
+  scoreValue: [100, 200, 400, 800],
+  clearAnimation: [],
+  box: [],
+  nextBox: []
+};
+
 data.boxShift = [
   [3, 0, 1, 2],
   [3, 0, 1, 2],
@@ -250,9 +250,9 @@ function createDropBox() {
   if (data.nextBoxType !== false) {
     data.currentBoxType = data.nextBoxType;
   } else {
-    data.currentBoxType = parseInt(Math.random() * data.boxType.length * 100) % data.boxType.length;
+    data.currentBoxType = parseInt(Math.random() * BOX_TYPE.length * 100) % BOX_TYPE.length;
   }
-  data.nextBoxType = parseInt(Math.random() * data.boxType.length * 100) % data.boxType.length;
+  data.nextBoxType = parseInt(Math.random() * BOX_TYPE.length * 100) % BOX_TYPE.length;
   var length = data.boxShift[data.currentBoxType][0],
     shiftX = data.boxShift[data.currentBoxType][1],
     shiftY = data.boxShift[data.currentBoxType][2];
@@ -260,7 +260,7 @@ function createDropBox() {
   data.currentBoxRotate = 0;
   outer: for (var i = 0 + shiftY, len = length; i < len; i++) {
     for (var j = 3 + shiftX; j < 3 + len + shiftX; j++) {
-      if (data.boxType[data.currentBoxType][0][i][j - shiftX - 3] === 1) {
+      if (BOX_TYPE[data.currentBoxType][0][i][j - shiftX - 3] === 1) {
         if (data.box[i - shiftY][j].type !== false) {
           fail();
           break outer;
@@ -273,7 +273,7 @@ function createDropBox() {
     nextShiftY = data.boxShift[data.nextBoxType][2];
   for (var i = 0; i < 2; i++) {
     for (var j = 0; j < 4; j++) {
-      if (data.boxType[data.nextBoxType][0][i + nextShiftY][j - nextShiftX] === 1) {
+      if (BOX_TYPE[data.nextBoxType][0][i + nextShiftY][j - nextShiftX] === 1) {
         data.nextBox[i][j].type = data.nextBoxType + 1;
       } else {
         data.nextBox[i][j].type = false;
@@ -395,7 +395,7 @@ function changeRotate() {
   var tempBoxRotate = (data.currentBoxRotate + 1) % data.boxShift[data.currentBoxType][3];
   outer: for (var i = 0; i < baseLimit; i++) {
     for (var j = 0; j < baseLimit; j++) {
-      if (data.boxType[data.currentBoxType][tempBoxRotate][i][j] === 1) {
+      if (BOX_TYPE[data.currentBoxType][tempBoxRotate][i][j] === 1) {
         try {
           if (data.box[data.currentBoxBase[0] + i][data.currentBoxBase[1] + j].type === 0) {
             flag = false;
@@ -419,7 +419,7 @@ function changeRotate() {
     }
     for (var i = 0; i < baseLimit; i++) {
       for (var j = 0; j < baseLimit; j++) {
-        if (data.boxType[data.currentBoxType][tempBoxRotate][i][j] === 1) {
+        if (BOX_TYPE[data.currentBoxType][tempBoxRotate][i][j] === 1) {
           data.box[data.currentBoxBase[0] + i][data.currentBoxBase[1] + j].type = data.currentBoxType + 1;
         }
       }
@@ -517,16 +517,16 @@ function judgeLineFull() {
   function _animation(line) {
     var opacity = 1,
       alphaOpacity = 0;
-    opacityAnimation();
+    __opacityAnimation();
 
-    function opacityAnimation() {
+    function __opacityAnimation() {
       opacity -= 0.05;
       alphaOpacity += 5;
       for (var i = 0; i < data.col; i++) {
         data.box[line][i].ele.style.opacity = opacity;
       }
       if (alphaOpacity <= 100) {
-        setTimeout(opacityAnimation, data.timeInterval / 60);
+        setTimeout(__opacityAnimation, data.timeInterval / 60);
       } else {
         for (var i = 0; i < data.col; i++) {
           data.box[line][i].ele.style.opacity = 1;
@@ -558,30 +558,10 @@ function judgeLineFull() {
   }
 
   function _upLevel() {
-    data.level = Math.min(parseInt(data.line / 30) + 1, 7);
-    switch (data.level) {
-      case 1:
-        data.timeInterval = 1000;
-        break;
-      case 2:
-        data.timeInterval = 850;
-        break;
-      case 3:
-        data.timeInterval = 700;
-        break;
-      case 4:
-        data.timeInterval = 550;
-        break;
-      case 5:
-        data.timeInterval = 400;
-        break;
-      case 6:
-        data.timeInterval = 200;
-        break;
-      case 7:
-        data.timeInterval = 100;
-        break;
-    }
+    const LEVEL_TIME = [1000, 850, 700, 550, 400, 200, 100],
+      UPLEVEL_LINE = 30;
+    data.level = Math.min(parseInt(data.line / UPLEVEL_LINE) + 1, 7);
+    data.timeInterval = LEVEL_TIME[parseInt(data.level) - 1];
   }
 }
 
