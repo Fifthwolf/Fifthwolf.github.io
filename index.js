@@ -27,9 +27,11 @@ window.onload = function() {
 }
 
 window.onresize = function() {
-  adjustmentWindow();
-  useDEMOUlMargin(demoUl, demoLis, 10);
-  useElementToAppropriate(start, document);
+  throttle(function() {
+    adjustmentWindow();
+    useDEMOUlMargin(demoUl, demoLis, 10);
+    useElementToAppropriate(start, document);
+  });
 }
 
 addEvent(own, 'click', function(e) {

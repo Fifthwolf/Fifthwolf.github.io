@@ -51,6 +51,13 @@ addEvent(window, 'load', function() {
   }
 });
 
+function throttle(method, context) {
+  clearTimeout(method.tId);
+  method.tId = setTimeout(function() {
+    method.call(context);
+  }, 100);
+}
+
 function addAttributeToObject(source, origin) {
   var sourceType = (typeof source).toLowerCase();
   switch (sourceType) {
