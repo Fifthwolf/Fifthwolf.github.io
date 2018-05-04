@@ -36,6 +36,9 @@ function suitScreen(canvasWidth, canvasHeight) {
 
 // 球
 (function() {
+  const maxVelocity = 3,
+    minVy = 0.5;
+
   function Ball() {
     this.x;
     this.y;
@@ -67,9 +70,28 @@ function suitScreen(canvasWidth, canvasHeight) {
   Ball.prototype.move = function() {
     this.x = this.x + this.vx * this.data.delta * 0.2;
     this.y = this.y + this.vy * this.data.delta * 0.2;
+    this.speedLimit();
   }
   Ball.prototype.translation = function(value) {
     this.x += value;
+    this.speedLimit();
+  }
+  Ball.prototype.speedLimit = function() {
+    let velocitySquared = this.vx * this.vx + this.vy * this.vy,
+      maxVelocitySquared = maxVelocity * maxVelocity;
+    if (velocitySquared <= maxVelocitySquared) {
+      return;
+    }
+    let k = Math.sqrt(velocitySquared / maxVelocitySquared);
+    this.vx /= k;
+    this.vy /= k;
+    if (Math.abs(this.vy) < minVy) {
+      let maxVx = Math.sqrt(maxVelocitySquared - minVy * minVy)
+      this.vy = this.vy > 0 ? minVy : -minVy;
+      if (Math.abs(this.vx) > maxVx) {
+        this.vx = this.vx > 0 ? maxVx : -maxVx;
+      }
+    }
   }
   Ball.prototype.collision = function(options) {
     var options = options || {};
@@ -93,10 +115,11 @@ function suitScreen(canvasWidth, canvasHeight) {
   }
   Ball.prototype.correct = function(options) {
     if (options.left) {
-      this.vx -= Math.random() * 0.5;
-    }
-    if (options.right) {
-      this.vx += Math.random() * 0.5;
+      this.vx -= Math.random() * 2;
+    } else if (options.right) {
+      this.vx += Math.random() * 2;
+    } else {
+      this.vx += Math.random() - 0.5;
     }
   }
   Ball.prototype.judge = function() {
@@ -190,44 +213,8 @@ function suitScreen(canvasWidth, canvasHeight) {
         baffleY1 = this.baffle.y,
         baffleY2 = this.baffle.y + this.baffle.height,
         direction = this.baffle.direction;
-      if (this.x <= baffleX1 && this.y <= baffleY1) {
-        if ((baffleX1 - this.x) * (baffleX1 - this.x) + (baffleY1 - this.y) * (baffleY1 - this.y) <= (this.r * this.r)) {
-          this.collision({
-            y: true,
-            direction: this.baffle.direction
-          });
-          return;
-        }
-      }
-      if (this.x <= baffleX1 && this.y >= baffleY2) {
-        if ((baffleX1 - this.x) * (baffleX1 - this.x) + (baffleY2 - this.y) * (baffleY2 - this.y) <= (this.r * this.r)) {
-          this.collision({
-            y: true,
-            direction: this.baffle.direction
-          });
-          return;
-        }
-      }
-      if (this.x >= baffleX2 && this.y <= baffleY1) {
-        if ((baffleX2 - this.x) * (baffleX2 - this.x) + (baffleY1 - this.y) * (baffleY1 - this.y) <= (this.r * this.r)) {
-          this.collision({
-            y: true,
-            direction: this.baffle.direction
-          });
-          return;
-        }
-      }
-      if (this.x >= baffleX2 && this.y >= baffleY2) {
-        if ((baffleX2 - this.x) * (baffleX2 - this.x) + (baffleY2 - this.y) * (baffleY2 - this.y) <= (this.r * this.r)) {
-          this.collision({
-            y: true,
-            direction: this.baffle.direction
-          });
-          return;
-        }
-      }
-      if (this.x > baffleX1 && this.x < baffleX2) {
-        if (this.y >= baffleY1 - this.r && this.y < baffleY2) {
+      if (this.x >= baffleX1 - this.r && this.x <= baffleX2 + this.r) {
+        if (this.y >= baffleY1 - this.r && this.y < baffleY2 - this.r) {
           this.collision({
             y: true,
             direction: direction
@@ -235,31 +222,22 @@ function suitScreen(canvasWidth, canvasHeight) {
           return;
         }
       }
-      /*
-      if (this.y >= baffleY1 && this.y <= baffleY2) {
-        let spaceY = Math.pow((this.y - baffleY1 - this.baffle.height / 2), 2),
-          spaceR = Math.pow((this.r + this.baffle.height / 2), 2);
-        if (this.x <= baffleX1) {
-          if ((this.x - baffleX1) * (this.x - baffleX1) + spaceY <= spaceR) {
-            // 左边彭
-          }
-        }
-        if (this.x >= baffleX2) {
-          if ((this.x - baffleX2) * (this.x - baffleX2) + spaceY <= spaceR) {
-            // 右边彭
-          }
-        }
-      }
-      
-      if (this.y > baffleY1 && this.y < baffleY2) {
-        if (this.x >= baffleX1 - this.r && this.x <= baffleX2 + this.r) {
+      if (this.y > baffleY1 - this.r && this.y < baffleY2 + this.r / 2) {
+        if (this.x >= baffleX1 - this.r && this.x <= baffleX2 - this.baffle.width / 2) {
           this.collision({
-            y: true,
-            direction: this.baffle.direction
+            x: true,
+            direction: direction
           });
           return;
         }
-      }*/
+        if (this.x <= baffleX2 + this.r && this.x >= baffleX1 + this.baffle.width / 2) {
+          this.collision({
+            x: true,
+            direction: direction
+          });
+          return;
+        }
+      }
     }
     this.judgeWall = function() {
       if (this.x - this.r <= 10) {
@@ -291,7 +269,7 @@ function suitScreen(canvasWidth, canvasHeight) {
 // 砖块
 (function() {
   const RangeArrange = {
-    1: [
+    0: [
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -301,7 +279,7 @@ function suitScreen(canvasWidth, canvasHeight) {
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
     ],
-    2: [
+    1: [
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -309,7 +287,7 @@ function suitScreen(canvasWidth, canvasHeight) {
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+      [1, 2, 3, 4, 5, 6, 7, 8, 9, 1]
     ],
     3: [
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -463,6 +441,7 @@ function suitScreen(canvasWidth, canvasHeight) {
     this.draw();
   }
   Canvas.prototype.getData = function() {
+    this.image = System.image;
     this.info = Control.info;
     this.baffle = Control.baffle;
     this.brick = Control.brick;
@@ -500,7 +479,7 @@ function suitScreen(canvasWidth, canvasHeight) {
   }
   Canvas.prototype.drawWall = function() {
     this.drawSaveRestore(function() {
-      this.cxt.fillStyle = '#f0f';
+      this.cxt.fillStyle = '#444';
       this.cxt.fillRect(0, 0, 10, this.height);
       this.cxt.fillRect(0, 0, this.width, 10);
       this.cxt.fillRect(this.width - 10, 0, 10, this.height);
@@ -516,7 +495,34 @@ function suitScreen(canvasWidth, canvasHeight) {
       for (var j = 0, lenj = arrange[i].length; j < lenj; j++) {
         if (arrange[i][j] >= 1) {
           this.drawSaveRestore(function() {
-            this.cxt.fillStyle = '#ff0';
+            switch (arrange[i][j]) {
+              case 1:
+                this.cxt.fillStyle = '#f00';
+                break;
+              case 2:
+                this.cxt.fillStyle = '#0f0';
+                break;
+              case 3:
+                this.cxt.fillStyle = '#00f';
+                break;
+              case 4:
+                this.cxt.fillStyle = '#333';
+                break;
+              case 5:
+                this.cxt.fillStyle = '#ff0';
+                break;
+              case 6:
+                this.cxt.fillStyle = '#f0f';
+                break;
+              case 7:
+                this.cxt.fillStyle = '#0ff';
+                break;
+              case 8:
+                this.cxt.fillStyle = '#fff';
+                break;
+              default:
+                this.cxt.fillStyle = '#ccc';
+            }
             this.cxt.translate(j * brick.width + brick.width / 2, i * brick.height + 10);
             this.cxt.fillRect(-brick.height, 0, brick.width, brick.height);
             this.cxt.strokeRect(-brick.height, 0, brick.width, brick.height);
@@ -531,8 +537,11 @@ function suitScreen(canvasWidth, canvasHeight) {
     }
     this.drawSaveRestore(function() {
       this.cxt.beginPath();
-      this.cxt.fillStyle = '#0ff';
       this.cxt.translate(this.ball.x, this.ball.y);
+      var gr = this.cxt.createRadialGradient(0, 0, this.ball.r / 3, 0, 0, this.ball.r);
+      gr.addColorStop(0, '#fff');
+      gr.addColorStop(1, '#555');
+      this.cxt.fillStyle = gr;
       this.cxt.arc(0, 0, this.ball.r, 0, 2 * Math.PI);
       this.cxt.fill();
     }.bind(this));
@@ -542,10 +551,11 @@ function suitScreen(canvasWidth, canvasHeight) {
       return;
     }
     this.drawSaveRestore(function() {
-      this.cxt.beginPath();
-      this.cxt.fillStyle = '#f00';
       this.cxt.translate(this.baffle.x, this.baffle.y);
-      this.cxt.fillRect(-this.baffle.width / 2, 0, this.baffle.width, this.baffle.height);
+      this.cxt.drawImage(this.image, 0, 0, this.baffle.width / this.baffle.height * 30, 30, -this.baffle.width / 2, 0, this.baffle.width, this.baffle.height);
+      this.cxt.beginPath();
+      this.cxt.strokeStyle = '#000';
+      this.cxt.strokeRect(-this.baffle.width / 2, 0, this.baffle.width, this.baffle.height)
       this.cxt.fill();
     }.bind(this));
   }
