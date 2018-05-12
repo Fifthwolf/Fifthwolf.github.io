@@ -25,15 +25,6 @@ function suitScreen(canvasWidth, canvasHeight) {
   canvas.style.transform = 'scale(' + scale + ', ' + scale + ') translateY(' + top + 'px)';
 }
 
-// 游戏
-(function() {
-  function Game() {
-
-  }
-  Game.prototype.init = function() {}
-  window.Game = Game;
-})();
-
 // 球
 (function() {
   const maxVelocity = 3,
@@ -334,6 +325,15 @@ function suitScreen(canvasWidth, canvasHeight) {
   window.Brick = Brick;
 })();
 
+// 奖励品
+(function() {
+  function Reward() {
+
+  }
+  Reward.prototype.init = function() {}
+  window.Reward = Reward;
+})();
+
 // 挡板
 (function() {
   function Baffle() {
@@ -368,17 +368,34 @@ function suitScreen(canvasWidth, canvasHeight) {
           break;
       }
     }.bind(this);
+    this.moblieMoveStart = function(e) {
+      e.preventDefault();
+      var left = canvas.getBoundingClientRect().left,
+        cursorX = (e.touches[0].pageX - left) / this.system.scale;
+      var previous = this.x;
+      this.x = parseInt(cursorX);
+      this.move(previous);
+    }.bind(this);
+    this.moblieMoveEnd = function(e) {
+      e.preventDefault();
+    }.bind(this);
   }
   Baffle.prototype.init = function() {
     this.getData();
     document.addEventListener('keydown', this.moveStart, false);
     document.addEventListener('keyup', this.moveEnd, false);
+    if (this.system.mobile) {
+      canvas.addEventListener('touchstart', this.moblieMoveStart, false);
+      canvas.addEventListener('touchmove', this.moblieMoveStart, false);
+      canvas.addEventListener('touchend', this.moblieMoveEnd, false);
+    }
   }
   Baffle.prototype.getData = function() {
     this.data = window.Data;
+    this.system = window.System;
     this.control = window.Control;
   }
-  Baffle.prototype.move = function() {
+  Baffle.prototype.keyboardMove = function() {
     if (this.direction.left == this.direction.right) {
       return;
     }
@@ -386,12 +403,17 @@ function suitScreen(canvasWidth, canvasHeight) {
     if (this.direction.left) {
       distance = -distance;
     }
+    var previous = this.x;
     this.x += distance;
-    if (!this.control.ball.run) {
-      this.control.ball.translation(distance);
-    }
-    this.x = Math.max(this.width / 2, Math.min(this.control.canvas.width - this.width / 2, this.x));
+    this.move(previous);
   }
+  Baffle.prototype.move = function(previous) {
+    this.x = Math.max(this.width / 2, Math.min(this.control.canvas.width - this.width / 2, this.x));
+    if (!this.control.ball.run) {
+      this.control.ball.translation(this.x - previous);
+    }
+  }
+
   window.Baffle = Baffle;
 })();
 
@@ -456,7 +478,7 @@ function suitScreen(canvasWidth, canvasHeight) {
       score: score,
       centerTextShow: true,
       centerTextFontSize: 48,
-      centerText: '得分' + score + '分，点击进入下一关',
+      centerText: '恭喜成功过关，点击进入第' + this.pass + '关',
       show: true
     });
     canvas.addEventListener('click', this.startGame, false);
@@ -504,7 +526,7 @@ function suitScreen(canvasWidth, canvasHeight) {
     }
     this.time();
     if (this.baffle) {
-      this.baffle.move();
+      this.baffle.keyboardMove();
     }
     if (this.ball && this.ball.run) {
       this.ball.move();
@@ -653,6 +675,7 @@ function suitScreen(canvasWidth, canvasHeight) {
   var control = {
     init: function() {
       this.initCanvas();
+      system.mobile = /Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent) ? true : false;
     },
     initCanvas: function() {
       var image = new Image();
