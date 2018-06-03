@@ -37,6 +37,7 @@ function suitScreen(canvasWidth, canvasHeight) {
     this.vx;
     this.vy;
     this.run = false;
+    this.gameRun;
   }
   Ball.prototype.init = function(options) {
     this.getData();
@@ -370,9 +371,9 @@ function suitScreen(canvasWidth, canvasHeight) {
     }.bind(this);
     this.moblieMoveStart = function(e) {
       e.preventDefault();
-      var left = canvas.getBoundingClientRect().left,
+      let left = canvas.getBoundingClientRect().left,
         cursorX = (e.touches[0].pageX - left) / this.system.scale;
-      var previous = this.x;
+      let previous = this.x;
       this.x = parseInt(cursorX);
       this.move(previous);
     }.bind(this);
@@ -399,17 +400,17 @@ function suitScreen(canvasWidth, canvasHeight) {
     if (this.direction.left == this.direction.right) {
       return;
     }
-    var distance = this.moveSpeed * this.data.delta;
+    let distance = this.moveSpeed * this.data.delta;
     if (this.direction.left) {
       distance = -distance;
     }
-    var previous = this.x;
+    let previous = this.x;
     this.x += distance;
     this.move(previous);
   }
   Baffle.prototype.move = function(previous) {
     this.x = Math.max(this.width / 2, Math.min(this.control.canvas.width - this.width / 2, this.x));
-    if (!this.control.ball.run) {
+    if (!this.control.ball.run && !this.control.logic.gameRun) {
       this.control.ball.translation(this.x - previous);
     }
   }
@@ -425,9 +426,6 @@ function suitScreen(canvasWidth, canvasHeight) {
     this.centerTextShow = options.centerTextShow || false;
     this.centerText = options.centerText || '';
     this.show = options.show || false;
-  }
-  Info.prototype.init = function() {
-
   }
   Info.prototype.InfoData = function(options) {
     for (var property in options) {
@@ -445,10 +443,12 @@ function suitScreen(canvasWidth, canvasHeight) {
   function Logic() {
     this.init();
     this.pass = 1;
+    this.gameRun;
 
     this.launch = function() {
       canvas.removeEventListener('click', this.launch);
       this.control.ball.ballRun();
+      this.control.logic.gameRun = true;
     }.bind(this);
 
     this.startGame = function(e, pass) {
@@ -464,6 +464,7 @@ function suitScreen(canvasWidth, canvasHeight) {
       this.control.baffle.init();
       this.control.ball = new Ball();
       this.control.ball.init();
+      this.control.logic.gameRun = false;
       canvas.addEventListener('click', this.launch, false);
     }.bind(this);
 
@@ -700,7 +701,6 @@ function suitScreen(canvasWidth, canvasHeight) {
         centerTextShow: true,
         centerText: '点击开始游戏'
       });
-      this.info.init();
     },
   };
 
