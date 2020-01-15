@@ -110,7 +110,7 @@ function useElementToAppropriate(element, parent) {
 function publicUseMainAppropriate(element) {
   var height = document.documentElement.clientHeight || document.body.clientHeight,
     width = document.documentElement.clientWidth || document.body.clientWidth;
-  element.style.height = height - 40 + 'px';
+  element.style.height = height - 62 + 'px';
   element.style.width = width - 40 + 'px';
   element.style.top = '20px';
   element.style.left = '20px';
