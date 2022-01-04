@@ -18,7 +18,7 @@
         </style>
 </head>
     <body>
-      <audio autoplay="autopaly">
+      <audio id="audio">
           <source src="music/love.mp3" type="audio/mp3" />
       </audio>  
         <div id="main">
@@ -129,6 +129,9 @@
                 canvas.unbind("click");
                 canvas.unbind("mousemove");
                 canvas.removeClass('hand');
+
+                const audio = document.getElementById("audio");
+                audio.play();
             }
         }).mousemove(function(e){
             var offset = canvas.offset(), x, y;
