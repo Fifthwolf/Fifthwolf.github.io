@@ -86,7 +86,7 @@
                 scale: 2
             },
             branch: [
-                [535, 680, 570, 250, 500, 200, 30, 100, [
+                [535, 980, 570, 250, 500, 200, 30, 100, [
                     [540, 500, 455, 417, 340, 400, 13, 100, [
                         [450, 435, 434, 430, 394, 395, 2, 40]
                     ]],
@@ -109,7 +109,7 @@
                 height: 650,
             },
             footer: {
-                width: 1200,
+                width: WINDOW_WIDTH,
                 height: 5,
                 speed: 10,
             }
@@ -171,19 +171,19 @@
         }));
 
         var moveAnimate = eval(Jscex.compile("async", function () {
-            tree.snapshot("p1", 240, 0, 610, 680);
+            tree.snapshot("p1", 240, 0, WINDOW_WIDTH, WINDOW_HRIGHT);
             while (tree.move("p1", 500, 0)) {
                 foot.draw();
                 $await(Jscex.Async.sleep(10));
             }
             foot.draw();
-            tree.snapshot("p2", 500, 0, 610, 680);
+            tree.snapshot("p2", 500, 0, WINDOW_WIDTH, WINDOW_HRIGHT);
 
             // 会有闪烁不得意这样做, (＞﹏＜)
             canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
-            canvas.css("background", "#ffe");
+            // canvas.css("background", "#ffe");
             $await(Jscex.Async.sleep(300));
-            canvas.css("background", "none");
+            // canvas.css("background", "none");
         }));
 
         var jumpAnimate = eval(Jscex.compile("async", function () {
